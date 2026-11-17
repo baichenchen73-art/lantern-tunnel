@@ -1,0 +1,8 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    { "label": "開始遊戲（獨立視窗）", "type": "shell", "command": "npm start", "group": { "kind": "build", "isDefault": true }, "problemMatcher": [] },
+    { "label": "下載最新版（git pull）", "type": "shell", "command": "git pull --ff-only", "problemMatcher": [] },
+    { "label": "重新產生程式地圖", "type": "shell", "command": "npm run map", "problemMatcher": [] }
+  ]
+}

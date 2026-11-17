@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "start": "electron .",
-    "browser": "node -e \"require('child_process').exec((process.platform==='win32'?'start \\\"\\\" ':process.platform==='darwin'?'open ':'xdg-open ')+'index.html')\""
+    "browser": "node -e \"require('child_process').exec((process.platform==='win32'?'start \\\"\\\" ':process.platform==='darwin'?'open ':'xdg-open ')+'index.html')\"",
+    "map": "node tools/codemap.js"
   },
   "devDependencies": {
     "electron": "latest"

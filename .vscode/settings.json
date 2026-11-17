@@ -1,0 +1,15 @@
+{
+  // 不要自動排版 index.html：會把整個檔案改得面目全非，和每天的自動更新衝突
+  "editor.formatOnSave": false,
+  "html.format.enable": false,
+  "[html]": { "editor.formatOnSave": false, "editor.formatOnPaste": false },
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "editor.wordWrap": "off",
+  // 在右側縮圖上顯示「// ---------- 區塊名稱 ----------」，方便捲到想看的地方
+  "editor.minimap.showMarkSectionHeaders": true,
+  "editor.minimap.markSectionHeaderRegex": "^\\s*//\\s*-{3,}\\s*(?<label>[^-]+?)\\s*-{3,}\\s*$",
+  "editor.minimap.sectionHeaderFontSize": 11,
+  "git.autofetch": true,
+  "git.confirmSync": false
+}
