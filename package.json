@@ -1,0 +1,14 @@
+{
+  "name": "tunnel-game",
+  "version": "1.0.0",
+  "description": "地道（暫名）：手繪風格橫向捲軸冒險遊戲",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "browser": "node -e \"require('child_process').exec((process.platform==='win32'?'start \\\"\\\" ':process.platform==='darwin'?'open ':'xdg-open ')+'index.html')\""
+  },
+  "devDependencies": {
+    "electron": "latest"
+  }
+}
