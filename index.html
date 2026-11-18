@@ -493,7 +493,7 @@ body.hasSkill #bK{display:flex}
         <button class="link" id="ch4TestBtn">測試：直接到第四章</button>
         <button class="link" id="ch5TestBtn">測試：直接到第五章</button>
         <button class="link" id="ch6TestBtn">測試：直接到第六章</button>
-        <button class="link" id="ch7TestBtn">測試：直接到第七章（製作中）</button>
+        <button class="link" id="ch7TestBtn">測試：直接到第七章</button>
         <button class="link" id="coverSet">手感設定</button>
       </div>
     </div>
@@ -668,8 +668,20 @@ body.hasSkill #bK{display:flex}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-18.1';
+const GAME_VERSION='2026-11-18.2';
 const CHANGELOG=[
+  ['2026-11-18.2','第七章「紙燈籠祭典的夜空」完成並接上正式流程（第 9 部分：承接演出、第七章終點）',[
+    '這次完成第七章 9 個部分中的最後一部分：現在可以從第一章一路玩到第七章 Boss「停不下來的祭鼓」結束',
+    '移除第六章的終點：「大鐘機關室」中央的燈籠不再出現「第六章 完」，改成一般的存檔燈籠（點亮會存檔、回滿生命）',
+    '打倒停擺的大鐘之後新增承接第七章的演出：鐘停下來以後，風裡傳來很遠的鼓聲和笛聲；大鐘旁邊的牆板一片一片轉開，露出一扇通往夜空的小門（門縫飄出紙燈籠的火光）',
+    '「大鐘機關室」右邊新增傳送門「紙燈籠祭典的夜空」（打倒大鐘後才出現，地圖上也一樣），進去會到第七章第一個房間「祭典入口」並播放第七章的章節標題動畫',
+    '「祭典入口」左邊新增回到「大鐘機關室」的傳送門；已經打倒停擺的大鐘的舊存檔，回到「大鐘機關室」就會看到通往第七章的門，不用重打',
+    '第七章終點：打倒祭鼓、回到鼓樓頂的劇情最後，原本「第七章製作中」的說明換成承接下一章的演出——祭典的燈一盞一盞熄了，夜空盡頭只剩一點小小的燈光往更遠的地方走，師父說「他又先走一步了，燈亮著的地方，就是下一段路」（只給線索，倒影的身分仍然保留到最終章）',
+    '鼓樓頂中央（大鼓原本的位置）亮起終點燈籠，碰到會出現「第七章 完」與「第八章製作中，敬請期待」；這盞燈也是存檔點（之後在鼓樓頂倒下會從這裡重來）',
+    '存檔欄位不再寫「第七章（製作中）」，改成「第七章」；地圖上方的區域按鈕改名為「祭典夜空」；封面捷徑改名為「測試：直接到第七章」',
+    '「測試：直接到第七章」的起點往右移了 4 格（原本會站在新的傳送門上，一按攻擊就會被傳回大鐘機關室）',
+    '接下來進入第七章的打磨期：會整理第八章的大方向問題請 啊一 決定'
+  ]],
   ['2026-11-18.1','第七章製作中（第 8 部分後半：Boss「停不下來的祭鼓」被風捲上天空的節奏空戰）',[
     '這次完成第七章 10 個部分中的第 8 部分後半（目前約 8/10）。做到一半的第七章仍然只能從封面「測試：直接到第七章（製作中）」進入，正式流程完全不變（打倒停擺的大鐘之後仍然是「第六章 完」）',
     '祭鼓前半打完後不再顯示「製作中」：大鼓被風托上天之後，屋頂上的風也把主角和燈籠一起捲上去，來到新的地方「鼓樓上空」',
@@ -1563,18 +1575,19 @@ const ROOMS={
     exits:[{s:'L',a:11,b:13,to:'G8',c:25.5,g:12,f:-1}]},
   GB:{mpos:[1676,-38],name:'大鐘機關室',W:36,H:18,
     build(r,W,H){r(0,0,W,1);r(0,0,1,H);r(W-1,0,1,H);r(0,16,W,2);r(8,12,4,1);r(24,12,4,1);r(5,14,2,1);r(29,14,2,1);},
-    spawns:[],lant:[{c:18,g:16,goal:7,needFlag:'towerDone'}],props:[{t:'cog',c:9,g:5,r:40,sp:-.3},{t:'cog',c:27,g:5,r:40,sp:-.3},{t:'cog',c:4,g:9,r:26,sp:.5},{t:'cog',c:32,g:9,r:26,sp:-.5},{t:'clockwarm',c:33,g:16}],
-    portals:[{c:2.4,g:16,to:'G9',pc:23,pg:14,name:'鐘頂前廳'}],
+    spawns:[],lant:[{c:18,g:16,needFlag:'towerDone'}],props:[{t:'cog',c:9,g:5,r:40,sp:-.3},{t:'cog',c:27,g:5,r:40,sp:-.3},{t:'cog',c:4,g:9,r:26,sp:.5},{t:'cog',c:32,g:9,r:26,sp:-.5},{t:'clockwarm',c:33,g:16}],
+    portals:[{c:2.4,g:16,to:'G9',pc:23,pg:14,name:'鐘頂前廳'},{c:27,g:16,to:'K1',pc:5,pg:14,name:'紙燈籠祭典的夜空',needFlag:'towerDone'}],
     events:[],
     exits:[]},
-  // ---------- 第七章「紙燈籠祭典的夜空」製作中（2026-11-16.1：依 啊一 修正的方向改成「風之路」）----------
-  // 還沒接上正式流程：只能從封面「測試：直接到第七章（製作中）」進入（K1 起），停擺的大鐘之後仍是「第六章 完」。
+  // ---------- 第七章「紙燈籠祭典的夜空」（2026-11-16.1：依 啊一 修正的方向改成「風之路」；2026-11-18.2 接上正式流程）----------
+  // 從大鐘機關室（GB）打倒停擺的大鐘後出現的門進入（K1 起）；終點是鼓樓頂（KB）打倒祭鼓後的燈籠「第七章 完」。
   // flight：風之路（風自動把主角往前帶；上／下控制高度，左右只能稍微減速／加速，不能停下或倒退）。v＝基本速度（每秒像素）。
   // 風之路房間的格子：1＝屋頂／屋簷，8＝燈籠串（從上面垂下來），9＝旗竿；從前面撞上去扣 1 格生命、短暫無敵，繼續往前飛。
   // 休息房（K1、K4、K8、K11）是一般地面房間：燈籠存檔點、之後放倒影居民與回血點。風之路只能往前，回頭用地圖上的燈籠傳送。
   K1:{mpos:[1716,-40],name:'祭典入口',W:40,H:16,
     build(r,W,H){r(0,0,W,1);r(0,0,1,H);r(W-1,0,1,11);r(0,14,W,2);r(8,12,3,2);r(20,12,3,2);r(30,13,4,1);},
     spawns:[],lant:[{c:4,g:14}],
+    portals:[{c:2,g:14,to:'GB',pc:24.5,pg:16,name:'大鐘機關室'}],
     props:[{t:'sign',c:12,g:14,text:'祭典'},{t:'bunting',c:1,g:3,w:12},{t:'bunting',c:19,g:4,w:10},{t:'skylamp',c:16,g:6},{t:'skylamp',c:28,g:3},{t:'skylamp',c:35,g:7}],
     events:[{id:'k1in',enter:true,steps:[
       {c:'title',n:'第七章',t:'紙燈籠祭典的夜空',sub:'夜空裡的每一盞燈，都在等一陣風。'},
@@ -1652,7 +1665,7 @@ const ROOMS={
     exits:[]},
   KB:{mpos:[2376,-46],name:'鼓樓頂',W:36,H:18,
     build(r,W,H){r(0,0,W,1);r(0,0,1,H);r(W-1,0,1,H);r(0,16,W,2);r(5,14,2,1);r(29,14,2,1);},
-    spawns:[],lant:[],
+    spawns:[],lant:[{c:18,g:16,goal:8,needFlag:'festDone'}],
     props:[{t:'warmstall',c:32,g:16,w:2},{t:'drum',c:18,g:16,s:1.3},{t:'bunting',c:1,g:2,w:34},{t:'skylamp',c:6,g:6},{t:'skylamp',c:30,g:6}],
     portals:[{c:2.4,g:16,to:'K11',pc:23,pg:14,name:'鼓樓前庭'}],
     events:[],
@@ -2184,7 +2197,7 @@ function continueGame(n){
 }
 function slotInfo(d){
   if(!d)return '空的存檔';
-  const r=ROOMS[d.checkpoint.room],c=d.checkpoint.room[0],ch=c==='K'?'第七章（製作中）':c==='G'?'第六章':c==='I'?'第五章':c==='M'?'第四章':c==='T'?'第三章':(c==='C'||c==='D')?'第二章':'第一章';
+  const r=ROOMS[d.checkpoint.room],c=d.checkpoint.room[0],ch=c==='K'?'第七章':c==='G'?'第六章':c==='I'?'第五章':c==='M'?'第四章':c==='T'?'第三章':(c==='C'||c==='D')?'第二章':'第一章';
   let t='';if(d.savedAt){const dt=new Date(d.savedAt);t=`・${dt.getMonth()+1}/${dt.getDate()} ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;}
   return `「${r?r.name:'？'}」・${ch}・記憶碎片 ${(d.shards||[]).length}/8${t}`;
 }
@@ -2234,7 +2247,7 @@ function startCh7Test(){
   for(const id in ROOMS)if(id[0]!=='K')for(const l of ROOMS[id].lant)lit.add(id+':'+l.c);
   trig.lantern=true;trig.bossIntro=true;trig.c5end=true;trig.mirrorIntro=true;trig.gbIntro=true;trig.drillIntro=true;trig.ibIntro=true;trig.tbIntro=true;
   wallet=300;oil=2;updateCoin();updateOilUI();
-  loadRoom('K1');const pos={x:2*TILE+6,y:14*TILE-26};placePlayer(pos);
+  loadRoom('K1');const pos={x:6*TILE+6,y:14*TILE-26};placePlayer(pos);
   checkpoint={room:'K1',...pos};hp=maxHp;updateHP();csFade=0;csFadeT=0;
   setMode('play');pendingName=null;onEnterRoom();
 }
@@ -3278,9 +3291,9 @@ function update(dt){
       if(L.goal&&!finished&&!(L.goal===1&&chapterDone&&false)){
         finished=true;
         const tend=story.accept>story.seal?'帶著倒影們的心意回去':story.seal>story.accept?'封存倒影，回到原本的小鎮':'還看不出來';
-        $('finishTitle').textContent=L.goal===7?'第六章 完':L.goal===6?'第五章 完':L.goal===5?'第四章 完':L.goal===4?'第三章 完':L.goal===3?'第二章 完':L.goal===2?'第二章（前半）完':'第一章 完';
+        $('finishTitle').textContent=L.goal===8?'第七章 完':L.goal===7?'第六章 完':L.goal===6?'第五章 完':L.goal===5?'第四章 完':L.goal===4?'第三章 完':L.goal===3?'第二章 完':L.goal===2?'第二章（前半）完':'第一章 完';
         if(L.goal===1)chapterDone=true;
-        $('finishText').textContent=`你從師父的倒影那裡選擇了「${ability==='dash'?'衝刺':ability==='djump'?'二段跳':'無'}」，找到記憶碎片 ${shards.size} 個、身上有 ${wallet} 光屑；接納了 ${story.accept} 個倒影，封存了 ${story.seal} 個。依目前的選擇，結局傾向：${tend}。${L.goal===7?'第七章製作中，敬請期待。':L.goal===6?'第六章製作中，敬請期待。':L.goal===5?'第五章製作中，敬請期待。':L.goal===4?'第四章製作中，敬請期待。':L.goal===3?'右邊出現了通往第三章「倒過來的小鎮」的傳送門。':L.goal===2?'湖心島邊緣出現了通往湖底的漩渦。':'右邊的金色傳送門通往第二章「倒映湖」。'}`;
+        $('finishText').textContent=`你從師父的倒影那裡選擇了「${ability==='dash'?'衝刺':ability==='djump'?'二段跳':'無'}」，找到記憶碎片 ${shards.size} 個、身上有 ${wallet} 光屑；接納了 ${story.accept} 個倒影，封存了 ${story.seal} 個。依目前的選擇，結局傾向：${tend}。${L.goal===8?'第八章製作中，敬請期待。':L.goal===7?'第七章製作中，敬請期待。':L.goal===6?'第六章製作中，敬請期待。':L.goal===5?'第五章製作中，敬請期待。':L.goal===4?'第四章製作中，敬請期待。':L.goal===3?'右邊出現了通往第三章「倒過來的小鎮」的傳送門。':L.goal===2?'湖心島邊緣出現了通往湖底的漩渦。':'右邊的金色傳送門通往第二章「倒映湖」。'}`;
         $('finish').classList.add('show');checkRotate();
       }
       else if(level.id==='R1'&&!trig.lantern){trig.lantern=true;playCS(EV_LANTERN,()=>{calmT=.6;});return;}
@@ -5038,7 +5051,7 @@ function drawMini(){
   t.fillStyle=Math.floor(clock*3)%2?'#ffffff':'#b9a6ff';t.beginPath();t.arc(cw/2,ch/2,2.6,0,6.283);t.fill();
 }
 // 紙地圖：只顯示一部分（放大），可以拖曳、縮放、依區域跳轉
-const MAP_REGIONS=[['第一章 地道',/^(R|S|N|B)/],['倒映湖',/^C/],['湖底',/^D/],['倒過來的小鎮',/^T/],['燈芯礦坑',/^M/],['結冰的湖面',/^I/],['鐘樓',/^G/],['祭典夜空（製作中）',/^K/]];
+const MAP_REGIONS=[['第一章 地道',/^(R|S|N|B)/],['倒映湖',/^C/],['湖底',/^D/],['倒過來的小鎮',/^T/],['燈芯礦坑',/^M/],['結冰的湖面',/^I/],['鐘樓',/^G/],['祭典夜空',/^K/]];
 let MV=null,mapRegOn=-1;
 function mapAllB(){const B=mapBounds(false);B.x0-=3;B.y0-=4;B.x1+=3;B.y1+=3;return B;}
 function mapSize(){const m=$('mapCv'),cw=m.clientWidth||1;const ch=Math.round(clamp(Math.min(innerHeight*(innerHeight<520?.47:.5),cw*.62),130,520));return [cw,ch];}
@@ -6055,7 +6068,7 @@ function tbEndLines(){
 const TB_END=[
   {c:'cap',t:'鐘心的燈落了下來。大鐘的齒輪一個接一個停住，最後只剩下很輕的滴答聲。'},
   {c:'fn',fn:()=>{F.towerDone=true;tb=null;bossSealed=false;document.body.classList.remove('boss');shots=[];
-    for(const l of ROOMS.GB.lant)lanterns.push({...l,lit:false,x:l.c*TILE+6,y:l.g*TILE-56,w:20,h:56});refreshPortals();refreshMini();setMusic('ch6');saveGame();return null;}},
+    for(const l of ROOMS.GB.lant)lanterns.push({...l,lit:false,x:l.c*TILE+6,y:l.g*TILE-56,w:20,h:56});portals=(level.portals||[]).filter(q=>portalShown(q)&&q.to!=='K1').map(q=>({...q,x:q.c*TILE}));refreshMini();setMusic('ch6');saveGame();return null;}},
   {c:'actor',id:'guide',x:25*TILE,by:16*TILE,f:-1,a:0},{c:'actorFade',id:'guide',to:1,d:.9},
   {c:'say',t:'你一直在上面等我⋯⋯真的等到了。'},
   {c:'fn',fn:()=>tbEndLines()},
@@ -6063,6 +6076,17 @@ const TB_END=[
   {c:'actor',id:'guide',f:1},{c:'actorWalk',id:'guide',x:30*TILE,spd:50},{c:'actorFade',id:'guide',to:0,d:1.2},
   {c:'cam',x:18*TILE,d:1.1},
   {c:'cap',t:'鐘心那盞燈落下的地方，亮起了一盞新的燈。'},
+  // 承接第七章（2026-11-18.2）：鐘樓頂上傳來祭典的鼓聲，機關室的牆上打開一扇通往夜空的門
+  {c:'shake',a:2,d:.8},
+  {c:'fn',fn:()=>{sfx('taiko');return null;}},
+  {c:'cap',t:'鐘停下來以後，四周安靜得聽得見風聲。風裡夾著很遠的鼓聲和笛聲，好像有人在辦祭典。'},
+  {c:'cam',x:27*TILE,d:1.2},
+  {c:'fn',fn:()=>{rings.push({x:27*TILE,y:16*TILE-44,t:0,c:'255,180,110'});for(let k=0;k<30;k++)spawnFly(27*TILE,16*TILE-44,140);
+    for(let k=0;k<6;k++)parts.push({x:27*TILE+(Math.random()-.5)*50,y:16*TILE-60,vx:(Math.random()-.5)*30,vy:-50-Math.random()*40,life:1.8,t:0,c:Math.random()<.5?'#ffb35a':'#e8603e'});
+    shake=4;sfx('portal');refreshPortals();refreshMini();return null;}},
+  {c:'wait',d:.8},
+  {c:'cap',t:'大鐘旁邊的牆板一片一片轉開，露出一扇小門。門縫裡吹進來的風，帶著紙燈籠和炭火的味道。'},
+  {c:'say',t:'門的另一邊⋯⋯是夜空？那盞燈，又往更高的地方去了。'},
   {c:'cam',x:null,d:.7}
 ];
 function tbFloor(){return 16*TILE;}
@@ -6709,7 +6733,12 @@ const KB_LAND=[
   {c:'talk',who:'realmaster',t:'有人一直在等一個拍子。等了好多年，等到鼓都忘了怎麼停下來。'},
   {c:'talk',who:'realmaster',t:'⋯⋯我也是。前面的路，這次換你先走。我會跟在你後面。'},
   {c:'cap',t:'師父提著燈，站到了你的身後。這是第一次，有人走在你的後面。'},
-  {c:'cap',t:'（第七章製作中：結尾與承接第八章的部分，會在下一次更新加入。）'},
+  // 承接第八章（2026-11-18.2）：只給線索，不決定第八章的方向、不揭曉倒影的身分
+  {c:'cap',t:'祭典的燈一盞一盞熄了。夜空的盡頭，只剩下一點很小的燈光，還在往更遠的地方走。'},
+  {c:'talk',who:'realmaster',t:'他又先走一步了。去吧，燈亮著的地方，就是下一段路。'},
+  {c:'cam',x:18*TILE,d:1},
+  {c:'fn',fn:()=>{rings.push({x:18*TILE+16,y:16*TILE-44,t:0,c:'255,214,140'});for(let k=0;k<24;k++)spawnFly(18*TILE+16,16*TILE-40,120);sfx('lantern');return null;}},
+  {c:'cap',t:'大鼓原本站著的地方，亮起了一盞新的燈。'},
   {c:'cam',x:null,d:.6}
 ];
 function spawnKB2(){kb={hp:16,max:32,half:0,phase:3,sky:true,x:WORLD_W-2.4*TILE,y:100,active:false,dead:false,deathT:0,halfDone:false,bt:0,beat:-1,pat:KB_PAT[3][0],lit:-1,pulse:0,waves:[],drops:[],lns:[],pops:[],flash:0,stick:[0,0],combo:0,wake:1,gone:0,gust:0};}
