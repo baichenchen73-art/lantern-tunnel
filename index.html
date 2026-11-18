@@ -668,8 +668,34 @@ body.hasSkill #bK{display:flex}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-17.1';
+const GAME_VERSION='2026-11-18.1';
 const CHANGELOG=[
+  ['2026-11-18.1','第七章製作中（第 8 部分後半：Boss「停不下來的祭鼓」被風捲上天空的節奏空戰）',[
+    '這次完成第七章 10 個部分中的第 8 部分後半（目前約 8/10）。做到一半的第七章仍然只能從封面「測試：直接到第七章（製作中）」進入，正式流程完全不變（打倒停擺的大鐘之後仍然是「第六章 完」）',
+    '祭鼓前半打完後不再顯示「製作中」：大鼓被風托上天之後，屋頂上的風也把主角和燈籠一起捲上去，來到新的地方「鼓樓上空」',
+    '新場地「鼓樓上空」：在夜空裡原地飛行的空戰（畫面不往前捲，腳下的祭典屋頂一直往後流）。按住「跳躍」往上、「下降」往下；按住 ▶ 往前靠近大鼓、◀ 往後退，放開時會慢慢飄回左邊',
+    '後半的打法：大鼓浮在右邊，一樣先「唱」一小節給你聽、下一小節照著打。紅色的「咚」會推出一整排從上到下的音波牆，牆中間留一段空隙，從空隙飛過去；藍色的「喀」會先畫出一條藍色虛線，下一拍紙燈籠沿著虛線橫著飛過來，換個高度躲開；新的金色「鈴」會颳起一陣逆風，把你往後推',
+    '一樣只有「對上拍子」的攻擊才打得動：飛到大鼓前面，在鼓面亮起來的那一拍攻擊（技能也照威力扣血）；大鼓會跟著你的高度慢慢上下移動。這一小節的節奏顯示在畫面下方中間',
+    '血量剩不到 1/4 時節奏變快（每分鐘 104 拍 → 114 拍），「喀」一次飛來兩盞、音波牆更快。後半有專屬的開場說明（第二次進來會換成簡短版）；師父那盞燈一直停在夜空上方',
+    '打倒祭鼓後的劇情：最後一聲「咚」落在拍子上，大鼓化成一串紙燈籠飄散；師父提著燈從夜空降下來，兩盞一模一樣的燈像紙傘一樣，把兩人放回鼓樓頂。師父說「有人一直在等一個拍子」，並第一次走在主角的後面（倒影的身分仍然保留到最終章）',
+    '打倒停不下來的祭鼓也會得到 1 次燈火機會（可以讓技能進化或轉職）',
+    '在空戰中倒下會回到鼓樓前庭的燈籠；之後再走進鼓樓頂，會直接被風捲上天空、從後半開始（不用重打前半）',
+    '新音效：「鈴」的鈴聲',
+    '第七章的結尾（終點燈籠、承接第八章的演出、接上正式流程）是下一個部分，目前打完後會顯示「製作中」的說明'
+  ]],
+  ['2026-11-18.0','第七章製作中（第 7 部分：地上的師父本人出現；第 8 部分前半：節奏型 Boss「停不下來的祭鼓」的屋頂地面戰）',[
+    '這次完成第七章 10 個部分中的第 7 部分和第 8 部分的前半（目前約 7.5/10）。做到一半的第七章仍然只能從封面「測試：直接到第七章（製作中）」進入，正式流程完全不變（打倒停擺的大鐘之後仍然是「第六章 完」）',
+    '新劇情「地上的師父本人」（鼓樓前庭，走到面具師傅右邊、通往鼓樓頂的門前時觸發）：一個提著燈的人從鼓樓的門裡走出來——這次不是倒影，是地上的師父本人，身上沾著真的雪和灰，手上的燈和主角那盞一模一樣（是照著主角那盞又做了一次）',
+    '師父本人說他在祭典的晚上追著飄上天的燈來到這片屋頂；主角問他「一直走在前面的那個人是誰」，師父沉默很久，只說「等你走到最後，我會告訴你」（倒影的身分仍然保留到最終章）。接著鼓樓頂傳來巨大的鼓響，一陣強風把師父連人帶燈捲上夜空，停在鼓樓的正上方（之後的 Boss 後半會接著這裡）',
+    '對話框新增：師父本人說話時，名字旁邊顯示「地上的師父本人」（金色），和倒影們的「倒影」標記區分開來',
+    '新 Boss「停不下來的祭鼓」（鼓樓頂，原本的「施工」告示牌和說明拿掉了）：鼓樓頂那面比人還高的大鼓，鼓面上的燈籠像眼睛一樣睜開，兩根鼓棒自己浮在旁邊，一直敲個不停。和前六章的 Boss 都不同，是節奏型的',
+    '打法：大鼓會先「唱」一小節（4 拍）給你聽，畫面上方會顯示這一小節的 4 個音符；下一小節就照著唱過的節奏攻擊——紅色的「咚」：從鼓的兩邊推出貼著地面的震波，跳起來躲；藍色的「喀」：前一拍會在你腳下標出藍色虛線，紙燈籠剛好在拍子上掉下來，走開；小圓點：空拍',
+    '只有「對上拍子」的攻擊才打得動它：鼓面外圈有一個會縮小的鼓點圈，縮到鼓面、鼓面亮起來的那一下攻擊才算（技能也一樣，照威力扣血）；沒對上拍子會顯示「亂了」，不扣血',
+    '血量剩不到 3/4 時，祭鼓會越敲越快（每分鐘 100 拍 → 112 拍），節奏也會變複雜（一小節裡有更多「咚」和「喀」，「喀」會一次掉兩盞）。Boss 戰有專屬的開場說明（第二次進來會換成簡短版）與新的戰鬥音樂；右邊的暖燈攤 Boss 戰中回血比較快；倒下後會從鼓樓前庭的燈籠重來',
+    '前半的結尾：血量打到一半時，祭鼓的節奏亂了一拍，一陣狂風把大鼓整個托上夜空，往師父那盞燈的方向飛去。後半「被風捲上天空、在風中照著節奏邊飛邊打」是下一個部分（目前會顯示「製作中」的說明，打完前半可以從左邊的門回到鼓樓前庭）',
+    '新音效：太鼓的「咚」、鼓邊的「喀」、空拍的輕響',
+    '自動測試確認：只送按鍵的測試機器人從「祭典入口」一路飛到「鼓樓頂」（約 130 秒、受傷 1 次），途中師父本人的劇情會自動播放、只播一次；在鼓樓頂用只送按鍵的機器人（跳過震波、躲開紙燈籠、在拍子上攻擊）連打 3 次都能打完前半（約 20 秒、受傷 3～5 次），沒對上拍子的攻擊不會扣血；震波、紙燈籠與玩家座標都沒有錯誤；在 Boss 戰中倒下會回到鼓樓前庭的燈籠；手機版與電腦版封面 10 個入口與全部 65 個房間都能正常載入；停擺的大鐘用機器人再打一次也正常打倒；沒有任何錯誤訊息'
+  ]],
   ['2026-11-17.1','第七章製作中（第 5、6 部分：第二、三位倒影居民與兩個新支線）',[
     '這次完成第七章 10 個部分中的第 5、6 部分（目前 6/10）。做到一半的第七章仍然只能從封面「測試：直接到第七章（製作中）」進入，正式流程完全不變（打倒停擺的大鐘之後仍然是「第六章 完」）',
     '新倒影居民「不敢敲錯的鼓手」（祭典廣場，舞台旁邊）：綁著頭巾、穿紅白短外褂的鼓手，兩手握著鼓棒一直發抖、小聲數拍子，卻一下也不敢敲。地上的他打了二十年的鼓從來沒敲錯過，那個「怕敲錯」的他被丟到了夜空上。可以選擇「接納」或「勸它回到心底」',
@@ -1070,6 +1096,32 @@ const lit=new Set(),shards=new Set(),visited=new Set();
 let ability=null,trig={};
 
 // ---------- 房間 ----------
+// 第七章部分⑦：地上的師父「本人」（不是倒影）。提著和主角一模一樣的燈；只給線索，不揭曉倒影的身分。
+const K11_MASTER=[
+  {c:'face',f:1},{c:'shake',a:2,d:.5},
+  {c:'cam',x:23*TILE,d:1},
+  {c:'actor',id:'rm',kind:'real',x:25.5*TILE,by:14*TILE,f:-1,a:0},{c:'actorFade',id:'rm',to:1,d:1},
+  {c:'actorWalk',id:'rm',x:23*TILE,spd:45,wait:true},
+  {c:'cap',t:'有個人提著燈，從鼓樓的門裡慢慢走了出來。那盞燈的樣子，和你手上這盞一模一樣。'},
+  {c:'cap',t:'他身上沒有倒影們那種透明的光。鞋上沾著真的雪，肩上落著真的灰。'},
+  {c:'say',t:'⋯⋯師父？'},
+  {c:'talk',who:'realmaster',t:'找到你了。'},
+  {c:'talk',who:'me',t:'你是地上的師父？真的師父？可是，你怎麼會在這種地方？'},
+  {c:'talk',who:'realmaster',t:'祭典的晚上，湖邊的燈全都往天上飄。我提著燈追過來，回過神，就站在這片屋頂上了。'},
+  {c:'talk',who:'realmaster',t:'你手上那盞燈，是我做的。我這一盞，是照著它又做了一次。'},
+  {c:'talk',who:'me',t:'師父，那個一直走在我前面、提著燈的人⋯⋯你知道他是誰嗎？'},
+  {c:'cap',t:'師父看著你的燈，很久都沒有說話。'},
+  {c:'talk',who:'realmaster',t:'等你走到最後，我會告訴你。現在說了，你只會跑得更快、更遠。'},
+  {c:'talk',who:'realmaster',t:'每年祭典，我都在鼓樓頂上掛一盞燈。今年那面鼓，自己響個不停。'},
+  {c:'shake',a:5,d:.9},
+  {c:'cap',t:'鼓樓頂傳來一聲巨大的鼓響。一陣強風從門裡捲出來，把師父整個人連同那盞燈往上帶。'},
+  {c:'actor',id:'rm',rise:70},
+  {c:'talk',who:'realmaster',t:'別管我！先讓那面鼓停下來——'},
+  {c:'say',t:'師父！'},
+  {c:'actorFade',id:'rm',to:0,d:1.4},
+  {c:'cap',t:'師父的燈在夜空裡越飄越高，停在鼓樓的正上方，像一顆不會落下的星星。'},
+  {c:'cam',x:null,d:.6}
+];
 const ROOMS={
   old:{name:'老地道',W:40,H:14,theme:'old',start:{x:48,y:11*TILE-26},spawns:[],lant:[],props:[],events:[],exits:[],
     build(r,W,H){r(0,0,W,4);r(0,11,W,3);r(0,0,1,H);r(W-1,0,1,H);}},
@@ -1594,15 +1646,21 @@ const ROOMS={
     spawns:[],lant:[{c:6,g:14}],npcs:[{id:'masker',c:15,g:14}],
     props:[{t:'warmstall',c:8,g:14,w:2},{t:'sign',c:12,g:14,text:'鼓樓'},{t:'drum',c:19,g:14,s:.6},{t:'bunting',c:1,g:3,w:27},{t:'skylamp',c:9,g:7},{t:'skylamp',c:22,g:6}],
     portals:[{c:25,g:14,to:'KB',pc:4,pg:16,name:'鼓樓頂'}],
-    events:[{id:'k11in',enter:true,steps:[{c:'wait',d:.3},{c:'say',t:'鼓聲⋯⋯就在門的另一邊。'},{c:'cam',x:15*TILE,d:.9},{c:'cap',t:'門前站著一個扛著面具架的師傅，架子上掛滿了笑臉面具；師傅自己臉上，也戴著一張笑臉面具。'},{c:'cam',x:null,d:.6}]}],
+    events:[{id:'k11in',enter:true,steps:[{c:'wait',d:.3},{c:'say',t:'鼓聲⋯⋯就在門的另一邊。'},{c:'cam',x:15*TILE,d:.9},{c:'cap',t:'門前站著一個扛著面具架的師傅，架子上掛滿了笑臉面具；師傅自己臉上，也戴著一張笑臉面具。'},{c:'cam',x:null,d:.6}]},
+      // 第七章劇情（部分⑦，2026-11-18.0）：地上的師父本人出現（不揭曉倒影的身分、不收束），被鼓樓的風捲上夜空
+      {id:'k11master',x:20*TILE,steps:K11_MASTER}],
     exits:[]},
   KB:{mpos:[2376,-46],name:'鼓樓頂',W:36,H:18,
     build(r,W,H){r(0,0,W,1);r(0,0,1,H);r(W-1,0,1,H);r(0,16,W,2);r(5,14,2,1);r(29,14,2,1);},
     spawns:[],lant:[],
-    props:[{t:'warmstall',c:32,g:16,w:2},{t:'drum',c:18,g:16,s:1.3},{t:'sign',c:9,g:16,text:'施工'},{t:'bunting',c:1,g:2,w:34},{t:'skylamp',c:6,g:6},{t:'skylamp',c:30,g:6}],
+    props:[{t:'warmstall',c:32,g:16,w:2},{t:'drum',c:18,g:16,s:1.3},{t:'bunting',c:1,g:2,w:34},{t:'skylamp',c:6,g:6},{t:'skylamp',c:30,g:6}],
     portals:[{c:2.4,g:16,to:'K11',pc:23,pg:14,name:'鼓樓前庭'}],
-    events:[{id:'kbin',enter:true,steps:[{c:'cam',x:18*TILE,d:1.1},{c:'cap',t:'鼓樓的頂端，擺著一面比人還高的大鼓。鼓面上，畫著一盞燈籠。'},{c:'cap',t:'（第七章製作中：這裡之後會是跟著鼓點閃避的 Boss 戰。）'},{c:'cam',x:null,d:.6}]}],
-    exits:[]}
+    events:[],
+    exits:[]},
+  // 部分⑧b（2026-11-18.1）：Boss 後半「鼓樓上空」。arena＝原地的風之路空戰（畫面不往前捲，主角在左半邊上下飛、按 ▶ 靠近大鼓）。
+  KB2:{mpos:[2376,-56],name:'鼓樓上空',W:16,H:9,flight:{v:150,arena:true},
+    build(r,W,H){},
+    spawns:[],lant:[],props:[],events:[],exits:[]}
 };
 const EV_LANTERN=[
   {c:'say',t:'這盞燈⋯⋯也是師父的手藝。'},
@@ -1622,7 +1680,7 @@ const ICE_MEM={
   im1:[{c:'cap',t:'冰層裡凍著一個畫面：結冰的湖上，兩個小學徒在比賽滑冰。其中一個摔倒了，另一個笑著伸出手。'},{c:'cap',t:'伸手的那一個，提著和你一模一樣的燈。可是他的臉，被冰裡的氣泡擋住了。'},{c:'say',t:'⋯⋯我記得這片湖。我記得，有人拉過我的手。'}],
   im2:[{c:'cap',t:'更深的冰裡，凍著另一個畫面：一盞燈，很慢很慢地往下沉。'},{c:'cap',t:'有一隻小手伸向它，差一點點就抓到了。畫面在那裡停住，像是誰不想再看下去。'},{c:'say',t:'那是⋯⋯誰的手？'}]
 };
-const NAMES={drummer:'不敢敲錯的鼓手',masker:'總是笑著的面具師傅',launcher:'不敢放手的放燈人',clockmaker:'把錶停住的鐘匠',toymaker:'說「等一下」的玩具匠',mentor:'工坊裡的師父',ferry:'怕冷的渡船夫',teller:'不說結局的說書婆婆',smith:'喊痛的鐵匠',postman:'不寄信的郵差',lakegod:'湖神',mirror:'映照者',guide:'提燈的倒影',keeper:'打瞌睡的看守',snuffer:'熄燈者',me:'學徒',senior:'哭泣的師姊',grocer:'大方的雜貨店老闆',master:'溫柔的師父',guard:'膽小的守衛'};
+const NAMES={realmaster:'師父',boss7:'停不下來的祭鼓',drummer:'不敢敲錯的鼓手',masker:'總是笑著的面具師傅',launcher:'不敢放手的放燈人',clockmaker:'把錶停住的鐘匠',toymaker:'說「等一下」的玩具匠',mentor:'工坊裡的師父',ferry:'怕冷的渡船夫',teller:'不說結局的說書婆婆',smith:'喊痛的鐵匠',postman:'不寄信的郵差',lakegod:'湖神',mirror:'映照者',guide:'提燈的倒影',keeper:'打瞌睡的看守',snuffer:'熄燈者',me:'學徒',senior:'哭泣的師姊',grocer:'大方的雜貨店老闆',master:'溫柔的師父',guard:'膽小的守衛'};
 function talkSteps(id){
   const st=story.npc[id];
   if(id==='mentor'){
@@ -2017,7 +2075,7 @@ let hp=maxHp,invuln=0,stunP=0,atkT=0,atkCd=0,slashT=0,hitSet=new Set(),freeze=0,
 let dashT=0,dashCd=0,airDash=true,airJump=true,ghosts=[],ghostT=0;
 let checkpoint={room:'R1',x:0,y:0},finished=false,enemies=[],lanterns=[],props=[],parts=[],tut=99,tutT=0,snapCam=true,hint=null;
 let springT=0,mirror=null,hist=[],oxy=25,oxyMax=25,drownT=0,swimCd=0,bubbles=[],lastOxyF=-1,waters=[],safeLight=false,regenT=0,kindleT=0,kindleTarget=null,nearSconceOn=false;
-let ib=null,tb=null,hsT=0,springQ=null,flingT=0,hookGr=0,hook=null,hookTh=0,hookW=0,hookL=0,hookLT=0,nearHookQ=null,forgeT=0,dr=null,onHeal=null,lightStolen=0,SH=[],worldFlipT=0,grav=1,runeCd=0,gb=null,platform=null,rotShown=false;
+let ib=null,tb=null,kb=null,hsT=0,springQ=null,flingT=0,hookGr=0,hook=null,hookTh=0,hookW=0,hookL=0,hookLT=0,nearHookQ=null,forgeT=0,dr=null,onHeal=null,lightStolen=0,SH=[],worldFlipT=0,grav=1,runeCd=0,gb=null,platform=null,rotShown=false;
 let portals=[],nearPortal=null,bossSealed=false,boss=null,shots=[],sconces=[],chapterDone=false,startArmed=false;
 const SCONCES=[{x:2.6*TILE,gy:16},{x:31.4*TILE,gy:16},{x:8*TILE,gy:12},{x:26*TILE,gy:12}];
 let mode='cover',paused=false,trans=null,transFade=0,pendingName=null;
@@ -2064,7 +2122,7 @@ function loadRoom(id){
   props=level.props.map(q=>({...q}));
   npcs=(level.npcs||[]).filter(n=>story.npc[n.id]!=='seal').map(n=>({...n,x:n.c*TILE+2,y:n.g*TILE-34,w:28,h:34,a:1,fade:false,face:-1}));actors={};
   TT=THEMES[id]||THEMES.R3;buildTerrain();setMusic(roomTrack(id));
-  spawnEnemies();parts.length=0;coins=[];pshots=[];skCast=0;skFx=[];skWalls=[];skZones=[];skDelay=[];scarf=[];shots=[];boss=null;ib=null;tb=null;bossSealed=false;document.body.classList.remove('boss');
+  spawnEnemies();parts.length=0;coins=[];pshots=[];skCast=0;skFx=[];skWalls=[];skZones=[];skDelay=[];scarf=[];shots=[];boss=null;ib=null;tb=null;kb=null;bossSealed=false;document.body.classList.remove('boss');
   refreshPortals();mirror=null;hist=[];gb=null;grav=1;SH=[];hook=null;dr=null;document.body.classList.remove('nearHook');bubbles=[];document.body.classList.toggle('uw',level.waterTop!=null);lastOxyF=-1;
   waters=(level.water||[]).map(w=>({x0:w.a*TILE,x1:w.b*TILE,y:w.g*TILE+8}));p.wet=false;kindleT=0;kindleTarget=null;nearSconceOn=false;document.body.classList.remove('nearSconce');
   sconces=id==='B1'?SCONCES.map(q=>({...q,lit:!!F.bossDone,smoke:0})):[];ghosts.length=0;snapCam=true;
@@ -2292,7 +2350,7 @@ function csNext(){
     case 'say':line={who:'p',text:TX(s.t),n:0};break;
     case 'talk':line={who:s.who,text:TX(s.t),n:0,box:true};break;
     case 'actor':{const a=actors[s.id]||(actors[s.id]={x:0,by:0,face:1,a:1,tx:null,to:null,spd:80,fs:1});
-      if(s.x!=null)a.x=s.x;if(s.by!=null)a.by=s.by;if(s.flip!=null)a.flip=s.flip;if(s.f!=null)a.face=s.f;if(s.a!=null)a.a=s.a;csNext();return;}
+      if(s.x!=null)a.x=s.x;if(s.by!=null)a.by=s.by;if(s.kind)a.kind=s.kind;if(s.rise!=null)a.rise=s.rise;if(s.stopBy!=null)a.stopBy=s.stopBy;if(s.flip!=null)a.flip=s.flip;if(s.f!=null)a.face=s.f;if(s.a!=null)a.a=s.a;csNext();return;}
     case 'actorWalk':{const a=actors[s.id];if(a){a.tx=s.x;a.spd=s.spd||80;}if(!s.wait){csNext();return;}break;}
     case 'actorFade':{const a=actors[s.id];if(a){a.to=s.to;a.fs=1/Math.max(.01,s.d);}break;}
     case 'npcFade':{const n=npcs.find(n=>n.id===s.id);if(n)n.fade=true;story.npc[s.id]='seal';break;}
@@ -2478,6 +2536,10 @@ function sfx(name){
     case 'ui':tone(660,.07,{type:'triangle',vol:.05,rev:.05});tone(990,.09,{type:'triangle',vol:.04,when:.05,rev:.1});break;
     case 'skid':noise(.28,{vol:.07,type:'highpass',freq:3200,slideTo:1800,rev:.1});tone(r(1500,1700),.18,{vol:.02,slide:.7,rev:.2});break;
     case 'icebreak':for(let i=0;i<8;i++)bell(r(900,2600),.7,.04,sfxBus,i*.025);noise(.5,{vol:.2,type:'highpass',freq:1800,slideTo:600,rev:.4});noise(.35,{vol:.16,freq:400,slideTo:90});tone(80,.3,{vol:.12,slide:.6,rev:0});break;
+    case 'taiko':tone(68,.4,{vol:.24,slide:.5,rev:.15});noise(.14,{vol:.13,freq:320,slideTo:90});break;
+    case 'rim':tone(1400,.05,{type:'square',vol:.035,rev:.1});noise(.05,{vol:.07,type:'highpass',freq:4200});break;
+    case 'rin':bell(1568,.7,.08);bell(2093,.5,.05,sfxBus,.04);noise(.3,{vol:.05,type:'highpass',freq:3000,rev:.4});break;
+    case 'beatTick':tone(880,.04,{type:'triangle',vol:.025,rev:.05});break;
     case 'pop':noise(.12,{vol:.1,type:'bandpass',freq:1800,slideTo:700,q:1,rev:.15});tone(r(420,480),.1,{type:'triangle',vol:.04,slide:1.6,rev:.2});break;
     case 'tick':tone(r(1900,2100),.03,{type:'square',vol:.03,rev:.15});tone(r(950,1050),.05,{type:'triangle',vol:.03,rev:.2,when:.02});break;
     case 'treasure':[0,4,7,12,16].forEach((st,i)=>bell(659*Math.pow(2,st/12),1.2,.06,sfxBus,i*.06));noise(.3,{vol:.05,type:'highpass',freq:3000,rev:.4});break;
@@ -2489,6 +2551,7 @@ const TRACKS={
   cover:{root:57,sc:[0,3,5,7,10],bpm:64,pad:[[0,7,15],[-4,3,12],[-2,5,14],[-5,2,10]],mel:.5,oct:1,filt:1100},
   old:{root:52,sc:[0,2,3,7,9],bpm:56,pad:[[0,7,12],[-2,5,10]],mel:.18,oct:1,filt:700,sub:true},
   ch1:{root:50,sc:[0,3,5,7,10],bpm:60,pad:[[0,7,15],[-4,3,12],[-7,0,10],[-2,5,14]],mel:.3,oct:1,filt:900,sub:true},
+  festboss:{root:55,sc:[0,2,4,7,9],bpm:100,pad:[[0,4,7,14],[-3,4,9,12],[5,9,12,16],[2,7,11,14]],mel:.2,oct:1,filt:1300,pluck:true,sub:true},
   ch7:{root:55,sc:[0,2,4,7,9],bpm:66,pad:[[0,4,7,14],[-3,4,9,12],[5,9,12,16],[2,7,11,14]],mel:.36,oct:1,filt:1400,pluck:true,drum:true},
   ch6:{root:50,sc:[0,2,3,5,7,9,10],bpm:60,pad:[[0,7,15],[-2,5,14],[3,10,15],[-4,3,12]],mel:.24,oct:1,filt:950,sub:true,tick:true,toll:true},
   ch5:{root:59,sc:[0,2,4,6,7,9,11],bpm:52,pad:[[0,7,16],[-3,4,11],[2,9,14],[-5,2,11]],mel:.32,oct:1,filt:1500,pluck:true,sub:true},
@@ -2506,8 +2569,8 @@ const TRACKS={
   swamp:{root:47,sc:[0,3,5,6,7,10],bpm:50,pad:[[0,6,15],[-1,6,12]],mel:.14,oct:0,filt:600,sub:true,drip:true},
   heart:{root:55,sc:[0,2,4,7,9],bpm:56,pad:[[0,4,7,14],[-3,4,9,12],[5,9,12,16]],mel:.4,oct:1,filt:1300}
 };
-const ROOM_TRACK={K1:'ch7',K2:'ch7',K3:'ch7',K4:'ch7',K5:'ch7',K6:'ch7',K7:'ch7',K8:'ch7',K9:'ch7',K10:'ch7',K11:'ch7',KB:'hush',G1:'ch6',G2:'ch6',G3:'ch6',G4:'ch6',G5:'ch6',G6:'ch6',G7:'ch6',G8:'ch6',G9:'ch6',GB:'ch6',I1:'ch5',I2:'ch5',I3:'ch5',I4:'ch5',I5:'ch5',I6:'ch5',I7:'ch5',I8:'ch5',I9:'ch5',I7U:'hush',IB:'hush',M1:'ch4',M2:'ch4',M3:'ch4',M4:'ch4',M5:'ch4',M6:'ch4',T1:'ch3',T2:'ch3',T3:'ch3',T4:'ch3',D1:'ch2',D2:'ch2',D3:'ch2',old:'ch1',R1:'ch1',R2:'ch1',R3:'ch1',S1:'ch1',R4:'ch1',S2:'ch1',R5:'ch1',N1:'ch1',N2:'ch1',R6:'ch1',C1:'ch2',C2:'ch2',C3:'ch2',C4:'ch2',C5:'ch2'};
-function roomTrack(id){if(id==='GB')return (tb&&!tb.dead&&!F.towerDone)?'clockboss':'ch6';if(id==='IB')return (ib&&!ib.dead&&!F.iceDone)?'boss2':'hush';if(id==='M7')return (dr&&!dr.dead&&!F.drillDone)?'boss':'ch4';if(id==='T5')return (gb&&!gb.dead&&!F.guideDone)?'boss':'ch3';if(id==='D4')return (mirror&&!mirror.dead&&!F.mirrorDone)?'boss':'ch2';if(id==='B1')return (!F.bossDone&&boss&&!boss.dead)?(boss.form===2?'boss2':'boss'):'ch1';return ROOM_TRACK[id]||'ch1';}
+const ROOM_TRACK={K1:'ch7',K2:'ch7',K3:'ch7',K4:'ch7',K5:'ch7',K6:'ch7',K7:'ch7',K8:'ch7',K9:'ch7',K10:'ch7',K11:'ch7',KB:'hush',KB2:'ch7',G1:'ch6',G2:'ch6',G3:'ch6',G4:'ch6',G5:'ch6',G6:'ch6',G7:'ch6',G8:'ch6',G9:'ch6',GB:'ch6',I1:'ch5',I2:'ch5',I3:'ch5',I4:'ch5',I5:'ch5',I6:'ch5',I7:'ch5',I8:'ch5',I9:'ch5',I7U:'hush',IB:'hush',M1:'ch4',M2:'ch4',M3:'ch4',M4:'ch4',M5:'ch4',M6:'ch4',T1:'ch3',T2:'ch3',T3:'ch3',T4:'ch3',D1:'ch2',D2:'ch2',D3:'ch2',old:'ch1',R1:'ch1',R2:'ch1',R3:'ch1',S1:'ch1',R4:'ch1',S2:'ch1',R5:'ch1',N1:'ch1',N2:'ch1',R6:'ch1',C1:'ch2',C2:'ch2',C3:'ch2',C4:'ch2',C5:'ch2'};
+function roomTrack(id){if(id==='KB2')return (kb&&kb.active)?'festboss':'ch7';if(id==='KB')return (kb&&kb.active)?'festboss':F.festDone?'ch7':'hush';if(id==='GB')return (tb&&!tb.dead&&!F.towerDone)?'clockboss':'ch6';if(id==='IB')return (ib&&!ib.dead&&!F.iceDone)?'boss2':'hush';if(id==='M7')return (dr&&!dr.dead&&!F.drillDone)?'boss':'ch4';if(id==='T5')return (gb&&!gb.dead&&!F.guideDone)?'boss':'ch3';if(id==='D4')return (mirror&&!mirror.dead&&!F.mirrorDone)?'boss':'ch2';if(id==='B1')return (!F.bossDone&&boss&&!boss.dead)?(boss.form===2?'boss2':'boss'):'ch1';return ROOM_TRACK[id]||'ch1';}
 function setMusic(key,force){
   pendingMusic=key;if(!AC)return;if(key===curKey&&!force)return;curKey=key;
   const now=AC.currentTime;
@@ -2745,7 +2808,7 @@ function updateTrans(dt){
       loadRoom(e.to);
       if(beatOk){sfx('treasure');refreshMini();setTimeout(()=>toast('鼓手的節拍：一下都沒有撞到！打開地圖傳送回「祭典廣場」找鼓手'),600);}
       placePlayer(e.tp?{x:e.px,y:e.py}:{x:e.c*TILE+6,y:e.ky?Math.min(Math.max(p.y,8),WORLD_H-TILE-p.h-2):e.g!=null?e.g*TILE-p.h:e.y});
-      p.face=e.f;p.vx=keepVx;if(e.vy)p.vy=e.vy;
+      p.face=e.f;p.vx=(level.flight&&e.tp)?flySpeed():keepVx;if(e.vy)p.vy=e.vy;
       trans.phase='in';trans.t=0;calmT=.7;
     }
   }else{
@@ -2757,6 +2820,16 @@ function updateTrans(dt){
 function onEnterRoom(){
   if(pendingName){toast(pendingName);pendingName=null;}
   saveGame();
+  if(level.id==='KB2'&&!F.festDone){
+    const intro=!trig.kb2Intro;trig.kb2Intro=true;
+    playCS(intro?KB2_INTRO:KB2_AGAIN,()=>{startKB2();},()=>{if(!kb)spawnKB2();},false);return;
+  }
+  if(level.id==='KB'&&F.festDone&&!trig.kbLand){trig.kbLand=true;playCS(KB_LAND,()=>{calmT=.6;});return;}
+  if(level.id==='KB'&&!F.festDone&&F.festHalf){playCS(KB_UP,()=>{goSky();},null,false);return;}
+  if(level.id==='KB'&&!F.festDone){
+    const intro=!trig.kbIntro;trig.kbIntro=true;
+    playCS(intro?KB_INTRO:KB_AGAIN,()=>{startKB();},()=>{if(!kb)spawnKB();},false);return;
+  }
   if(level.id==='GB'&&!F.towerDone){
     const intro=!trig.tbIntro;trig.tbIntro=true;
     playCS(intro?TB_INTRO:TB_AGAIN,()=>{startTB();},()=>{if(!tb)spawnTB();},false);return;
@@ -2923,6 +2996,7 @@ function update(dt){
     if(dr&&dr.active&&!dr.dead&&!hitSet.has(dr))hitDrill(hb);
     if(ib&&ib.active&&!ib.dead&&!hitSet.has(ib))hitIB(hb);
     if(tb&&tb.active&&!tb.dead)hitTB(hb,1,true);
+    if(kb&&kb.active&&!kb.dead)hitKB(hb,1,true);
     if(gb&&gb.active&&!gb.dead&&!hitSet.has(gb)&&gb.st!=='blinkAway'&&hit(hb,{x:gb.x,y:gb.y,w:20,h:26}))hitGB();
     if(level.id==='C3'&&quests.bell&&quests.bell.status==='active'&&bellCd<=0&&hit(hb,{x:19.5*TILE-30,y:110,w:60,h:46})){
       bellCd=.7;bellSwing=1;const q=quests.bell;q.n++;sfx('toll');shake=3;for(let k=0;k<10;k++)spawnFly(19.5*TILE,134,100);
@@ -3168,6 +3242,7 @@ function update(dt){
   if(dr){updateDrill(dt);if(dying>0)return;}
   if(ib){updateIB(dt);if(dying>0)return;}
   if(tb){updateTB(dt);if(dying>0)return;}
+  if(kb){updateKB(dt);if(dying>0)return;}
   {let atF=null;for(const q of props)if(q.t==='forge'&&p.grounded&&grav>0&&Math.abs(p.y+p.h-q.g*TILE)<6&&Math.abs((p.x+p.w/2)-(q.c*TILE+q.w*TILE/2))<q.w*TILE*.5+26){atF=q;break;}
     if(atF){if(!trig.forgeHint){trig.forgeHint=true;flashHint('蹲在熔爐旁烤火，會慢慢恢復生命',[],4);}
       if(hp<maxHp){forgeT+=dt;if(Math.random()<dt*8)parts.push({x:atF.c*TILE+atF.w*16+(Math.random()-.5)*24,y:atF.g*TILE-24,vx:(Math.random()-.5)*20,vy:-60,life:.6,t:0,c:'#ffb35a'});
@@ -4095,7 +4170,7 @@ function render(dt){
   clock+=dt;
   if(mode!=='play'||rotShown){renderMenu();return;}
   const th=TH[level.theme];
-  const fx=csCam?csCam.x:p.x+p.w/2+(p.fly?110:p.face*30);
+  const fx=csCam?csCam.x:(level.flight&&level.flight.arena)?(p.x+p.w/2+(kb&&kb.sky?kb.x:WORLD_W-3*TILE))/2:p.x+p.w/2+(p.fly?110:p.face*30);
   const tx=viewW>=WORLD_W?(WORLD_W-viewW)/2:clamp(fx-viewW/2,0,WORLD_W-viewW);
   const ty=viewH>=WORLD_H?(WORLD_H-viewH)/2:clamp(p.y+p.h/2-viewH*(tb&&!tb.dead&&level.id==='GB'?.74:.55),0,WORLD_H-viewH);
   if(snapCam){camX=tx;camY=ty;snapCam=false;}
@@ -4104,7 +4179,7 @@ function render(dt){
   if(shake>0&&!paused)shake=Math.max(0,shake-dt*(cs&&cs.s&&cs.s.c==='shake'?0:30));
   const sx=camX+(Math.random()-.5)*shake,sy=camY+(Math.random()-.5)*shake;
   const mist=true;lights.length=0;
-  if(mist)drawMistBG(sx,sy);else{
+  if(mist)drawMistBG(sx+(level.flight&&level.flight.arena?clock*140:0),sy);else{
   drawBG(th);
   ctx.setTransform(dpr*sc,0,0,dpr*sc,0,0);ctx.fillStyle=th.far;
   for(const s of stal){
@@ -4173,7 +4248,7 @@ function render(dt){
   for(const q of portals)drawPortal(q);
   for(const L of lanterns)drawLantern(L);
   for(const n of npcs){if(!cs)n.face=Math.sign(p.x-n.x)||-1;drawNPC(n);}
-  for(const k in actors){const a=actors[k];if(a.a<=0)continue;ctx.save();ctx.globalAlpha=a.a;if(a.flip){ctx.translate(0,2*a.by);ctx.scale(1,-1);}drawGuide(a.x,a.by,a.face,!a.flip);ctx.restore();}
+  for(const k in actors){const a=actors[k];if(a.a<=0)continue;ctx.save();ctx.globalAlpha=a.a;if(a.flip){ctx.translate(0,2*a.by);ctx.scale(1,-1);}if(a.kind==='real')drawRealMaster(a.x,a.by,a.face,true);else drawGuide(a.x,a.by,a.face,!a.flip);ctx.restore();}
   for(const e of enemies)if(!e.dead)drawEnemy(e);
   if(boss){
     if(boss.form===2&&!boss.dead)drawShades();
@@ -4185,6 +4260,7 @@ function render(dt){
   if(dr)drawDrill(dt);
   if(ib)drawIB(dt);
   if(tb)drawTB(dt);
+  if(kb)drawKB(dt);
   if(SH.length)drawShadows();
   for(const sc of sconces)drawSconce(sc);
   for(const q of shots)drawShot(q);
@@ -4297,6 +4373,7 @@ function updateActors(dt){
   for(const k in actors){
     const a=actors[k];
     if(a.tx!=null){const d=a.tx-a.x;if(Math.abs(d)<2){a.x=a.tx;a.tx=null;}else{a.x+=Math.sign(d)*Math.min(Math.abs(d),a.spd*dt);a.face=Math.sign(d);}}
+    if(a.rise){a.by-=a.rise*dt;if(a.stopBy!=null&&(a.rise<0?a.by>=a.stopBy:a.by<=a.stopBy)){a.by=a.stopBy;a.rise=0;}}
     if(a.to!=null){const d=a.to-a.a,st=a.fs*dt;if(Math.abs(d)<=st){a.a=a.to;a.to=null;}else a.a+=Math.sign(d)*st;}
   }
   for(let i=npcs.length-1;i>=0;i--){
@@ -4444,6 +4521,7 @@ function drawGuide(cx,by,face,world){
 function drawChar(who,cx,by){
   if(who==='me')drawCreature(cx,by,20,26,1,false);
   else if(who==='guide')drawGuide(cx,by,1);
+  else if(who==='realmaster'){drawRealMaster(cx,by,-1,false);glowAtWorldPending.length=0;}
   else if(who==='mirror'){drawTraveler({x:cx,y:by,face:-1,k:.3,col:MIRROR_COL,eyes:'open',lamp:true});glowAtWorldPending.length=0;}
   else if(who==='snuffer'){ctx.save();ctx.scale(.45,.45);drawSnuffer({x:0,y:-50,face:-1,arm:0,st:'float',t:0,alpha:1,flash:0},0,true);ctx.restore();}
   else drawNPCShape(who,cx,by,-1);
@@ -4463,7 +4541,7 @@ function drawTalkBox(){
   const nw=ctx.measureText(name).width;
   ctx.fillStyle=isMe?'#cfeee6':'#efe2c4';rr(tx-6,y+8,nw+12,22,4);ctx.fill();
   ctx.fillStyle='#3b2f2a';ctx.fillText(name,tx,y+12);
-  if(!isMe){ctx.font='12px "Noto Serif TC","Songti TC",serif';ctx.fillStyle='#b9a6ff';ctx.fillText('倒影',tx+nw+14,y+14);}
+  if(!isMe){const real=line.who==='realmaster';ctx.font='12px "Noto Serif TC","Songti TC",serif';ctx.fillStyle=real?'#ffd88c':'#b9a6ff';ctx.fillText(real?'地上的師父本人':'倒影',tx+nw+14,y+14);}
   ctx.font='15px "Noto Serif TC","Songti TC",serif';ctx.fillStyle='#efe9fb';
   const n=Math.floor(line.n),lines=wrap(line.text.slice(0,n),tw);
   lines.slice(0,4).forEach((l,i)=>ctx.fillText(l,tx,y+36+i*21));
@@ -4522,7 +4600,7 @@ const THEMES={
   G6:CLOCK_T({bg:['#3a2c1c','#22180f','#0a0604'],glow:'255,220,160',dark:.56}),G7:CLOCK_T({dark:.7}),G8:CLOCK_T({glow:'255,214,160',dark:.6}),G9:CLOCK_T({dark:.66}),
   GB:CLOCK_T({bg:['#241a14','#150f0b','#050302'],dark:.7}),
   K1:FEST_T(),K2:FEST_T({dark:.6}),K3:FEST_T({glow:'255,170,100',dark:.56}),K4:FEST_T({glow:'255,200,130',dark:.54}),K5:FEST_T({dark:.62}),K6:FEST_T({bg:['#161a48','#0e1236','#040516'],dark:.6}),
-  K7:FEST_T({glow:'255,170,100',dark:.58}),K8:FEST_T({glow:'255,200,130',dark:.54}),K9:FEST_T({dark:.62}),K10:FEST_T({bg:['#141846','#0c1034','#030414'],dark:.6}),K11:FEST_T({dark:.56}),KB:FEST_T({bg:['#2a1830','#1a1024','#06040c'],glow:'255,150,100',dark:.6}),
+  K7:FEST_T({glow:'255,170,100',dark:.58}),K8:FEST_T({glow:'255,200,130',dark:.54}),K9:FEST_T({dark:.62}),K10:FEST_T({bg:['#141846','#0c1034','#030414'],dark:.6}),K11:FEST_T({dark:.56}),KB:FEST_T({bg:['#2a1830','#1a1024','#06040c'],glow:'255,150,100',dark:.6}),KB2:FEST_T({bg:['#1c1c52','#141646','#06061c'],glow:'255,170,110',dark:.5}),
   I7U:ICE_T({bg:['#0e2038','#081628','#02060e'],lay:['rgba(40,80,130,.45)','rgba(16,36,64,.88)'],fog:'130,180,230',glow:'200,230,255',dark:.74,snow:false}),
   R6:{bg:['#3a3020','#231c18','#0c0a08'],glow:'255,210,140',lay:['rgba(120,100,66,.45)','rgba(66,54,38,.84)'],fog:'230,200,150',top:[98,84,66],deep:[30,24,20],rim:'240,205,145',moss:'165,150,95',mush:'255,220,140',bulb:'255,232,175',dark:.6,spore:'255,230,180',ruins:true}
 };
@@ -4629,7 +4707,7 @@ function drawFestProp(q,x,gy){
       ctx.save();ctx.translate(px,py);ctx.rotate(sw);ctx.strokeStyle='#2a1e18';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,5);ctx.stroke();drawPaperLamp(0,13,.6,k%3!==1);ctx.restore();
       if(k%2)lights.push({x:px,y:py+13,r:40,c:'255,170,100',g:.1});}
     return true;}
-  if(q.t==='drum'){const s=q.s||1,cx=x+16,by=gy;ctx.save();ctx.translate(cx,by);ctx.scale(s,s);ctx.strokeStyle=OUT;ctx.lineWidth=1.4/s;ctx.lineJoin='round';
+  if(q.t==='drum'){if(level&&level.id==='KB'&&(F.festHalf||F.festDone))return true;const s=q.s||1,cx=x+16,lift=(level&&level.id==='KB'&&kb&&kb.gone>1)?kb.gone-1:0,by=gy-lift*lift*300;if(lift>=1)return true;ctx.save();if(lift)ctx.globalAlpha=1-lift;ctx.translate(cx,by);ctx.scale(s,s);ctx.strokeStyle=OUT;ctx.lineWidth=1.4/s;ctx.lineJoin='round';
     rr(-22,-14,6,14,1);fs('#4a3020');rr(16,-14,6,14,1);fs('#4a3020');rr(-26,-18,52,6,2);fs('#5a3a24');
     ctx.beginPath();ctx.ellipse(0,-46,26,30,0,0,6.283);fs('#8a3a2a');ctx.beginPath();ctx.ellipse(0,-46,20,26,0,0,6.283);fs('#efe2c4');
     ctx.fillStyle='rgba(200,80,50,.75)';ctx.beginPath();ctx.ellipse(0,-44,6,8,0,0,6.283);ctx.fill();
@@ -5072,7 +5150,7 @@ function startBoss(){
   document.body.classList.add('boss');updateBossBar();calmT=.8;
   if(!trig.bossHint){trig.bossHint=true;flashHint('靠近燈台會出現「點燈」鍵，點亮兩座以上，熄燈者就會變弱',[],7);}
 }
-function updateBossBar(){const b=boss||mirror||gb||dr||ib||tb;if(b)$('bossFill').style.width=Math.max(0,b.hp/b.max*100)+'%';}
+function updateBossBar(){const b=boss||mirror||gb||dr||ib||tb||kb;if(b)$('bossFill').style.width=Math.max(0,b.hp/b.max*100)+'%';}
 const portalShown=q=>(!q.needBoss||F.bossDone)&&(!q.needTrig||trig[q.needTrig])&&(!q.needFlag||F[q.needFlag]);
 const portalDone=q=>q.doneFlag?!!F[q.doneFlag]:(q.boss?!!F.bossDone:true);
 function refreshPortals(){portals=(level.portals||[]).filter(portalShown).map(q=>({...q,x:q.c*TILE}));}
@@ -6308,6 +6386,12 @@ function flyCtl(dt,ctrl){
   if(!trig.flyHint){trig.flyHint=true;flashHint(platform==='pc'?`風之路：按住 ${kl('jump')}（或 ↑）往上，按住 ${kl('slam')}（或 ↓）往下；${keyName(KB.left)}／${keyName(KB.right)} 減速／加速`:'風之路：按住「跳躍」往上、「下降」往下；◀ 減速、▶ 加速',['bJ','bI'],7);}
 }
 function flyMove(dt){
+  if(level.flight.arena){// 原地的空戰：畫面不捲動，◀ ▶ 在場地裡前後移動，放開會慢慢回到左邊
+    const base=flySpeed(),rel=cs?0:(p.vx-base)*2.2;let dx=rel*dt;
+    if(!cs&&Math.abs(rel)<8)dx+=clamp(3*TILE-p.x,-30*dt,30*dt);
+    p.x=clamp(p.x+dx,2*TILE,WORLD_W-3*TILE);if(kb&&kb.sky&&!kb.dead)p.x=Math.min(p.x,kb.x-50);
+    p.y=clamp(p.y+(cs?0:p.vy)*dt,6,WORLD_H-p.h-2);
+    if(p.ghostT>0)p.ghostT-=dt;p.grounded=false;p.sq+=(0-p.sq)*Math.min(1,dt*14);return;}
   const vx=cs?0:p.vx,nx=p.x+vx*dt;
   if(p.ghostT<=0&&vx>0&&boxSolid(nx,p.y)){
     if(invuln<=0&&!cs&&dying<=0){hurt(p.x+p.w+40);p.ghostT=Math.max(invuln,.9);if(!trig.flyBumpHint){trig.flyBumpHint=true;toast('撞到了！受傷後會短暫無敵，風會繼續把你往前送');}}
@@ -6532,6 +6616,306 @@ function drawMaskerFig(x,y,face,k){
   limbStroke(18,-50,26,-38,22,-28,'#5a3a6a',6);ctx.lineWidth=lw;ctx.beginPath();ctx.arc(22,-27,3.6,0,6.283);fs('#e2c8a8');
   ctx.restore();
 }
+// ---------- 第七章部分⑦：地上的師父本人（2026-11-18.0）----------
+const COL_REAL={hood:'#6a5a48',shade:'#524536',rim:'#e8d6b8',cloak:'#5e4e3e',cshade:'#463a2e',flap:'#4e4134',scarf:'#b0502e',limb:'#2c241e',boot:'#3a3028',inner:'#120d0a',eye:'#ffe3ad'};
+function drawRealMaster(cx,by,face,world){
+  drawTraveler({x:cx,y:by,face,k:.33,col:COL_REAL,eyes:'open',seed:5,lamp:true,lampAng:Math.sin(clock*1.5)*.1,light:!!world,flut:clock*1.4,
+    extraBody:(lw)=>{ctx.lineWidth=lw;ctx.strokeStyle=OUT;rr(-13,-44,28,40,4);fs('#9a7a52');ctx.save();ctx.strokeStyle='#6a5236';ctx.lineWidth=lw*.7;ctx.beginPath();ctx.moveTo(-8,-30);ctx.lineTo(10,-30);ctx.moveTo(-8,-20);ctx.lineTo(10,-20);ctx.stroke();ctx.restore();},
+    extraHead:(lw)=>{const bf=Math.sin(clock*2)*1.5;ctx.beginPath();ctx.moveTo(-6,-68);ctx.quadraticCurveTo(8,-62,22,-68);ctx.quadraticCurveTo(24,-54,12+bf,-42);ctx.lineTo(9+bf,-48);ctx.lineTo(5+bf*.6,-40);ctx.lineTo(3,-48);ctx.quadraticCurveTo(-8,-56,-6,-68);ctx.closePath();fs('#d8d2c8');
+      ctx.save();ctx.strokeStyle='#e8e2d8';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-2,-90);ctx.lineTo(8,-88);ctx.moveTo(12,-88);ctx.lineTo(22,-90);ctx.stroke();ctx.restore();}});
+  for(const q of glowAtWorldPending)glowAt(q[0],q[1],22,.55);glowAtWorldPending.length=0;
+}
+
+// ---------- Boss：停不下來的祭鼓（第七章，節奏型）----------
+// 部分⑧a（2026-11-18.0）＝前半：鼓樓頂的地面戰。大鼓先「唱」一小節（4 拍）給你聽，下一小節照著唱過的節奏攻擊：
+// 咚（紅）＝鼓邊推出震波（跳起來）；喀（藍）＝紙燈籠從頭上掉下來，剛好落在拍子上（走開）；空拍＝什麼都不做。
+// 只有「對上拍子」的攻擊才打得動它（離最近的鼓點 0.17 秒內）；技能也一樣。血量剩一半時，前半結束（後半的空戰在部分⑧b）。
+const KB_BPM=[0,100,112,104,114];
+const KB_PAT=[null,
+  [['D','-','K','-'],['D','-','D','-'],['K','-','D','-'],['-','D','-','K']],
+  [['D','K','D','-'],['D','D','K','-'],['K','D','-','D'],['D','-','K','K'],['D','-','D','D']],
+  // 3、4＝後半（鼓樓上空，部分⑧b）：咚＝音波牆（從空隙飛過去）、喀＝紙燈籠沿虛線橫著飛來、鈴（B）＝一陣逆風把你往後推
+  [['D','-','K','-'],['K','-','D','-'],['D','-','B','K'],['-','K','D','-'],['B','-','K','D']],
+  [['D','K','-','K'],['K','D','B','-'],['D','-','K','D'],['B','K','D','-'],['D','D','-','K']]];
+const KB_CX=18*TILE+16;
+function kbFloor(){return 16*TILE;}
+function kbFace(){if(kb&&kb.sky)return {x:kb.x-34,y:kb.y-44,w:68,h:88};return {x:KB_CX-32,y:kbFloor()-98,w:64,h:92};}
+const KB_INTRO=[
+  {c:'walk',x:5*TILE},
+  {c:'cam',x:18*TILE,d:1.1},
+  {c:'fn',fn:()=>{spawnKB();return null;}},
+  {c:'cap',t:'鼓樓的頂端，那面比人還高的大鼓自己響個不停。咚、咚、咚——旁邊一個人也沒有。'},
+  {c:'fn',fn:()=>{if(kb)kb.wake=1;sfx('taiko');shake=4;return null;}},
+  {c:'cap',t:'鼓面上畫著的那盞燈籠，像眼睛一樣睜開了。兩根鼓棒自己浮了起來。'},
+  {c:'say',t:'這就是⋯⋯師父說的那面鼓？'},
+  {c:'cap',t:'大鼓會先「唱」一小節給你聽，下一小節就照著唱過的節奏攻擊：紅色的「咚」會從鼓邊推出震波，跳起來躲；藍色的「喀」會讓紙燈籠從頭上掉下來，走開。'},
+  {c:'cap',t:'只有跟著鼓點、在鼓面亮起來的那一下打它才有用（技能也一樣）。右邊的暖燈攤可以回血。'},
+  {c:'cam',x:null,d:.5}
+];
+const KB_AGAIN=[
+  {c:'fn',fn:()=>{spawnKB();if(kb)kb.wake=1;return null;}},
+  {c:'shake',a:3,d:.6},
+  {c:'say',t:'又開始敲了⋯⋯跟著鼓點！'}
+];
+const KB_HALF=[
+  {c:'cap',t:'祭鼓的節奏亂了一拍。鼓面上的燈籠眨了眨眼，像是第一次聽見別人的鼓聲。'},
+  {c:'shake',a:6,d:1.2},
+  {c:'cap',t:'下一刻，一陣狂風從夜空灌下來，大鼓整個被風托了起來，往師父那盞燈的方向飛去。'},
+  {c:'say',t:'它要逃到天上去了⋯⋯！'},
+  {c:'fn',fn:()=>{if(kb){kb.active=false;kb.waves=[];kb.drops=[];kb.gone=1;}F.festHalf=true;bossSealed=false;document.body.classList.remove('boss');setMusic('hush');saveGame();return null;}},
+  {c:'wait',d:1.2},
+  {c:'cap',t:'屋頂上的風越吹越強。腳下一輕，風把你和燈籠也一起捲了起來——'}
+];
+// 前半打完（或之後重新走進鼓樓頂）：被風捲上「鼓樓上空」
+const KB_UP=[
+  {c:'cap',t:'鼓樓頂空蕩蕩的。抬頭一看，那面大鼓還浮在夜空上，咚、咚地敲著。'},
+  {c:'shake',a:3,d:.6},
+  {c:'cap',t:'一陣風從腳下捲起，把你和燈籠一起往上帶——'}
+];
+function goSky(){if(trans)return;trans={phase:'out',t:0,e:{to:'KB2',tp:true,px:3*TILE,py:4*TILE,f:1}};ptrs.clear();evalBtns();}
+const KB2_INTRO=[
+  {c:'cap',t:'風把你一路捲上夜空。腳下的鼓樓越來越小，整片祭典的燈火像一條發光的河。'},
+  {c:'fn',fn:()=>{spawnKB2();return null;}},
+  {c:'cap',t:'大鼓就浮在前面，被風托著，還在一下一下地敲。更上面，師父那盞燈靜靜地停著。'},
+  {c:'say',t:'在風裡也要跟著拍子⋯⋯好！'},
+  {c:'cap',t:'紅色的「咚」會推出一整排音波牆，從牆中間的空隙飛過去；藍色的「喀」會讓紙燈籠沿著虛線橫著飛過來，換個高度躲開；金色的「鈴」會颳起一陣逆風，把你往後推。'},
+  {c:'cap',t:'按住 ▶ 靠近大鼓，在鼓面亮起來的那一拍攻擊（技能也可以）。'}
+];
+const KB2_AGAIN=[
+  {c:'fn',fn:()=>{spawnKB2();return null;}},
+  {c:'say',t:'再一次⋯⋯跟著鼓點飛！'}
+];
+const KB_END=[
+  {c:'cap',t:'最後一聲「咚」，剛好落在拍子上。兩根鼓棒停在半空，鼓面上那盞燈籠眼睛，慢慢閉了起來。'},
+  {c:'fn',fn:()=>{const x=kb?kb.x:12*TILE,y=kb?kb.y:4*TILE;F.festDone=true;kb=null;bossSealed=false;document.body.classList.remove('boss');shots=[];setMusic('ch7');
+    for(let k=0;k<18;k++)parts.push({x:x+(Math.random()-.5)*60,y:y+(Math.random()-.5)*60,vx:-40+(Math.random()-.5)*80,vy:-60-Math.random()*60,life:2.2,t:0,c:Math.random()<.5?'#ffb35a':'#e8603e'});
+    rings.push({x,y,t:0,c:'255,190,120'});sfx('lantern');p.x=7*TILE;p.y=5*TILE;p.vy=0;saveGame();return null;}},
+  {c:'cap',t:'大鼓化成一串小小的紙燈籠，順著風，一盞一盞往夜空飄散。'},
+  {c:'wait',d:.5},
+  {c:'actor',id:'rm',kind:'real',x:4.4*TILE,by:1.5*TILE,f:1,a:0,rise:-40,stopBy:5*TILE+26},{c:'actorFade',id:'rm',to:1,d:1},
+  {c:'cap',t:'風停了。停在夜空上的那盞燈晃了一下，連同提著它的人，一起慢慢往下飄。'},
+  {c:'say',t:'師父！'},
+  {c:'talk',who:'realmaster',t:'別鬆手。燈會帶我們下去。'},
+  {c:'cap',t:'兩盞一模一樣的燈靠在一起，像兩把張開的紙傘，慢慢把你們放回鼓樓的屋頂。'},
+  {c:'fade',to:1,d:.8}
+];
+function goGround(){trans={phase:'out',t:0,e:{to:'KB',tp:true,px:14*TILE+6,py:16*TILE-p.h,f:1}};ptrs.clear();evalBtns();}
+const KB_LAND=[
+  {c:'face',f:1},
+  {c:'actor',id:'rm',kind:'real',x:19*TILE,by:16*TILE,f:-1,a:0},{c:'actorFade',id:'rm',to:1,d:.8},
+  {c:'cam',x:17*TILE,d:.8},
+  {c:'talk',who:'realmaster',t:'鼓停了。今年的祭典，總算可以收攤了。'},
+  {c:'talk',who:'me',t:'師父，那面鼓為什麼會自己響個不停？'},
+  {c:'talk',who:'realmaster',t:'有人一直在等一個拍子。等了好多年，等到鼓都忘了怎麼停下來。'},
+  {c:'talk',who:'realmaster',t:'⋯⋯我也是。前面的路，這次換你先走。我會跟在你後面。'},
+  {c:'cap',t:'師父提著燈，站到了你的身後。這是第一次，有人走在你的後面。'},
+  {c:'cap',t:'（第七章製作中：結尾與承接第八章的部分，會在下一次更新加入。）'},
+  {c:'cam',x:null,d:.6}
+];
+function spawnKB2(){kb={hp:16,max:32,half:0,phase:3,sky:true,x:WORLD_W-2.4*TILE,y:100,active:false,dead:false,deathT:0,halfDone:false,bt:0,beat:-1,pat:KB_PAT[3][0],lit:-1,pulse:0,waves:[],drops:[],lns:[],pops:[],flash:0,stick:[0,0],combo:0,wake:1,gone:0,gust:0};}
+function startKB2(){
+  if(!kb)spawnKB2();kb.active=true;kb.bt=0;kb.beat=-1;bossSealed=true;
+  $('bossName').textContent='停不下來的祭鼓';document.body.classList.add('boss');updateBossBar();setMusic('festboss');calmT=.8;
+  if(!trig.kb2Hint){trig.kb2Hint=true;flashHint('按住 ▶ 靠近大鼓，鼓面亮起來的那一拍攻擊！',['bR','bA'],6);}
+}
+function spawnKB(){kb={hp:32,max:32,half:16,phase:1,active:false,dead:false,halfDone:false,bt:0,beat:-1,pat:KB_PAT[1][0],lit:-1,pulse:0,waves:[],drops:[],pops:[],flash:0,stick:[0,0],combo:0,wake:0,gone:0};}
+function kbLen(){return 60/KB_BPM[kb.phase];}
+function startKB(){
+  if(!kb)spawnKB();kb.active=true;kb.wake=1;kb.bt=0;kb.beat=-1;bossSealed=true;
+  $('bossName').textContent='停不下來的祭鼓';document.body.classList.add('boss');updateBossBar();setMusic('festboss');calmT=.8;
+  if(!trig.kbHint){trig.kbHint=true;flashHint('跟著鼓點：鼓面亮起來的那一拍攻擊才打得動！',['bA'],6);}
+}
+function kbNear(){const L=kbLen();return Math.min(kb.bt,L-kb.bt);}
+function kbOnBeat(){return kbNear()<.17;}
+function kbPlay(){return kb.beat>=0&&(kb.beat%8)>=4;}
+function hitKB(box,n,melee){
+  const g=kb;if(!g||!g.active||g.dead||g.halfDone)return false;
+  if(!hit(box,kbFace()))return false;
+  if(melee&&hitSet.has(g))return true;if(melee)hitSet.add(g);
+  if(!kbOnBeat()){const fc=kbFace();g.pops.push({x:fc.x+fc.w/2+(Math.random()-.5)*30,y:fc.y-14,t:0,txt:'亂了',ok:false});sfx('chainOff');g.combo=0;
+    if(!trig.kbOff){trig.kbOff=true;toast('沒對上拍子⋯⋯等鼓面亮起來的那一下再打');}return true;}
+  const dmg=Math.max(1,n||1);
+  for(let k=0;k<dmg;k++){g.hp--;if(g.hp<=g.half)break;}
+  g.flash=.12;g.combo++;freeze=.05;shake=Math.max(shake,3);sfx('bosshit');sfx('taiko');
+  {const fc=kbFace();g.pops.push({x:fc.x+fc.w/2+(Math.random()-.5)*30,y:fc.y-14,t:0,txt:g.combo>=3?'咚咚！':'咚！',ok:true});
+  burst(fc.x+fc.w/2,fc.y+fc.h*.4,8,'#ffd88c');for(let m=0;m<6;m++)spawnFly(fc.x+fc.w/2,fc.y+fc.h*.4,120);}updateBossBar();
+  if(!trig.kbOn){trig.kbOn=true;toast('對上拍子了！就是這樣，跟著鼓點打');}
+  if(g.sky&&g.hp<=0){g.hp=0;g.dead=true;g.active=false;g.deathT=0;g.waves=[];g.lns=[];slowT=.6;sfx('bossdie');sfx('taiko');shake=10;rings.push({x:g.x,y:g.y,t:0,c:'255,190,120'});updateBossBar();return true;}
+  if(!g.sky&&g.hp<=g.half&&!g.halfDone){g.halfDone=true;g.active=false;g.waves=[];g.drops=[];slowT=.5;sfx('bossdie');shake=8;rings.push({x:KB_CX,y:kbFloor()-60,t:0,c:'255,190,120'});
+    g.halfT=.8;}
+  return true;
+}
+function kbDrop(x){const g=kb,L=kbLen();g.drops.push({x:clamp(x,2*TILE,WORLD_W-2*TILE),t:0,land:L,done:false});}
+function kbBeat(){
+  const g=kb,b=g.beat%8,i=b%4;
+  if(b===0){const np=g.sky?(g.hp<=8?4:3):(g.hp<=24?2:1);if(np!==g.phase){g.phase=np;toast(g.sky?'祭鼓在風裡敲得更急了！':'祭鼓越敲越快了！');}
+    const list=KB_PAT[g.phase];let pt=list[Math.floor(Math.random()*list.length)];if(pt===g.pat)pt=list[(list.indexOf(pt)+1)%list.length];g.pat=pt;}
+  const note=g.pat[i];g.lit=i;g.pulse=1;
+  if(g.sky){kbBeatSky(note,b);return;}
+  if(b<4){// 唱給你聽
+    if(note==='D')tone(86,.22,{vol:.12,bus:sfxBus,slide:.6,rev:.1});else if(note==='K')sfx('rim');else sfx('beatTick');
+    g.stick[note==='K'?1:0]=1;
+  }else{// 照著唱過的節奏攻擊
+    if(note==='D'){sfx('taiko');shake=Math.max(shake,3);g.stick=[1,1];const sp=g.phase===2?270:240;
+      for(const d of [-1,1])g.waves.push({x:KB_CX+d*44,vx:d*sp,t:0});
+      for(let k=0;k<10;k++)parts.push({x:KB_CX+(Math.random()-.5)*80,y:kbFloor()-2,vx:(Math.random()-.5)*160,vy:-60-Math.random()*80,life:.4,t:0,c:'#e0b86a'});}
+    else if(note==='K'){sfx('rim');g.stick[1]=1;}
+    else sfx('beatTick');
+  }
+  // 「喀」：提前一拍標出落點，紙燈籠剛好在拍子上落下
+  const nb=(b+1)%8;if(nb>=4&&g.pat[nb%4]==='K'){const pcx=p.x+p.w/2;kbDrop(pcx);if(g.phase===2)kbDrop(pcx+(Math.abs(p.vx)>30?Math.sign(p.vx):(Math.random()<.5?-1:1))*70);}
+}
+function updateKB(dt){
+  const g=kb;if(g.flash>0)g.flash-=dt;if(g.pulse>0)g.pulse=Math.max(0,g.pulse-dt*3.2);g.stick=g.stick.map(v=>Math.max(0,v-dt*4));
+  for(let i=g.pops.length-1;i>=0;i--){g.pops[i].t+=dt;if(g.pops[i].t>.8)g.pops.splice(i,1);}
+  if(g.gone>0&&g.gone<2)g.gone=Math.min(2,g.gone+dt*.4);
+  if(g.halfT>0){g.halfT-=dt;if(g.halfT<=0)playCS(KB_HALF,()=>{calmT=.6;goSky();},()=>{if(kb){kb.active=false;kb.gone=1;}F.festHalf=true;bossSealed=false;document.body.classList.remove('boss');setMusic('hush');},true);return;}
+  if(g.sky&&g.dead){g.deathT+=dt;if(Math.random()<dt*30)parts.push({x:g.x+(Math.random()-.5)*60,y:g.y+(Math.random()-.5)*60,vx:(Math.random()-.5)*80,vy:-40,life:.8,t:0,c:'#ffb35a'});
+    if(g.deathT>1.4&&!trig.kb2End){trig.kb2End=true;playCS(KB_END,()=>{calmT=.6;goGround();},null,true);}return;}
+  if(!g.active)return;
+  const L=kbLen();g.bt+=dt;while(g.bt>=L){g.bt-=L;g.beat++;kbBeat();if(!kb||!kb.active)return;}
+  if(g.sky){updateKBSky(dt);return;}
+  const fl=kbFloor(),pb={x:p.x+3,y:p.y+3,w:p.w-6,h:p.h-6};
+  for(let i=g.waves.length-1;i>=0;i--){const w=g.waves[i];w.t+=dt;w.x+=w.vx*dt;
+    if(w.x<TILE||w.x>WORLD_W-TILE){g.waves.splice(i,1);continue;}
+    if(!w.done&&invuln<=0&&calmT<=0&&hit(pb,{x:w.x-10,y:fl-22,w:20,h:22})){w.done=true;hurt(w.x);if(dying>0)return;}}
+  for(let i=g.drops.length-1;i>=0;i--){const d=g.drops[i];d.t+=dt;
+    if(d.t>=d.land&&!d.done){d.done=true;sfx('pop');for(let k=0;k<10;k++)parts.push({x:d.x+(Math.random()-.5)*20,y:fl-6,vx:(Math.random()-.5)*160,vy:-60-Math.random()*90,life:.45,t:0,c:Math.random()<.5?'#ffb35a':'#e8603e'});
+      if(invuln<=0&&calmT<=0&&hit(pb,{x:d.x-16,y:fl-46,w:32,h:46})){hurt(d.x);if(dying>0)return;}}
+    if(d.t>d.land+.3)g.drops.splice(i,1);}
+  if(!trig.kbJumpHint&&g.beat===4){trig.kbJumpHint=true;flashHint('紅色的「咚」：震波貼著地面推過來，跳起來！',[],3);}
+}
+function drawKB(dt){
+  if(kb.sky){drawKBSky(dt);return;}
+  const g=kb,fl=kbFloor(),cx=KB_CX,fy=fl-46*1.3,L=kbLen(),play=kbPlay();
+  ctx.save();
+  if(g.gone>=2){ctx.restore();return;}
+  if(g.gone>1){const lf=g.gone-1;ctx.globalAlpha=Math.max(0,1-lf);ctx.translate(0,-lf*lf*300);}
+  // 鼓點圈：越接近下一拍越小，剛好碰到鼓面的時候就是拍子
+  if(g.active){const u=clamp(g.bt/L,0,1),r=30+34*(1-u),on=kbOnBeat();
+    ctx.strokeStyle=on?'rgba(255,226,150,.95)':'rgba(255,200,140,.45)';ctx.lineWidth=on?2.4:1.4;ctx.beginPath();ctx.ellipse(cx,fy,r*.82,r,0,0,6.283);ctx.stroke();}
+  // 鼓面發光＋眼睛
+  const pl=g.pulse,hl=g.flash>0;
+  if(pl>0||hl){ctx.fillStyle=hl?'rgba(255,255,255,.75)':`rgba(255,226,160,${.55*pl})`;ctx.beginPath();ctx.ellipse(cx,fy,26,34,0,0,6.283);ctx.fill();}
+  if(g.wake||g.active){const red=play;for(const o of [-10,10]){const col=red?'230,70,50':'90,40,24';ctx.fillStyle=`rgb(${col})`;ctx.beginPath();ctx.ellipse(cx+o,fy-12,3.2,red?2.2:3.6,0,0,6.283);ctx.fill();}
+    ctx.strokeStyle='#5a2418';ctx.lineWidth=1.6;ctx.beginPath();if(play){ctx.moveTo(cx-15,fy-19);ctx.lineTo(cx-6,fy-16);ctx.moveTo(cx+15,fy-19);ctx.lineTo(cx+6,fy-16);}ctx.moveTo(cx-7,fy+8);ctx.quadraticCurveTo(cx,fy+(play?2:14),cx+7,fy+8);ctx.stroke();}
+  // 兩根浮著的鼓棒
+  for(const [s,side] of [[g.stick[0],-1],[g.stick[1],1]]){const bx=cx+side*36,by=fy-40+s*10,ang=side*(-.9+s*.7);
+    ctx.save();ctx.translate(bx,by);ctx.rotate(ang);ctx.strokeStyle=OUT;ctx.lineWidth=1.3;rr(-2,-18,4,28,2);fs(side<0?'#c9a45a':'#a8b8d8');ctx.beginPath();ctx.arc(0,-18,3.6,0,6.283);fs(side<0?'#e8603e':'#5a7ab8');ctx.restore();}
+  lights.push({x:cx,y:fy,r:150,c:'255,190,120',g:.14+.12*pl});
+  // 這一小節的節奏（上方 4 個音符）：唱的時候淡、打的時候亮
+  if(g.active&&!cs){const ny=fl-150;ctx.font='bold 8px "Noto Serif TC",serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillStyle='rgba(16,13,24,.55)';rr(cx-48,ny-11,96,22,8);ctx.fill();
+    for(let i=0;i<4;i++){const x=cx-33+i*22,n=g.pat[i],cur=g.lit===i,a=cur?1:.55;
+      if(n==='D'){ctx.fillStyle=`rgba(216,70,46,${a})`;ctx.beginPath();ctx.arc(x,ny,cur?8:6.5,0,6.283);ctx.fill();ctx.fillStyle=`rgba(255,240,220,${a})`;ctx.fillText('咚',x,ny+1);}
+      else if(n==='K'){ctx.strokeStyle=`rgba(110,160,230,${a})`;ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,ny,cur?7.5:6,0,6.283);ctx.stroke();ctx.fillStyle=`rgba(200,225,255,${a})`;ctx.fillText('喀',x,ny+1);}
+      else{ctx.fillStyle=`rgba(240,225,195,${a*.8})`;ctx.beginPath();ctx.arc(x,ny,2,0,6.283);ctx.fill();}
+      if(cur){ctx.strokeStyle='rgba(255,226,160,.9)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,ny,10,0,6.283);ctx.stroke();}}
+    ctx.fillStyle=play?'rgba(255,170,140,.95)':'rgba(240,225,195,.8)';ctx.font='9px "Noto Serif TC",serif';ctx.fillText(play?'照著打過來！':'聽好節奏⋯',cx,ny-18);
+    ctx.textAlign='left';ctx.textBaseline='alphabetic';}
+  // 震波
+  for(const w of g.waves){ctx.strokeStyle='rgba(255,150,110,.9)';ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(w.x,fl-2,10,20,0,Math.PI,0);ctx.stroke();
+    ctx.strokeStyle='rgba(255,226,170,.6)';ctx.lineWidth=1.4;ctx.beginPath();ctx.ellipse(w.x-Math.sign(w.vx)*8,fl-2,7,13,0,Math.PI,0);ctx.stroke();
+    glowAt(w.x,fl-10,24,.45,'255,150,110');lights.push({x:w.x,y:fl-10,r:60,c:'255,150,110',g:.14});}
+  // 掉下來的紙燈籠
+  for(const d of g.drops){
+    if(d.t<d.land){const a=.4+.4*Math.sin(clock*16),k=clamp(d.t/d.land,0,1);ctx.strokeStyle=`rgba(120,170,240,${a})`;ctx.lineWidth=2;ctx.setLineDash([4,6]);ctx.beginPath();ctx.moveTo(d.x,TILE+4);ctx.lineTo(d.x,fl-6);ctx.stroke();ctx.setLineDash([]);
+      ctx.beginPath();ctx.ellipse(d.x,fl-2,8+10*k,3+2*k,0,0,6.283);ctx.stroke();
+      const fall=clamp((d.t-(d.land-.22))/.22,0,1);if(fall>0)drawPaperLamp(d.x,TILE+(fl-TILE-16)*fall*fall,1.3,true);}
+    else{const a=1-(d.t-d.land)/.3;glowAt(d.x,fl-14,40,.6*a,'255,170,90');lights.push({x:d.x,y:fl-14,r:90,c:'255,170,90',g:.25*a});}}
+  // 對拍／沒對上
+  for(const q of g.pops){const a=1-q.t/.8;ctx.font=q.ok?'bold 11px "Noto Serif TC",serif':'9px "Noto Serif TC",serif';ctx.textAlign='center';ctx.fillStyle=q.ok?`rgba(255,226,150,${a})`:`rgba(200,190,220,${a})`;ctx.fillText(q.txt,q.x,q.y-q.t*30);ctx.textAlign='left';}
+  ctx.restore();
+}
+// ---------- 祭鼓後半：鼓樓上空的節奏空戰（部分⑧b，2026-11-18.1）----------
+const KB_GAP=64;
+function kbBeatSky(note,b){
+  const g=kb;
+  if(b<4){// 唱給你聽
+    if(note==='D')tone(86,.22,{vol:.12,bus:sfxBus,slide:.6,rev:.1});else if(note==='K')sfx('rim');else if(note==='B')bell(1568,.4,.04);else sfx('beatTick');
+    g.stick[note==='K'?1:0]=1;
+  }else{
+    if(note==='D'){sfx('taiko');shake=Math.max(shake,3);g.stick=[1,1];
+      const prev=g.lastGapB===g.beat-1||g.lastGapB===g.beat-2,base=prev?g.lastGap:p.y+p.h/2,spread=prev?110:200;
+      const gc=clamp(base+(Math.random()-.5)*spread,KB_GAP+8,WORLD_H-KB_GAP-8);g.lastGap=gc;g.lastGapB=g.beat;
+      g.waves.push({x:g.x-46,vx:-(g.phase===4?250:225),gap:gc,t:0,done:false});}
+    else if(note==='K'){sfx('rim');g.stick[1]=1;}
+    else if(note==='B'){sfx('rin');g.gust=.55;if(!trig.kbGust){trig.kbGust=true;toast('金色的「鈴」：一陣逆風把你往後推！');}}
+    else sfx('beatTick');
+  }
+  // 「喀」：提前一拍畫出虛線，紙燈籠在拍子上沿著虛線橫著飛過來
+  const nb=(b+1)%8;if(nb>=4&&g.pat[nb%4]==='K'){const py=p.y+p.h/2,L=kbLen();
+    g.lns.push({y:clamp(py,18,WORLD_H-18),t:0,land:L,x0:g.x-40,done:false});
+    if(g.phase===4)g.lns.push({y:clamp(py+(py<WORLD_H/2?1:-1)*84,18,WORLD_H-18),t:0,land:L,x0:g.x-40,done:false});}
+}
+function updateKBSky(dt){
+  const g=kb,pb={x:p.x+3,y:p.y+3,w:p.w-6,h:p.h-6};
+  g.x=WORLD_W-2.4*TILE+Math.sin(clock*.7)*10;
+  const ty=clamp(p.y+p.h/2,80,120);g.y+=(ty-g.y)*Math.min(1,dt*.9);
+  if(g.gust>0){g.gust-=dt;p.x=Math.max(2*TILE,p.x-210*dt);if(Math.random()<dt*30)parts.push({x:p.x+40+Math.random()*200,y:Math.random()*WORLD_H,vx:-420,vy:0,life:.4,t:0,c:'rgba(255,236,190,.7)'});}
+  for(let i=g.waves.length-1;i>=0;i--){const w=g.waves[i];w.t+=dt;w.x+=w.vx*dt;
+    if(w.x<-30){g.waves.splice(i,1);continue;}
+    if(!w.done&&invuln<=0&&calmT<=0&&pb.x<w.x+10&&pb.x+pb.w>w.x-10&&(pb.y<w.gap-KB_GAP||pb.y+pb.h>w.gap+KB_GAP)){w.done=true;hurt(w.x+40);if(dying>0)return;}}
+  for(let i=g.lns.length-1;i>=0;i--){const d=g.lns[i];d.t+=dt;
+    if(d.t>=d.land){const x=d.x0-(d.t-d.land)*520;d.x=x;if(!d.snd){d.snd=true;sfx('pop');}
+      if(!d.done&&invuln<=0&&calmT<=0&&hit(pb,{x:x-15,y:d.y-14,w:30,h:28})){d.done=true;hurt(x+40);if(dying>0)return;}
+      if(x<-40)g.lns.splice(i,1);}}
+  if(!trig.kbWallHint&&g.waves.length){trig.kbWallHint=true;flashHint('音波牆：從牆中間的空隙飛過去！',[],3);}
+}
+function drawSkyDrum(cx,cy,s,shk){
+  ctx.save();ctx.translate(cx+shk,cy);ctx.scale(s,s);ctx.strokeStyle=OUT;ctx.lineWidth=1.4/s;ctx.lineJoin='round';
+  // 吊著鼓的紅繩與流蘇（被風托著）
+  ctx.save();ctx.strokeStyle='#c4482e';ctx.lineWidth=2/s;ctx.beginPath();ctx.moveTo(-18,24);ctx.quadraticCurveTo(-22,40,-16+Math.sin(clock*3)*3,52);ctx.moveTo(18,24);ctx.quadraticCurveTo(22,40,16+Math.sin(clock*3+1)*3,52);ctx.stroke();ctx.restore();
+  ctx.fillStyle='#c9a45a';for(const o of [-16,16]){ctx.beginPath();ctx.ellipse(o+Math.sin(clock*3+(o>0?1:0))*3,55,3,5,0,0,6.283);ctx.fill();}
+  ctx.beginPath();ctx.ellipse(0,0,26,30,0,0,6.283);fs('#8a3a2a');ctx.beginPath();ctx.ellipse(0,0,20,26,0,0,6.283);fs('#efe2c4');
+  ctx.fillStyle='rgba(200,80,50,.75)';ctx.beginPath();ctx.ellipse(0,2,6,8,0,0,6.283);ctx.fill();
+  ctx.fillStyle='#c9a45a';for(let k=0;k<8;k++){const a=k/8*6.283;ctx.beginPath();ctx.arc(Math.cos(a)*23,Math.sin(a)*27,1.4,0,6.283);ctx.fill();}
+  ctx.restore();
+}
+function drawKBSky(dt){
+  const g=kb,cx=g.x,fy=g.y,L=kbLen(),play=kbPlay(),H2=WORLD_H;
+  // 師父那盞停在夜空上的燈
+  if(!g.dead){const lx=WORLD_W*.62,ly=46+Math.sin(clock*1.2)*3;glowAt(lx,ly,26,.5,'255,214,140');ctx.save();ctx.translate(lx,ly);ctx.scale(.9,.9);drawLampFig(0,-10,Math.sin(clock*1.4)*.08,1.4);ctx.restore();lights.push({x:lx,y:ly,r:90,c:'255,214,140',g:.16});}
+  ctx.save();
+  const al=g.dead?Math.max(0,1-g.deathT/1.4):1;ctx.globalAlpha=al;
+  drawSkyDrum(cx,fy,1.3,g.dead?Math.sin(clock*50)*2:0);
+  if(g.active){const u=clamp(g.bt/L,0,1),r=30+34*(1-u),on=kbOnBeat();
+    ctx.strokeStyle=on?'rgba(255,226,150,.95)':'rgba(255,200,140,.45)';ctx.lineWidth=on?2.4:1.4;ctx.beginPath();ctx.ellipse(cx,fy,r*.82,r,0,0,6.283);ctx.stroke();}
+  const pl=g.pulse,hl=g.flash>0;
+  if(pl>0||hl){ctx.fillStyle=hl?'rgba(255,255,255,.75)':`rgba(255,226,160,${.55*pl})`;ctx.beginPath();ctx.ellipse(cx,fy,26,34,0,0,6.283);ctx.fill();}
+  {const red=play&&!g.dead;for(const o of [-10,10]){const col=red?'230,70,50':'90,40,24';ctx.fillStyle=`rgb(${col})`;ctx.beginPath();ctx.ellipse(cx+o,fy-12,3.2,g.dead?.8:red?2.2:3.6,0,0,6.283);ctx.fill();}
+    ctx.strokeStyle='#5a2418';ctx.lineWidth=1.6;ctx.beginPath();if(red){ctx.moveTo(cx-15,fy-19);ctx.lineTo(cx-6,fy-16);ctx.moveTo(cx+15,fy-19);ctx.lineTo(cx+6,fy-16);}ctx.moveTo(cx-7,fy+8);ctx.quadraticCurveTo(cx,fy+(red?2:14),cx+7,fy+8);ctx.stroke();}
+  for(const [s,side] of [[g.stick[0],-1],[g.stick[1],1]]){const bx=cx+side*36,by=fy-40+s*10,ang=side*(-.9+s*.7);
+    ctx.save();ctx.translate(bx,by);ctx.rotate(ang);ctx.strokeStyle=OUT;ctx.lineWidth=1.3;rr(-2,-18,4,28,2);fs(side<0?'#c9a45a':'#a8b8d8');ctx.beginPath();ctx.arc(0,-18,3.6,0,6.283);fs(side<0?'#e8603e':'#5a7ab8');ctx.restore();}
+  ctx.restore();
+  lights.push({x:cx,y:fy,r:150,c:'255,190,120',g:.14+.12*pl});
+  // 音波牆
+  for(const w of g.waves){const top=w.gap-KB_GAP,bot=w.gap+KB_GAP;ctx.save();
+    ctx.fillStyle='rgba(216,70,46,.22)';ctx.fillRect(w.x-8,0,16,top);ctx.fillRect(w.x-8,bot,16,H2-bot);
+    ctx.strokeStyle='rgba(255,150,110,.9)';ctx.lineWidth=2.2;ctx.beginPath();
+    for(let y=8;y<H2;y+=16){if(y>top-6&&y<bot+6)continue;ctx.moveTo(w.x+4,y-6);ctx.quadraticCurveTo(w.x-6,y,w.x+4,y+6);}ctx.stroke();
+    ctx.strokeStyle='rgba(255,226,170,.85)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(w.x-10,top);ctx.lineTo(w.x+10,top);ctx.moveTo(w.x-10,bot);ctx.lineTo(w.x+10,bot);ctx.stroke();
+    glowAt(w.x,top,18,.4,'255,214,140');glowAt(w.x,bot,18,.4,'255,214,140');ctx.restore();
+    lights.push({x:w.x,y:top/2,r:50,c:'255,150,110',g:.1});lights.push({x:w.x,y:(bot+H2)/2,r:50,c:'255,150,110',g:.1});}
+  // 橫著飛來的紙燈籠
+  for(const d of g.lns){
+    if(d.t<d.land){const a=.4+.4*Math.sin(clock*16);ctx.save();ctx.strokeStyle=`rgba(120,170,240,${a})`;ctx.lineWidth=2;ctx.setLineDash([6,6]);ctx.beginPath();ctx.moveTo(d.x0,d.y);ctx.lineTo(0,d.y);ctx.stroke();ctx.setLineDash([]);ctx.restore();
+      drawPaperLamp(d.x0,d.y,1.1,true);}
+    else{const x=d.x==null?d.x0:d.x;ctx.save();ctx.strokeStyle='rgba(255,200,140,.5)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x+12,d.y);ctx.lineTo(x+60,d.y);ctx.stroke();ctx.restore();
+      ctx.save();ctx.translate(x,d.y);ctx.rotate(-Math.PI/2);drawPaperLamp(0,0,1.25,true);ctx.restore();glowAt(x,d.y,26,.5,'255,170,90');lights.push({x,y:d.y,r:70,c:'255,170,90',g:.18});}}
+  // 這一小節的節奏（畫面下方中間）
+  if(g.active&&!cs){const ny=H2-20,nx=WORLD_W/2;ctx.font='bold 8px "Noto Serif TC",serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillStyle='rgba(16,13,24,.55)';rr(nx-48,ny-11,96,22,8);ctx.fill();
+    for(let i=0;i<4;i++){const x=nx-33+i*22,n=g.pat[i],cur=g.lit===i,a=cur?1:.55;
+      if(n==='D'){ctx.fillStyle=`rgba(216,70,46,${a})`;ctx.beginPath();ctx.arc(x,ny,cur?8:6.5,0,6.283);ctx.fill();ctx.fillStyle=`rgba(255,240,220,${a})`;ctx.fillText('咚',x,ny+1);}
+      else if(n==='K'){ctx.strokeStyle=`rgba(110,160,230,${a})`;ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,ny,cur?7.5:6,0,6.283);ctx.stroke();ctx.fillStyle=`rgba(200,225,255,${a})`;ctx.fillText('喀',x,ny+1);}
+      else if(n==='B'){ctx.fillStyle=`rgba(201,164,90,${a})`;ctx.beginPath();ctx.arc(x,ny,cur?8:6.5,0,6.283);ctx.fill();ctx.fillStyle=`rgba(40,30,20,${a})`;ctx.fillText('鈴',x,ny+1);}
+      else{ctx.fillStyle=`rgba(240,225,195,${a*.8})`;ctx.beginPath();ctx.arc(x,ny,2,0,6.283);ctx.fill();}
+      if(cur){ctx.strokeStyle='rgba(255,226,160,.9)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(x,ny,10,0,6.283);ctx.stroke();}}
+    ctx.fillStyle=play?'rgba(255,170,140,.95)':'rgba(240,225,195,.8)';ctx.font='9px "Noto Serif TC",serif';ctx.fillText(play?'照著打過來！':'聽好節奏⋯',nx,ny-18);
+    ctx.textAlign='left';ctx.textBaseline='alphabetic';}
+  for(const q of g.pops){const a=1-q.t/.8;ctx.font=q.ok?'bold 11px "Noto Serif TC",serif':'9px "Noto Serif TC",serif';ctx.textAlign='center';ctx.fillStyle=q.ok?`rgba(255,226,150,${a})`:`rgba(200,190,220,${a})`;ctx.fillText(q.txt,q.x,q.y-q.t*30);ctx.textAlign='left';}
+}
 // ---------- 技能系統（待辦 B：技能樹＋技能鍵＋冷卻，目前只在第五章測試捷徑出現）----------
 // 派系依「燈火的性質」分類；第三章選派系，之後每章結束從該派系 3 種類型選 1 種。數值是預設，等試玩後調整。
 // 9 招都已經可以施放（B② 於 2026-11-11.0 完成）。
@@ -6563,7 +6947,7 @@ const SKILL_EVO={
   drain:[['寬幅汲取','甩出的暖光範圍更大，威力 +1。'],['燈魂吞噬','打中時多吸回 1 格生命，並在短時間內不會受傷。']]
 };
 // 打倒的 Boss 旗標（每個給 1 次燈火機會）。towerDone＝第六章 Boss「停擺的大鐘」（這個進化系統取代原本「進階節點 3 選 1」的計畫）。
-const BOSS_FLAGS=['bossDone','mirrorDone','guideDone','drillDone','iceDone','towerDone'];
+const BOSS_FLAGS=['bossDone','mirrorDone','guideDone','drillDone','iceDone','towerDone','festDone'];
 const evoStage=id=>(skill.evo&&skill.evo[id])||0;
 const skName=t=>{const st=evoStage(t.id);return st?SKILL_EVO[t.id][st-1][0]:t.name;};
 function skChances(){return BOSS_FLAGS.filter(k=>F&&F[k]).length+(F&&F.skillTest?3:0)-(skill.used||0);}
@@ -6776,6 +7160,7 @@ function skillHitBoss(box,dmg){
   if(mirror&&mirror.active&&!mirror.dead&&hit(box,{x:mirror.x,y:mirror.y,w:p.w,h:p.h})){for(let k=0;k<n&&mirror&&!mirror.dead;k++)hitMirror();h=true;}
   if(!h&&dr&&dr.active&&!dr.dead){const v=dr.hp;for(let k=0;k<n&&dr&&dr.active&&!dr.dead;k++)hitDrill(box);if(dr&&dr.hp<v)h=true;}
   if(!h&&tb&&tb.active&&!tb.dead&&hitTB(box,n,false))h=true;
+  if(!h&&kb&&kb.active&&!kb.dead&&hitKB(box,n,false))h=true;
   if(!h&&ib&&ib.active&&!ib.dead){const v=ib.hp;for(let k=0;k<n&&ib&&ib.active&&!ib.dead;k++)hitIB(box);if(ib&&ib.hp<v)h=true;}
   if(!h&&gb&&gb.active&&!gb.dead&&gb.st!=='blinkAway'&&hit(box,{x:gb.x,y:gb.y,w:20,h:26})){for(let k=0;k<n&&gb&&!gb.dead;k++)hitGB();h=true;}
   if(!h&&boss&&boss.active&&!boss.dead&&boss.form!==2&&hit(box,{x:boss.x-24,y:boss.y-44,w:48,h:84})){for(let k=0;k<n&&boss&&boss.active&&!boss.dead&&boss.form!==2&&boss.hp>0;k++)hitBoss();h=true;}
@@ -7202,5 +7587,3 @@ requestAnimationFrame(frame);
 </script>
 </body>
 </html>
-
-</body></html>
