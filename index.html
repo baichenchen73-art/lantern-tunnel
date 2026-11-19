@@ -228,6 +228,8 @@ input[type=range]{width:100%;accent-color:var(--accent);touch-action:auto}
 @keyframes pop{from{transform:scale(.85);opacity:1}to{transform:scale(1.3);opacity:0}}
 .btn.hint .ring{stroke:#ffd88c;stroke-width:3.4}
 body.padIdle .btn:not(.on):not(.hint){opacity:var(--padA,.55)}
+body.flying[data-state="play"] .btn:not(.on):not(.hint){opacity:min(.5,var(--padA,.55))}
+body.flying .btn .ring{fill:rgba(16,13,24,.16)}
 #bA .t-talk,#bA.talk .t-atk,#bA .t-enter,#bA.enter .t-atk{display:none}
 #bA.enter .t-enter{display:inline}
 #bA.talk .t-talk{display:inline}
@@ -668,8 +670,15 @@ body.hasSkill #bK{display:flex}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-18.2';
+const GAME_VERSION='2026-11-19.0';
 const CHANGELOG=[
+  ['2026-11-19.0','第七章打磨（第 1 次）：手機版飛行時按鈕不再擋住前方、整理第八章的大方向問題',[
+    '這次是第七章打磨期的第 1 次（完整測試），沒有發現會擋住玩家前進的嚴重問題',
+    '手機版：在風之路和「鼓樓上空」飛行時，右下角的按鈕（跳躍、下降、攻擊、技能）改成半透明、圓圈底色變淡。風之路的障礙和紙鳶怪都是從畫面右邊飛過來的，原本右下角那一大塊會被按鈕擋住、看不清楚；按下按鈕時仍然會亮起來。如果在設定裡把「按鍵閒置時的透明度」調得更低，會照你的設定',
+    '鼓樓上空（祭鼓後半）：大鼓跟著你上下移動的範圍往上移了一點（原本在手機橫向畫面上，大鼓飄到下面時鼓面的下半部會被「下降」按鈕蓋住，看不清楚鼓面有沒有亮）。打法、拍子、血量都沒有變',
+    '自動測試確認：手機版與電腦版封面 9 個入口都在畫面內、都能進入並移動、跳躍、攻擊；全部 67 個房間都能載入，出口與傳送門落點不在牆裡；存檔欄位在大鐘機關室、夜市屋簷、祭典廣場、鼓樓前庭、冰湖下、師父的工坊存讀檔都正常（大鐘機關室讀檔後看得到通往第七章的門）；風之路機器人從祭典入口飛到鼓樓前庭（一般速度約 117 秒、受傷 2～3 次）；停不下來的祭鼓用只送按鍵的機器人前後半連打都打倒、播完結尾，終點燈籠出現「第七章 完」；第一～五章 Boss 房亂按 30 秒沒有錯誤或座標問題；沒有任何錯誤訊息',
+    '第八章的大方向問題已經整理好（主題、新機制、Boss、劇情、規模），等 啊一 決定'
+  ]],
   ['2026-11-18.2','第七章「紙燈籠祭典的夜空」完成並接上正式流程（第 9 部分：承接演出、第七章終點）',[
     '這次完成第七章 9 個部分中的最後一部分：現在可以從第一章一路玩到第七章 Boss「停不下來的祭鼓」結束',
     '移除第六章的終點：「大鐘機關室」中央的燈籠不再出現「第六章 完」，改成一般的存檔燈籠（點亮會存檔、回滿生命）',
@@ -6880,7 +6889,7 @@ function kbBeatSky(note,b){
 function updateKBSky(dt){
   const g=kb,pb={x:p.x+3,y:p.y+3,w:p.w-6,h:p.h-6};
   g.x=WORLD_W-2.4*TILE+Math.sin(clock*.7)*10;
-  const ty=clamp(p.y+p.h/2,80,120);g.y+=(ty-g.y)*Math.min(1,dt*.9);
+  const ty=clamp(p.y+p.h/2,74,104);g.y+=(ty-g.y)*Math.min(1,dt*.9);
   if(g.gust>0){g.gust-=dt;p.x=Math.max(2*TILE,p.x-210*dt);if(Math.random()<dt*30)parts.push({x:p.x+40+Math.random()*200,y:Math.random()*WORLD_H,vx:-420,vy:0,life:.4,t:0,c:'rgba(255,236,190,.7)'});}
   for(let i=g.waves.length-1;i>=0;i--){const w=g.waves[i];w.t+=dt;w.x+=w.vx*dt;
     if(w.x<-30){g.waves.splice(i,1);continue;}
