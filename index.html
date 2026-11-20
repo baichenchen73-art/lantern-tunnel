@@ -1,3 +1,4 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -450,37 +451,19 @@ body.hasSkill #bK{display:flex}
   #modBadge{flex:0 0 100%;text-align:center}
   .coverBtns .link{font-size:12.5px;padding:5px 6px}
 }
-/* 封面按鈕（2026-11-20.1）：四個一樣大小、直的往下排、手繪紙片＋手繪圖示 */
-#cover .coverBtns{display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;align-items:center;gap:14px!important;max-width:none!important}
-.cbtn{position:relative;width:min(244px,72vw);height:52px;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 18px;cursor:pointer;
-  font-family:"Noto Serif TC","Songti TC",serif;font-size:17px;font-weight:600;letter-spacing:.2em;color:#3b2f2a;
-  background:radial-gradient(ellipse at 18% 30%,rgba(160,110,60,.13),transparent 46%),radial-gradient(ellipse at 84% 76%,rgba(160,110,60,.1),transparent 42%),
-    repeating-linear-gradient(transparent 0 11px,rgba(110,90,70,.12) 11px 12px),#efe2c4;
-  border:2px solid #2a2018;border-radius:255px 14px 225px 16px/16px 225px 14px 255px;
-  box-shadow:3px 4px 0 rgba(12,8,6,.6),inset 0 0 14px rgba(120,80,40,.18);transition:transform .12s,box-shadow .12s}
-.cbtn::before{content:"";position:absolute;inset:-5px -4px -4px -6px;border:1.4px solid rgba(239,226,196,.5);border-radius:14px 225px 16px 255px/255px 16px 225px 14px;pointer-events:none}
-.cbtn:nth-of-type(odd){transform:rotate(-.9deg)}.cbtn:nth-of-type(even){transform:rotate(.7deg)}
-.cbtn:hover{transform:rotate(0) translateY(-1px)}
-.cbtn:active{transform:translate(2px,3px);box-shadow:1px 1px 0 rgba(12,8,6,.6),inset 0 0 14px rgba(120,80,40,.25)}
-.cbtn:focus-visible{outline:2px dashed #ffd88c;outline-offset:6px}
-.cbtn.main::after{content:"";position:absolute;top:-9px;left:16px;width:46px;height:15px;background:rgba(201,162,74,.6);
-  clip-path:polygon(3% 8%,97% 0,100% 88%,4% 100%,0 55%);transform:rotate(-7deg);pointer-events:none}
-.cbtn .cico{width:22px;height:22px;flex:none;fill:none;stroke:#3b2f2a;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.cbtn .cico .fl{fill:#e0912f;stroke:#9a4a2e}
-.cbtn span{display:inline-block;min-width:4.6em;text-align:left}
-#cover #modBadge{flex:none;text-align:center}
-@media (max-height:520px){
-  #cover{padding:3vh 16px 3vh!important}
-  #cover .coverBtns{gap:9px!important}
-  .cbtn{height:38px;font-size:15px;width:min(210px,60vw)}
-  .cbtn .cico{width:18px;height:18px}
-  .cbtn::before{inset:-4px -3px -3px -4px}
-  .cbtn.main::after{top:-7px;height:12px;width:38px}
-}
-@media (prefers-reduced-motion:reduce){.cbtn{transition:none}}
-/* 介面小圖示改成手繪線條（取代 emoji，2026-11-20.2） */
-.uico{width:1.15em;height:1.15em;vertical-align:-.2em;margin-right:.35em;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-#platBack{display:inline-flex;align-items:center}
+/* 封面按鈕（2026-11-19.2 主對話的樣式，11-20.0 重新套用）：四個一樣大小、直的往下排、手繪紙張風 */
+.coverBtns{flex-direction:column!important;flex-wrap:nowrap!important;align-items:center;gap:11px!important;max-width:none!important}
+.cbtn{position:relative;width:236px;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 0;cursor:pointer;
+  background:#efe2c4;color:#3b2f2a;border:1.6px solid #1a1420;border-radius:7px 15px 8px 16px;box-shadow:0 7px 20px rgba(0,0,0,.55),inset 0 0 18px rgba(120,80,40,.18);
+  font-size:17px;letter-spacing:.2em;font-family:"Noto Serif TC","Songti TC",serif;
+  background-image:repeating-linear-gradient(transparent 0 13px,rgba(110,90,70,.10) 13px 14px)}
+.cbtn i{font-style:normal;font-size:15px;color:#9a4a2e;letter-spacing:0;width:18px;text-align:center}
+.cbtn span{min-width:5.2em;text-align:left}
+.cbtn:nth-of-type(odd){transform:rotate(-.7deg)}.cbtn:nth-of-type(even){transform:rotate(.6deg)}
+.cbtn:active{background-color:#e2d2ae;transform:scale(.97)}
+.cbtn.main::before{content:"";position:absolute;top:-8px;left:50%;width:58px;height:15px;margin-left:-29px;background:rgba(232,212,150,.78);
+  border-left:1px dashed rgba(120,90,50,.35);border-right:1px dashed rgba(120,90,50,.35);transform:rotate(-4deg);box-shadow:0 1px 2px rgba(0,0,0,.25)}
+@media (max-height:520px){.coverBtns{gap:7px!important}.cbtn{width:214px;padding:6px 0;font-size:15px}.cbtn.main::before{top:-6px;height:11px}}
 /* 任務欄（待辦 F）：地圖格正下方，平常只列任務名稱，點一下看「在做什麼、下一步」 */
 #qPanel{pointer-events:auto;width:clamp(140px,26vw,200px);margin-top:-3px;padding:3px 7px 4px;background:rgba(16,13,24,.6);border:1.4px solid rgba(240,225,195,.28);
   border-radius:3px 3px 8px 10px;font-family:"Noto Serif TC","Songti TC",serif;font-size:11.5px;line-height:1.4;color:#efe2c4;display:none;cursor:pointer;-webkit-user-select:none;user-select:none}
@@ -494,6 +477,22 @@ body.hasSkill #bK{display:flex}
 #qPanel .qd{white-space:normal;font-size:11px;line-height:1.45;color:#d9cbb0;padding:1px 0 3px 14px;border-bottom:1px dashed rgba(240,225,195,.18);margin-bottom:2px}
 #qPanel .qm{font-size:10px;color:#a79fbd;padding-left:14px}
 @media (max-height:420px){#qPanel{font-size:10.5px;padding:2px 6px 3px}#qPanel .qd{font-size:10.5px}}
+/* 封面按鈕（2026-11-20.2，依 啊一 給的參考圖）：寬的手繪紙條、線條圖示（不用 emoji）、兩個開始按鈕貼紙膠帶 */
+.coverBtns{gap:9px!important}
+.cbtn{width:min(300px,78vw);height:44px;padding:0;gap:12px;font-size:17px;letter-spacing:.32em;border:1.6px solid #2a2018;border-radius:3px 6px 2px 7px;
+  background-color:#efe2c4;background-image:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,0) 45%,rgba(120,80,40,.10)),repeating-linear-gradient(transparent 0 13px,rgba(110,90,70,.08) 13px 14px);
+  box-shadow:0 5px 0 rgba(30,22,16,.55),0 10px 22px rgba(0,0,0,.5),inset 0 0 14px rgba(120,80,40,.22)}
+.cbtn::after{content:"";position:absolute;inset:3px 4px;border:1px solid rgba(90,70,54,.28);border-radius:2px 5px 2px 6px;pointer-events:none}
+.cbtn i{width:22px;height:22px;display:flex;align-items:center;justify-content:center;color:#3b2f2a}
+.cbtn i svg{display:block}
+.cbtn span{min-width:0;text-align:center;margin-right:-.32em}
+.cbtn:nth-of-type(1){transform:rotate(-.6deg)}.cbtn:nth-of-type(2){transform:rotate(.4deg)}.cbtn:nth-of-type(3){transform:rotate(-.3deg)}.cbtn:nth-of-type(4){transform:rotate(.5deg)}
+.cbtn:hover{background-color:#f6ebd2}
+.cbtn:active{background-color:#e2d2ae;transform:translateY(3px);box-shadow:0 2px 0 rgba(30,22,16,.55),0 5px 12px rgba(0,0,0,.45),inset 0 0 14px rgba(120,80,40,.22)}
+.cbtn.main::before{top:-7px;left:14%;width:48px;height:16px;margin-left:0;background:rgba(214,176,92,.82);transform:rotate(-8deg);border:0;box-shadow:0 1px 2px rgba(0,0,0,.3)}
+@media (max-height:520px){.coverBtns{gap:7px!important}.cbtn{width:min(210px,40vw);height:38px;font-size:15px}.cbtn.main::before{top:-6px;height:13px;width:40px}}
+@media (max-height:400px){#cover{padding:2vh 16px 2vh}.logo{font-size:clamp(34px,13vh,64px)!important}.sub{margin-top:2px}.cbtn{height:34px;font-size:14px}.coverBtns{gap:6px!important}}
+@media (max-width:520px) and (min-height:521px){.cbtn{width:min(270px,80vw);height:46px}}
 </style>
 </head>
 <body data-state="cover">
@@ -527,7 +526,7 @@ body.hasSkill #bK{display:flex}
           </button>
         </div>
         <p class="platKeys" id="platKeys">電腦版操作：A / D 移動・空白鍵 跳躍・滑鼠左鍵 攻擊・右鍵 衝刺<br>E 對話／進入・F 點燈・Q 燈油・Shift 燈鏈・S 破冰・M 地圖・Esc 設定</p>
-        <button class="platBack serif" id="platBack"><svg class="uico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.8 5.6 8.4 12l6.5 6.4"/></svg>回到封面</button>
+        <button class="platBack serif" id="platBack">← 回到封面</button>
       </div>
     </div>
 
@@ -537,10 +536,10 @@ body.hasSkill #bK{display:flex}
         <div class="sub">遊戲名稱暫定</div>
       </div>
       <div class="coverBtns">
-        <button class="cbtn main serif" id="contBtn" style="display:none"><svg class="cico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v3"/><path d="M7.3 9.2 12 5.6l4.8 3.5"/><path d="M8 9.4h8.1l-.2 9.8H8.2z"/><path d="M12.1 12.2c1.6 1.7 1.5 3.4 0 4.6-1.5-1.3-1.6-2.9 0-4.6z" class="fl"/><path d="M6.6 19.5h10.9"/></svg><span>繼續遊戲</span></button>
-        <button class="cbtn main serif" id="startBtn"><svg class="cico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.6c4.6-1.2 9.8-5.4 14.8-15.1-6.1 2.3-11 6.6-13.4 12.9"/><path d="M8.2 14.6c2.3.1 4.4-.4 6.4-1.6"/><path d="M3.8 20.3l2.1-2.2"/></svg><span>開始遊戲</span></button>
-        <button class="cbtn serif" id="coverSet"><svg class="cico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.2 8.6a3.4 3.4 0 1 1-.3 0z"/><path d="M12 2.8v2.6M12.1 18.7v2.5M2.9 12.1h2.5M18.6 11.9h2.6M5.5 5.6l1.9 1.8M16.6 16.7l1.8 1.8M5.6 18.4l1.8-1.9M16.7 7.4l1.8-1.9"/></svg><span>設定</span></button>
-        <button class="cbtn serif" id="jumpBtn"><svg class="cico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.1a8.9 8.9 0 1 1-.4 0z"/><path d="M15.6 8.3l-2.2 5.2-5.1 2.3 2.3-5.2z"/><path d="M12 3.2v1.6M20.8 12h-1.6"/></svg><span>捷徑</span></button>
+        <button class="cbtn main serif" id="contBtn" style="display:none"><i><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5v2.2"/><path d="M8 8.2 12 4.7l4 3.5Z"/><rect x="8.6" y="8.2" width="6.8" height="9.6" rx="1.2"/><path d="M12 11q2 2.2 0 4.3q-2-2.1 0-4.3Z" fill="currentColor" stroke="none"/><path d="M7.6 17.8h8.8M8.6 20.5h6.8"/></svg></i><span>繼續遊戲</span></button>
+        <button class="cbtn main serif" id="startBtn"><i><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 3.5C12 4.5 8 9.5 6.5 16.5"/><path d="M19.5 3.5c.3 5.5-3.5 10-10.5 11.6"/><path d="M11 10.5l3 .3M9.2 13.4l2.6.4"/><path d="M6.5 16.5 4 20.5"/></svg></i><span>開始遊戲</span></button>
+        <button class="cbtn serif" id="coverSet"><i><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.6"/><path d="M12 3v2.4M12 18.6V21M3 12h2.4M18.6 12H21M5.6 5.6l1.7 1.7M16.7 16.7l1.7 1.7M5.6 18.4l1.7-1.7M16.7 7.3l1.7-1.7"/></svg></i><span>設定</span></button>
+        <button class="cbtn serif" id="jumpBtn"><i><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.6"/><path d="M15.6 8.4 13.4 13.4 8.4 15.6 10.6 10.6Z"/><circle cx="12" cy="12" r=".9" fill="currentColor" stroke="none"/></svg></i><span>捷徑</span></button>
         <div id="modBadge" style="display:none">修改版運作中　<button class="link" id="modOff">回到原版</button></div>
       </div>
     </div>
@@ -714,8 +713,8 @@ body.hasSkill #bK{display:flex}
         <h2>手感設定</h2>
         <p>數值會自動保存。</p>
         <div id="sliders"></div>
-        <button class="edOpen" id="openKeys" style="display:none"><svg class="uico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.8" y="6.4" width="18.4" height="11.4" rx="2"/><path d="M6.2 9.8h.1M9.4 9.8h.1M12.6 9.8h.1M15.8 9.8h.1M7.4 14.3h9.2"/></svg>按鍵設定（電腦版）</button>
-        <button class="edOpen" id="openEditor"><svg class="uico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.4 19.7 14 10.1"/><path d="M13.2 6.3a4.1 4.1 0 0 0 5.2 5.3l1.8-1.9-2.7-.6-.6-2.7 1.9-1.8a4.1 4.1 0 0 0-5.6 1.7z"/></svg>開啟編輯器（修改對話、數值、程式碼）</button>
+        <button class="edOpen" id="openKeys" style="display:none">⌨ 按鍵設定（電腦版）</button>
+        <button class="edOpen" id="openEditor">🛠 開啟編輯器（修改對話、數值、程式碼）</button>
         <div class="actions">
           <button id="resetSet">恢復預設</button>
           <button class="primary" id="closeSet">完成</button>
@@ -738,16 +737,25 @@ body.hasSkill #bK{display:flex}
 'use strict';
 const GAME_VERSION='2026-11-20.2';
 const CHANGELOG=[
-  ['2026-11-20.2','封面與設定不再使用 emoji（啊一 在主對話要求）',[
-    '手機直向的封面一樣使用 20.1 的手繪紙片按鈕與手繪線條圖示（燈籠、羽毛筆、齒輪、羅盤），沒有任何 emoji',
-    '設定裡的「按鍵設定（電腦版）」「開啟編輯器」原本前面的 ⌨、🛠 在手機上會顯示成彩色 emoji，改成和按鈕一樣的手繪線條小圖示（鍵盤、扳手）',
-    '「選擇遊玩方式」頁面的「回到封面」箭頭改成手繪線條'
+  ['2026-11-20.2','封面改版：依 啊一 給的參考圖改成寬的手繪紙條按鈕與線條圖示',[
+    '封面的四個按鈕「繼續遊戲」「新的旅程／開始遊戲」「設定」「捷徑」改成和參考圖一樣：一樣寬的長條紙片、深色手繪外框、裡面一圈淡淡的內框、底下有一道厚陰影，看起來像疊在畫面上的紙條；每一條稍微歪一點點',
+    '按鈕前面的符號（原本的 ▶ ✦ ⚙ ➜ 文字符號，有的手機會顯示成彩色 emoji）全部換成手繪線條圖示：繼續遊戲＝提燈、新的旅程＝羽毛筆、設定＝太陽、捷徑＝羅盤，顏色和文字一樣是深咖啡色',
+    '紙膠帶：「繼續遊戲」和「新的旅程／開始遊戲」兩條的左上角都貼著一段斜斜的黃色紙膠帶（原本有存檔時只有繼續遊戲有）',
+    '按下去時紙條會往下沉一點、陰影變薄，像真的被按下去',
+    '手機橫向、手機直向、電腦版三種畫面分別調整了按鈕的寬度、高度和間距（手機橫向畫面很矮時，標題和按鈕會縮小一點，四個按鈕都在畫面內）',
+    '這一版是 啊一 直接在對話裡要求的；主對話之前在 GitHub 做的封面 20.1 沒有用到（排程讀不到），之後以這一版為準'
   ]],
-  ['2026-11-20.1','封面按鈕換成更手繪的樣式（啊一 在主對話要求「直接修改封面」）',[
-    '封面四個按鈕（繼續遊戲、開始遊戲／新的旅程、設定、捷徑）維持一樣大小、直排，外觀改成更手繪的紙片：歪歪扭扭的手繪外框、外圍再描一圈淡淡的草稿線、紙上有橫線和咖啡色斑點，按下去像紙片被壓進桌面',
-    '按鈕前的符號（▶ ✦ ⚙ ➜）換成手繪線條小圖示：燈籠（繼續遊戲）、羽毛筆（開始遊戲）、齒輪（設定）、羅盤（捷徑）',
-    '紙膠帶改成貼在按鈕左上角、斜斜撕下來的樣子',
-    '手機橫向時按鈕自動縮小，四顆都完整顯示；手機橫向、電腦、手機直向都測過'
+  ['2026-11-20.1','第八章製作中（第 4、5 部分：兩位倒影居民「不肯寫完的抄書人」「把話夾進書裡的管書員」與兩個新支線）',[
+    '這次完成第八章 11 個部分中的第 4、5 部分（目前 5/11）。做到一半的第八章仍然只能從封面「捷徑 → 第八章（製作中）」進入，正式流程完全不變（打倒停不下來的祭鼓之後仍然是「第七章 完」）',
+    '新倒影居民「不肯寫完的抄書人」（抄經室，書桌旁）：握著毛筆、筆尖停在紙上的抄書人。地上的他抄了一輩子別人的書，一個字都沒抄錯，自己想說的話卻一句都沒寫下來；那個「不敢寫完」的他被丟到了書庫裡。可以選擇「接納」或「勸它回到心底」',
+    '新支線「抄書人的最後一行」（接納抄書人後接到）：最後一行的三個字「等」「你」「回」嚇得跳進墨水河逃走了，飄在墨水河・上游、倒塌的書架（後半段河）、墨水河・下游的河面上方。要坐在墨水船上按「跳躍」讓整艘船跳起來才碰得到（用上第八章的墨水船）。地圖和任務欄會標出位置，抄書人頭上會顯示「！」「？」',
+    '完成「抄書人的最後一行」的獎勵：「抄書人的硯滴」——墨水船划得更快（最高速度 210 → 250、起步也更快），另外 30 光屑。抄書人會補上最後一個字，讀出那一行（新的碎片線索，不揭曉倒影的身分）',
+    '新倒影居民「把話夾進書裡的管書員」（卷軸閣，卷軸底下）：戴著袖套、懷裡抱著一疊夾滿紙條的書。地上的她在書庫裡只會說「安靜」和「準時還書」，想說的話都偷偷寫在紙條上夾進書裡；那個「想說卻不敢說」的她被丟到了書庫裡。可以選擇「接納」或「勸它回到心底」',
+    '新支線「管書員的書籤」（接納管書員後接到）：三張夾著話的書籤被墨水沖走了——墨水瀑布左邊的書架上、目錄迴廊右邊的高台上、書海浮島後面那段河上、凸出墨面的那本書上方（最後一張要坐船讓船跳起來才碰得到）',
+    '完成「管書員的書籤」的獎勵：40 光屑、燈芯碎片 ×1（集滿 2 片生命上限 +1）。管書員會拿出一張借書卡（新的碎片線索，不揭曉倒影的身分）',
+    '「抄經室」「卷軸閣」的入場說明各多了一句，會帶鏡頭看新的居民（已經進去過的存檔不會重播）',
+    '兩個新支線都會出現在左上角的任務欄和地圖的「任務」分頁，可以回報時任務欄會排在前面並標上「？回報」',
+    '自動測試確認：兩位新居民的對話、選擇（接納／勸回）、接任務、回報領獎勵都正常；三個逃走的字在船跳起來時都碰得到、站在船上不跳碰不到；三張書籤都拿得到；硯滴讓船變快；存檔重新整理後任務進度與獎勵都保留；沒有任何錯誤訊息'
   ]],
   ['2026-11-20.0','第八章製作中（第 3 部分：特色怪「墨衣魚」「飛頁」、書庫回血點「溫著的硯台」）＋畫面左上新增任務欄（待辦 F 第 1 部分）＋封面四個按鈕正式上線',[
     '這次完成第八章 11 個部分中的第 3 部分（目前 3/11）。做到一半的第八章仍然只能從封面「捷徑 → 第八章（製作中）」進入，正式流程完全不變（打倒停不下來的祭鼓之後仍然是「第七章 完」）',
@@ -1833,46 +1841,46 @@ const ROOMS={
   L5:{mpos:[2570,-61],name:'墨水河・上游',W:64,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,8,2);r(56,12,8,2);r(18,11,1,1);r(28,10,1,2);r(40,11,2,1);r(48,10,1,2);r(33,1,2,5);},
     water:[{a:8,b:56,g:12,ink:true}],boats:[{w:0}],
-    spawns:[{t:'inkfish',c:22,r:12},{t:'inkfish',c:44,r:12},{t:'flypage',c:36,r:7}],lant:[],props:[{t:'bookshelf',c:3,g:12,h:5},{t:'bookshelf',c:60,g:12,h:5},{t:'candle',c:6,g:12}],
+    spawns:[{t:'inkfish',c:22,r:12},{t:'inkfish',c:44,r:12},{t:'flypage',c:36,r:7}],lant:[],props:[{t:'inkchar',c:25,g:8,id:'ic1',ch:'等'},{t:'bookshelf',c:3,g:12,h:5},{t:'bookshelf',c:60,g:12,h:5},{t:'candle',c:6,g:12}],
     events:[{id:'l5in',enter:true,steps:[{c:'wait',d:.3},{c:'say',t:'這條河好長⋯⋯河裡泡著倒下來的書架。'}]}],
     exits:[{s:'L',a:9,b:11,to:'L4',c:42,g:12,f:-1},{s:'R',a:9,b:11,to:'L6',c:1.2,g:12,f:1}]},
   L6:{mpos:[2634,-61],name:'抄經室',W:32,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,W,2);r(13,1,6,2);},
-    spawns:[],lant:[{c:6,g:12}],props:[{t:'desk',c:15,g:12},{t:'desk',c:22,g:12},{t:'bookshelf',c:3,g:12,h:6},{t:'bookshelf',c:28,g:12,h:6},{t:'candle',c:11,g:12},{t:'candle',c:19,g:12},{t:'inkstone',c:24,g:12,w:2}],
-    events:[{id:'l6in',enter:true,steps:[{c:'cam',x:18*TILE,d:1},{c:'cap',t:'一間安靜的抄經室。桌上的硯台還是濕的，好像有人剛剛還坐在這裡寫字。'},{c:'cam',x:25*TILE,d:.8},{c:'cap',t:'角落那張書桌上的硯台還溫著，墨池裡透出暖暖的光。站在桌前，會慢慢恢復生命。'},{c:'cam',x:null,d:.6}]}],
+    spawns:[],lant:[{c:6,g:12}],npcs:[{id:'copyist',c:17.5,g:12}],props:[{t:'desk',c:15,g:12},{t:'desk',c:22,g:12},{t:'bookshelf',c:3,g:12,h:6},{t:'bookshelf',c:28,g:12,h:6},{t:'candle',c:11,g:12},{t:'candle',c:19,g:12},{t:'inkstone',c:24,g:12,w:2}],
+    events:[{id:'l6in',enter:true,steps:[{c:'cam',x:18*TILE,d:1},{c:'cap',t:'一間安靜的抄經室。桌上的硯台還是濕的，好像有人剛剛還坐在這裡寫字。'},{c:'cam',x:17.5*TILE,d:.8},{c:'cap',t:'書桌旁坐著一個握著毛筆的抄書人，筆尖停在紙上，最後一行怎麼樣都寫不下去。'},{c:'cam',x:25*TILE,d:.8},{c:'cap',t:'角落那張書桌上的硯台還溫著，墨池裡透出暖暖的光。站在桌前，會慢慢恢復生命。'},{c:'cam',x:null,d:.6}]}],
     exits:[{s:'L',a:9,b:11,to:'L5',c:62,g:12,f:-1},{s:'R',a:9,b:11,to:'L7',c:1.2,g:12,f:1}]},
   L7:{mpos:[2666,-61],name:'倒塌的書架',W:50,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,10,2);r(22,12,8,2);r(44,12,6,2);r(25,7,2,5);r(24,10,1,1);r(27,10,1,1);r(16,11,1,1);r(37,11,1,1);},
     water:[{a:10,b:22,g:12,ink:true},{a:30,b:44,g:12,ink:true}],boats:[{w:0},{w:1}],
-    spawns:[{t:'inkfish',c:16,r:12},{t:'inkfish',c:38,r:12}],lant:[],props:[{t:'bookshelf',c:4,g:12,h:5},{t:'bookshelf',c:46,g:12,h:5},{t:'candle',c:23,g:12}],
+    spawns:[{t:'inkfish',c:16,r:12},{t:'inkfish',c:38,r:12}],lant:[],props:[{t:'inkchar',c:35,g:8,id:'ic2',ch:'你'},{t:'bookshelf',c:4,g:12,h:5},{t:'bookshelf',c:46,g:12,h:5},{t:'candle',c:23,g:12}],
     events:[{id:'l7in',enter:true,steps:[{c:'cam',x:26*TILE,d:1},{c:'cap',t:'一座大書架整個倒下來，把河切成了兩段。先上岸翻過書架，再換另一艘船。'},{c:'cam',x:null,d:.6}]}],
     exits:[{s:'L',a:9,b:11,to:'L6',c:30,g:12,f:-1},{s:'R',a:9,b:11,to:'L8',c:1.2,g:28,f:1}]},
   L8:{mpos:[2716,-77],name:'墨水瀑布',W:24,H:30,
     build(r,W,H){r(0,0,W,1);r(0,0,1,25);r(W-1,4,1,H-4);r(0,28,W,2);
       r(9,25,6,1);r(16,22,6,1);r(9,19,6,1);r(2,16,6,1);r(9,13,6,1);r(16,10,6,1);r(9,7,6,1);r(16,4,7,1);},
-    spawns:[{t:'flypage',c:4,r:12}],lant:[],props:[{t:'inkfall',c:6,g:1,len:27},{t:'bookshelf',c:20,g:28,h:5}],
+    spawns:[{t:'flypage',c:4,r:12}],lant:[],props:[{t:'bookmark',c:4,g:16,id:'bm1'},{t:'inkfall',c:6,g:1,len:27},{t:'bookshelf',c:20,g:28,h:5}],
     events:[{id:'l8in',enter:true,steps:[{c:'cam',x:12*TILE,d:1},{c:'cap',t:'墨水從高處的書架一路流下來，像一道黑色的瀑布。沿著兩旁的書架往上爬。'},{c:'cam',x:null,d:.6}]}],
     exits:[{s:'L',a:25,b:27,to:'L7',c:48,g:12,f:-1},{s:'R',a:1,b:3,to:'L9',c:1.2,g:12,f:1}]},
   L9:{mpos:[2740,-85],name:'目錄迴廊',W:40,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,W,2);r(12,10,3,2);r(26,9,4,1);},
-    spawns:[{t:'flypage',c:20,r:8},{t:'flypage',c:31,r:6}],lant:[],props:[{t:'bookshelf',c:5,g:12,h:6},{t:'bookshelf',c:18,g:12,h:6},{t:'bookshelf',c:34,g:12,h:6},{t:'candle',c:24,g:12}],
+    spawns:[{t:'flypage',c:20,r:8},{t:'flypage',c:31,r:6}],lant:[],props:[{t:'bookmark',c:27,g:9,id:'bm2'},{t:'bookshelf',c:5,g:12,h:6},{t:'bookshelf',c:18,g:12,h:6},{t:'bookshelf',c:34,g:12,h:6},{t:'candle',c:24,g:12}],
     events:[{id:'l9in',enter:true,steps:[{c:'wait',d:.3},{c:'say',t:'架子上的書⋯⋯全都沒有名字。'}]}],
     exits:[{s:'L',a:9,b:11,to:'L8',c:19.5,g:4,f:-1},{s:'R',a:9,b:11,to:'L10',c:1.2,g:12,f:1}]},
   L10:{mpos:[2780,-85],name:'墨水河・下游',W:70,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,8,2);r(62,12,8,2);r(16,11,1,1);r(24,10,2,2);r(33,11,1,1);r(40,10,1,2);r(47,11,2,1);r(55,10,1,2);r(20,1,2,4);r(44,1,3,5);},
     water:[{a:8,b:62,g:12,ink:true}],boats:[{w:0}],
-    spawns:[{t:'inkfish',c:20,r:12},{t:'inkfish',c:37,r:12},{t:'inkfish',c:52,r:12},{t:'flypage',c:30,r:6}],lant:[],props:[{t:'bookshelf',c:3,g:12,h:5},{t:'bookshelf',c:66,g:12,h:5},{t:'candle',c:6,g:12}],
+    spawns:[{t:'inkfish',c:20,r:12},{t:'inkfish',c:37,r:12},{t:'inkfish',c:52,r:12},{t:'flypage',c:30,r:6}],lant:[],props:[{t:'inkchar',c:29,g:8,id:'ic3',ch:'回'},{t:'bookshelf',c:3,g:12,h:5},{t:'bookshelf',c:66,g:12,h:5},{t:'candle',c:6,g:12}],
     events:[{id:'l10in',enter:true,steps:[{c:'wait',d:.3},{c:'say',t:'下游的河更寬了⋯⋯泡在墨裡的書也更多。'}]}],
     exits:[{s:'L',a:9,b:11,to:'L9',c:38,g:12,f:-1},{s:'R',a:9,b:11,to:'L11',c:1.2,g:12,f:1}]},
   L11:{mpos:[2850,-85],name:'卷軸閣',W:30,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,W,2);},
-    spawns:[],lant:[{c:6,g:12}],props:[{t:'scroll',c:12,g:1,len:5},{t:'scroll',c:17,g:1,len:6},{t:'scroll',c:22,g:1,len:4},{t:'bookshelf',c:26,g:12,h:6},{t:'candle',c:10,g:12},{t:'inkstone',c:19,g:12,w:2}],
-    events:[{id:'l11in',enter:true,steps:[{c:'cam',x:17*TILE,d:1},{c:'cap',t:'掛滿卷軸的小閣樓。卷軸上的字，一個一個往下滴。'},{c:'cam',x:null,d:.6}]}],
+    spawns:[],lant:[{c:6,g:12}],npcs:[{id:'librarian',c:14,g:12}],props:[{t:'scroll',c:12,g:1,len:5},{t:'scroll',c:17,g:1,len:6},{t:'scroll',c:22,g:1,len:4},{t:'bookshelf',c:26,g:12,h:6},{t:'candle',c:10,g:12},{t:'inkstone',c:19,g:12,w:2}],
+    events:[{id:'l11in',enter:true,steps:[{c:'cam',x:17*TILE,d:1},{c:'cap',t:'掛滿卷軸的小閣樓。卷軸上的字，一個一個往下滴。'},{c:'cam',x:14*TILE,d:.8},{c:'cap',t:'卷軸底下站著一個戴袖套的管書員，懷裡抱著一疊書，每一本都夾滿了小紙條。'},{c:'cam',x:null,d:.6}]}],
     exits:[{s:'L',a:9,b:11,to:'L10',c:68,g:12,f:-1},{s:'R',a:9,b:11,to:'L12',c:1.2,g:12,f:1}]},
   L12:{mpos:[2880,-85],name:'書海浮島',W:60,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,6,2);r(26,12,6,2);r(54,12,6,2);r(14,11,1,1);r(20,10,1,2);r(40,11,1,1);r(46,10,1,2);},
     water:[{a:6,b:26,g:12,ink:true},{a:32,b:54,g:12,ink:true}],boats:[{w:0},{w:1}],
-    spawns:[{t:'inkfish',c:16,r:12},{t:'inkfish',c:43,r:12},{t:'flypage',c:29,r:6}],lant:[],props:[{t:'bookshelf',c:28,g:12,h:4},{t:'candle',c:3,g:12},{t:'candle',c:57,g:12}],
+    spawns:[{t:'inkfish',c:16,r:12},{t:'inkfish',c:43,r:12},{t:'flypage',c:29,r:6}],lant:[],props:[{t:'bookmark',c:46,g:7,id:'bm3'},{t:'bookshelf',c:28,g:12,h:4},{t:'candle',c:3,g:12},{t:'candle',c:57,g:12}],
     events:[{id:'l12in',enter:true,steps:[{c:'wait',d:.3},{c:'say',t:'整片書海裡，只剩下一座小小的浮島。'}]}],
     exits:[{s:'L',a:9,b:11,to:'L11',c:28,g:12,f:-1},{s:'R',a:9,b:11,to:'L13',c:1.2,g:12,f:1}]},
   L13:{mpos:[2940,-85],name:'封印書齋',W:30,H:14,
@@ -1906,7 +1914,7 @@ const ICE_MEM={
   im1:[{c:'cap',t:'冰層裡凍著一個畫面：結冰的湖上，兩個小學徒在比賽滑冰。其中一個摔倒了，另一個笑著伸出手。'},{c:'cap',t:'伸手的那一個，提著和你一模一樣的燈。可是他的臉，被冰裡的氣泡擋住了。'},{c:'say',t:'⋯⋯我記得這片湖。我記得，有人拉過我的手。'}],
   im2:[{c:'cap',t:'更深的冰裡，凍著另一個畫面：一盞燈，很慢很慢地往下沉。'},{c:'cap',t:'有一隻小手伸向它，差一點點就抓到了。畫面在那裡停住，像是誰不想再看下去。'},{c:'say',t:'那是⋯⋯誰的手？'}]
 };
-const NAMES={realmaster:'師父',boss7:'停不下來的祭鼓',drummer:'不敢敲錯的鼓手',masker:'總是笑著的面具師傅',launcher:'不敢放手的放燈人',clockmaker:'把錶停住的鐘匠',toymaker:'說「等一下」的玩具匠',mentor:'工坊裡的師父',ferry:'怕冷的渡船夫',teller:'不說結局的說書婆婆',smith:'喊痛的鐵匠',postman:'不寄信的郵差',lakegod:'湖神',mirror:'映照者',guide:'提燈的倒影',keeper:'打瞌睡的看守',snuffer:'熄燈者',me:'學徒',senior:'哭泣的師姊',grocer:'大方的雜貨店老闆',master:'溫柔的師父',guard:'膽小的守衛'};
+const NAMES={copyist:'不肯寫完的抄書人',librarian:'把話夾進書裡的管書員',realmaster:'師父',boss7:'停不下來的祭鼓',drummer:'不敢敲錯的鼓手',masker:'總是笑著的面具師傅',launcher:'不敢放手的放燈人',clockmaker:'把錶停住的鐘匠',toymaker:'說「等一下」的玩具匠',mentor:'工坊裡的師父',ferry:'怕冷的渡船夫',teller:'不說結局的說書婆婆',smith:'喊痛的鐵匠',postman:'不寄信的郵差',lakegod:'湖神',mirror:'映照者',guide:'提燈的倒影',keeper:'打瞌睡的看守',snuffer:'熄燈者',me:'學徒',senior:'哭泣的師姊',grocer:'大方的雜貨店老闆',master:'溫柔的師父',guard:'膽小的守衛'};
 function talkSteps(id){
   const st=story.npc[id];
   if(id==='mentor'){
@@ -2050,6 +2058,54 @@ function talkSteps(id){
           {c:'talk',who:'masker',t:'我做壞的三張哭臉面具，被風吹到後面的風之路上：升空的燈籠群、屋脊迴廊、高空燈橋。它們一直背對著人，用燈籠輕輕敲一下，就會轉過來飄回我這裡。'},
           {c:'fn',fn:()=>{giveQuest('masks');return null;}},{c:'cap',t:'接下任務：面具師傅的哭臉面具。在風之路上用「攻擊」（技能也可以）敲一下飄著的面具。'}]},
         {v:'seal',t:'回去吧，祭典上的孩子們還在等你的笑臉。',d:'勸它回到心底',then:[{c:'talk',who:'masker',t:'⋯⋯也是。那我回去，繼續笑著。'},{c:'npcFade',id:'masker'}]}]}
+    ];
+  }
+  // 第八章倒影居民（2026-11-20.1 部分④⑤）：抄書人（抄經室）、管書員（卷軸閣）。只給碎片線索，不揭曉倒影的身分。
+  if(id==='copyist'){
+    if(st==='accept'){const q=quests.inkchars;
+      if(!q)return [{c:'talk',who:'copyist',t:'最後一行的三個字，跳進墨水河裡逃走了。坐船過去，讓船跳起來，就搆得到它們。'},{c:'fn',fn:()=>{giveQuest('inkchars');return null;}},{c:'cap',t:'接下任務：抄書人的最後一行。'}];
+      if(q.status==='ready')return [{c:'talk',who:'me',t:'抄書人，三個字都抓回來了。'},{c:'talk',who:'copyist',t:'⋯⋯「等」、「你」、「回」。真的是它們。'},
+        {c:'cap',t:'抄書人把三個字一個一個放回紙上，又提起筆，補上最後一個字。那一行寫著：「燈亮著，等你回來。」'},
+        {c:'cap',t:'紙的最下面，有兩個小小的署名，被墨水暈開了，只看得出是兩個孩子的字跡。'},
+        {c:'talk',who:'copyist',t:'這一頁，是那年冬天有人請我替他寫的。他說，要放在湖邊的燈旁邊。我寫到最後一行，就怎麼也寫不下去了。'},
+        {c:'talk',who:'copyist',t:'⋯⋯寫完了，心裡反而輕了。這滴硯水給你，抹在船槳上，船會划得更快。'},
+        {c:'fn',fn:()=>{q.status='done';F.quickBoat=true;wallet+=30;updateCoin();sfx('treasure');return null;}},
+        {c:'cap',t:'獲得「抄書人的硯滴」：墨水船划得更快（最高速度變快、起步也更快）。另外獲得 30 光屑。'}];
+      return [{c:'talk',who:'copyist',t:q.status==='active'?'逃走的字在墨水河・上游、倒塌的書架、墨水河・下游的河面上飄著。坐在船上按「跳躍」讓船跳起來，就碰得到。':'寫完的字，就讓它好好待在紙上吧。'}];}
+    return [
+      {c:'talk',who:'copyist',t:'噓⋯⋯別出聲。我在抄書，一個字都不能錯。'},
+      {c:'talk',who:'me',t:'抄書的先生？地上的你，抄了一輩子別人的書，鎮上的人都說你的字比印的還整齊。'},
+      {c:'talk',who:'copyist',t:'是啊。別人的字，我一個也沒抄錯過。可是我自己想說的話，一句都沒寫下來過。'},
+      {c:'talk',who:'copyist',t:'怕寫錯、怕寫完了就再也改不了。那個「不敢寫完」的我，就被丟到這座書庫裡了。'},
+      {c:'talk',who:'copyist',t:'⋯⋯有一年冬天，有人請我把一個名字從借書證上劃掉。我到現在，還沒劃。'},
+      {c:'choice',key:'copyist',opts:[
+        {v:'accept',t:'寫錯也沒關係，把想說的寫完吧。',d:'接納這一面',then:[{c:'talk',who:'copyist',t:'⋯⋯寫完吧。好，那就從這一頁開始。'},
+          {c:'talk',who:'copyist',t:'可是最後一行的三個字，嚇得跳進墨水河裡逃走了。你坐船過去，讓船跳起來，就搆得到它們。'},
+          {c:'fn',fn:()=>{giveQuest('inkchars');return null;}},{c:'cap',t:'接下任務：抄書人的最後一行。坐在墨水船上按「跳躍」，讓船跳起來碰到飄在河面上的字。'}]},
+        {v:'seal',t:'回去吧，鎮上的書還等著你一筆一筆抄好。',d:'勸它回到心底',then:[{c:'talk',who:'copyist',t:'⋯⋯也是。那我回去，繼續一個字都不寫錯。'},{c:'npcFade',id:'copyist'}]}]}
+    ];
+  }
+  if(id==='librarian'){
+    if(st==='accept'){const q=quests.bookmarks;
+      if(!q)return [{c:'talk',who:'librarian',t:'三張夾著話的書籤，被墨水沖到了墨水瀑布、目錄迴廊和書海浮島。幫我找回來。'},{c:'fn',fn:()=>{giveQuest('bookmarks');return null;}},{c:'cap',t:'接下任務：管書員的書籤。'}];
+      if(q.status==='ready')return [{c:'talk',who:'me',t:'管書員，三張書籤都找到了。'},{c:'talk',who:'librarian',t:'⋯⋯「謝謝你來」、「天冷了，早點回家」、「下次再來借」。都是我想說、卻只敢夾在書裡的話。'},
+        {c:'cap',t:'管書員從最舊的那本書裡抽出一張借書卡。卡上有兩個孩子的名字，借的是同一本《湖邊的燈怎麼做》。一欄蓋著「已還」，另一欄是空的。'},
+        {c:'talk',who:'librarian',t:'那本書，一直沒有還回來。我也一直沒有催。只要不催，就好像他還會來。'},
+        {c:'talk',who:'librarian',t:'⋯⋯這片燈芯，是夾在那本書的位置上的。給你吧。'},
+        {c:'fn',fn:()=>{q.status='done';wallet+=40;wick++;if(wick%2===0){maxHp++;hp=maxHp;updateHP();}updateCoin();sfx('treasure');return null;}},
+        {c:'cap',t:'獲得 40 光屑、燈芯碎片 ×1（集滿 2 片生命上限 +1）。'}];
+      return [{c:'talk',who:'librarian',t:q.status==='active'?'書籤一張在墨水瀑布左邊的書架上，一張在目錄迴廊右邊的高台上，還有一張飄在書海浮島後面那段河上、凸出墨面的那本書上方。':'想說的話，原來說出來也沒有那麼難。'}];}
+    return [
+      {c:'talk',who:'librarian',t:'借書請排隊，還書請放這邊。⋯⋯啊，是燈匠家的學徒。'},
+      {c:'talk',who:'me',t:'管書的大姊？地上的妳，在書庫裡從來不說多餘的話，大家都說妳好兇。'},
+      {c:'talk',who:'librarian',t:'是啊。地上的我只會說「安靜」和「準時還書」。其實每一個來借書的人，我都有好多話想說。'},
+      {c:'talk',who:'librarian',t:'說不出口，就寫在小紙條上，偷偷夾進書裡。那個「想說卻不敢說」的我，就被丟到這座書庫裡了。'},
+      {c:'talk',who:'librarian',t:'⋯⋯有一本書，一直沒有還回來。我也一直沒有去催。'},
+      {c:'choice',key:'librarian',opts:[
+        {v:'accept',t:'想說的話，就直接說出來吧。我在聽。',d:'接納這一面',then:[{c:'talk',who:'librarian',t:'⋯⋯直接說啊。那，先幫我把那些紙條找回來。'},
+          {c:'talk',who:'librarian',t:'三張夾著話的書籤，被墨水沖走了：墨水瀑布、目錄迴廊，還有書海浮島後面那段河上。'},
+          {c:'fn',fn:()=>{giveQuest('bookmarks');return null;}},{c:'cap',t:'接下任務：管書員的書籤。可以在任務欄或地圖畫面的「任務」分頁查看。'}]},
+        {v:'seal',t:'回去吧，書庫需要妳把每一本書都管好。',d:'勸它回到心底',then:[{c:'talk',who:'librarian',t:'⋯⋯也是。那我回去，繼續說「安靜」。'},{c:'npcFade',id:'librarian'}]}]}
     ];
   }
   if(id==='launcher'){
@@ -2442,7 +2498,7 @@ function refreshCover(){
   $('contBtn').style.display=has?'':'none';
   startArmed=false;
   $('startBtn').querySelector('span').textContent=has?'新的旅程':'開始遊戲';
-  $('startBtn').classList.toggle('main',!has);
+  $('startBtn').classList.add('main');
 }
 function startGame(){
   try{localStorage.removeItem(skey(slot));}catch(e){}
@@ -3571,6 +3627,18 @@ function update(dt){
         refreshMini();saveGame();
       }
     }
+    if(q.t==='bookmark'){const qq=quests.bookmarks;
+      if(qq&&qq.status==='active'&&!(qq.got||[]).includes(q.id)&&hit(p,{x:q.c*TILE-2,y:q.g*TILE-40,w:36,h:44})){
+        qq.got=(qq.got||[]).concat(q.id);qq.n=qq.got.length;sfx('herb');burst(q.c*TILE+16,q.g*TILE-14,14,'#f3ead6');rings.push({x:q.c*TILE+16,y:q.g*TILE-14,t:0,c:'255,236,190'});
+        if(qq.n>=3){qq.status='ready';toast('管書員的書籤：三張都找到了！打開地圖傳送回「卷軸閣」');}else toast(`管書員的書籤：${qq.n}/3`);
+        refreshMini();saveGame();}
+    }
+    if(q.t==='inkchar'){const qq=quests.inkchars;
+      if(qq&&qq.status==='active'&&!(qq.got||[]).includes(q.id)&&hit(p,{x:q.c*TILE-8,y:q.g*TILE-8,w:48,h:48})){
+        qq.got=(qq.got||[]).concat(q.id);qq.n=qq.got.length;q.ft=0;sfx('herb');sfx('pop');burst(q.c*TILE+16,q.g*TILE+16,16,'#4a3f6a');rings.push({x:q.c*TILE+16,y:q.g*TILE+16,t:0,c:'200,180,255'});
+        if(qq.n>=3){qq.status='ready';toast('抄書人的最後一行：三個字都抓回來了！打開地圖傳送回「抄經室」');}else toast(`抄書人的最後一行：${qq.n}/3（抓到了「${q.ch}」）`);
+        refreshMini();saveGame();}
+    }
     if(q.t==='wishlamp'){const qq=quests.wishes;
       if(qq&&qq.status==='active'&&!(qq.got||[]).includes(q.id)&&hit(p,{x:q.c*TILE-6,y:q.g*TILE-6,w:44,h:44})){
         qq.got=(qq.got||[]).concat(q.id);qq.n=qq.got.length;sfx('herb');sfx('lantern');burst(q.c*TILE+16,q.g*TILE+16,16,'#ffb07a');rings.push({x:q.c*TILE+16,y:q.g*TILE+16,t:0,c:'255,170,100'});
@@ -3821,7 +3889,7 @@ function drawLantern(L){
 }
 function drawProp(q){
   const x=q.c*TILE,gy=q.g*TILE;
-  if((q.t==='bookshelf'||q.t==='candle'||q.t==='desk'||q.t==='scroll'||q.t==='inkfall'||q.t==='inkstone')&&drawLibProp(q,x,gy))return;
+  if((q.t==='bookshelf'||q.t==='candle'||q.t==='desk'||q.t==='scroll'||q.t==='inkfall'||q.t==='inkstone'||q.t==='inkchar'||q.t==='bookmark')&&drawLibProp(q,x,gy))return;
   if((q.t==='skylamp'||q.t==='bunting'||q.t==='drum'||q.t==='warmstall'||q.t==='wishlamp'||q.t==='mask')&&drawFestProp(q,x,gy))return;
   if(q.t==='stone'){
     ctx.fillStyle='#463b5e';rr(x+4,gy-42,24,42,6);ctx.fill();
@@ -4756,6 +4824,8 @@ function drawNPCShape(id,cx,by,face,opt){
   else if(id==='launcher')drawLauncherFig(cx,by,face,.3);
   else if(id==='drummer')drawDrummerFig(cx,by,face,.3);
   else if(id==='masker')drawMaskerFig(cx,by,face,.3);
+  else if(id==='copyist')drawCopyistFig(cx,by,face,.3);
+  else if(id==='librarian')drawLibrarianFig(cx,by,face,.3);
   else if(id==='teller')drawTellerFig(cx,by,face,.3);
   else if(id==='postman')drawPostmanFig(cx,by,face,.3);
   else if(id==='lakegod')drawLakeGodFig(cx,by,face,.32);
@@ -6632,8 +6702,8 @@ function moveBoat(b,dt){
   else b.y=rest+Math.sin(clock*2+b.i)*1.2;
 }
 function rideBoat(){const b=p.boat;p.x=b.x+BOAT_W/2-p.w/2;p.y=b.y-p.h;p.vx=b.vx;p.vy=b.vy;p.grounded=!b.air;p.sq+=(0-p.sq)*.2;}
-function boatCtl(dt,ctrl,dir){const b=p.boat;
-  if(ctrl&&dir){b.vx+=dir*(Math.sign(b.vx)&&Math.sign(b.vx)!==dir?BOAT_ACC*1.6:BOAT_ACC)*dt;b.vx=clamp(b.vx,-BOAT_MAX,BOAT_MAX);if(atkT<=0)p.face=dir;
+function boatCtl(dt,ctrl,dir){const b=p.boat,bm=F.quickBoat?250:BOAT_MAX,ba=F.quickBoat?BOAT_ACC*1.25:BOAT_ACC;
+  if(ctrl&&dir){b.vx+=dir*(Math.sign(b.vx)&&Math.sign(b.vx)!==dir?ba*1.6:ba)*dt;b.vx=clamp(b.vx,-bm,bm);if(atkT<=0)p.face=dir;
     if(!b.air&&Math.random()<dt*10)parts.push({x:dir>0?b.x:b.x+BOAT_W,y:b.surf-2,vx:-dir*50,vy:-30,life:.35,t:0,c:'#3a3260'});}
   else{const dec=BOAT_DEC*dt;b.vx=Math.abs(b.vx)<=dec?0:b.vx-Math.sign(b.vx)*dec;}
   if(input.jp){input.jp=false;if(ctrl&&!b.air){b.vy=-BOAT_JV;b.air=true;sfx('jump');sfx('splash');for(let k=0;k<8;k++)parts.push({x:b.x+Math.random()*BOAT_W,y:b.surf,vx:(Math.random()-.5)*100,vy:-80-Math.random()*80,life:.45,t:0,c:'#2a2440'});}}
@@ -6729,7 +6799,86 @@ function drawLibProp(q,x,gy){
     glowAt(cx,gy-26,heal?48:34,heal?.6:.4,'255,190,120');lights.push({x:cx,y:gy-26,r:heal?150:115,c:'255,190,120',g:heal?.26:.18});
     if(heal&&Math.random()<.25)parts.push({x:cx+(Math.random()-.5)*16,y:gy-28,vx:0,vy:-34,life:.6,t:0,c:'#ffd27a'});
     return true;}
+  if(q.t==='inkchar'){// 支線「抄書人的最後一行」：逃進墨水河、飄在河面上的墨字（坐船讓船跳起來才碰得到）
+    const qq=quests.inkchars;if(!qq)return true;const got=(qq.got||[]).includes(q.id);
+    const cx=x+16;let cy=gy+16+Math.sin(clock*1.5+x)*4;
+    if(got){if(q.ft==null||q.ft>1.2)return true;q.ft+=1/60;const a=1-q.ft/1.2;ctx.save();ctx.globalAlpha=a;ctx.fillStyle='#1e1830';ctx.font='bold 24px "Noto Serif TC","Songti TC",serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(q.ch,cx,cy-q.ft*60);ctx.restore();return true;}
+    if(qq.status!=='active')return true;
+    glowAt(cx,cy,30,.45+.12*Math.sin(clock*3+x),'200,180,255');
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(Math.sin(clock*1.1+x)*.15);
+    // 一團墨，中間是逃走的字
+    ctx.fillStyle='rgba(20,16,36,.85)';ctx.beginPath();for(let k=0;k<8;k++){const a=k/8*6.283,r=14+Math.sin(clock*3+k*1.7)*2.5;ctx.lineTo(Math.cos(a)*r,Math.sin(a)*r);}ctx.closePath();ctx.fill();
+    ctx.strokeStyle='rgba(190,170,240,.7)';ctx.lineWidth=1.2;ctx.stroke();
+    ctx.fillStyle='#efe2c4';ctx.font='bold 17px "Noto Serif TC","Songti TC",serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(q.ch,0,1);ctx.restore();
+    if(Math.random()<.2)parts.push({x:cx+(Math.random()-.5)*16,y:cy+12,vx:0,vy:30,life:.5,t:0,c:'#2a2440'});
+    lights.push({x:cx,y:cy,r:80,c:'200,180,255',g:.18});
+    if(!cs){ctx.save();ctx.fillStyle=`rgba(255,214,140,${.45+.35*Math.sin(clock*4)})`;ctx.font='bold 12px serif';ctx.textAlign='center';ctx.fillText('！',cx,cy-22);ctx.restore();}
+    return true;}
+  if(q.t==='bookmark'){// 支線「管書員的書籤」：夾著話的紙書籤
+    const qq=quests.bookmarks;if(!(qq&&qq.status==='active'&&!(qq.got||[]).includes(q.id)))return true;
+    const cx=x+16,cy=gy-18+Math.sin(clock*1.8+x)*3,rot=Math.sin(clock*1.3+x)*.2;
+    glowAt(cx,cy,24,.5,'255,236,190');
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(rot);ctx.strokeStyle=OUT;ctx.lineWidth=1.1;
+    ctx.beginPath();ctx.moveTo(-6,-13);ctx.lineTo(6,-13);ctx.lineTo(6,11);ctx.lineTo(0,6);ctx.lineTo(-6,11);ctx.closePath();fs('#f3ead6');
+    ctx.fillStyle='#b0382f';ctx.fillRect(-6,-13,12,4);
+    ctx.strokeStyle='rgba(60,46,40,.7)';ctx.lineWidth=.9;ctx.beginPath();for(let k=0;k<3;k++){ctx.moveTo(-3.5,-5+k*4);ctx.lineTo(3.5,-5+k*4);}ctx.stroke();
+    ctx.strokeStyle='#c9a45a';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,-13);ctx.quadraticCurveTo(4,-20,1+Math.sin(clock*3)*2,-24);ctx.stroke();ctx.restore();
+    lights.push({x:cx,y:cy,r:70,c:'255,236,190',g:.2});
+    if(!cs){ctx.save();ctx.fillStyle=`rgba(255,214,140,${.45+.35*Math.sin(clock*4)})`;ctx.font='bold 12px serif';ctx.textAlign='center';ctx.fillText('！',cx,cy-24);ctx.restore();}
+    return true;}
   return false;}
+// 第八章倒影居民的樣子（2026-11-20.1）
+function drawCopyistFig(x,y,face,k){
+  const lw=1.25/k,nod=Math.sin(clock*1.1)*1.2,pen=Math.sin(clock*2.4)*2;
+  ctx.save();ctx.translate(x,y);ctx.scale(face*k,k);ctx.translate(0,-12.5);
+  ctx.lineJoin='round';ctx.lineCap='round';ctx.strokeStyle=OUT;ctx.lineWidth=lw;
+  for(const fx of [-9,9]){ctx.beginPath();ctx.ellipse(fx,9.5,6,3.2,0,0,6.283);fs('#2a2230');}
+  // 寬袖長衫
+  ctx.beginPath();ctx.moveTo(-22,-58);ctx.quadraticCurveTo(-34,-20,-30,6);ctx.quadraticCurveTo(0,12,30,6);ctx.quadraticCurveTo(34,-20,22,-58);ctx.quadraticCurveTo(0,-66,-22,-58);ctx.closePath();fs('#3e4a6a');
+  hatch([[-24,-40,6,-5],[-26,-28,7,-6],[-26,-16,7,-6]],'#2e3854',lw*.7);
+  ctx.beginPath();ctx.moveTo(-8,-58);ctx.lineTo(4,-30);ctx.lineTo(16,-58);ctx.strokeStyle='#efe2c4';ctx.lineWidth=lw*1.6;ctx.stroke();ctx.strokeStyle=OUT;ctx.lineWidth=lw;
+  rr(-26,-30,52,5,2);fs('#8a6a3a');
+  // 頭與髮髻
+  ctx.beginPath();ctx.arc(2,-76+nod,17,0,6.283);fs('#e6d0b8');
+  ctx.beginPath();ctx.moveTo(-15,-80+nod);ctx.quadraticCurveTo(-12,-96+nod,4,-95+nod);ctx.quadraticCurveTo(18,-94+nod,19,-80+nod);ctx.quadraticCurveTo(10,-88+nod,2,-88+nod);ctx.quadraticCurveTo(-8,-88+nod,-15,-80+nod);ctx.closePath();fs('#2a2436');
+  ctx.beginPath();ctx.arc(2,-98+nod,6,0,6.283);fs('#2a2436');ctx.save();ctx.strokeStyle='#c9a45a';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(-8,-100+nod);ctx.lineTo(12,-96+nod);ctx.stroke();ctx.restore();
+  // 低著頭、皺著眉
+  ctx.strokeStyle='#2a2436';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-6,-75+nod);ctx.lineTo(-1,-73+nod);ctx.moveTo(8,-73+nod);ctx.lineTo(13,-75+nod);ctx.stroke();
+  ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(-1,-64+nod);ctx.lineTo(6,-64+nod);ctx.stroke();
+  ctx.strokeStyle=OUT;ctx.lineWidth=lw;
+  // 一手捧著紙卷，一手提著懸在半空、遲遲不落下的毛筆
+  ctx.save();ctx.translate(-12,-34);ctx.rotate(-.12);rr(-14,-6,28,14,2);fs('#f3ead6');ctx.strokeStyle='rgba(40,30,30,.6)';ctx.lineWidth=1;ctx.beginPath();for(let r=0;r<3;r++){ctx.moveTo(-10,-2+r*4);ctx.lineTo(6-r*5,-2+r*4);}ctx.stroke();ctx.restore();
+  limbStroke(-18,-48,-20,-40,-14,-34,'#3e4a6a',6);
+  limbStroke(18,-48,30,-50,28,-42+pen*.4,'#3e4a6a',6);
+  ctx.save();ctx.translate(28,-42+pen*.4);ctx.rotate(.5);ctx.strokeStyle='#5a3a24';ctx.lineWidth=2.4;ctx.beginPath();ctx.moveTo(0,-16);ctx.lineTo(0,6);ctx.stroke();ctx.fillStyle='#1a1622';ctx.beginPath();ctx.moveTo(-2,6);ctx.lineTo(2,6);ctx.lineTo(0,13);ctx.closePath();ctx.fill();ctx.restore();
+  ctx.lineWidth=lw;ctx.beginPath();ctx.arc(28,-42+pen*.4,3.6,0,6.283);fs('#e6d0b8');ctx.beginPath();ctx.arc(-14,-34,3.6,0,6.283);fs('#e6d0b8');
+  ctx.restore();
+  // 筆尖上一直沒落下的墨滴
+  const dp=(clock*.7)%1;ctx.fillStyle=`rgba(30,24,40,${.85*(1-dp)})`;ctx.beginPath();ctx.ellipse(x+face*k*34,y+k*(-30-12.5)+dp*10,1.6,2.2,0,0,6.283);ctx.fill();
+}
+function drawLibrarianFig(x,y,face,k){
+  const lw=1.25/k,sway=Math.sin(clock*1.2)*.04,peek=Math.sin(clock*.9)>.5;
+  ctx.save();ctx.translate(x,y);ctx.rotate(sway*face);ctx.scale(face*k,k);ctx.translate(0,-12.5);
+  ctx.lineJoin='round';ctx.lineCap='round';ctx.strokeStyle=OUT;ctx.lineWidth=lw;
+  for(const fx of [-9,9]){ctx.beginPath();ctx.ellipse(fx,9.5,6,3.2,0,0,6.283);fs('#3a2a30');}
+  // 長裙與圍裙
+  ctx.beginPath();ctx.moveTo(-22,-56);ctx.quadraticCurveTo(-32,-20,-30,6);ctx.quadraticCurveTo(0,12,30,6);ctx.quadraticCurveTo(32,-20,22,-56);ctx.quadraticCurveTo(0,-64,-22,-56);ctx.closePath();fs('#5a3a46');
+  hatch([[-24,-36,6,-5],[-26,-24,7,-6],[-26,-12,7,-6]],'#452a36',lw*.7);
+  rr(-14,-40,28,44,5);fs('#d9cdb8');
+  // 頭：盤起的頭髮、小圓眼鏡（眼睛往旁邊偷看）
+  ctx.beginPath();ctx.arc(2,-74,17,0,6.283);fs('#e6d0b8');
+  ctx.beginPath();ctx.moveTo(-15,-78);ctx.quadraticCurveTo(-14,-94,2,-94);ctx.quadraticCurveTo(18,-94,19,-78);ctx.quadraticCurveTo(10,-86,2,-86);ctx.quadraticCurveTo(-6,-86,-15,-78);ctx.closePath();fs('#4a3a3a');
+  ctx.beginPath();ctx.arc(14,-92,7,0,6.283);fs('#4a3a3a');
+  ctx.save();ctx.strokeStyle='#6a5646';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(-3,-75,4.2,0,6.283);ctx.moveTo(14.2,-75);ctx.arc(10,-75,4.2,0,6.283);ctx.moveTo(1.2,-75);ctx.lineTo(5.8,-75);ctx.stroke();
+  const lx=peek?1.6:0;ctx.fillStyle='#2a2436';ctx.beginPath();ctx.arc(-3+lx,-75,1.4,0,6.283);ctx.arc(10+lx,-75,1.4,0,6.283);ctx.fill();
+  ctx.strokeStyle='#8a5a4a';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(0,-66);ctx.lineTo(6,-66);ctx.stroke();ctx.restore();
+  // 懷裡抱著一疊夾滿紙條的書
+  ctx.save();ctx.translate(8,-34);for(let b=0;b<3;b++){rr(-14,-b*8,28,8,1.5);fs(['#7a3a2e','#3e5a6a','#8a6a3a'][b]);}
+  ctx.fillStyle='#f3ead6';for(const [ox,oy] of [[-8,-22],[2,-14],[9,-6],[-3,-6]]){ctx.fillRect(ox,oy-4,3,6);}ctx.restore();
+  limbStroke(-18,-48,-20,-34,-6,-30,'#5a3a46',6);limbStroke(18,-48,28,-36,22,-28,'#5a3a46',6);
+  ctx.lineWidth=lw;ctx.beginPath();ctx.arc(-6,-30,3.6,0,6.283);fs('#e6d0b8');ctx.beginPath();ctx.arc(22,-28,3.6,0,6.283);fs('#e6d0b8');
+  ctx.restore();
+}
 
 // ---------- 第八章特色怪（2026-11-20.0 部分③）----------
 // 墨衣魚：吃書的衣魚泡在墨水裡變成的怪物，住在墨水河裡。平常只看得到墨面上的觸鬚和漣漪（打不到也碰不到），
@@ -7709,6 +7858,8 @@ function drawPShots(){
 
 // ---------- 光屑、商店、任務 ----------
 const QUESTS={
+  inkchars:{title:'抄書人的最後一行',desc:q=>q.status==='active'?`坐墨水船讓船跳起來，抓回逃進墨水河的三個字（${q.n}/3）：墨水河・上游、倒塌的書架、墨水河・下游。`:q.status==='ready'?'三個字都抓回來了，打開地圖用燈籠傳送回「抄經室」找抄書人。':'最後一行，終於寫完了。'},
+  bookmarks:{title:'管書員的書籤',desc:q=>q.status==='active'?`找回被墨水沖走、夾著話的書籤（${q.n}/3）：墨水瀑布左邊的書架、目錄迴廊右邊的高台、書海浮島後面那段河上、凸出墨面的書上方（坐船讓船跳起來）。`:q.status==='ready'?'三張書籤都找到了，打開地圖用燈籠傳送回「卷軸閣」找管書員。':'夾在書裡的話，終於說出口了。'},
   beat:{title:'鼓手的節拍',desc:q=>q.status==='active'?'在「屋脊迴廊」或「高空燈橋」裡，從頭飛到尾都不撞到任何東西（被紙鳶怪撞到也算）。撞到了可以用地圖上的燈籠傳送回「祭典廣場」再飛一次。':q.status==='ready'?'一下都沒有撞到！打開地圖用燈籠傳送回「祭典廣場」找鼓手。':'那一拍，終於敲下去了。'},
   masks:{title:'面具師傅的哭臉面具',desc:q=>q.status==='active'?`在風之路上用「攻擊」（技能也可以）敲一下飄著的哭臉面具（${q.n}/3）：升空的燈籠群、屋脊迴廊、高空燈橋。`:q.status==='ready'?'三張哭臉面具都敲回來了，打開地圖用燈籠傳送回「鼓樓前庭」找面具師傅。':'面具底下的那張臉，終於透了一口氣。'},
   wishes:{title:'放燈人的許願燈',desc:q=>q.status==='active'?`在風之路上撈回斷了線的許願燈（${q.n}/3）：風口長橋、紙燈籠浮島、鼓聲的風道。飛過去碰到就撈到了。`:q.status==='ready'?'三盞許願燈都撈回來了，打開地圖用燈籠傳送回「夜市屋簷」找放燈人。':'那三盞燈，這次真的飛上天了。'},
@@ -7758,7 +7909,9 @@ function questTargets(){
   if(q.wishes&&q.wishes.status==='active')for(const [id,room,c,g] of [['wl1','K5',33,12],['wl2','K6',45,7],['wl3','K7',43,11]])if(!(q.wishes.got||[]).includes(id))L.push({room,c,g});
   if(q.keys&&q.keys.status==='active')for(const [id,room,c,g] of [['k1','G3',3,16],['k2','G5',5,11],['k3','G7',3,7]])if(!(q.keys.got||[]).includes(id))L.push({room,c,g});
   if(q.pages&&q.pages.status==='active')for(const [id,room,c,g] of [['p1','I3',27,9],['p2','I6',33,6],['p3','I7U',9,12]])if(!(q.pages.got||[]).includes(id))L.push({room,c,g});
-  const giver={beat:['K8',11,12],masks:['K11',15,14],wishes:['K4',19,12],watches:['G8',20,12],keys:['G4',10,12],ember:['I4',10,12],pages:['I8',22,12],tool:['R2',6,12],flyers:['R5',5,9],herbs:['R3',4,18],bell:['C3',21,6],gold:['D2',15,7]};
+  if(q.inkchars&&q.inkchars.status==='active')for(const [id,room,c,g] of [['ic1','L5',25,9],['ic2','L7',35,9],['ic3','L10',29,9]])if(!(q.inkchars.got||[]).includes(id))L.push({room,c,g});
+  if(q.bookmarks&&q.bookmarks.status==='active')for(const [id,room,c,g] of [['bm1','L8',4,16],['bm2','L9',27,9],['bm3','L12',46,7]])if(!(q.bookmarks.got||[]).includes(id))L.push({room,c,g});
+  const giver={inkchars:['L6',17.5,12],bookmarks:['L11',14,12],beat:['K8',11,12],masks:['K11',15,14],wishes:['K4',19,12],watches:['G8',20,12],keys:['G4',10,12],ember:['I4',10,12],pages:['I8',22,12],tool:['R2',6,12],flyers:['R5',5,9],herbs:['R3',4,18],bell:['C3',21,6],gold:['D2',15,7]};
   for(const k in giver)if(q[k]&&q[k].status==='ready')L.push({room:giver[k][0],c:giver[k][1],g:giver[k][2]});
   return L;
 }
@@ -7769,7 +7922,7 @@ function npcMark(id){
   if(id==='grocer')return !story.choices.grocerMet||!quests.herbs?'！':quests.herbs.status==='ready'?'？':'⋯';
   if(id==='smith'){if(!story.npc.smith)return '！';if(story.npc.smith==='accept'){if(!quests.hammer)return '！';if(quests.hammer.status==='ready')return '？';}return '⋯';}
   if(id==='keeper'){if(!story.npc.keeper)return '！';if(story.npc.keeper==='accept'){if(!quests.bell)return '！';if(quests.bell.status==='ready')return '？';}return '⋯';}
-  if(id==='ferry'||id==='teller'||id==='toymaker'||id==='clockmaker'||id==='launcher'||id==='drummer'||id==='masker'){if(!story.npc[id])return '！';const q=quests[id==='ferry'?'ember':id==='toymaker'?'keys':id==='clockmaker'?'watches':id==='launcher'?'wishes':id==='drummer'?'beat':id==='masker'?'masks':'pages'];if(story.npc[id]==='accept'){if(!q)return '！';if(q.status==='ready')return '？';}return '⋯';}
+  if(id==='ferry'||id==='teller'||id==='toymaker'||id==='clockmaker'||id==='launcher'||id==='drummer'||id==='masker'||id==='copyist'||id==='librarian'){if(!story.npc[id])return '！';const q=quests[id==='copyist'?'inkchars':id==='librarian'?'bookmarks':id==='ferry'?'ember':id==='toymaker'?'keys':id==='clockmaker'?'watches':id==='launcher'?'wishes':id==='drummer'?'beat':id==='masker'?'masks':'pages'];if(story.npc[id]==='accept'){if(!q)return '！';if(q.status==='ready')return '？';}return '⋯';}
   if(id==='lakegod'){if(!story.npc.lakegod)return '！';if(story.npc.lakegod==='accept'){if(!quests.gold)return '！';if(quests.gold.status==='ready')return '？';}return '⋯';}
   if(!story.npc[id])return '！';
   const q=id==='senior'?quests.tool:id==='guard'?quests.flyers:null;
@@ -8123,3 +8276,5 @@ requestAnimationFrame(frame);
 </script>
 </body>
 </html>
+
+</body></html>
