@@ -450,34 +450,32 @@ body.hasSkill #bK{display:flex}
   #modBadge{flex:0 0 100%;text-align:center}
   .coverBtns .link{font-size:12.5px;padding:5px 6px}
 }
-/* 封面按鈕：同樣大小、直排、手繪紙片（2026-11-19.2） */
-#cover .coverBtns{display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;align-items:center;gap:14px!important;max-width:none!important}
-.cbtn{position:relative;width:min(244px,72vw);height:52px;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 18px;cursor:pointer;
-  font-size:17px;font-weight:600;letter-spacing:.2em;color:#3b2f2a;
-  background:radial-gradient(ellipse at 18% 30%,rgba(160,110,60,.13),transparent 46%),radial-gradient(ellipse at 84% 76%,rgba(160,110,60,.1),transparent 42%),
-    repeating-linear-gradient(transparent 0 11px,rgba(110,90,70,.12) 11px 12px),#efe2c4;
-  border:2px solid #2a2018;border-radius:255px 14px 225px 16px/16px 225px 14px 255px;
-  box-shadow:3px 4px 0 rgba(12,8,6,.6),inset 0 0 14px rgba(120,80,40,.18);transition:transform .12s,box-shadow .12s}
-.cbtn::before{content:"";position:absolute;inset:-5px -4px -4px -6px;border:1.4px solid rgba(239,226,196,.5);border-radius:14px 225px 16px 255px/255px 16px 225px 14px;pointer-events:none}
-.cbtn:nth-of-type(odd){transform:rotate(-.9deg)}.cbtn:nth-of-type(even){transform:rotate(.7deg)}
-.cbtn:hover{transform:rotate(0) translateY(-1px)}
-.cbtn:active{transform:translate(2px,3px);box-shadow:1px 1px 0 rgba(12,8,6,.6),inset 0 0 14px rgba(120,80,40,.25)}
-.cbtn:focus-visible{outline:2px dashed #ffd88c;outline-offset:6px}
-.cbtn.main::after{content:"";position:absolute;top:-9px;left:16px;width:46px;height:15px;background:rgba(201,162,74,.6);
-  clip-path:polygon(3% 8%,97% 0,100% 88%,4% 100%,0 55%);transform:rotate(-7deg);pointer-events:none}
-.cbtn .cico{width:22px;height:22px;flex:none;fill:none;stroke:#3b2f2a;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.cbtn .cico .fl{fill:#e0912f;stroke:#9a4a2e}
-.cbtn span{display:inline-block;min-width:4.6em;text-align:left}
-#cover #modBadge{flex:none;text-align:center}
-@media (max-height:520px){
-  #cover{padding:3vh 16px 3vh!important}
-  #cover .coverBtns{gap:9px!important}
-  .cbtn{height:38px;font-size:15px;width:min(210px,60vw)}
-  .cbtn .cico{width:18px;height:18px}
-  .cbtn::before{inset:-4px -3px -3px -4px}
-  .cbtn.main::after{top:-7px;height:12px;width:38px}
-}
-@media (prefers-reduced-motion:reduce){.cbtn{transition:none}}
+/* 封面按鈕（2026-11-19.2 主對話的樣式，11-20.0 重新套用）：四個一樣大小、直的往下排、手繪紙張風 */
+.coverBtns{flex-direction:column!important;flex-wrap:nowrap!important;align-items:center;gap:11px!important;max-width:none!important}
+.cbtn{position:relative;width:236px;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 0;cursor:pointer;
+  background:#efe2c4;color:#3b2f2a;border:1.6px solid #1a1420;border-radius:7px 15px 8px 16px;box-shadow:0 7px 20px rgba(0,0,0,.55),inset 0 0 18px rgba(120,80,40,.18);
+  font-size:17px;letter-spacing:.2em;font-family:"Noto Serif TC","Songti TC",serif;
+  background-image:repeating-linear-gradient(transparent 0 13px,rgba(110,90,70,.10) 13px 14px)}
+.cbtn i{font-style:normal;font-size:15px;color:#9a4a2e;letter-spacing:0;width:18px;text-align:center}
+.cbtn span{min-width:5.2em;text-align:left}
+.cbtn:nth-of-type(odd){transform:rotate(-.7deg)}.cbtn:nth-of-type(even){transform:rotate(.6deg)}
+.cbtn:active{background-color:#e2d2ae;transform:scale(.97)}
+.cbtn.main::before{content:"";position:absolute;top:-8px;left:50%;width:58px;height:15px;margin-left:-29px;background:rgba(232,212,150,.78);
+  border-left:1px dashed rgba(120,90,50,.35);border-right:1px dashed rgba(120,90,50,.35);transform:rotate(-4deg);box-shadow:0 1px 2px rgba(0,0,0,.25)}
+@media (max-height:520px){.coverBtns{gap:7px!important}.cbtn{width:214px;padding:6px 0;font-size:15px}.cbtn.main::before{top:-6px;height:11px}}
+/* 任務欄（待辦 F）：地圖格正下方，平常只列任務名稱，點一下看「在做什麼、下一步」 */
+#qPanel{pointer-events:auto;width:clamp(140px,26vw,200px);margin-top:-3px;padding:3px 7px 4px;background:rgba(16,13,24,.6);border:1.4px solid rgba(240,225,195,.28);
+  border-radius:3px 3px 8px 10px;font-family:"Noto Serif TC","Songti TC",serif;font-size:11.5px;line-height:1.4;color:#efe2c4;display:none;cursor:pointer;-webkit-user-select:none;user-select:none}
+#qPanel.has{display:block}
+#qPanel .qr{display:flex;gap:4px;align-items:baseline;white-space:nowrap;overflow:hidden}
+#qPanel .qr b{font-weight:600;overflow:hidden;text-overflow:ellipsis}
+#qPanel .qr i{font-style:normal;flex:none;width:10px;color:#c9a45a}
+#qPanel .qr.main b{color:#ffd88c}#qPanel .qr.main i{color:#ffd88c}
+#qPanel .qr.ready i,#qPanel .qr.ready small{color:#ff9d7a}
+#qPanel .qr small{flex:none;font-size:10px;color:#a79fbd}
+#qPanel .qd{white-space:normal;font-size:11px;line-height:1.45;color:#d9cbb0;padding:1px 0 3px 14px;border-bottom:1px dashed rgba(240,225,195,.18);margin-bottom:2px}
+#qPanel .qm{font-size:10px;color:#a79fbd;padding-left:14px}
+@media (max-height:420px){#qPanel{font-size:10.5px;padding:2px 6px 3px}#qPanel .qd{font-size:10.5px}}
 </style>
 </head>
 <body data-state="cover">
@@ -521,11 +519,11 @@ body.hasSkill #bK{display:flex}
         <div class="sub">遊戲名稱暫定</div>
       </div>
       <div class="coverBtns">
-        <button class="cbtn main serif" id="contBtn" style="display:none"><svg class="cico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v3"/><path d="M7.3 9.2 12 5.6l4.8 3.5"/><path d="M8 9.4h8.1l-.2 9.8H8.2z"/><path d="M12.1 12.2c1.6 1.7 1.5 3.4 0 4.6-1.5-1.3-1.6-2.9 0-4.6z" class="fl"/><path d="M6.6 19.5h10.9"/></svg><span>繼續遊戲</span></button>
-        <button class="cbtn main serif" id="startBtn"><svg class="cico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.6c4.6-1.2 9.8-5.4 14.8-15.1-6.1 2.3-11 6.6-13.4 12.9"/><path d="M8.2 14.6c2.3.1 4.4-.4 6.4-1.6"/><path d="M3.8 20.3l2.1-2.2"/></svg><span>開始遊戲</span></button>
+        <button class="cbtn main serif" id="contBtn" style="display:none"><i>▶</i><span>繼續遊戲</span></button>
+        <button class="cbtn main serif" id="startBtn"><i>✦</i><span>開始遊戲</span></button>
+        <button class="cbtn serif" id="coverSet"><i>⚙</i><span>設定</span></button>
+        <button class="cbtn serif" id="jumpBtn"><i>➜</i><span>捷徑</span></button>
         <div id="modBadge" style="display:none">修改版運作中　<button class="link" id="modOff">回到原版</button></div>
-        <button class="cbtn serif" id="coverSet"><svg class="cico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.2 8.6a3.4 3.4 0 1 1-.3 0z"/><path d="M12 2.8v2.6M12.1 18.7v2.5M2.9 12.1h2.5M18.6 11.9h2.6M5.5 5.6l1.9 1.8M16.6 16.7l1.8 1.8M5.6 18.4l1.8-1.9M16.7 7.4l1.8-1.9"/></svg><span>設定</span></button>
-        <button class="cbtn serif" id="jumpBtn"><svg class="cico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.1a8.9 8.9 0 1 1-.4 0z"/><path d="M15.6 8.3l-2.2 5.2-5.1 2.3 2.3-5.2z"/><path d="M12 3.2v1.6M20.8 12h-1.6"/></svg><span>捷徑</span></button>
       </div>
     </div>
 
@@ -552,6 +550,7 @@ body.hasSkill #bK{display:flex}
     <div id="hud">
       <div id="hudL">
         <div id="mini" class="ui" aria-label="地圖，點一下放大"><canvas id="miniCv"></canvas></div>
+        <div id="qPanel" class="ui" aria-label="任務"></div>
         <div id="hp"></div>
         <div id="coin">✦ 0</div>
         <div id="skHud"><span id="skHudName">技能</span><span class="bar"><i id="skHudBar"></i></span></div>
@@ -719,14 +718,24 @@ body.hasSkill #bK{display:flex}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-19.2';
+const GAME_VERSION='2026-11-20.0';
 const CHANGELOG=[
-  ['2026-11-19.2','封面按鈕改成同樣大小、直排的手繪紙片（啊一 在主對話要求）',[
-    '封面的「繼續遊戲」「開始遊戲（新的旅程）」「設定」「捷徑」四個按鈕改成一樣大小，由上往下排成一直列（原本開始遊戲較大、設定與捷徑較小並排）',
-    '按鈕改成手繪紙片風格：歪歪的手繪外框、外圍再描一圈淡淡的草稿線、紙上有橫線和咖啡色斑點，每顆按鈕微微歪斜不同角度，按下去像紙片被壓進桌面',
-    '每顆按鈕前面加上手繪小圖示：燈籠（繼續遊戲）、羽毛筆（開始遊戲）、齒輪（設定）、羅盤（捷徑）；「繼續」「開始」上面貼了一小段紙膠帶',
-    '有存檔時，「新的旅程」不再縮成小小的文字連結，和其他按鈕一樣大',
-    '手機橫向（高度較矮）時按鈕自動縮小一點，四顆都能完整顯示在畫面裡'
+  ['2026-11-20.0','第八章製作中（第 3 部分：特色怪「墨衣魚」「飛頁」、書庫回血點「溫著的硯台」）＋畫面左上新增任務欄（待辦 F 第 1 部分）＋封面四個按鈕正式上線',[
+    '這次完成第八章 11 個部分中的第 3 部分（目前 3/11）。做到一半的第八章仍然只能從封面「捷徑 → 第八章（製作中）」進入，正式流程完全不變（打倒停不下來的祭鼓之後仍然是「第七章 完」）',
+    '第八章特色怪「墨衣魚」：吃書的衣魚泡在墨水裡變成的怪物，用書頁做成的身體上沾著墨字，住在墨水河裡。平常只看得到墨面上露出的兩根觸鬚和一圈漣漪（這時打不到、也碰不到你），會跟著你在墨裡游',
+    '墨衣魚靠近時，墨面會先冒泡、出現一圈越來越大的波紋（約 0.6 秒），接著從墨裡跳出來劃一道弧線撲向你，撞到會扣 1 格生命。跳在半空的時候可以用攻擊或技能打牠（打 3 下）。坐在墨水船上時，看到墨面冒泡可以讓船跳起來閃開；跳出來之後牠會潛在墨裡休息約 3 秒，趁這時候划過去',
+    '第八章另一種新怪「飛頁」：從書裡飛出來、寫滿墨字的書頁，像翅膀一樣一開一合地在半空中飄。你靠近時會抖一下、墨眼變紅、頭上冒出「！」，接著朝你撲過來；撲完會慢慢飄回原處，這時最好打。打 2 下，打中時牠會被打退、停止撲擊',
+    '第八章各房間原本暫放的舊幽靈和甲蟲全部換掉：墨水渡口 1 隻墨衣魚（教學）；書架懸崖、墨水瀑布各 1 張飛頁；漂浮書頁長廊 1 張飛頁＋墨坑裡 1 隻墨衣魚；墨水河・上游 2 隻墨衣魚＋1 張飛頁；倒塌的書架 2 隻墨衣魚（兩段河各 1 隻）；目錄迴廊 2 張飛頁；墨水河・下游 3 隻墨衣魚＋1 張飛頁；書海浮島 2 隻墨衣魚＋1 張飛頁。第一次看到時畫面上方會說明打法',
+    '第八章回血點「溫著的硯台」：矮書桌上攤著一本書、擱著毛筆，桌上的硯台墨池裡透出暖暖的光、冒著熱氣。站在書桌前會慢慢恢復生命（和暖泉、暖燈攤一樣，之後的 Boss 戰中回得更快）。放在抄經室、卷軸閣、封印書齋和書庫天井（Boss 房）；第一次站上去時會提示。抄經室的入場說明多了一句，會帶鏡頭看硯台（已經進去過的存檔不會重播）',
+    '新功能「任務欄」（啊一 的待辦 F，第 1 部分）：畫面左上角地圖格的正下方，多了一個獨立的任務欄（不是地圖裡的分頁），沒點的時候也一直顯示目前的任務名稱',
+    '任務欄的第一個永遠是目前章節的主線（金色◆），例如「第七章・停不下來的祭鼓」；下面是進行中的支線（倒影居民的任務等），可以回報的支線會排在前面、標上紅色「？回報」；收集類的支線會顯示進度（例如 2/3）。最多列 4 個，更多的會提示「還有 N 個任務」',
+    '點任務欄裡的任一個任務，會在下面展開「在做什麼、下一步怎麼做」（主線的下一步會依照你的進度改變，例如打倒 Boss 之後會改成往下一章的門），再點一次收起；點「還有 N 個任務」會打開地圖的任務分頁。第一～八章的主線都已經寫好',
+    '地圖畫面的「任務」分頁最上面也會顯示目前章節的主線',
+    '封面改成四個一樣大小、直直往下排的手繪紙張按鈕：「繼續遊戲」「開始遊戲（有存檔時是新的旅程）」「設定」「捷徑」，兩個開始的按鈕上貼著一小段紙膠帶（這是 啊一 在主對話做好的 2026-11-19.2 封面樣式，這次一起放上正式版；手機橫向與電腦版都在畫面內）',
+    '自動測試確認：第八章 14 個房間都能載入；墨衣魚會循環「潛伏 → 冒泡 → 跳出 → 落回墨裡」、跳出時打得到並掉光屑、潛伏時打不到也不會受傷；飛頁會「飄 → 抖 → 撲 → 飄回」；四座硯台都會回血；任務欄在第一～八章都顯示正確的主線，接任務、可回報時會更新；手機版與電腦版的封面四個按鈕與捷徑都正常；沒有任何錯誤訊息'
+  ]],
+  ['2026-11-19.2','封面按鈕改版（主對話）',[
+    '封面的「繼續遊戲」「開始遊戲（新的旅程）」「設定」「捷徑」四個按鈕改成一樣大小、直的往下排、更有手繪風（啊一 在主對話要求並完成；這一版當時只推到 GitHub，2026-11-20.0 起和正式版合併）'
   ]],
   ['2026-11-19.1','第八章「被墨水淹沒的書庫」開始製作（第 1、2 部分：14 個房間的骨架、書庫的畫面與音樂、墨水河與墨水船）＋封面改成「設定」「捷徑」兩個按鈕（待辦 E）',[
     '依照 啊一 在主對話決定的第八章方向開始製作：主題「被墨水淹沒的舊書庫」、新機制「墨水船」、修仙風格的 Boss、劇情解鎖夥伴系統。這次完成 11 個部分中的第 1、2 部分（目前 2/11）',
@@ -1773,7 +1782,7 @@ const ROOMS={
   L2:{mpos:[2456,-40],name:'墨水渡口',W:44,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,10,2);r(34,12,10,2);r(23,11,1,1);r(14,1,3,3);r(28,1,2,4);},
     water:[{a:10,b:34,g:12,ink:true}],boats:[{w:0}],
-    spawns:[],lant:[],props:[{t:'sign',c:6,g:12,text:'渡口'},{t:'bookshelf',c:3,g:12,h:5},{t:'bookshelf',c:39,g:12,h:5},{t:'candle',c:8,g:12},{t:'candle',c:36,g:12}],
+    spawns:[{t:'inkfish',c:26,r:12}],lant:[],props:[{t:'sign',c:6,g:12,text:'渡口'},{t:'bookshelf',c:3,g:12,h:5},{t:'bookshelf',c:39,g:12,h:5},{t:'candle',c:8,g:12},{t:'candle',c:36,g:12}],
     events:[{id:'l2in',enter:true,steps:[
       {c:'cam',x:22*TILE,d:1},
       {c:'cap',t:'岸邊停著一艘墨水船。靠近它按「進入」就能上船。'},
@@ -1783,69 +1792,69 @@ const ROOMS={
   L3:{mpos:[2500,-54],name:'書架懸崖',W:26,H:28,
     build(r,W,H){r(0,0,W,1);r(0,0,1,23);r(W-1,5,1,H-5);r(0,26,W,2);
       r(4,23,5,1);r(11,20,5,1);r(18,17,5,1);r(11,14,5,1);r(4,11,5,1);r(11,8,5,1);r(18,5,7,1);},
-    spawns:[{t:'flyer',c:20,r:10}],lant:[],props:[{t:'bookshelf',c:2,g:26,h:9},{t:'bookshelf',c:22,g:26,h:7},{t:'candle',c:19,g:5}],
+    spawns:[{t:'flypage',c:19,r:12}],lant:[],props:[{t:'bookshelf',c:2,g:26,h:9},{t:'bookshelf',c:22,g:26,h:7},{t:'candle',c:19,g:5}],
     events:[{id:'l3in',enter:true,steps:[{c:'cam',x:14*TILE,d:1},{c:'cap',t:'倒下來的書架一層疊著一層，像一座懸崖。沿著突出來的書架往上跳，出口在右上方。'},{c:'cam',x:null,d:.6}]}],
     exits:[{s:'L',a:23,b:25,to:'L2',c:42,g:12,f:-1},{s:'R',a:2,b:4,to:'L4',c:1.2,g:12,f:1}]},
   L4:{mpos:[2526,-61],name:'漂浮書頁長廊',W:44,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,10,2);r(16,12,8,2);r(30,12,14,2);r(12,10,2,1);r(26,9,2,1);},
     water:[{a:10,b:16,g:12,ink:true},{a:24,b:30,g:12,ink:true}],
-    spawns:[{t:'flyer',c:20,r:6}],lant:[],props:[{t:'bookshelf',c:5,g:12,h:5},{t:'bookshelf',c:36,g:12,h:6},{t:'candle',c:19,g:12}],
+    spawns:[{t:'flypage',c:20,r:7},{t:'inkfish',c:27,r:12}],lant:[],props:[{t:'bookshelf',c:5,g:12,h:5},{t:'bookshelf',c:36,g:12,h:6},{t:'candle',c:19,g:12}],
     events:[{id:'l4in',enter:true,steps:[{c:'wait',d:.3},{c:'cap',t:'這裡的地板塌了，底下是黑得發亮的墨水。只能踩著漂在半空的書頁過去。'}]}],
     exits:[{s:'L',a:9,b:11,to:'L3',c:21.5,g:5,f:-1},{s:'R',a:9,b:11,to:'L5',c:1.2,g:12,f:1}]},
   L5:{mpos:[2570,-61],name:'墨水河・上游',W:64,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,8,2);r(56,12,8,2);r(18,11,1,1);r(28,10,1,2);r(40,11,2,1);r(48,10,1,2);r(33,1,2,5);},
     water:[{a:8,b:56,g:12,ink:true}],boats:[{w:0}],
-    spawns:[{t:'flyer',c:34,r:6}],lant:[],props:[{t:'bookshelf',c:3,g:12,h:5},{t:'bookshelf',c:60,g:12,h:5},{t:'candle',c:6,g:12}],
+    spawns:[{t:'inkfish',c:22,r:12},{t:'inkfish',c:44,r:12},{t:'flypage',c:36,r:7}],lant:[],props:[{t:'bookshelf',c:3,g:12,h:5},{t:'bookshelf',c:60,g:12,h:5},{t:'candle',c:6,g:12}],
     events:[{id:'l5in',enter:true,steps:[{c:'wait',d:.3},{c:'say',t:'這條河好長⋯⋯河裡泡著倒下來的書架。'}]}],
     exits:[{s:'L',a:9,b:11,to:'L4',c:42,g:12,f:-1},{s:'R',a:9,b:11,to:'L6',c:1.2,g:12,f:1}]},
   L6:{mpos:[2634,-61],name:'抄經室',W:32,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,W,2);r(13,1,6,2);},
-    spawns:[],lant:[{c:6,g:12}],props:[{t:'desk',c:15,g:12},{t:'desk',c:22,g:12},{t:'bookshelf',c:3,g:12,h:6},{t:'bookshelf',c:28,g:12,h:6},{t:'candle',c:11,g:12},{t:'candle',c:19,g:12}],
-    events:[{id:'l6in',enter:true,steps:[{c:'cam',x:18*TILE,d:1},{c:'cap',t:'一間安靜的抄經室。桌上的硯台還是濕的，好像有人剛剛還坐在這裡寫字。'},{c:'cam',x:null,d:.6}]}],
+    spawns:[],lant:[{c:6,g:12}],props:[{t:'desk',c:15,g:12},{t:'desk',c:22,g:12},{t:'bookshelf',c:3,g:12,h:6},{t:'bookshelf',c:28,g:12,h:6},{t:'candle',c:11,g:12},{t:'candle',c:19,g:12},{t:'inkstone',c:24,g:12,w:2}],
+    events:[{id:'l6in',enter:true,steps:[{c:'cam',x:18*TILE,d:1},{c:'cap',t:'一間安靜的抄經室。桌上的硯台還是濕的，好像有人剛剛還坐在這裡寫字。'},{c:'cam',x:25*TILE,d:.8},{c:'cap',t:'角落那張書桌上的硯台還溫著，墨池裡透出暖暖的光。站在桌前，會慢慢恢復生命。'},{c:'cam',x:null,d:.6}]}],
     exits:[{s:'L',a:9,b:11,to:'L5',c:62,g:12,f:-1},{s:'R',a:9,b:11,to:'L7',c:1.2,g:12,f:1}]},
   L7:{mpos:[2666,-61],name:'倒塌的書架',W:50,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,10,2);r(22,12,8,2);r(44,12,6,2);r(25,7,2,5);r(24,10,1,1);r(27,10,1,1);r(16,11,1,1);r(37,11,1,1);},
     water:[{a:10,b:22,g:12,ink:true},{a:30,b:44,g:12,ink:true}],boats:[{w:0},{w:1}],
-    spawns:[{t:'flyer',c:16,r:5}],lant:[],props:[{t:'bookshelf',c:4,g:12,h:5},{t:'bookshelf',c:46,g:12,h:5},{t:'candle',c:23,g:12}],
+    spawns:[{t:'inkfish',c:16,r:12},{t:'inkfish',c:38,r:12}],lant:[],props:[{t:'bookshelf',c:4,g:12,h:5},{t:'bookshelf',c:46,g:12,h:5},{t:'candle',c:23,g:12}],
     events:[{id:'l7in',enter:true,steps:[{c:'cam',x:26*TILE,d:1},{c:'cap',t:'一座大書架整個倒下來，把河切成了兩段。先上岸翻過書架，再換另一艘船。'},{c:'cam',x:null,d:.6}]}],
     exits:[{s:'L',a:9,b:11,to:'L6',c:30,g:12,f:-1},{s:'R',a:9,b:11,to:'L8',c:1.2,g:28,f:1}]},
   L8:{mpos:[2716,-77],name:'墨水瀑布',W:24,H:30,
     build(r,W,H){r(0,0,W,1);r(0,0,1,25);r(W-1,4,1,H-4);r(0,28,W,2);
       r(9,25,6,1);r(16,22,6,1);r(9,19,6,1);r(2,16,6,1);r(9,13,6,1);r(16,10,6,1);r(9,7,6,1);r(16,4,7,1);},
-    spawns:[{t:'flyer',c:12,r:12}],lant:[],props:[{t:'inkfall',c:6,g:1,len:27},{t:'bookshelf',c:20,g:28,h:5}],
+    spawns:[{t:'flypage',c:4,r:12}],lant:[],props:[{t:'inkfall',c:6,g:1,len:27},{t:'bookshelf',c:20,g:28,h:5}],
     events:[{id:'l8in',enter:true,steps:[{c:'cam',x:12*TILE,d:1},{c:'cap',t:'墨水從高處的書架一路流下來，像一道黑色的瀑布。沿著兩旁的書架往上爬。'},{c:'cam',x:null,d:.6}]}],
     exits:[{s:'L',a:25,b:27,to:'L7',c:48,g:12,f:-1},{s:'R',a:1,b:3,to:'L9',c:1.2,g:12,f:1}]},
   L9:{mpos:[2740,-85],name:'目錄迴廊',W:40,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,W,2);r(12,10,3,2);r(26,9,4,1);},
-    spawns:[{t:'walker',c:20,r:12},{t:'flyer',c:30,r:5}],lant:[],props:[{t:'bookshelf',c:5,g:12,h:6},{t:'bookshelf',c:18,g:12,h:6},{t:'bookshelf',c:34,g:12,h:6},{t:'candle',c:24,g:12}],
+    spawns:[{t:'flypage',c:20,r:8},{t:'flypage',c:31,r:6}],lant:[],props:[{t:'bookshelf',c:5,g:12,h:6},{t:'bookshelf',c:18,g:12,h:6},{t:'bookshelf',c:34,g:12,h:6},{t:'candle',c:24,g:12}],
     events:[{id:'l9in',enter:true,steps:[{c:'wait',d:.3},{c:'say',t:'架子上的書⋯⋯全都沒有名字。'}]}],
     exits:[{s:'L',a:9,b:11,to:'L8',c:19.5,g:4,f:-1},{s:'R',a:9,b:11,to:'L10',c:1.2,g:12,f:1}]},
   L10:{mpos:[2780,-85],name:'墨水河・下游',W:70,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,8,2);r(62,12,8,2);r(16,11,1,1);r(24,10,2,2);r(33,11,1,1);r(40,10,1,2);r(47,11,2,1);r(55,10,1,2);r(20,1,2,4);r(44,1,3,5);},
     water:[{a:8,b:62,g:12,ink:true}],boats:[{w:0}],
-    spawns:[{t:'flyer',c:30,r:5},{t:'flyer',c:50,r:5}],lant:[],props:[{t:'bookshelf',c:3,g:12,h:5},{t:'bookshelf',c:66,g:12,h:5},{t:'candle',c:6,g:12}],
+    spawns:[{t:'inkfish',c:20,r:12},{t:'inkfish',c:37,r:12},{t:'inkfish',c:52,r:12},{t:'flypage',c:30,r:6}],lant:[],props:[{t:'bookshelf',c:3,g:12,h:5},{t:'bookshelf',c:66,g:12,h:5},{t:'candle',c:6,g:12}],
     events:[{id:'l10in',enter:true,steps:[{c:'wait',d:.3},{c:'say',t:'下游的河更寬了⋯⋯泡在墨裡的書也更多。'}]}],
     exits:[{s:'L',a:9,b:11,to:'L9',c:38,g:12,f:-1},{s:'R',a:9,b:11,to:'L11',c:1.2,g:12,f:1}]},
   L11:{mpos:[2850,-85],name:'卷軸閣',W:30,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,W,2);},
-    spawns:[],lant:[{c:6,g:12}],props:[{t:'scroll',c:12,g:1,len:5},{t:'scroll',c:17,g:1,len:6},{t:'scroll',c:22,g:1,len:4},{t:'bookshelf',c:26,g:12,h:6},{t:'candle',c:10,g:12}],
+    spawns:[],lant:[{c:6,g:12}],props:[{t:'scroll',c:12,g:1,len:5},{t:'scroll',c:17,g:1,len:6},{t:'scroll',c:22,g:1,len:4},{t:'bookshelf',c:26,g:12,h:6},{t:'candle',c:10,g:12},{t:'inkstone',c:19,g:12,w:2}],
     events:[{id:'l11in',enter:true,steps:[{c:'cam',x:17*TILE,d:1},{c:'cap',t:'掛滿卷軸的小閣樓。卷軸上的字，一個一個往下滴。'},{c:'cam',x:null,d:.6}]}],
     exits:[{s:'L',a:9,b:11,to:'L10',c:68,g:12,f:-1},{s:'R',a:9,b:11,to:'L12',c:1.2,g:12,f:1}]},
   L12:{mpos:[2880,-85],name:'書海浮島',W:60,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,6,2);r(26,12,6,2);r(54,12,6,2);r(14,11,1,1);r(20,10,1,2);r(40,11,1,1);r(46,10,1,2);},
     water:[{a:6,b:26,g:12,ink:true},{a:32,b:54,g:12,ink:true}],boats:[{w:0},{w:1}],
-    spawns:[{t:'flyer',c:18,r:5},{t:'flyer',c:44,r:5}],lant:[],props:[{t:'bookshelf',c:28,g:12,h:4},{t:'candle',c:3,g:12},{t:'candle',c:57,g:12}],
+    spawns:[{t:'inkfish',c:16,r:12},{t:'inkfish',c:43,r:12},{t:'flypage',c:29,r:6}],lant:[],props:[{t:'bookshelf',c:28,g:12,h:4},{t:'candle',c:3,g:12},{t:'candle',c:57,g:12}],
     events:[{id:'l12in',enter:true,steps:[{c:'wait',d:.3},{c:'say',t:'整片書海裡，只剩下一座小小的浮島。'}]}],
     exits:[{s:'L',a:9,b:11,to:'L11',c:28,g:12,f:-1},{s:'R',a:9,b:11,to:'L13',c:1.2,g:12,f:1}]},
   L13:{mpos:[2940,-85],name:'封印書齋',W:30,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,H);r(0,12,W,2);r(12,1,6,2);},
-    spawns:[],lant:[{c:6,g:12}],props:[{t:'bookshelf',c:10,g:12,h:6},{t:'bookshelf',c:20,g:12,h:6},{t:'candle',c:15,g:12}],
+    spawns:[],lant:[{c:6,g:12}],props:[{t:'bookshelf',c:10,g:12,h:6},{t:'bookshelf',c:20,g:12,h:6},{t:'candle',c:13,g:12},{t:'inkstone',c:15,g:12,w:2}],
     portals:[{c:25,g:12,to:'LB',pc:4,pg:16,name:'書庫天井'}],
     events:[{id:'l13in',enter:true,steps:[{c:'shake',a:2,d:.6},{c:'cap',t:'天井的上方，傳來很慢、很慢的翻書聲。一頁、一頁。'}]}],
     exits:[{s:'L',a:9,b:11,to:'L12',c:58,g:12,f:-1}]},
   LB:{mpos:[2970,-89],name:'書庫天井',W:36,H:18,
     build(r,W,H){r(0,0,W,1);r(0,0,1,H);r(W-1,0,1,H);r(0,16,W,2);r(5,14,2,1);r(29,14,2,1);},
-    spawns:[],lant:[],props:[{t:'sign',c:18,g:16,text:'製作中'},{t:'bookshelf',c:3,g:16,h:8},{t:'bookshelf',c:32,g:16,h:8},{t:'candle',c:12,g:16},{t:'candle',c:24,g:16}],
+    spawns:[],lant:[],props:[{t:'sign',c:18,g:16,text:'製作中'},{t:'bookshelf',c:3,g:16,h:8},{t:'bookshelf',c:32,g:16,h:8},{t:'candle',c:12,g:16},{t:'candle',c:24,g:16},{t:'inkstone',c:26,g:16,w:2}],
     portals:[{c:2.4,g:16,to:'L13',pc:23,pg:12,name:'封印書齋'}],
     events:[{id:'lbin',enter:true,steps:[{c:'cam',x:18*TILE,d:1},{c:'cap',t:'天井的正中央，一本古書懸在半空，自己一頁一頁地翻著。（第八章的 Boss 會在之後的部分加入）'},{c:'cam',x:null,d:.6}]}],
     exits:[]},
@@ -2241,7 +2250,7 @@ const OPENING=[
   {c:'cam',x:null,d:.6},
   {c:'say',t:'等等！'}
 ];
-const DIM={kite:[26,22,2],cogbug:[24,24,3],icefish:[26,16,3],wick:[18,30,3],thief:[18,12,1],mimic:[32,40,4],angler:[30,20,3],dummy:[24,30,3],walker:[28,20,3],flyer:[22,18,2],spitter:[22,22,2],charger:[34,22,4],jelly:[22,26,2],skimmer:[24,14,2]};
+const DIM={inkfish:[28,16,3],flypage:[24,20,2],kite:[26,22,2],cogbug:[24,24,3],icefish:[26,16,3],wick:[18,30,3],thief:[18,12,1],mimic:[32,40,4],angler:[30,20,3],dummy:[24,30,3],walker:[28,20,3],flyer:[22,18,2],spitter:[22,22,2],charger:[34,22,4],jelly:[22,26,2],skimmer:[24,14,2]};
 const TH={
   deep:{bg1:'#1d1830',bg2:'#0b0a11',far:'#231e34',tile:'#2a2438',speck:'#342d46',top:'#57497a',moss:'#7b6aa8',spore:'160,230,220'},
   mist:{bg1:'#2b2552',bg2:'#0b111e',far:'#2c3256',tile:'#2a2a44',speck:'#33334f',top:'#6a6fa8',moss:'#6fb7a8',spore:'190,230,240'},
@@ -2325,10 +2334,12 @@ function spawnEnemies(){
     if(s.t==='dummy'&&F.dummy)continue;
     const inv=s.t==='hanger',tt=inv?'walker':s.t;
     const [w,h,ehp]=DIM[tt];
-    enemies.push({t:tt,inv,x:s.c*TILE+(TILE-w)/2,y:tt==='kite'?s.r*TILE+(TILE-h)/2:(inv||tt==='flyer'||tt==='jelly'||tt==='angler'||tt==='mimic')?s.r*TILE:s.r*TILE-h,w,h,hp:Math.max(1,Math.round(ehp*TUNE.enemyHp)),vx:0,vy:0,dir:-1,
+    enemies.push({t:tt,inv,x:s.c*TILE+(TILE-w)/2,y:(tt==='kite'||tt==='flypage')?s.r*TILE+(TILE-h)/2:(inv||tt==='flyer'||tt==='jelly'||tt==='angler'||tt==='mimic')?s.r*TILE:s.r*TILE-h,w,h,hp:Math.max(1,Math.round(ehp*TUNE.enemyHp)),vx:0,vy:0,dir:-1,
       grounded:false,stun:0,flash:0,aggro:false,bob:Math.random()*6,dead:false});
     if(tt==='icefish')initIcefish(enemies[enemies.length-1],s);
     if(tt==='kite')initKite(enemies[enemies.length-1],s);
+    if(tt==='inkfish')initInkfish(enemies[enemies.length-1],s);
+    if(tt==='flypage'){const e=enemies[enemies.length-1];e.ax=e.x;e.ay=e.y;e.ph=Math.random()*6.28;e.st='float';e.tm=1+Math.random();}
   }
 }
 // 第五章特色怪「冰鑿魚」：冰面房間躲在冰層下、從腳下破冰撲出來；水中房間會蓄力突刺
@@ -2402,6 +2413,7 @@ function refreshCover(){
   $('contBtn').style.display=has?'':'none';
   startArmed=false;
   $('startBtn').querySelector('span').textContent=has?'新的旅程':'開始遊戲';
+  $('startBtn').classList.toggle('main',!has);
 }
 function startGame(){
   try{localStorage.removeItem(skey(slot));}catch(e){}
@@ -2927,6 +2939,8 @@ function hitEnemy(e){
   burst(e.x+e.w/2,e.y+e.h/2,4,'#fff3c4');for(let i=0;i<9;i++)spawnFly(e.x+e.w/2,e.y+e.h/2,150);
   if(e.t==='spitter'){e.stun=0;}
   else if(e.t==='icefish'){e.stun=.25;e.vx=p.face*(e.water?200:90);if(e.water)e.vy=-40;}
+  else if(e.t==='inkfish'){e.stun=.15;e.vx=p.face*70;}
+  else if(e.t==='flypage'){e.stun=.35;e.vx=p.face*200;e.vy=-60;if(e.st==='swoop'||e.st==='warn'){e.st='back';e.tm=0;}}
   else if(e.t==='cogbug'){if(e.st==='wind'){e.st='spent';e.tm=1.3;}e.stun=.25;e.vx=p.face*140;e.vy=-120;}
   else if(e.t==='charger'){const dz=e.st==='daze';e.stun=dz?.2:.06;e.vx=p.face*(dz?160:50);}
   else if(e.t!=='dummy'){e.stun=F.heavyLamp?.45:.3;e.vx=p.face*(F.heavyLamp?320:220);e.vy=e.t==='walker'?-140:-40;}
@@ -2935,7 +2949,7 @@ function hitEnemy(e){
     e.dead=true;burst(e.x+e.w/2,e.y+e.h/2,18,e.t==='flyer'?'#cfc6e6':'#8f7cc9');
     sfx('kill');slowT=.13;rings.push({x:e.x+e.w/2,y:e.y+e.h/2,t:0,c:e.t==='flyer'?'210,200,245':'190,160,255'});
     if(e.t==='thief'&&e.carry){lightStolen=0;for(let k=0;k<24;k++)spawnFly(e.x+e.w/2,e.y,160);rings.push({x:e.x+e.w/2,y:e.y,t:0,c:'255,214,140'});toast('燈光回來了！');}
-    if(e.t!=='dummy')dropCoins(e.x+e.w/2,e.y+e.h/2,{cogbug:5,flyer:4,walker:3,spitter:4,charger:6,jelly:4,skimmer:4,angler:5,thief:2,mimic:6,wick:5,icefish:5,kite:4}[e.t]||3);
+    if(e.t!=='dummy')dropCoins(e.x+e.w/2,e.y+e.h/2,{cogbug:5,flyer:4,walker:3,spitter:4,charger:6,jelly:4,skimmer:4,angler:5,thief:2,mimic:6,wick:5,icefish:5,kite:4,inkfish:5,flypage:4}[e.t]||3);
     if(e.t==='flyer'&&quests.flyers&&quests.flyers.status==='active'){
       quests.flyers.n++;
       if(quests.flyers.n>=3){quests.flyers.status='ready';toast('守衛的請求：完成了，回去找守衛吧');}
@@ -3324,6 +3338,8 @@ function update(dt){
       e.harmless=e.st==='spent';e.spin=(e.spin||0)+e.vx*dt/12;
       e.vy=Math.min(e.vy+1500*dt,900);moveX(e,e.vx*dt);e.grounded=false;moveY(e,e.vy*dt);
       if(e.y>WORLD_H+50)e.dead=true;
+    }else if(e.t==='inkfish'){updateInkfish(e,dt);
+    }else if(e.t==='flypage'){updateFlypage(e,dt);
     }else if(e.t==='kite'){updateKite(e,dt);
     }else if(e.t==='wick'){
       if(e.x0==null){e.x0=e.x-4*TILE;e.x1=e.x+4*TILE;e.st='hidden';e.tm=1+Math.random();e.rise=0;}
@@ -3459,9 +3475,10 @@ function update(dt){
       if(hp<maxHp){forgeT+=dt;if(Math.random()<dt*8)parts.push({x:atF.c*TILE+atF.w*16+(Math.random()-.5)*24,y:atF.g*TILE-24,vx:(Math.random()-.5)*20,vy:-60,life:.6,t:0,c:'#ffb35a'});
         if(forgeT>=(dr&&dr.active?1.2:2.2)){forgeT=0;hp++;updateHP();sfx('heal');rings.push({x:p.x+p.w/2,y:p.y+p.h/2,t:0,c:'255,170,90'});}}}
     else forgeT=0;}
-  {let atS=null;for(const q of props)if((q.t==='hotspring'||q.t==='clockwarm'||q.t==='warmstall')&&p.grounded&&grav>0&&Math.abs(p.y+p.h-q.g*TILE)<6&&Math.abs((p.x+p.w/2)-(q.c*TILE+(q.w||1)*TILE/2))<(q.w||1)*TILE*.5+(q.t==='clockwarm'?20:12)){atS=q;break;}
+  {let atS=null;for(const q of props)if((q.t==='hotspring'||q.t==='clockwarm'||q.t==='warmstall'||q.t==='inkstone')&&p.grounded&&grav>0&&Math.abs(p.y+p.h-q.g*TILE)<6&&Math.abs((p.x+p.w/2)-(q.c*TILE+(q.w||1)*TILE/2))<(q.w||1)*TILE*.5+(q.t==='clockwarm'?20:12)){atS=q;break;}
     springQ=atS;
     if(atS&&atS.t==='clockwarm'&&!trig.clockHealHint){trig.clockHealHint=true;flashHint('暖燈座鐘：站在它前面聽滴答聲，會慢慢恢復生命',[],4);}
+    if(atS&&atS.t==='inkstone'&&!trig.inkHealHint){trig.inkHealHint=true;flashHint('溫著的硯台：站在書桌前，會慢慢恢復生命',[],4);}
     if(atS&&atS.t==='warmstall'&&!trig.stallHealHint){trig.stallHealHint=true;flashHint('夜市的暖燈攤：站在攤子前面烤烤火，會慢慢恢復生命',[],4);}
     if(atS){if(atS.t==='hotspring'&&!trig.springHint){trig.springHint=true;flashHint('站進冰上的暖泉裡，會慢慢恢復生命',[],4);}
       if(hp<maxHp){hsT+=dt;if(hsT>=(bossSealed?1.2:2.2)){hsT=0;hp++;updateHP();sfx('heal');rings.push({x:p.x+p.w/2,y:p.y+p.h/2,t:0,c:'255,200,150'});}}}
@@ -3775,7 +3792,7 @@ function drawLantern(L){
 }
 function drawProp(q){
   const x=q.c*TILE,gy=q.g*TILE;
-  if((q.t==='bookshelf'||q.t==='candle'||q.t==='desk'||q.t==='scroll'||q.t==='inkfall')&&drawLibProp(q,x,gy))return;
+  if((q.t==='bookshelf'||q.t==='candle'||q.t==='desk'||q.t==='scroll'||q.t==='inkfall'||q.t==='inkstone')&&drawLibProp(q,x,gy))return;
   if((q.t==='skylamp'||q.t==='bunting'||q.t==='drum'||q.t==='warmstall'||q.t==='wishlamp'||q.t==='mask')&&drawFestProp(q,x,gy))return;
   if(q.t==='stone'){
     ctx.fillStyle='#463b5e';rr(x+4,gy-42,24,42,6);ctx.fill();
@@ -4095,6 +4112,8 @@ function drawEnemy(e){
       ctx.fillStyle='#ffe3ad';for(let k=0;k<3;k++){const a=clock*5+k*2.1;ctx.beginPath();ctx.arc(cx+Math.cos(a)*11,cy-18+Math.sin(a)*3,1.5,0,6.283);ctx.fill();}}
     else{const red=e.st==='wind'||e.st==='roll',col=red?'255,120,80':'255,200,120';glowAt(ex,ey,9,.7,col);ctx.fillStyle=red?'#ff7a50':'#ffd88c';
       ctx.beginPath();ctx.arc(ex-2.6,ey,1.7,0,6.283);ctx.arc(ex+2.6,ey,1.7,0,6.283);ctx.fill();lights.push({x:ex,y:ey,r:34,s:.6,c:col,g:.16});}
+  }else if(e.t==='inkfish'){drawInkfish(e,f);
+  }else if(e.t==='flypage'){drawFlypage(e,f);
   }else if(e.t==='kite'){drawKite(e,f);
   }else if(e.t==='icefish'){
     const d=e.dir||1,cx=e.x+e.w/2;
@@ -6666,7 +6685,95 @@ function drawLibProp(q,x,gy){
   if(q.t==='inkfall'){const cx=x+16,top=gy,L=(q.len||20)*TILE;ctx.save();const g=ctx.createLinearGradient(cx-18,0,cx+18,0);g.addColorStop(0,'rgba(20,16,36,0)');g.addColorStop(.5,'rgba(14,10,28,.95)');g.addColorStop(1,'rgba(20,16,36,0)');
     ctx.fillStyle=g;ctx.fillRect(cx-18,top,36,L);ctx.strokeStyle='rgba(190,170,245,.55)';ctx.lineWidth=1.4;ctx.beginPath();
     for(let k=0;k<5;k++){const yy=top+(((clock*120+k*L/5)%L));ctx.moveTo(cx-6+k*3,yy);ctx.lineTo(cx-6+k*3,yy+22);}ctx.stroke();ctx.restore();return true;}
+  if(q.t==='inkstone'){const w=(q.w||2)*TILE,cx=x+w/2,heal=springQ===q;ctx.save();ctx.strokeStyle=OUT;ctx.lineWidth=1.3;ctx.lineJoin='round';
+    // 矮書桌
+    rr(cx-w/2+2,gy-20,w-4,6,2);fs('#6a4a30');rr(cx-w/2+6,gy-14,5,14,1);fs('#4a3020');rr(cx+w/2-11,gy-14,5,14,1);fs('#4a3020');
+    // 攤開的書與毛筆
+    ctx.beginPath();ctx.moveTo(cx-w/2+8,gy-20);ctx.lineTo(cx-w/2+8,gy-26);ctx.quadraticCurveTo(cx-w/2+18,gy-29,cx-w/2+27,gy-26);ctx.lineTo(cx-w/2+27,gy-20);ctx.closePath();fs('#f3ead6');
+    ctx.strokeStyle='rgba(40,30,30,.55)';ctx.lineWidth=.8;ctx.beginPath();for(let k=0;k<3;k++){ctx.moveTo(cx-w/2+11+k*5,gy-25);ctx.lineTo(cx-w/2+11+k*5,gy-21);}ctx.stroke();
+    ctx.strokeStyle='#5a3a24';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx+w/2-24,gy-29);ctx.lineTo(cx+w/2-8,gy-23);ctx.stroke();ctx.fillStyle='#1a1622';ctx.beginPath();ctx.ellipse(cx+w/2-7,gy-22.6,2.6,1.5,.35,0,6.283);ctx.fill();
+    // 硯台：墨池裡溫著暖暖的光
+    ctx.strokeStyle=OUT;ctx.lineWidth=1.3;rr(cx-12,gy-27,24,7,3);fs('#2e2a36');
+    const ink=heal?'255,190,120':'230,160,110';ctx.fillStyle=`rgba(${ink},${heal?.9:.65})`;ctx.beginPath();ctx.ellipse(cx,gy-25,8,2.2,0,0,6.283);ctx.fill();
+    ctx.restore();
+    ctx.save();for(let k=0;k<3;k++){const ph=((clock*(heal?.6:.4))+k/3)%1;ctx.fillStyle=`rgba(255,236,210,${(1-ph)*(heal?.38:.22)})`;ctx.beginPath();ctx.ellipse(cx+(k-1)*5+Math.sin(clock*2+k)*3,gy-30-ph*30,3+ph*6,2+ph*4,0,0,6.283);ctx.fill();}ctx.restore();
+    glowAt(cx,gy-26,heal?48:34,heal?.6:.4,'255,190,120');lights.push({x:cx,y:gy-26,r:heal?150:115,c:'255,190,120',g:heal?.26:.18});
+    if(heal&&Math.random()<.25)parts.push({x:cx+(Math.random()-.5)*16,y:gy-28,vx:0,vy:-34,life:.6,t:0,c:'#ffd27a'});
+    return true;}
   return false;}
+
+// ---------- 第八章特色怪（2026-11-20.0 部分③）----------
+// 墨衣魚：吃書的衣魚泡在墨水裡變成的怪物，住在墨水河裡。平常只看得到墨面上的觸鬚和漣漪（打不到也碰不到），
+// 靠近時墨面先冒泡（約 0.6 秒），接著從墨裡跳出來劃一道弧線，撞到會受傷；跳在空中時可以打牠。在船上也能停下、倒退或讓船跳起來閃開。
+function initInkfish(e,s){const ws=level.water||[];let w=ws.find(q=>s.c>=q.a&&s.c<q.b)||ws[0];
+  if(!w){e.dead=true;return;}
+  e.x0=w.a*TILE+4;e.x1=w.b*TILE-e.w-4;e.sy=w.g*TILE+8;e.x=clamp(e.x,e.x0,e.x1);e.y=e.sy+6;e.st='under';e.tm=1+Math.random()*1.2;e.ghost=true;e.harmless=true;e.ph=Math.random()*6;}
+function updateInkfish(e,dt){
+  const pcx=p.x+p.w/2,dx=pcx-(e.x+e.w/2);e.tm-=dt;
+  if(e.st==='under'){e.ghost=true;e.harmless=true;const tx=clamp(pcx-e.w/2,e.x0,e.x1);e.x+=clamp(tx-e.x,-110*dt,110*dt);e.y=e.sy+6;e.dir=Math.sign(dx)||e.dir;
+    const near=Math.abs(dx)<170&&p.y+p.h>e.sy-170&&p.y<e.sy+20;
+    if(e.tm<=0&&near){e.st='warn';e.tm=.6;e.lx=clamp(pcx-e.w/2+clamp(p.vx,-220,220)*.7,e.x0,e.x1);sfx('bubble');
+      if(!trig.inkfishHint){trig.inkfishHint=true;flashHint('墨衣魚：墨面冒泡就會跳出來，閃開或在空中打牠',['bA'],6);}}}
+  else if(e.st==='warn'){e.x+=clamp(e.lx-e.x,-240*dt,240*dt);
+    if(Math.random()<dt*26)parts.push({x:e.x+e.w/2+(Math.random()-.5)*22,y:e.sy-2,vx:(Math.random()-.5)*30,vy:-40-Math.random()*50,life:.4,t:0,c:Math.random()<.5?'#5a4f86':'#1e1830'});
+    if(Math.random()<dt*6)sfx('bubble');
+    if(e.tm<=0){e.st='leap';e.ghost=false;e.harmless=false;e.y=e.sy-e.h;e.vy=-540;e.vx=clamp(dx*1.1,-70,70);e.dir=Math.sign(e.vx)||e.dir;sfx('splash');
+      for(let k=0;k<10;k++)parts.push({x:e.x+e.w/2,y:e.sy,vx:(Math.random()-.5)*200,vy:-100-Math.random()*180,life:.55,t:0,c:Math.random()<.5?'#2a2440':'#4a3f6a'});}}
+  else if(e.st==='leap'){e.vy+=1300*dt;e.x=clamp(e.x+e.vx*dt,e.x0,e.x1);e.y+=e.vy*dt;
+    if(e.vy>0&&e.y+e.h>=e.sy+4){e.st='under';e.tm=2.6+Math.random()*.8;e.y=e.sy+6;e.ghost=true;e.harmless=true;sfx('splash');
+      for(let k=0;k<8;k++)parts.push({x:e.x+e.w/2,y:e.sy,vx:(Math.random()-.5)*160,vy:-70-Math.random()*110,life:.5,t:0,c:'#2a2440'});}}
+}
+function drawInkfish(e,f){
+  const d=e.dir||1,cx=e.x+e.w/2;
+  if(e.st==='under'||e.st==='warn'){const sy=e.sy,a=e.st==='warn'?.75:.4;
+    ctx.strokeStyle=`rgba(190,170,240,${a})`;ctx.lineWidth=1.2;ctx.beginPath();ctx.ellipse(cx,sy,14+Math.sin(clock*4+e.ph)*2,2.4,0,0,6.283);ctx.stroke();
+    // 露出墨面的兩根觸鬚
+    ctx.strokeStyle=`rgba(230,220,200,${a+.1})`;ctx.lineWidth=1.3;ctx.beginPath();
+    for(const s of [-1,1]){const bx=cx+d*8+s*2;ctx.moveTo(bx,sy+2);ctx.quadraticCurveTo(bx+d*4,sy-8,bx+d*10+Math.sin(clock*5+s)*2,sy-12-s*2);}ctx.stroke();
+    if(e.st==='warn'){const k=clamp(1-e.tm/.6,0,1);ctx.strokeStyle=`rgba(210,195,255,${.5+.4*Math.sin(clock*30)})`;ctx.lineWidth=1.4;ctx.beginPath();ctx.ellipse(cx,sy,10+k*22,2+k*2,0,0,6.283);ctx.stroke();}
+    return;}
+  // 跳出墨面：書頁做成的衣魚，身上沾著墨字
+  const cy=e.y+e.h/2,ang=clamp(e.vy/700,-1,1)*.6*d;ctx.translate(cx,cy);ctx.rotate(ang);ctx.translate(-cx,-cy);
+  ctx.strokeStyle=OUT;ctx.lineWidth=1.2;
+  // 尾巴三根細鬚
+  ctx.beginPath();for(const o of [-4,0,4]){ctx.moveTo(cx-d*12,cy);ctx.lineTo(cx-d*24,cy+o+Math.sin(clock*14+o)*1.5);}ctx.stroke();
+  // 身體（一節一節）
+  ctx.beginPath();ctx.moveTo(cx+d*14,cy);ctx.quadraticCurveTo(cx+d*10,cy-8,cx,cy-7);ctx.quadraticCurveTo(cx-d*10,cy-6,cx-d*13,cy);ctx.quadraticCurveTo(cx-d*10,cy+6,cx,cy+7);ctx.quadraticCurveTo(cx+d*10,cy+8,cx+d*14,cy);ctx.closePath();fs(f?'#fff':'#e8dcc0');
+  ctx.strokeStyle='rgba(40,30,40,.75)';ctx.lineWidth=1;ctx.beginPath();for(let k=-2;k<=2;k++){ctx.moveTo(cx+k*5,cy-6.5);ctx.quadraticCurveTo(cx+k*5-d*2,cy,cx+k*5,cy+6.5);}ctx.stroke();
+  // 身上的墨字
+  ctx.fillStyle='rgba(30,24,40,.8)';ctx.fillRect(cx-d*7-1,cy-3,2.4,5);ctx.fillRect(cx-1,cy-4,2,3);ctx.fillRect(cx+1,cy+1,3,2);
+  // 頭、觸鬚、眼睛
+  ctx.strokeStyle='#2a1e18';ctx.lineWidth=1.1;ctx.beginPath();ctx.moveTo(cx+d*13,cy-2);ctx.quadraticCurveTo(cx+d*20,cy-10,cx+d*27,cy-8);ctx.moveTo(cx+d*13,cy+1);ctx.quadraticCurveTo(cx+d*21,cy-3,cx+d*28,cy+1);ctx.stroke();
+  glowAt(cx+d*9,cy-2,8,.6,'200,170,255');ctx.fillStyle='#2a1e3a';ctx.beginPath();ctx.arc(cx+d*9,cy-2,1.9,0,6.283);ctx.fill();
+  // 甩下來的墨滴
+  if(Math.random()<.4)parts.push({x:cx-d*10,y:cy+4,vx:-e.vx*.2,vy:20,life:.4,t:0,c:'#2a2440'});
+  lights.push({x:cx,y:cy,r:46,s:.5,c:'200,180,255',g:.1});
+}
+// 飛頁：從書裡飛出來、寫滿墨字的書頁。平常在半空中飄；你靠近時會抖一下（墨眼變紅），接著朝你撲過來，撲完慢慢飄回原處。
+function updateFlypage(e,dt){
+  const pcx=p.x+p.w/2,pcy=p.y+p.h/2,cx=e.x+e.w/2,cy=e.y+e.h/2,dx=pcx-cx,dy=pcy-cy,d=Math.hypot(dx,dy)||1;e.tm-=dt;e.dir=Math.sign(dx)||e.dir||1;
+  if(e.stun>0){e.x+=(e.vx||0)*dt;e.y+=(e.vy||0)*dt;e.vx*=Math.pow(.05,dt);e.vy*=Math.pow(.05,dt);return;}
+  if(e.st==='float'){e.x+=(e.ax+Math.sin(clock*.8+e.ph)*18-e.x)*Math.min(1,dt*3);e.y+=(e.ay+Math.sin(clock*1.6+e.ph)*10-e.y)*Math.min(1,dt*3);
+    if(e.tm<=0&&d<240){e.st='warn';e.tm=.55;sfx('poof');
+      if(!trig.flypageHint){trig.flypageHint=true;flashHint('飛頁：抖一下就會撲過來，看準了閃開再打',['bA'],5);}}}
+  else if(e.st==='warn'){if(e.tm<=0){e.st='swoop';e.tm=.8;e.vx=dx/d*240;e.vy=dy/d*240;sfx('dash');}}
+  else if(e.st==='swoop'){moveX(e,e.vx*dt);moveY(e,e.vy*dt);if(Math.random()<dt*20)parts.push({x:cx,y:cy,vx:-e.vx*.2,vy:0,life:.4,t:0,c:'rgba(240,226,196,.7)'});
+    if(e.tm<=0){e.st='back';e.tm=0;}}
+  else if(e.st==='back'){const bx=e.ax-e.x,by=e.ay-e.y,bd=Math.hypot(bx,by)||1;e.x+=bx/bd*Math.min(bd,90*dt);e.y+=by/bd*Math.min(bd,90*dt);if(bd<6){e.st='float';e.tm=1.6+Math.random()*.8;}}
+}
+function drawFlypage(e,f){
+  const cx=e.x+e.w/2,cy=e.y+e.h/2,warn=e.st==='warn',sh=warn?Math.sin(clock*60)*1.5:0,flap=Math.sin(clock*(e.st==='swoop'?18:7)+(e.ph||0)),d=e.dir||1;
+  ctx.translate(cx+sh,cy);ctx.rotate((e.st==='swoop'?.3:Math.sin(clock*1.3+(e.ph||0))*.15)*d);
+  ctx.strokeStyle=OUT;ctx.lineWidth=1.2;ctx.lineJoin='round';
+  // 左右兩頁像翅膀一樣拍動
+  ctx.beginPath();ctx.moveTo(-12,-2-flap*7);ctx.lineTo(12,-2-flap*7);ctx.lineTo(12,2);ctx.lineTo(-12,2);ctx.closePath();fs(f?'#fff':'#efe2c4');
+  ctx.beginPath();ctx.moveTo(-12,-2);ctx.lineTo(12,-2);ctx.lineTo(12,4+flap*6);ctx.lineTo(-12,4+flap*6);ctx.closePath();fs(f?'#fff':'#e2d4b4');
+  ctx.strokeStyle='rgba(40,30,40,.6)';ctx.lineWidth=1;ctx.beginPath();for(let k=0;k<4;k++){const xx=-8+k*5;ctx.moveTo(xx,-1-flap*6);ctx.lineTo(xx,-flap*2);}ctx.stroke();
+  // 墨眼
+  const ec=warn||e.st==='swoop'?'#c4321e':'#1a1622';ctx.fillStyle=ec;ctx.beginPath();ctx.arc(-3.5*d,0,1.9,0,6.283);ctx.arc(3.5*d,0,1.9,0,6.283);ctx.fill();
+  if(warn&&!cs){ctx.fillStyle=`rgba(255,214,140,${.6+.35*Math.sin(clock*14)})`;ctx.font='bold 12px serif';ctx.textAlign='center';ctx.fillText('！',0,-16);ctx.textAlign='left';}
+  lights.push({x:cx,y:cy,r:44,s:.5,c:'240,226,196',g:.08});
+}
 
 // ---------- 第七章：風（共用系統，2026-11-15.1 先做好，之後的房間都用這一套）----------
 // 橫向的風：直接把人往風的方向推（地上推得比較少）；上升氣流：往上推，張開燈籠時推得更多；
@@ -7669,15 +7776,65 @@ function renderShop(){
 }
 function openShop(){renderShop();$('shop').classList.add('show');checkRotate();}
 function questHTML(){
-  const ids=Object.keys(quests);
-  if(!ids.length)return '<p>目前沒有任務。和倒影居民說說話吧。</p>';
-  return ids.map(id=>{const q=quests[id],Q=QUESTS[id];return `<div class="quest ${q.status}"><b>${Q.title}</b><small>${QSTAT[q.status]}</small><p>${Q.desc(q)}</p></div>`;}).join('');
+  const ids=Object.keys(quests),m=mainQuest(),mh=m?`<div class="quest"><b>${m.title}</b><small>主線</small><p>${m.step}</p></div>`:'';
+  if(!ids.length)return mh+'<p>目前沒有支線任務。和倒影居民說說話吧。</p>';
+  return mh+ids.map(id=>{const q=quests[id],Q=QUESTS[id];return `<div class="quest ${q.status}"><b>${Q.title}</b><small>${QSTAT[q.status]}</small><p>${Q.desc(q)}</p></div>`;}).join('');
 }
 function setTab(t){
   document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===t));
   $('tabMap').style.display=t==='map'?'':'none';$('tabQuest').style.display=t==='quest'?'':'none';$('tabColl').style.display=t==='coll'?'':'none';
   if(t!=='map'){$('tpBtn').style.display='none';tpSel=null;}else requestAnimationFrame(drawPaperMap);
 }
+
+// ---------- 任務欄（待辦 F 第 1 部分，2026-11-20.0）----------
+// 地圖格下方的獨立系統：第一個永遠是目前章節的主線，下面是進行中的支線。平常只顯示名稱，點一下展開「在做什麼、下一步」。
+function chapterOf(id){if(!id||id==='old')return 1;const c=id[0];return c==='L'?8:c==='K'?7:c==='G'?6:c==='I'?5:c==='M'?4:c==='T'?3:(c==='C'||c==='D')?2:1;}
+function mainQuest(){
+  if(!level)return null;const ch=chapterOf(level.id),v=id=>visited.has(id);
+  const Q=(title,step)=>({id:'main',title,step});
+  if(ch===1){if(!F.dummy)return Q('第一章・跟著光往下走','打碎「落點」擋住去路的石殼，往右前進。');
+    if(!ability)return Q('第一章・跟著光往下走','到「雙光之間」和溫柔的師父說話，選一道光。');
+    if(!F.bossDone)return Q('第一章・熄燈者',v('R6')?'在「燈之廳」右邊的門進入「熄燈之間」：點亮燈台讓熄燈者變弱，再打倒它。':'一路往深處走，找到「燈之廳」。前面的晶石可以用衝刺撞開，或從洞口往下跳。');
+    return Q('第一章・往倒映湖','穿過「熄燈之間」右邊的金色傳送門，前往倒映湖。');}
+  if(ch===2){if(!trig.c5end)return Q('第二章・倒映湖','沿著湖往右走，踩著浮橋、爬上沉鐘塔，到「湖心」去。');
+    if(!F.mirrorDone)return Q('第二章・湖底的鏡廳',v('D3')?'在「沉船走廊」盡頭進入「鏡廳」，打倒映照者。記得沿途補充空氣。':'跳進湖心邊緣的漩渦，潛到湖底，一路往右游。');
+    return Q('第二章・往倒過來的小鎮','穿過鏡廳裡浮現的門，前往倒過來的小鎮。');}
+  if(ch===3){if(!F.guideDone)return Q('第三章・提燈的倒影',v('T4')?'從「師父的工坊」右邊的門進入「燈火長廊」，面對提燈的倒影。':'踩地上的符文翻轉天地，一路往右，找到「師父的工坊」。');
+    return Q('第三章・往燈芯礦坑','燈火長廊盡頭的地板裂開了，穿過門往下前往燈芯礦坑。');}
+  if(ch===4){if(!F.drillDone)return Q('第四章・掘燈者',v('M6')?'在「崩塌前哨」進入崩落礦道：回頭打壞掘燈者的三個散熱孔，再打它的燈芯核心。':'靠近發光的燈座用燈鏈盪過裂谷，往礦坑深處前進。');
+    return Q('第四章・往結冰的湖面','穿過崩落礦道盡頭結霜的門，前往結冰的湖面。');}
+  if(ch===5){if(!F.iceDone)return Q('第五章・冰湖下的怪物',v('I9')?'在「湖心冰台」進入冰湖下：等牠的影子游到薄冰底下，用「破冰」把牠震出冰面。':'在冰上滑起來跳過破洞、用「破冰」砸開薄冰，往湖心前進。');
+    return Q('第五章・往停擺的鐘樓','冰湖盡頭的冰壁裂開了，穿過門前往停擺的鐘樓。');}
+  if(ch===6){if(!F.towerDone)return Q('第六章・停擺的大鐘',v('G9')?'從「鐘頂前廳」進入大鐘機關室：打亮所有燈籠開關，鐘心打開時打那盞燈。':'打亮燈籠開關啟動機關，沿著平台一路往上爬。');
+    return Q('第六章・往祭典的夜空','大鐘旁的牆板打開了，穿過小門前往紙燈籠祭典的夜空。');}
+  if(ch===7){if(!F.festHalf)return Q('第七章・停不下來的祭鼓',v('K11')?'從「鼓樓前庭」進入鼓樓頂：跟著鼓點，在鼓面亮起來的那一拍攻擊。':'乘著風之路一路往前飛（上下閃過屋簷和紙鳶怪），到「鼓樓前庭」。');
+    if(!F.festDone)return Q('第七章・夜空裡的祭鼓','大鼓被風捲上天了：走進鼓樓頂，在夜空中跟著拍子把它打倒。');
+    return Q('第七章・燈亮著的地方','夜空盡頭的那一點燈光，還在往更遠的地方走⋯⋯（第八章製作中）');}
+  if(ch===8){if(!v('L13'))return Q('第八章・被墨水淹沒的書庫','划著墨水船、爬上書架，往書庫深處的「封印書齋」前進。');
+    return Q('第八章・天井的翻書聲','書庫天井上方傳來翻書聲⋯⋯（第八章的 Boss 製作中）');}
+  return null;
+}
+let qOpen=null,qSig='';
+function questRows(){
+  const rows=[];const m=mainQuest();if(m)rows.push({id:'main',main:true,title:m.title,desc:m.step,ready:false});
+  const ids=Object.keys(quests).filter(id=>QUESTS[id]&&quests[id].status!=='done');
+  ids.sort((a,b)=>(quests[b].status==='ready')-(quests[a].status==='ready'));
+  for(const id of ids){const q=quests[id];rows.push({id,title:QUESTS[id].title,desc:QUESTS[id].desc(q),ready:q.status==='ready',n:q.n});}
+  return rows;
+}
+function renderQPanel(){
+  const el=$('qPanel');if(!el)return;
+  if(mode!=='play'||!level||level.id==='old'){if(el.classList.contains('has')){el.classList.remove('has');qSig='';}return;}
+  const rows=questRows(),show=rows.slice(0,4),esc=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const sig=JSON.stringify([show,qOpen,rows.length]);if(sig===qSig)return;qSig=sig;
+  let h='';
+  for(const r of show){h+=`<div class="qr${r.main?' main':''}${r.ready?' ready':''}" data-q="${r.id}"><i>${r.main?'◆':r.ready?'？':'・'}</i><b>${esc(r.title)}</b>${r.ready?'<small>回報</small>':r.n!=null&&!r.main&&/\d\/3/.test(r.desc)?`<small>${r.n}/3</small>`:''}</div>`;
+    if(qOpen===r.id)h+=`<div class="qd">${esc(pcText(r.desc))}</div>`;}
+  if(rows.length>show.length)h+=`<div class="qm">還有 ${rows.length-show.length} 個任務（地圖→任務）</div>`;
+  el.innerHTML=h;el.classList.toggle('has',rows.length>0);
+}
+$('qPanel').addEventListener('click',e=>{const r=e.target.closest&&e.target.closest('.qr');if(!r){openMap();setTab('quest');return;}const id=r.dataset.q;qOpen=qOpen===id?null:id;sfx('ui');qSig='';renderQPanel();});
+setInterval(renderQPanel,400);
 
 // ---------- 地圖 ----------
 let tpSel=null;
