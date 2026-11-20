@@ -478,6 +478,9 @@ body.hasSkill #bK{display:flex}
   .cbtn.main::after{top:-7px;height:12px;width:38px}
 }
 @media (prefers-reduced-motion:reduce){.cbtn{transition:none}}
+/* 介面小圖示改成手繪線條（取代 emoji，2026-11-20.2） */
+.uico{width:1.15em;height:1.15em;vertical-align:-.2em;margin-right:.35em;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+#platBack{display:inline-flex;align-items:center}
 /* 任務欄（待辦 F）：地圖格正下方，平常只列任務名稱，點一下看「在做什麼、下一步」 */
 #qPanel{pointer-events:auto;width:clamp(140px,26vw,200px);margin-top:-3px;padding:3px 7px 4px;background:rgba(16,13,24,.6);border:1.4px solid rgba(240,225,195,.28);
   border-radius:3px 3px 8px 10px;font-family:"Noto Serif TC","Songti TC",serif;font-size:11.5px;line-height:1.4;color:#efe2c4;display:none;cursor:pointer;-webkit-user-select:none;user-select:none}
@@ -524,7 +527,7 @@ body.hasSkill #bK{display:flex}
           </button>
         </div>
         <p class="platKeys" id="platKeys">電腦版操作：A / D 移動・空白鍵 跳躍・滑鼠左鍵 攻擊・右鍵 衝刺<br>E 對話／進入・F 點燈・Q 燈油・Shift 燈鏈・S 破冰・M 地圖・Esc 設定</p>
-        <button class="platBack serif" id="platBack">← 回到封面</button>
+        <button class="platBack serif" id="platBack"><svg class="uico" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.8 5.6 8.4 12l6.5 6.4"/></svg>回到封面</button>
       </div>
     </div>
 
@@ -711,8 +714,8 @@ body.hasSkill #bK{display:flex}
         <h2>手感設定</h2>
         <p>數值會自動保存。</p>
         <div id="sliders"></div>
-        <button class="edOpen" id="openKeys" style="display:none">⌨ 按鍵設定（電腦版）</button>
-        <button class="edOpen" id="openEditor">🛠 開啟編輯器（修改對話、數值、程式碼）</button>
+        <button class="edOpen" id="openKeys" style="display:none"><svg class="uico" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.8" y="6.4" width="18.4" height="11.4" rx="2"/><path d="M6.2 9.8h.1M9.4 9.8h.1M12.6 9.8h.1M15.8 9.8h.1M7.4 14.3h9.2"/></svg>按鍵設定（電腦版）</button>
+        <button class="edOpen" id="openEditor"><svg class="uico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.4 19.7 14 10.1"/><path d="M13.2 6.3a4.1 4.1 0 0 0 5.2 5.3l1.8-1.9-2.7-.6-.6-2.7 1.9-1.8a4.1 4.1 0 0 0-5.6 1.7z"/></svg>開啟編輯器（修改對話、數值、程式碼）</button>
         <div class="actions">
           <button id="resetSet">恢復預設</button>
           <button class="primary" id="closeSet">完成</button>
@@ -733,8 +736,13 @@ body.hasSkill #bK{display:flex}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-20.1';
+const GAME_VERSION='2026-11-20.2';
 const CHANGELOG=[
+  ['2026-11-20.2','封面與設定不再使用 emoji（啊一 在主對話要求）',[
+    '手機直向的封面一樣使用 20.1 的手繪紙片按鈕與手繪線條圖示（燈籠、羽毛筆、齒輪、羅盤），沒有任何 emoji',
+    '設定裡的「按鍵設定（電腦版）」「開啟編輯器」原本前面的 ⌨、🛠 在手機上會顯示成彩色 emoji，改成和按鈕一樣的手繪線條小圖示（鍵盤、扳手）',
+    '「選擇遊玩方式」頁面的「回到封面」箭頭改成手繪線條'
+  ]],
   ['2026-11-20.1','封面按鈕換成更手繪的樣式（啊一 在主對話要求「直接修改封面」）',[
     '封面四個按鈕（繼續遊戲、開始遊戲／新的旅程、設定、捷徑）維持一樣大小、直排，外觀改成更手繪的紙片：歪歪扭扭的手繪外框、外圍再描一圈淡淡的草稿線、紙上有橫線和咖啡色斑點，按下去像紙片被壓進桌面',
     '按鈕前的符號（▶ ✦ ⚙ ➜）換成手繪線條小圖示：燈籠（繼續遊戲）、羽毛筆（開始遊戲）、齒輪（設定）、羅盤（捷徑）',
