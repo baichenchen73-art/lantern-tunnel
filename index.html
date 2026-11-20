@@ -450,19 +450,34 @@ body.hasSkill #bK{display:flex}
   #modBadge{flex:0 0 100%;text-align:center}
   .coverBtns .link{font-size:12.5px;padding:5px 6px}
 }
-/* 封面按鈕（2026-11-19.2 主對話的樣式，11-20.0 重新套用）：四個一樣大小、直的往下排、手繪紙張風 */
-.coverBtns{flex-direction:column!important;flex-wrap:nowrap!important;align-items:center;gap:11px!important;max-width:none!important}
-.cbtn{position:relative;width:236px;display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 0;cursor:pointer;
-  background:#efe2c4;color:#3b2f2a;border:1.6px solid #1a1420;border-radius:7px 15px 8px 16px;box-shadow:0 7px 20px rgba(0,0,0,.55),inset 0 0 18px rgba(120,80,40,.18);
-  font-size:17px;letter-spacing:.2em;font-family:"Noto Serif TC","Songti TC",serif;
-  background-image:repeating-linear-gradient(transparent 0 13px,rgba(110,90,70,.10) 13px 14px)}
-.cbtn i{font-style:normal;font-size:15px;color:#9a4a2e;letter-spacing:0;width:18px;text-align:center}
-.cbtn span{min-width:5.2em;text-align:left}
-.cbtn:nth-of-type(odd){transform:rotate(-.7deg)}.cbtn:nth-of-type(even){transform:rotate(.6deg)}
-.cbtn:active{background-color:#e2d2ae;transform:scale(.97)}
-.cbtn.main::before{content:"";position:absolute;top:-8px;left:50%;width:58px;height:15px;margin-left:-29px;background:rgba(232,212,150,.78);
-  border-left:1px dashed rgba(120,90,50,.35);border-right:1px dashed rgba(120,90,50,.35);transform:rotate(-4deg);box-shadow:0 1px 2px rgba(0,0,0,.25)}
-@media (max-height:520px){.coverBtns{gap:7px!important}.cbtn{width:214px;padding:6px 0;font-size:15px}.cbtn.main::before{top:-6px;height:11px}}
+/* 封面按鈕（2026-11-20.1）：四個一樣大小、直的往下排、手繪紙片＋手繪圖示 */
+#cover .coverBtns{display:flex!important;flex-direction:column!important;flex-wrap:nowrap!important;align-items:center;gap:14px!important;max-width:none!important}
+.cbtn{position:relative;width:min(244px,72vw);height:52px;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 18px;cursor:pointer;
+  font-family:"Noto Serif TC","Songti TC",serif;font-size:17px;font-weight:600;letter-spacing:.2em;color:#3b2f2a;
+  background:radial-gradient(ellipse at 18% 30%,rgba(160,110,60,.13),transparent 46%),radial-gradient(ellipse at 84% 76%,rgba(160,110,60,.1),transparent 42%),
+    repeating-linear-gradient(transparent 0 11px,rgba(110,90,70,.12) 11px 12px),#efe2c4;
+  border:2px solid #2a2018;border-radius:255px 14px 225px 16px/16px 225px 14px 255px;
+  box-shadow:3px 4px 0 rgba(12,8,6,.6),inset 0 0 14px rgba(120,80,40,.18);transition:transform .12s,box-shadow .12s}
+.cbtn::before{content:"";position:absolute;inset:-5px -4px -4px -6px;border:1.4px solid rgba(239,226,196,.5);border-radius:14px 225px 16px 255px/255px 16px 225px 14px;pointer-events:none}
+.cbtn:nth-of-type(odd){transform:rotate(-.9deg)}.cbtn:nth-of-type(even){transform:rotate(.7deg)}
+.cbtn:hover{transform:rotate(0) translateY(-1px)}
+.cbtn:active{transform:translate(2px,3px);box-shadow:1px 1px 0 rgba(12,8,6,.6),inset 0 0 14px rgba(120,80,40,.25)}
+.cbtn:focus-visible{outline:2px dashed #ffd88c;outline-offset:6px}
+.cbtn.main::after{content:"";position:absolute;top:-9px;left:16px;width:46px;height:15px;background:rgba(201,162,74,.6);
+  clip-path:polygon(3% 8%,97% 0,100% 88%,4% 100%,0 55%);transform:rotate(-7deg);pointer-events:none}
+.cbtn .cico{width:22px;height:22px;flex:none;fill:none;stroke:#3b2f2a;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cbtn .cico .fl{fill:#e0912f;stroke:#9a4a2e}
+.cbtn span{display:inline-block;min-width:4.6em;text-align:left}
+#cover #modBadge{flex:none;text-align:center}
+@media (max-height:520px){
+  #cover{padding:3vh 16px 3vh!important}
+  #cover .coverBtns{gap:9px!important}
+  .cbtn{height:38px;font-size:15px;width:min(210px,60vw)}
+  .cbtn .cico{width:18px;height:18px}
+  .cbtn::before{inset:-4px -3px -3px -4px}
+  .cbtn.main::after{top:-7px;height:12px;width:38px}
+}
+@media (prefers-reduced-motion:reduce){.cbtn{transition:none}}
 /* 任務欄（待辦 F）：地圖格正下方，平常只列任務名稱，點一下看「在做什麼、下一步」 */
 #qPanel{pointer-events:auto;width:clamp(140px,26vw,200px);margin-top:-3px;padding:3px 7px 4px;background:rgba(16,13,24,.6);border:1.4px solid rgba(240,225,195,.28);
   border-radius:3px 3px 8px 10px;font-family:"Noto Serif TC","Songti TC",serif;font-size:11.5px;line-height:1.4;color:#efe2c4;display:none;cursor:pointer;-webkit-user-select:none;user-select:none}
@@ -519,10 +534,10 @@ body.hasSkill #bK{display:flex}
         <div class="sub">遊戲名稱暫定</div>
       </div>
       <div class="coverBtns">
-        <button class="cbtn main serif" id="contBtn" style="display:none"><i>▶</i><span>繼續遊戲</span></button>
-        <button class="cbtn main serif" id="startBtn"><i>✦</i><span>開始遊戲</span></button>
-        <button class="cbtn serif" id="coverSet"><i>⚙</i><span>設定</span></button>
-        <button class="cbtn serif" id="jumpBtn"><i>➜</i><span>捷徑</span></button>
+        <button class="cbtn main serif" id="contBtn" style="display:none"><svg class="cico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5v3"/><path d="M7.3 9.2 12 5.6l4.8 3.5"/><path d="M8 9.4h8.1l-.2 9.8H8.2z"/><path d="M12.1 12.2c1.6 1.7 1.5 3.4 0 4.6-1.5-1.3-1.6-2.9 0-4.6z" class="fl"/><path d="M6.6 19.5h10.9"/></svg><span>繼續遊戲</span></button>
+        <button class="cbtn main serif" id="startBtn"><svg class="cico" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.6c4.6-1.2 9.8-5.4 14.8-15.1-6.1 2.3-11 6.6-13.4 12.9"/><path d="M8.2 14.6c2.3.1 4.4-.4 6.4-1.6"/><path d="M3.8 20.3l2.1-2.2"/></svg><span>開始遊戲</span></button>
+        <button class="cbtn serif" id="coverSet"><svg class="cico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.2 8.6a3.4 3.4 0 1 1-.3 0z"/><path d="M12 2.8v2.6M12.1 18.7v2.5M2.9 12.1h2.5M18.6 11.9h2.6M5.5 5.6l1.9 1.8M16.6 16.7l1.8 1.8M5.6 18.4l1.8-1.9M16.7 7.4l1.8-1.9"/></svg><span>設定</span></button>
+        <button class="cbtn serif" id="jumpBtn"><svg class="cico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.1a8.9 8.9 0 1 1-.4 0z"/><path d="M15.6 8.3l-2.2 5.2-5.1 2.3 2.3-5.2z"/><path d="M12 3.2v1.6M20.8 12h-1.6"/></svg><span>捷徑</span></button>
         <div id="modBadge" style="display:none">修改版運作中　<button class="link" id="modOff">回到原版</button></div>
       </div>
     </div>
@@ -718,8 +733,14 @@ body.hasSkill #bK{display:flex}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-20.0';
+const GAME_VERSION='2026-11-20.1';
 const CHANGELOG=[
+  ['2026-11-20.1','封面按鈕換成更手繪的樣式（啊一 在主對話要求「直接修改封面」）',[
+    '封面四個按鈕（繼續遊戲、開始遊戲／新的旅程、設定、捷徑）維持一樣大小、直排，外觀改成更手繪的紙片：歪歪扭扭的手繪外框、外圍再描一圈淡淡的草稿線、紙上有橫線和咖啡色斑點，按下去像紙片被壓進桌面',
+    '按鈕前的符號（▶ ✦ ⚙ ➜）換成手繪線條小圖示：燈籠（繼續遊戲）、羽毛筆（開始遊戲）、齒輪（設定）、羅盤（捷徑）',
+    '紙膠帶改成貼在按鈕左上角、斜斜撕下來的樣子',
+    '手機橫向時按鈕自動縮小，四顆都完整顯示；手機橫向、電腦、手機直向都測過'
+  ]],
   ['2026-11-20.0','第八章製作中（第 3 部分：特色怪「墨衣魚」「飛頁」、書庫回血點「溫著的硯台」）＋畫面左上新增任務欄（待辦 F 第 1 部分）＋封面四個按鈕正式上線',[
     '這次完成第八章 11 個部分中的第 3 部分（目前 3/11）。做到一半的第八章仍然只能從封面「捷徑 → 第八章（製作中）」進入，正式流程完全不變（打倒停不下來的祭鼓之後仍然是「第七章 完」）',
     '第八章特色怪「墨衣魚」：吃書的衣魚泡在墨水裡變成的怪物，用書頁做成的身體上沾著墨字，住在墨水河裡。平常只看得到墨面上露出的兩根觸鬚和一圈漣漪（這時打不到、也碰不到你），會跟著你在墨裡游',
