@@ -501,7 +501,7 @@ body.hasSkill #bK{display:flex}
 .edOpen{display:flex;align-items:center;justify-content:center;gap:0}
 .platBack{display:inline-flex;align-items:center}
 /* 公開網址（github.io）上藏起測試用的「捷徑」與「編輯器」；網址加 ?dev 會再出現。本機版、claude.ai 正式版不受影響 */
-html.pub #jumpBtn,html.pub #openEditor{display:none!important}
+html.pub #jumpBtn,html.pub #openEditor,html.pub .devOnly{display:none!important}
 </style>
 </head>
 <body data-state="cover">
@@ -542,7 +542,7 @@ html.pub #jumpBtn,html.pub #openEditor{display:none!important}
     <div id="cover" class="ui">
       <div>
         <div class="logo serif">地道</div>
-        <div class="sub">遊戲名稱暫定</div>
+        <div class="sub devOnly">遊戲名稱暫定</div>
       </div>
       <div class="coverBtns">
         <button class="cbtn main serif" id="contBtn" style="display:none"><i><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5v2.2"/><path d="M8 8.2 12 4.7l4 3.5Z"/><rect x="8.6" y="8.2" width="6.8" height="9.6" rx="1.2"/><path d="M12 11q2 2.2 0 4.3q-2-2.1 0-4.3Z" fill="currentColor" stroke="none"/><path d="M7.6 17.8h8.8M8.6 20.5h6.8"/></svg></i><span>繼續遊戲</span></button>
@@ -745,11 +745,20 @@ html.pub #jumpBtn,html.pub #openEditor{display:none!important}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-21.1';
+const GAME_VERSION='2026-11-21.2';
 // 公開網址判斷：只有在 github.io 上、而且網址沒有 ?dev 時，才藏起測試用的按鈕
 const PUBLIC_SITE=/github\.io$/i.test(location.hostname)&&!/[?&]dev\b/i.test(location.search);
 if(PUBLIC_SITE)document.documentElement.classList.add('pub');
 const CHANGELOG=[
+  ['2026-11-21.2','星期六晚上輕量版：公開版藏起測試字樣（待辦 L1）、走上船就自動開船（待辦 L2）、補改管書員對白（待辦 L3）；併入主對話的公開網址版 21.1',[
+    '這次以 GitHub 上的 2026-11-21.1（主對話做的公開網址版：藏起捷徑與編輯器、網頁標題改成「地道」）為基礎，那一版的修改全部保留',
+    '修正 L1（公開網址）：封面標題下面的「遊戲名稱暫定」在公開網址（github.io、沒有加 ?dev）上不再顯示；本機版、claude.ai 正式版照常顯示',
+    '修正 L1（公開網址）：存檔選單在公開網址上只寫「存檔 3」，不再出現「（測試捷徑也會用這格）」；公開網址沒有捷徑按鈕，存檔 3 不會被測試功能覆蓋',
+    '修正 L1（公開網址）：其他給玩家看的「製作中」字樣改成正式說法——第七章終點的「第八章製作中，敬請期待」改成「第八章即將推出，敬請期待」；任務欄「（第八章製作中）」改成「（第八章即將推出）」；存檔欄位與地圖區域按鈕不再寫「（製作中）」；書庫天井的告示牌改成「未完待續」。本機版與 ?dev 仍顯示原本的「製作中」提醒',
+    '修正 L2（第八章墨水船）：以前站上停著的船之後，一直按著 → 大約 0.3 秒就會從船頭走出去、掉進墨水扣 1 格。現在走上（或跳上）船就會自動上船，繼續按著 → 就是往前划，不會再走出船外；從另一邊按著 ← 上船也一樣。下船照舊：靠岸按「進入」，或往岸上按住方向鍵',
+    '修正 L2：靠近船時的提示改成「按『進入』或直接走到船上就會上船」',
+    '修正 L3（第八章管書員）：2026-11-21.0 的更新紀錄寫「管書員的對白一起改了」，但其實漏改了——接下任務時管書員還是說「書海浮島後面那段河上」。這次補改：接任務時分成三句，一張一張講清楚（1. 墨水瀑布左邊的書架上 2. 目錄迴廊右邊的高台上 3. 書海浮島右邊那段河上、凸出墨面的書正上方，要讓船跳起來才拿得到），和任務欄的三行說明一致；另一段「再跟管書員說話時」的對白也改成同樣的說法'
+  ]],
   ['2026-11-21.1','公開網址版：上架前藏起測試用的「捷徑」和「編輯器」（主對話）',[
     '遊戲放上公開網址 https://baichenchen73-art.github.io/lantern-tunnel/ 準備上架 4388 小遊戲，玩家不應該看到測試用的東西',
     '在公開網址上，封面的「捷徑」按鈕和設定裡的「開啟編輯器」按鈕會藏起來；網址後面加上 ?dev（例如 …/lantern-tunnel/?dev）就會再出現',
@@ -1948,7 +1957,7 @@ const ROOMS={
     exits:[{s:'L',a:9,b:11,to:'L12',c:58,g:12,f:-1}]},
   LB:{mpos:[2970,-89],name:'書庫天井',W:36,H:18,
     build(r,W,H){r(0,0,W,1);r(0,0,1,H);r(W-1,0,1,H);r(0,16,W,2);r(5,14,2,1);r(29,14,2,1);},
-    spawns:[],lant:[],props:[{t:'floatbook',c:18,g:10},{t:'sign',c:21,g:16,text:'製作中'},{t:'bookshelf',c:3,g:16,h:8},{t:'bookshelf',c:32,g:16,h:8},{t:'candle',c:12,g:16},{t:'candle',c:24,g:16},{t:'inkstone',c:26,g:16,w:2}],
+    spawns:[],lant:[],props:[{t:'floatbook',c:18,g:10},{t:'sign',c:21,g:16,text:PUBLIC_SITE?'未完待續':'製作中'},{t:'bookshelf',c:3,g:16,h:8},{t:'bookshelf',c:32,g:16,h:8},{t:'candle',c:12,g:16},{t:'candle',c:24,g:16},{t:'inkstone',c:26,g:16,w:2}],
     portals:[{c:2.4,g:16,to:'L13',pc:23,pg:12,name:'封印書齋'}],
     events:[{id:'lbin',enter:true,steps:[{c:'cam',x:18.5*TILE,y:9*TILE,d:1.2},{c:'cap',t:'天井的正中央，一本古書懸在半空，自己一頁一頁地翻著。（第八章的 Boss 會在之後的部分加入）'},{c:'cam',x:null,d:.6}]}],
     exits:[]},
@@ -2180,7 +2189,7 @@ function talkSteps(id){
   }
   if(id==='librarian'){
     if(st==='accept'){const q=quests.bookmarks;
-      if(!q)return [{c:'talk',who:'librarian',t:'三張夾著話的書籤，被墨水沖到了墨水瀑布、目錄迴廊和書海浮島。幫我找回來。'},{c:'fn',fn:()=>{giveQuest('bookmarks');return null;}},{c:'cap',t:'接下任務：管書員的書籤。'}];
+      if(!q)return [{c:'talk',who:'librarian',t:'三張夾著話的書籤被墨水沖走了。第一張在墨水瀑布左邊的書架上；第二張在目錄迴廊右邊的高台上；第三張飄在書海浮島右邊那段河上，凸出墨面的書正上方。幫我找回來。'},{c:'fn',fn:()=>{giveQuest('bookmarks');return null;}},{c:'cap',t:'接下任務：管書員的書籤。'}];
       if(q.status==='ready')return [{c:'talk',who:'me',t:'管書員，三張書籤都找到了。'},{c:'talk',who:'librarian',t:'⋯⋯「謝謝你來」、「天冷了，早點回家」、「下次再來借」。都是我想說、卻只敢夾在書裡的話。'},
         {c:'cap',t:'管書員從最舊的那本書裡抽出一張借書卡。卡上有兩個孩子的名字，借的是同一本《湖邊的燈怎麼做》。一欄蓋著「已還」，另一欄是空的。'},
         {c:'talk',who:'librarian',t:'那本書，一直沒有還回來。我也一直沒有催。只要不催，就好像他還會來。'},
@@ -2196,7 +2205,7 @@ function talkSteps(id){
       {c:'talk',who:'librarian',t:'⋯⋯有一本書，一直沒有還回來。我也一直沒有去催。'},
       {c:'choice',key:'librarian',opts:[
         {v:'accept',t:'想說的話，就直接說出來吧。我在聽。',d:'接納這一面',then:[{c:'talk',who:'librarian',t:'⋯⋯直接說啊。那，先幫我把那些紙條找回來。'},
-          {c:'talk',who:'librarian',t:'三張夾著話的書籤，被墨水沖走了：墨水瀑布、目錄迴廊，還有書海浮島後面那段河上。'},
+          {c:'talk',who:'librarian',t:'三張夾著話的書籤，被墨水沖走了。第一張，在墨水瀑布左邊的書架上。'},{c:'talk',who:'librarian',t:'第二張，在目錄迴廊右邊的高台上。'},{c:'talk',who:'librarian',t:'第三張，飄在書海浮島右邊那段河上，凸出墨面的那本書正上方——要坐船讓船跳起來才拿得到。'},
           {c:'fn',fn:()=>{giveQuest('bookmarks');return null;}},{c:'cap',t:'接下任務：管書員的書籤。可以在任務欄或地圖畫面的「任務」分頁查看。'}]},
         {v:'seal',t:'回去吧，書庫需要妳把每一本書都管好。',d:'勸它回到心底',then:[{c:'talk',who:'librarian',t:'⋯⋯也是。那我回去，繼續說「安靜」。'},{c:'npcFade',id:'librarian'}]}]}
     ];
@@ -2562,7 +2571,7 @@ function continueGame(n){
 }
 function slotInfo(d){
   if(!d)return '空的存檔';
-  const r=ROOMS[d.checkpoint.room],c=d.checkpoint.room[0],ch=c==='L'?'第八章（製作中）':c==='K'?'第七章':c==='G'?'第六章':c==='I'?'第五章':c==='M'?'第四章':c==='T'?'第三章':(c==='C'||c==='D')?'第二章':'第一章';
+  const r=ROOMS[d.checkpoint.room],c=d.checkpoint.room[0],ch=c==='L'?(PUBLIC_SITE?'第八章':'第八章（製作中）'):c==='K'?'第七章':c==='G'?'第六章':c==='I'?'第五章':c==='M'?'第四章':c==='T'?'第三章':(c==='C'||c==='D')?'第二章':'第一章';
   let t='';if(d.savedAt){const dt=new Date(d.savedAt);t=`・${dt.getMonth()+1}/${dt.getDate()} ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;}
   return `「${r?r.name:'？'}」・${ch}・記憶碎片 ${(d.shards||[]).length}/8${t}`;
 }
@@ -2573,7 +2582,7 @@ function renderSlots(){
   const list=$('slotList');list.innerHTML='';
   for(const n of [1,2,3]){
     const d=loadSave(n),row=document.createElement('div');row.className='item';
-    row.innerHTML=`<div><b>存檔 ${n}${n===3?'（測試捷徑也會用這格）':''}</b><p>${slotInfo(d)}</p></div>`;
+    row.innerHTML=`<div><b>存檔 ${n}${n===3&&!PUBLIC_SITE?'（測試捷徑也會用這格）':''}</b><p>${slotInfo(d)}</p></div>`;
     const b=document.createElement('button');
     if(slotMode==='load'){b.textContent=d?'繼續':'空的';b.disabled=!d;b.onclick=()=>{$('slots').classList.remove('show');continueGame(n);};}
     else{
@@ -3705,7 +3714,7 @@ function update(dt){
         const tend=story.accept>story.seal?'帶著倒影們的心意回去':story.seal>story.accept?'封存倒影，回到原本的小鎮':'還看不出來';
         $('finishTitle').textContent=L.goal===8?'第七章 完':L.goal===7?'第六章 完':L.goal===6?'第五章 完':L.goal===5?'第四章 完':L.goal===4?'第三章 完':L.goal===3?'第二章 完':L.goal===2?'第二章（前半）完':'第一章 完';
         if(L.goal===1)chapterDone=true;
-        $('finishText').textContent=`你從師父的倒影那裡選擇了「${ability==='dash'?'衝刺':ability==='djump'?'二段跳':'無'}」，找到記憶碎片 ${shards.size} 個、身上有 ${wallet} 光屑；接納了 ${story.accept} 個倒影，封存了 ${story.seal} 個。依目前的選擇，結局傾向：${tend}。${L.goal===8?'第八章製作中，敬請期待。':L.goal===7?'第七章製作中，敬請期待。':L.goal===6?'第六章製作中，敬請期待。':L.goal===5?'第五章製作中，敬請期待。':L.goal===4?'第四章製作中，敬請期待。':L.goal===3?'右邊出現了通往第三章「倒過來的小鎮」的傳送門。':L.goal===2?'湖心島邊緣出現了通往湖底的漩渦。':'右邊的金色傳送門通往第二章「倒映湖」。'}`;
+        $('finishText').textContent=`你從師父的倒影那裡選擇了「${ability==='dash'?'衝刺':ability==='djump'?'二段跳':'無'}」，找到記憶碎片 ${shards.size} 個、身上有 ${wallet} 光屑；接納了 ${story.accept} 個倒影，封存了 ${story.seal} 個。依目前的選擇，結局傾向：${tend}。${L.goal===8?(PUBLIC_SITE?'第八章即將推出，敬請期待。':'第八章製作中，敬請期待。'):L.goal===7?'第七章製作中，敬請期待。':L.goal===6?'第六章製作中，敬請期待。':L.goal===5?'第五章製作中，敬請期待。':L.goal===4?'第四章製作中，敬請期待。':L.goal===3?'右邊出現了通往第三章「倒過來的小鎮」的傳送門。':L.goal===2?'湖心島邊緣出現了通往湖底的漩渦。':'右邊的金色傳送門通往第二章「倒映湖」。'}`;
         $('finish').classList.add('show');checkRotate();
       }
       else if(level.id==='R1'&&!trig.lantern){trig.lantern=true;playCS(EV_LANTERN,()=>{calmT=.6;});return;}
@@ -5502,7 +5511,7 @@ function drawMini(){
   t.fillStyle=Math.floor(clock*3)%2?'#ffffff':'#b9a6ff';t.beginPath();t.arc(cw/2,ch/2,2.6,0,6.283);t.fill();
 }
 // 紙地圖：只顯示一部分（放大），可以拖曳、縮放、依區域跳轉
-const MAP_REGIONS=[['第一章 地道',/^(R|S|N|B)/],['倒映湖',/^C/],['湖底',/^D/],['倒過來的小鎮',/^T/],['燈芯礦坑',/^M/],['結冰的湖面',/^I/],['鐘樓',/^G/],['祭典夜空',/^K/],['墨水書庫（製作中）',/^L/]];
+const MAP_REGIONS=[['第一章 地道',/^(R|S|N|B)/],['倒映湖',/^C/],['湖底',/^D/],['倒過來的小鎮',/^T/],['燈芯礦坑',/^M/],['結冰的湖面',/^I/],['鐘樓',/^G/],['祭典夜空',/^K/],[PUBLIC_SITE?'墨水書庫':'墨水書庫（製作中）',/^L/]];
 let MV=null,mapRegOn=-1;
 function mapAllB(){const B=mapBounds(false);B.x0-=3;B.y0-=4;B.x1+=3;B.y1+=3;return B;}
 function mapSize(){const m=$('mapCv'),cw=m.clientWidth||1;const ch=Math.round(clamp(Math.min(innerHeight*(innerHeight<520?.47:.5),cw*.62),130,520));return [cw,ch];}
@@ -6850,12 +6859,15 @@ function updateBoatNear(){
   snapBoats();
   nearBoat=null;
   if(!p.boat&&p.grounded&&grav>0){let bd=BOAT_W/2+34;for(const b of boats){const cx=p.x+p.w/2,d=Math.abs(cx-(b.x+BOAT_W/2));if(!b.air&&d<bd&&Math.abs(p.y+p.h-(b.surf-8))<20){nearBoat=b;bd=d;}}}
-  if(nearBoat&&!trig.boatHint){trig.boatHint=true;flashHint('墨水船：按「進入」上船（也可以直接走到船上再按）',['bE'],4);}
+  if(nearBoat&&!trig.boatHint){trig.boatHint=true;flashHint('墨水船：按「進入」或直接走到船上就會上船',['bE'],4);}
   if(p.boat&&boatCanLeave()&&!trig.boatLeaveHint&&(p.boat.x>p.boat.x0+4||trig.boatMoved)){trig.boatLeaveHint=true;flashHint('靠岸了：按「進入」下船，或直接走上岸',['bE'],4);}
 }
 // 待辦 K1（2026-11-21.0）：船身有可以站的頂面。走到／跳到停著的船上就站在船上（不會掉進墨水），再按「進入」開船。
+// 待辦 L2（2026-11-21.2）：走上（或跳上）停著的船，就自動上船開船；一直按著方向鍵也只會往前划，不會從船頭走出去掉進墨水。過場劇情中才只是站著。
 function standOnBoat(fb){if(p.boat||grav<0||p.vy<0||!boats.length)return;
-  for(const b of boats){const top=b.y;if(p.x+p.w>b.x+6&&p.x<b.x+BOAT_W-6&&p.y+p.h>=top-1&&fb<=top+6){p.y=top-p.h;p.vy=0;p.grounded=true;airDash=true;airJump=true;return;}}}
+  for(const b of boats){const top=b.y;if(p.x+p.w>b.x+6&&p.x<b.x+BOAT_W-6&&p.y+p.h>=top-1&&fb<=top+6){
+    if(!cs&&dying<=0&&!b.air){boardBoat(b);return;}
+    p.y=top-p.h;p.vy=0;p.grounded=true;airDash=true;airJump=true;return;}}}
 function boardBoat(b){p.boat=b;invuln=Math.max(invuln,.7);b.vx=0;b.snap=false;dashT=0;hook=null;slam=0;p.vx=0;p.vy=0;sfx('splash');sfx('ui');rideBoat();
   for(let k=0;k<8;k++)parts.push({x:b.x+Math.random()*BOAT_W,y:b.surf,vx:(Math.random()-.5)*80,vy:-50-Math.random()*50,life:.4,t:0,c:'#2a2440'});
   if(!trig.boatRideHint){trig.boatRideHint=true;flashHint('◀ 或 ▶ 划船，「跳躍」讓船跳，靠岸按「進入」下船',['bL','bR','bJ'],7);}}
@@ -8203,10 +8215,10 @@ function mainQuest(){
     return Q('第六章・往祭典的夜空','大鐘旁的牆板打開了，穿過小門前往紙燈籠祭典的夜空。');}
   if(ch===7){if(!F.festHalf)return Q('第七章・停不下來的祭鼓',v('K11')?'從「鼓樓前庭」進入鼓樓頂：跟著鼓點，在鼓面亮起來的那一拍攻擊。':'乘著風之路一路往前飛（上下閃過屋簷和紙鳶怪），到「鼓樓前庭」。');
     if(!F.festDone)return Q('第七章・夜空裡的祭鼓','大鼓被風捲上天了：走進鼓樓頂，在夜空中跟著拍子把它打倒。');
-    return Q('第七章・燈亮著的地方','夜空盡頭的那一點燈光，還在往更遠的地方走⋯⋯（第八章製作中）');}
+    return Q('第七章・燈亮著的地方','夜空盡頭的那一點燈光，還在往更遠的地方走⋯⋯'+(PUBLIC_SITE?'（第八章即將推出）':'（第八章製作中）'));}
   if(ch===8){if(!F.companion&&v('L9')&&!v('L13'))return Q('第八章・戴狐狸面具的小燈精','在「目錄迴廊」找到那盞戴著狐狸面具的小燈精，和它說說話。');
     if(!v('L13'))return Q('第八章・被墨水淹沒的書庫','划著墨水船、爬上書架，往書庫深處的「封印書齋」前進。');
-    return Q('第八章・天井的翻書聲','書庫天井上方傳來翻書聲⋯⋯（第八章的 Boss 製作中）');}
+    return Q('第八章・天井的翻書聲','書庫天井上方傳來翻書聲⋯⋯'+(PUBLIC_SITE?'（未完待續）':'（第八章的 Boss 製作中）'));}
   return null;
 }
 let qOpen=null,qSig='';
