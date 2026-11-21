@@ -1,6 +1,10 @@
 # 地道（暫名）
 
+<a href="https://4388.fun/g/25886" target="_blank" rel="noopener"><img src="https://4388.fun/badge-zh.png" width="176" height="44" alt="已收錄於 4388 小遊戲"></a>
+
 手繪風格的橫向捲軸冒險遊戲。整個遊戲就是 `index.html` 一個檔案，可以完全離線玩。
+
+**線上玩**：https://baichenchen73-art.github.io/lantern-tunnel/
 
 ## 怎麼玩
 
