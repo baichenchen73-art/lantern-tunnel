@@ -756,11 +756,25 @@ body.hasComp #jtHud{display:flex}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-22.0';
+const GAME_VERSION='2026-11-22.1';
 // 公開網址判斷：只有在 github.io 上、而且網址沒有 ?dev 時，才藏起測試用的按鈕
 const PUBLIC_SITE=/github\.io$/i.test(location.hostname)&&!/[?&]dev\b/i.test(location.search);
 if(PUBLIC_SITE)document.documentElement.classList.add('pub');
 const CHANGELOG=[
+  ['2026-11-22.1','先修 啊一 試玩回報的兩個問題（待辦 M1、M2）；第八章製作第 9 部分（共 11 部分）：Boss「書靈劍仙」前半',[
+    '待辦 M1（第七章 Boss）：祭鼓前半打完、被風捲上天空的那段劇情裡，鼓身會先消失，鼓面的眼睛、嘴巴、兩根鼓棒和光卻留在原地。原因是「往上飄走」的動畫只在戰鬥中才會推進，劇情一開始就停住了。現在改成在畫面這邊推進：整面鼓（鼓身、鼓架、鼓棒、眼睛、光）一起往上飄、一起淡出，約 1.2 秒後原地什麼都不剩；前半留下的震波、紙燈籠、對拍文字也一起清掉（電腦版、手機版都實際截圖確認過：消失後 0.5 秒、1 秒、1.5 秒、進到天空後都沒有殘影）',
+    '待辦 M2（第八章墨水船）：上船（走上船、按「進入」、跳上船）和下船時，主角會閃爍——那是受傷後無敵時間的閃爍，看起來就像受傷。實際檢查血量沒有被扣（5 個有船的房間、7 艘船、兩側、三種上船方式逐格紀錄：0 次扣血）。現在上下船的短暫保護改成「不閃爍、沒有紅光、沒有受傷音效」的安靜保護，只有真的受傷才會閃（逐格紀錄：上船、下船後閃爍 0 格）',
+    '第八章部分⑨：走進「書庫天井」，懸在半空的古書會合上又翻開，書頁疊成第八章的 Boss「書靈劍仙」——臉是一張空白的書頁、用墨點了眼睛，穿紙做的長袍、披著飄帶，身後浮著用書籤削成的細劍（開場對白只給線索：「借書證上寫著兩個名字——可是來還書的，從來只有一個。」）',
+    '書靈劍仙的招式①「飛劍」：幾把細劍在他身邊轉向你，先拉出白色細線瞄準，變成紅線（鎖定）後停一下才射出——看到紅線就離開那條線',
+    '招式②「符咒」：放出幾張黃色符紙，會慢慢追著你飄；碰到會受傷，但用攻擊砍一下就碎了',
+    '招式③「法印」：劍仙落到地面附近，在你腳下畫出紅色的印記，亮滿後衝起一道光柱——印記亮起時走出圈外；第二階段會一次畫兩個',
+    '招式④「劍陣」（第二階段才有）：上方排出一整排劍和紅色虛線，只有一格是發光的空隙，時間到所有劍一起落下——站進發光的空隙（或跑出整排劍的範圍）；血量更少時會連續落兩排',
+    '打法：劍仙平常有「劍氣護體」，攻擊會被彈開；每次施完法印，他會落下來「喘息」約 2～2.6 秒（頭上寫著「喘息中」、全身發出暖光），這時候普通攻擊、技能、小燈精的狐火、聯合技能都打得到',
+    '血量剩三分之二時進入第二階段（劍更多、符咒更快、加入劍陣）；打到剩三分之一，這一版先到此為止：會播一小段劇情，Boss 的第三階段和打倒後的演出在下一部分（部分⑩）加入',
+    '小燈精的小狐火和自動技能「三連狐火」現在也會瞄準書靈劍仙（之前只會瞄準一般敵人）',
+    '新增 Boss 戰音樂（五聲音階、撥弦，比較有古風的感覺）；戰鬥中畫面會往上多帶一點，才看得到浮在半空的劍仙',
+    '書庫天井原本「第八章的 Boss 會在之後的部分加入」的說明拿掉了；倒下後從封印書齋走回來，可以重新挑戰'
+  ]],
   ['2026-11-22.0','第八章製作第 8 部分（共 11 部分）：夥伴的自動技能與聯合技能；待辦 J 第二部分：第七、八章自己風格的燈',[
     '第八章部分⑧：狐狸面具小燈精學會自動技能「三連狐火」——附近（約 8 格內）有敵人時，每 8 秒一次放出三顆扇形狐火（各 1 傷害），平常每 1.15 秒一發的小狐火照舊',
     '第八章部分⑧：新增聯合技能「狐燈齊放」（有夥伴才能用）：身邊爆出一圈燈火（2 傷害、把敵人推開），小燈精同時往前方放出五顆會穿透敵人的大狐火（各 1 傷害），還有一隻大狐狸燈影往前衝的動畫；發動時短暫無敵，冷卻 14 秒，Boss 也打得到',
@@ -1981,7 +1995,7 @@ const ROOMS={
     build(r,W,H){r(0,0,W,1);r(0,0,1,H);r(W-1,0,1,H);r(0,16,W,2);r(5,14,2,1);r(29,14,2,1);},
     spawns:[],lant:[],props:[{t:'floatbook',c:18,g:10},{t:'sign',c:21,g:16,text:PUBLIC_SITE?'未完待續':'製作中'},{t:'bookshelf',c:3,g:16,h:8},{t:'bookshelf',c:32,g:16,h:8},{t:'candle',c:12,g:16},{t:'candle',c:24,g:16},{t:'inkstone',c:26,g:16,w:2}],
     portals:[{c:2.4,g:16,to:'L13',pc:23,pg:12,name:'封印書齋'}],
-    events:[{id:'lbin',enter:true,steps:[{c:'cam',x:18.5*TILE,y:9*TILE,d:1.2},{c:'cap',t:'天井的正中央，一本古書懸在半空，自己一頁一頁地翻著。（第八章的 Boss 會在之後的部分加入）'},{c:'cam',x:null,d:.6}]}],
+    events:[],
     exits:[]},
 };
 const EV_LANTERN=[
@@ -2477,6 +2491,7 @@ const speck=(i,j)=>((i*73856093)^(j*19349663))>>>0;
 // ---------- 玩家與戰鬥狀態 ----------
 let maxHp=5;
 const p={x:0,y:0,w:20,h:26,vx:0,vy:0,grounded:false,coyote:0,buffer:0,cut:false,face:1,sq:0,safe:{x:0,y:0},sleep:false};
+let quietInv=0;// 待辦 M2（2026-11-22.1）：上下船的短暫保護，不閃爍、不算受傷
 let hp=maxHp,invuln=0,stunP=0,atkT=0,atkCd=0,slashT=0,hitSet=new Set(),freeze=0,shake=0,dying=0,fadeIn=0,calmT=0;
 let dashT=0,dashCd=0,airDash=true,airJump=true,ghosts=[],ghostT=0;
 let checkpoint={room:'R1',x:0,y:0},finished=false,enemies=[],lanterns=[],props=[],parts=[],tut=99,tutT=0,snapCam=true,hint=null;
@@ -2528,7 +2543,7 @@ function loadRoom(id){
   props=level.props.map(q=>({...q}));
   npcs=(level.npcs||[]).filter(n=>story.npc[n.id]!=='seal'&&!(n.id==='fox'&&F.companion)).map(n=>({...n,x:n.c*TILE+2,y:n.g*TILE-34,w:28,h:34,a:1,fade:false,face:-1}));actors={};
   TT=THEMES[id]||THEMES.R3;buildTerrain();setMusic(roomTrack(id));
-  spawnEnemies();parts.length=0;coins=[];pshots=[];skCast=0;skFx=[];skWalls=[];skZones=[];skDelay=[];scarf=[];shots=[];boss=null;ib=null;tb=null;kb=null;bossSealed=false;document.body.classList.remove('boss');
+  spawnEnemies();parts.length=0;coins=[];pshots=[];skCast=0;skFx=[];skWalls=[];skZones=[];skDelay=[];scarf=[];shots=[];boss=null;ib=null;tb=null;kb=null;sb=null;bossSealed=false;document.body.classList.remove('boss');
   refreshPortals();mirror=null;hist=[];gb=null;grav=1;SH=[];hook=null;dr=null;document.body.classList.remove('nearHook');bubbles=[];document.body.classList.toggle('uw',level.waterTop!=null);lastOxyF=-1;
   waters=(level.water||[]).map(w=>({x0:w.a*TILE,x1:w.b*TILE,y:w.g*TILE+8,ink:!!w.ink}));initBoats();p.wet=false;kindleT=0;kindleTarget=null;nearSconceOn=false;document.body.classList.remove('nearSconce');
   sconces=id==='B1'?SCONCES.map(q=>({...q,lit:!!F.bossDone,smoke:0})):[];ghosts.length=0;snapCam=true;
@@ -2561,7 +2576,7 @@ function initIcefish(e,s){
 }
 function placePlayer(pos){oxyMax=F&&F.amulet?TUNE.oxyAmulet:TUNE.oxy;oxy=oxyMax;drownT=0;
   grav=1;Object.assign(p,{boat:null,glide:false,fly:!!(level&&level.flight),ghostT:0,x:pos.x,y:pos.y,vx:0,vy:0,grounded:false,coyote:0,buffer:0,sq:0,face:1,safe:{x:pos.x,y:pos.y,g:1},sleep:false});
-  invuln=0;stunP=0;atkT=0;atkCd=0;slashT=0;dashT=0;dashCd=0;snapCam=true;slam=0;slamHang=0;fallT=0;fallLock=false;
+  invuln=0;quietInv=0;stunP=0;atkT=0;atkCd=0;slashT=0;dashT=0;dashCd=0;snapCam=true;slam=0;slamHang=0;fallT=0;fallLock=false;
   if(p.fly)p.vx=flySpeed();
 }
 function resetState(){
@@ -2749,7 +2764,7 @@ function startSample(){
   checkpoint={room:'R3',...pos};hp=maxHp;updateHP();csFade=0;csFadeT=0;
   setMode('play');pendingName=null;onEnterRoom();
 }
-function respawn(){shieldT=0;loadRoom(checkpoint.room);pendingName=null;placePlayer(checkpoint);hp=maxHp;updateHP();fadeIn=.6;invuln=1.5;fallT=.5;fallLock=true;if(lostMsg>0){toast(`倒下時失去了 ${lostMsg} 光屑`);lostMsg=0;}}
+function respawn(){shieldT=0;quietInv=0;loadRoom(checkpoint.room);pendingName=null;placePlayer(checkpoint);hp=maxHp;updateHP();fadeIn=.6;invuln=1.5;fallT=.5;fallLock=true;if(lostMsg>0){toast(`倒下時失去了 ${lostMsg} 光屑`);lostMsg=0;}}
 function die(){hp=0;updateHP();dying=1.2;sfx('die');lostMsg=Math.floor(wallet/2);wallet-=lostMsg;updateCoin();burst(p.x+p.w/2,p.y+p.h/2,24,'#e9e3f6');}
 function grant(ab){
   ability=ab;updateAbilityUI();
@@ -2977,6 +2992,7 @@ const TRACKS={
   cover:{root:57,sc:[0,3,5,7,10],bpm:64,pad:[[0,7,15],[-4,3,12],[-2,5,14],[-5,2,10]],mel:.5,oct:1,filt:1100},
   old:{root:52,sc:[0,2,3,7,9],bpm:56,pad:[[0,7,12],[-2,5,10]],mel:.18,oct:1,filt:700,sub:true},
   ch1:{root:50,sc:[0,3,5,7,10],bpm:60,pad:[[0,7,15],[-4,3,12],[-7,0,10],[-2,5,14]],mel:.3,oct:1,filt:900,sub:true},
+  swordboss:{root:50,sc:[0,2,5,7,9],bpm:96,pad:[[0,7,14],[-3,4,12],[5,9,14],[2,7,12]],mel:.22,oct:1,filt:1250,pluck:true,arp:true,pulse:true,sub:true},
   festboss:{root:55,sc:[0,2,4,7,9],bpm:100,pad:[[0,4,7,14],[-3,4,9,12],[5,9,12,16],[2,7,11,14]],mel:.2,oct:1,filt:1300,pluck:true,sub:true},
   ch8:{root:50,sc:[0,2,5,7,9],bpm:56,pad:[[0,7,14],[-3,4,12],[5,9,14],[2,7,12]],mel:.32,oct:1,filt:1050,pluck:true,sub:true,drip:true},
   ch7:{root:55,sc:[0,2,4,7,9],bpm:66,pad:[[0,4,7,14],[-3,4,9,12],[5,9,12,16],[2,7,11,14]],mel:.36,oct:1,filt:1400,pluck:true,drum:true},
@@ -2997,7 +3013,7 @@ const TRACKS={
   heart:{root:55,sc:[0,2,4,7,9],bpm:56,pad:[[0,4,7,14],[-3,4,9,12],[5,9,12,16]],mel:.4,oct:1,filt:1300}
 };
 const ROOM_TRACK={L1:'ch8',L2:'ch8',L3:'ch8',L4:'ch8',L5:'ch8',L6:'ch8',L7:'ch8',L8:'ch8',L9:'ch8',L10:'ch8',L11:'ch8',L12:'ch8',L13:'ch8',LB:'hush',K1:'ch7',K2:'ch7',K3:'ch7',K4:'ch7',K5:'ch7',K6:'ch7',K7:'ch7',K8:'ch7',K9:'ch7',K10:'ch7',K11:'ch7',KB:'hush',KB2:'ch7',G1:'ch6',G2:'ch6',G3:'ch6',G4:'ch6',G5:'ch6',G6:'ch6',G7:'ch6',G8:'ch6',G9:'ch6',GB:'ch6',I1:'ch5',I2:'ch5',I3:'ch5',I4:'ch5',I5:'ch5',I6:'ch5',I7:'ch5',I8:'ch5',I9:'ch5',I7U:'hush',IB:'hush',M1:'ch4',M2:'ch4',M3:'ch4',M4:'ch4',M5:'ch4',M6:'ch4',T1:'ch3',T2:'ch3',T3:'ch3',T4:'ch3',D1:'ch2',D2:'ch2',D3:'ch2',old:'ch1',R1:'ch1',R2:'ch1',R3:'ch1',S1:'ch1',R4:'ch1',S2:'ch1',R5:'ch1',N1:'ch1',N2:'ch1',R6:'ch1',C1:'ch2',C2:'ch2',C3:'ch2',C4:'ch2',C5:'ch2'};
-function roomTrack(id){if(id==='KB2')return (kb&&kb.active)?'festboss':'ch7';if(id==='KB')return (kb&&kb.active)?'festboss':F.festDone?'ch7':'hush';if(id==='GB')return (tb&&!tb.dead&&!F.towerDone)?'clockboss':'ch6';if(id==='IB')return (ib&&!ib.dead&&!F.iceDone)?'boss2':'hush';if(id==='M7')return (dr&&!dr.dead&&!F.drillDone)?'boss':'ch4';if(id==='T5')return (gb&&!gb.dead&&!F.guideDone)?'boss':'ch3';if(id==='D4')return (mirror&&!mirror.dead&&!F.mirrorDone)?'boss':'ch2';if(id==='B1')return (!F.bossDone&&boss&&!boss.dead)?(boss.form===2?'boss2':'boss'):'ch1';return ROOM_TRACK[id]||'ch1';}
+function roomTrack(id){if(id==='LB'&&sb&&sb.active)return 'swordboss';if(id==='KB2')return (kb&&kb.active)?'festboss':'ch7';if(id==='KB')return (kb&&kb.active)?'festboss':F.festDone?'ch7':'hush';if(id==='GB')return (tb&&!tb.dead&&!F.towerDone)?'clockboss':'ch6';if(id==='IB')return (ib&&!ib.dead&&!F.iceDone)?'boss2':'hush';if(id==='M7')return (dr&&!dr.dead&&!F.drillDone)?'boss':'ch4';if(id==='T5')return (gb&&!gb.dead&&!F.guideDone)?'boss':'ch3';if(id==='D4')return (mirror&&!mirror.dead&&!F.mirrorDone)?'boss':'ch2';if(id==='B1')return (!F.bossDone&&boss&&!boss.dead)?(boss.form===2?'boss2':'boss'):'ch1';return ROOM_TRACK[id]||'ch1';}
 function setMusic(key,force){
   pendingMusic=key;if(!AC)return;if(key===curKey&&!force)return;curKey=key;
   const now=AC.currentTime;
@@ -3139,7 +3155,7 @@ function hurt(fromX){
   if(flightRun&&flightRun.ok&&p.fly){flightRun.ok=false;setTimeout(()=>toast('撞到了⋯⋯這一段的節拍亂了。用地圖上的燈籠傳送回「祭典廣場」再試一次'),900);}
   if(shieldT>0){if(shieldRef){const cx=p.x+p.w/2,cy=p.y+p.h/2;for(let i=shots.length-1;i>=0;i--){const q=shots[i];if(Math.hypot(q.x-cx,q.y-cy)<150){pshots.push({k:'fire',x:q.x,y:q.y,vx:-(q.vx||0)||(q.x<cx?-300:300),vy:-(q.vy||0)*.5,r:6,t:0,life:1.2,dmg:1});shots.splice(i,1);}}}
     shieldN--;if(shieldN<=0)shieldT=0;invuln=.8;sfx('crystal');burst(p.x+p.w/2,p.y+p.h/2,16,'#ffe3ad');rings.push({x:p.x+p.w/2,y:p.y+p.h/2,t:0,c:'255,220,150'});toast('護盾擋下了一次傷害');return;}
-  hp--;updateHP();invuln=F.pocketWatch?1.4:1;stunP=.25;shake=6;freeze=.06;dashT=0;hurtV=.5;sfx('hurt');
+  hp--;updateHP();quietInv=0;invuln=F.pocketWatch?1.4:1;stunP=.25;shake=6;freeze=.06;dashT=0;hurtV=.5;sfx('hurt');
   p.vx=(p.x+p.w/2<fromX?-1:1)*230;p.vy=-260;p.grounded=false;
   if(p.fly){p.vx=flySpeed()*.55;p.vy=p.y+p.h/2>WORLD_H/2?-140:140;p.ghostT=Math.max(p.ghostT||0,invuln);}
   burst(p.x+p.w/2,p.y+p.h/2,10,'#ff9d6e');
@@ -3268,6 +3284,10 @@ function onEnterRoom(){
   if(level.id==='KB2'&&!F.festDone){
     const intro=!trig.kb2Intro;trig.kb2Intro=true;
     playCS(intro?KB2_INTRO:KB2_AGAIN,()=>{startKB2();},()=>{if(!kb)spawnKB2();},false);return;
+  }
+  if(level.id==='LB'&&!F.inkDone){// 第八章 Boss「書靈劍仙」（部分⑨）
+    const intro=!trig.sbIntro;trig.sbIntro=true;
+    playCS(intro?SB_INTRO:SB_AGAIN,()=>{startSB();},()=>{if(!sb)spawnSB();if(sb)sb.appear=1;},false);return;
   }
   if(level.id==='KB'&&F.festDone&&!trig.kbLand){trig.kbLand=true;playCS(KB_LAND,()=>{calmT=.6;});return;}
   if(level.id==='KB'&&!F.festDone&&F.festHalf){playCS(KB_UP,()=>{goSky();},null,false);return;}
@@ -3450,6 +3470,7 @@ function update(dt){
     if(ib&&ib.active&&!ib.dead&&!hitSet.has(ib))hitIB(hb);
     if(tb&&tb.active&&!tb.dead)hitTB(hb,1,true);
     if(kb&&kb.active&&!kb.dead)hitKB(hb,1,true);
+    if(sb){if(sb.active&&!sb.dead)hitSB(hb,1,true);sbHitTalis(hb);}
     if(gb&&gb.active&&!gb.dead&&!hitSet.has(gb)&&gb.st!=='blinkAway'&&hit(hb,{x:gb.x,y:gb.y,w:20,h:26}))hitGB();
     if(level.id==='C3'&&quests.bell&&quests.bell.status==='active'&&bellCd<=0&&hit(hb,{x:19.5*TILE-30,y:110,w:60,h:46})){
       bellCd=.7;bellSwing=1;const q=quests.bell;q.n++;sfx('toll');shake=3;for(let k=0;k<10;k++)spawnFly(19.5*TILE,134,100);
@@ -3485,7 +3506,7 @@ function update(dt){
   if(hook){const bx=Math.abs(p.x-(hx0+hvx*dt))>2,by=Math.abs(p.y-(hy0+hvy*dt))>2;
     if(bx||by){hookW*=-.25;const ax=hook.c*TILE+16,ay=hook.g*TILE+12;hookTh=Math.atan2((p.x+p.w/2)-ax,(p.y+p.h/2)-ay);hookL=clamp(Math.hypot((p.x+p.w/2)-ax,(p.y+p.h/2)-ay),50,260);}
     if(hookGr>0)hookGr-=dt;else if(p.grounded&&hookL>=hookLT-4)hook=null;}
-  if(invuln>0)invuln-=dt;
+  if(invuln>0)invuln-=dt;if(quietInv>0)quietInv-=dt;
   if(checkExits())return;
   let inW=null;for(const w of waters)if(p.x+p.w/2>w.x0&&p.x+p.w/2<w.x1&&p.y+p.h>w.y){inW=w;break;}
   if(inW&&!p.wet){p.wet=true;p.vy*=.35;sfx('splash');burst(p.x+p.w/2,inW.y,12,inW.ink?'#4a3f6a':'#bfe9ff');for(let k=0;k<8;k++)parts.push({x:p.x+p.w/2+(Math.random()-.5)*16,y:inW.y,vx:(Math.random()-.5)*80,vy:-80-Math.random()*90,life:.5,t:0,c:inW.ink?'#2a2440':'#9fd8ff'});}
@@ -3494,7 +3515,7 @@ function update(dt){
     hp--;updateHP();
     if(hp<=0){die();return;}
     Object.assign(p,{x:p.safe.x,y:p.safe.y,vx:0,vy:0});grav=p.safe.g||1;p.wet=false;dashT=0;slam=0;slamHang=0;hook=null;
-    awayFromEdge();fallT=FALL_PAUSE;fallLock=true;invuln=FALL_PAUSE+1;fadeIn=.6;hurtV=.5;sfx('hurt');rings.push({x:p.x+p.w/2,y:p.y+p.h/2,t:0,c:'255,214,140'});
+    awayFromEdge();fallT=FALL_PAUSE;fallLock=true;quietInv=0;invuln=FALL_PAUSE+1;fadeIn=.6;hurtV=.5;sfx('hurt');rings.push({x:p.x+p.w/2,y:p.y+p.h/2,t:0,c:'255,214,140'});
     if(inW&&inW.ink&&!trig.inkHint){trig.inkHint=true;toast('掉進墨水河會受傷，回到上一個安全的地方');}
     else if(inW&&!inW.ink&&!trig.waterHint){trig.waterHint=true;toast('掉進湖裡會受傷，回到上一個安全的地方');}
   }
@@ -3702,6 +3723,7 @@ function update(dt){
   if(ib){updateIB(dt);if(dying>0)return;}
   if(tb){updateTB(dt);if(dying>0)return;}
   if(kb){updateKB(dt);if(dying>0)return;}
+  if(sb){updateSB(dt);if(dying>0)return;}
   {let atF=null;for(const q of props)if(q.t==='forge'&&p.grounded&&grav>0&&Math.abs(p.y+p.h-q.g*TILE)<6&&Math.abs((p.x+p.w/2)-(q.c*TILE+q.w*TILE/2))<q.w*TILE*.5+26){atF=q;break;}
     if(atF){if(!trig.forgeHint){trig.forgeHint=true;flashHint('蹲在熔爐旁烤火，會慢慢恢復生命',[],4);}
       if(hp<maxHp){forgeT+=dt;if(Math.random()<dt*8)parts.push({x:atF.c*TILE+atF.w*16+(Math.random()-.5)*24,y:atF.g*TILE-24,vx:(Math.random()-.5)*20,vy:-60,life:.6,t:0,c:'#ffb35a'});
@@ -4659,7 +4681,7 @@ function render(dt){
   const th=TH[level.theme];
   const fx=csCam?csCam.x:(level.flight&&level.flight.arena)?(p.x+p.w/2+(kb&&kb.sky?kb.x:WORLD_W-3*TILE))/2:p.x+p.w/2+(p.fly?110:p.face*30);
   const tx=viewW>=WORLD_W?(WORLD_W-viewW)/2:clamp(fx-viewW/2,0,WORLD_W-viewW);
-  const ty=viewH>=WORLD_H?(WORLD_H-viewH)/2:clamp(csCam&&csCam.y!=null?csCam.y-viewH/2:p.y+p.h/2-viewH*(tb&&!tb.dead&&level.id==='GB'?.74:.55),0,WORLD_H-viewH);
+  const ty=viewH>=WORLD_H?(WORLD_H-viewH)/2:clamp(csCam&&csCam.y!=null?csCam.y-viewH/2:p.y+p.h/2-viewH*(tb&&!tb.dead&&level.id==='GB'?.74:sb&&level.id==='LB'?.88:.55),0,WORLD_H-viewH);
   if(snapCam){camX=tx;camY=ty;snapCam=false;}
   const k=csCam?2.2:7;
   camX+=(tx-camX)*Math.min(1,dt*k);camY+=(ty-camY)*Math.min(1,dt*7);
@@ -4750,6 +4772,7 @@ function render(dt){
   if(ib)drawIB(dt);
   if(tb)drawTB(dt);
   if(kb)drawKB(dt);
+  if(sb&&level.id==='LB')drawSB(dt);
   if(SH.length)drawShadows();
   for(const sc of sconces)drawSconce(sc);
   for(const q of shots)drawShot(q);
@@ -4761,7 +4784,7 @@ function render(dt){
   }
   for(const g of ghosts){ctx.globalAlpha=g.t/.22*.45;drawCreature(g.x+p.w/2,g.y+p.h,p.w,p.h,g.face,false);}
   ctx.globalAlpha=1;
-  if(dying<=0&&!(invuln>0&&Math.floor(invuln*14)%2)){
+  if(dying<=0&&!(invuln>0&&quietInv<=0&&Math.floor(invuln*14)%2)){
     if(p.sleep)drawCreature(p.x+p.w/2,p.y+p.h,p.w*1.25,p.h*.62,p.face,true);
     else if(grav<0){ctx.save();ctx.translate(0,2*(p.y+p.h/2));ctx.scale(1,-1);drawPlayer(dt);ctx.restore();}
     else drawPlayer(dt);
@@ -5219,7 +5242,7 @@ function drawFestProp(q,x,gy){
       ctx.save();ctx.translate(px,py);ctx.rotate(sw);ctx.strokeStyle='#2a1e18';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,5);ctx.stroke();drawPaperLamp(0,13,.6,k%3!==1);ctx.restore();
       if(k%2)lights.push({x:px,y:py+13,r:40,c:'255,170,100',g:.1});}
     return true;}
-  if(q.t==='drum'){if(level&&level.id==='KB'&&(F.festHalf||F.festDone))return true;const s=q.s||1,cx=x+16,lift=(level&&level.id==='KB'&&kb&&kb.gone>1)?kb.gone-1:0,by=gy-lift*lift*300;if(lift>=1)return true;ctx.save();if(lift)ctx.globalAlpha=1-lift;ctx.translate(cx,by);ctx.scale(s,s);ctx.strokeStyle=OUT;ctx.lineWidth=1.4/s;ctx.lineJoin='round';
+  if(q.t==='drum'){if(level&&level.id==='KB'&&(F.festHalf||F.festDone)&&!(kb&&!kb.sky&&kb.gone>0&&kb.gone<2))return true;const s=q.s||1,cx=x+16,lift=(level&&level.id==='KB'&&kb&&kb.gone>1)?kb.gone-1:0,by=gy-lift*lift*300;if(lift>=1)return true;ctx.save();if(lift)ctx.globalAlpha=1-lift;ctx.translate(cx,by);ctx.scale(s,s);ctx.strokeStyle=OUT;ctx.lineWidth=1.4/s;ctx.lineJoin='round';
     rr(-22,-14,6,14,1);fs('#4a3020');rr(16,-14,6,14,1);fs('#4a3020');rr(-26,-18,52,6,2);fs('#5a3a24');
     ctx.beginPath();ctx.ellipse(0,-46,26,30,0,0,6.283);fs('#8a3a2a');ctx.beginPath();ctx.ellipse(0,-46,20,26,0,0,6.283);fs('#efe2c4');
     ctx.fillStyle='rgba(200,80,50,.75)';ctx.beginPath();ctx.ellipse(0,-44,6,8,0,0,6.283);ctx.fill();
@@ -5664,7 +5687,7 @@ function startBoss(){
   document.body.classList.add('boss');updateBossBar();calmT=.8;
   if(!trig.bossHint){trig.bossHint=true;flashHint('靠近燈台會出現「點燈」鍵，點亮兩座以上，熄燈者就會變弱',[],7);}
 }
-function updateBossBar(){const b=boss||mirror||gb||dr||ib||tb||kb;if(b)$('bossFill').style.width=Math.max(0,b.hp/b.max*100)+'%';}
+function updateBossBar(){const b=boss||mirror||gb||dr||ib||tb||kb||sb;if(b)$('bossFill').style.width=Math.max(0,b.hp/b.max*100)+'%';}
 const portalShown=q=>(!q.needBoss||F.bossDone)&&(!q.needTrig||trig[q.needTrig])&&(!q.needFlag||F[q.needFlag]);
 const portalDone=q=>q.doneFlag?!!F[q.doneFlag]:(q.boss?!!F.bossDone:true);
 function refreshPortals(){portals=(level.portals||[]).filter(portalShown).map(q=>({...q,x:q.c*TILE}));}
@@ -6909,10 +6932,10 @@ function standOnBoat(fb){if(p.boat||grav<0||p.vy<0||!boats.length)return;
   for(const b of boats){const top=b.y;if(p.x+p.w>b.x+6&&p.x<b.x+BOAT_W-6&&p.y+p.h>=top-1&&fb<=top+6){
     if(!cs&&dying<=0&&!b.air){boardBoat(b);return;}
     p.y=top-p.h;p.vy=0;p.grounded=true;airDash=true;airJump=true;return;}}}
-function boardBoat(b){p.boat=b;invuln=Math.max(invuln,.7);b.vx=0;b.snap=false;dashT=0;hook=null;slam=0;p.vx=0;p.vy=0;sfx('splash');sfx('ui');rideBoat();
+function boardBoat(b){p.boat=b;if(invuln<=0)quietInv=.7;invuln=Math.max(invuln,.7);b.vx=0;b.snap=false;dashT=0;hook=null;slam=0;p.vx=0;p.vy=0;sfx('splash');sfx('ui');rideBoat();
   for(let k=0;k<8;k++)parts.push({x:b.x+Math.random()*BOAT_W,y:b.surf,vx:(Math.random()-.5)*80,vy:-50-Math.random()*50,life:.4,t:0,c:'#2a2440'});
   if(!trig.boatRideHint){trig.boatRideHint=true;flashHint('◀ 或 ▶ 划船，「跳躍」讓船跳，靠岸按「進入」下船',['bL','bR','bJ'],7);}}
-function leaveBoat(){const b=p.boat;if(!b)return;const left=b.x<=b.x0+4;p.boat=null;b.vx=0;b.push=0;invuln=Math.max(invuln,.7);
+function leaveBoat(){const b=p.boat;if(!b)return;const left=b.x<=b.x0+4;p.boat=null;b.vx=0;b.push=0;if(invuln<=0)quietInv=.7;invuln=Math.max(invuln,.7);
   p.x=left?b.x0-p.w-6:b.x1+6;p.y=b.surf-8-p.h;p.vx=0;p.vy=0;p.grounded=true;p.safe={x:p.x,y:p.y,g:1};sfx('land');dust(p.x+p.w/2,p.y+p.h,8);trig.boatMoved=true;}
 function drawBoat(b,hull){
   const x=b.x,y=b.y,ride=p.boat===b,tilt=clamp(b.vx/BOAT_MAX,-1,1)*.05+(b.air?clamp(b.vy/900,-1,1)*.12:0);
@@ -6962,6 +6985,7 @@ function drawLibProp(q,x,gy){
     ctx.fillStyle='rgba(20,16,30,.6)';ctx.beginPath();ctx.ellipse(cx-6,gy-2,10,3,0,0,6.283);ctx.fill();
     ctx.restore();return true;}
   if(q.t==='floatbook'){// 待辦 K5（2026-11-21.0）：書庫天井懸在半空、自己翻頁的古書
+    if(level&&level.id==='LB'&&sb)return true;// 部分⑨：古書化成書靈劍仙
     const cx=x+16,cy=gy-12+Math.sin(clock*1.3)*6,fl=(clock*.7)%1;glowAt(cx,cy,60,.35,'255,220,150');lights.push({x:cx,y:cy,r:170,c:'255,215,150',g:.2});
     ctx.save();ctx.translate(cx,cy);ctx.rotate(Math.sin(clock*.8)*.05);ctx.strokeStyle=OUT;ctx.lineWidth=1.4;ctx.lineJoin='round';
     ctx.beginPath();ctx.moveTo(0,4);ctx.lineTo(-34,-2);ctx.lineTo(-34,14);ctx.lineTo(0,20);ctx.lineTo(34,14);ctx.lineTo(34,-2);ctx.closePath();fs('#6a3a2a');
@@ -7523,7 +7547,7 @@ const KB_HALF=[
   {c:'shake',a:6,d:1.2},
   {c:'cap',t:'下一刻，一陣狂風從夜空灌下來，大鼓整個被風托了起來，往師父那盞燈的方向飛去。'},
   {c:'say',t:'它要逃到天上去了⋯⋯！'},
-  {c:'fn',fn:()=>{if(kb){kb.active=false;kb.waves=[];kb.drops=[];kb.gone=1;}F.festHalf=true;bossSealed=false;document.body.classList.remove('boss');setMusic('hush');saveGame();return null;}},
+  {c:'fn',fn:()=>{if(kb){kb.active=false;kb.waves=[];kb.drops=[];kb.pops=[];kb.gone=Math.max(kb.gone||0,1);}shots=[];F.festHalf=true;bossSealed=false;document.body.classList.remove('boss');setMusic('hush');saveGame();return null;}},
   {c:'wait',d:1.2},
   {c:'cap',t:'屋頂上的風越吹越強。腳下一輕，風把你和燈籠也一起捲了起來——'}
 ];
@@ -7634,8 +7658,7 @@ function kbBeat(){
 function updateKB(dt){
   const g=kb;if(g.flash>0)g.flash-=dt;if(g.pulse>0)g.pulse=Math.max(0,g.pulse-dt*3.2);g.stick=g.stick.map(v=>Math.max(0,v-dt*4));
   for(let i=g.pops.length-1;i>=0;i--){g.pops[i].t+=dt;if(g.pops[i].t>.8)g.pops.splice(i,1);}
-  if(g.gone>0&&g.gone<2)g.gone=Math.min(2,g.gone+dt*.4);
-  if(g.halfT>0){g.halfT-=dt;if(g.halfT<=0)playCS(KB_HALF,()=>{calmT=.6;goSky();},()=>{if(kb){kb.active=false;kb.gone=1;}F.festHalf=true;bossSealed=false;document.body.classList.remove('boss');setMusic('hush');},true);return;}
+  if(g.halfT>0){g.halfT-=dt;if(g.halfT<=0)playCS(KB_HALF,()=>{calmT=.6;goSky();},()=>{if(kb){kb.active=false;kb.waves=[];kb.drops=[];kb.pops=[];kb.gone=Math.max(kb.gone||0,1);}shots=[];F.festHalf=true;bossSealed=false;document.body.classList.remove('boss');setMusic('hush');},true);return;}
   if(g.sky&&g.dead){g.deathT+=dt;if(Math.random()<dt*30)parts.push({x:g.x+(Math.random()-.5)*60,y:g.y+(Math.random()-.5)*60,vx:(Math.random()-.5)*80,vy:-40,life:.8,t:0,c:'#ffb35a'});
     if(g.deathT>1.4&&!trig.kb2End){trig.kb2End=true;playCS(KB_END,()=>{calmT=.6;goGround();},null,true);}return;}
   if(!g.active)return;
@@ -7655,6 +7678,8 @@ function drawKB(dt){
   if(kb.sky){drawKBSky(dt);return;}
   const g=kb,fl=kbFloor(),cx=KB_CX,fy=fl-46*1.3,L=kbLen(),play=kbPlay();
   ctx.save();
+  // 待辦 M1（2026-11-22.1）：被風捲走的動畫改在畫面這邊推進（過場劇情中也會動），鼓身、鼓棒、眼睛、光一起往上飄走淡出，不會留在原地
+  if(g.gone>0&&g.gone<2)g.gone=Math.min(2,g.gone+dt*.8);
   if(g.gone>=2){ctx.restore();return;}
   if(g.gone>1){const lf=g.gone-1;ctx.globalAlpha=Math.max(0,1-lf);ctx.translate(0,-lf*lf*300);}
   // 鼓點圈：越接近下一拍越小，剛好碰到鼓面的時候就是拍子
@@ -7668,7 +7693,7 @@ function drawKB(dt){
   // 兩根浮著的鼓棒
   for(const [s,side] of [[g.stick[0],-1],[g.stick[1],1]]){const bx=cx+side*36,by=fy-40+s*10,ang=side*(-.9+s*.7);
     ctx.save();ctx.translate(bx,by);ctx.rotate(ang);ctx.strokeStyle=OUT;ctx.lineWidth=1.3;rr(-2,-18,4,28,2);fs(side<0?'#c9a45a':'#a8b8d8');ctx.beginPath();ctx.arc(0,-18,3.6,0,6.283);fs(side<0?'#e8603e':'#5a7ab8');ctx.restore();}
-  lights.push({x:cx,y:fy,r:150,c:'255,190,120',g:.14+.12*pl});
+  {const lf=g.gone>1?g.gone-1:0;if(lf<1)lights.push({x:cx,y:fy-lf*lf*300,r:150,c:'255,190,120',g:(.14+.12*pl)*(1-lf)});}
   // 這一小節的節奏（上方 4 個音符）：唱的時候淡、打的時候亮
   if(g.active&&!cs){const ny=fl-150;ctx.font='bold 8px "Noto Serif TC",serif';ctx.textAlign='center';ctx.textBaseline='middle';
     ctx.fillStyle='rgba(16,13,24,.55)';rr(cx-48,ny-11,96,22,8);ctx.fill();
@@ -7813,6 +7838,186 @@ const SKILL_EVO={
   drain:[['寬幅汲取','甩出的暖光範圍更大，威力 +1。'],['燈魂吞噬','打中時多吸回 1 格生命，並在短時間內不會受傷。']]
 };
 // 打倒的 Boss 旗標（每個給 1 次燈火機會）。towerDone＝第六章 Boss「停擺的大鐘」（這個進化系統取代原本「進階節點 3 選 1」的計畫）。
+// ---------- 第八章 Boss「書靈劍仙」（部分⑨，2026-11-22.1：前半＝第一、二階段；後半在部分⑩）----------
+// 浮在天井半空，用書籤削成的細劍施法：飛劍（鎖定紅線後射出）、符咒（慢慢追人的黃紙，可以砍掉）、法印（地上的印記，亮完會衝起光柱）、劍陣（第二階段：一整排劍落下，只有發光的空隙是安全的）。
+// 每次施完法印，劍仙會落到地面附近「喘一口氣」，這時候才打得到（技能、小燈精的狐火、聯合技能隨時都打得到）。
+let sb=null;
+const SB_FL=16*TILE,SB_HIGH=9.8*TILE,SB_LOW=16*TILE-62;
+const SB_CYCLE={1:['fly','talis','seal'],2:['array','fly','seal','talis','array','seal']};
+function spawnSB(){sb={hp:36,max:36,half:12,phase:1,x:18*TILE+16,y:SB_HIGH,tx:18*TILE+16,ty:SB_HIGH,active:false,dead:false,halfDone:false,st:'idle',t:0,ci:0,
+  swords:[],talis:[],seals:[],arrs:[],flash:0,low:0,appear:0,face:-1,cast:0,rests:0};}
+function sbBox(){return {x:sb.x-20,y:sb.y-40,w:40,h:78};}
+function startSB(){if(!sb)spawnSB();const g=sb;g.active=true;g.appear=1;g.st='idle';g.t=-.4;bossSealed=true;
+  $('bossName').textContent='書靈劍仙';document.body.classList.add('boss');updateBossBar();setMusic('swordboss');calmT=.8;
+  if(!trig.sbHint){trig.sbHint=true;flashHint('劍仙施完「法印」會落下來喘一口氣——趁那時候打他！',['bA'],6);}}
+function sbClear(){if(!sb)return;sb.swords=[];sb.talis=[];sb.seals=[];sb.arrs=[];}
+function hitSB(box,n,melee){
+  const g=sb;if(!g||!g.active||g.dead||g.halfDone)return false;
+  if(!hit(box,sbBox()))return false;
+  if(melee){if(hitSet.has(g))return false;hitSet.add(g);}
+  if(g.st!=='rest'){// 劍氣護體：沒在喘氣的時候打不動，會被彈開
+    g.guard=.3;sfx('crystal');for(let k=0;k<5;k++)parts.push({x:g.x+(Math.random()-.5)*30,y:g.y+(Math.random()-.5)*40,vx:(Math.random()-.5)*160,vy:(Math.random()-.5)*160,life:.3,t:0,c:'#dfe8ff'});
+    if(!trig.sbGuard){trig.sbGuard=true;toast('劍氣護體，打不動！等他施完法印落下來喘氣再打');}return true;}
+  for(let k=0;k<n;k++){g.hp--;if(g.hp<=g.half)break;}
+  g.flash=.12;freeze=.05;shake=Math.max(shake,3);sfx('bosshit');burst(g.x,g.y-6,8,'#ffe3ad');for(let m=0;m<4;m++)spawnFly(g.x,g.y,110);updateBossBar();
+  if(g.phase===1&&g.hp<=24){g.phase=2;g.ci=0;shake=Math.max(shake,6);sfx('rin');rings.push({x:g.x,y:g.y,t:0,c:'200,220,255'});
+    toast('劍仙抽出了更多書籤劍！「劍陣」落下時，站進發光的空隙');}
+  if(g.hp<=g.half&&!g.halfDone){g.halfDone=true;g.active=false;sbClear();g.st='stagger';g.t=0;slowT=.5;sfx('bossdie');shake=8;rings.push({x:g.x,y:g.y,t:0,c:'255,214,140'});g.halfT=.9;}
+  return true;
+}
+function sbHitTalis(box){if(!sb)return;for(const q of sb.talis){if(q.dead)continue;if(hit(box,{x:q.x-9,y:q.y-13,w:18,h:26})){q.dead=true;q.cut=0;sfx('hit');burst(q.x,q.y,8,'#f0d27a');for(let k=0;k<3;k++)spawnFly(q.x,q.y,90);}}}
+function sbNext(){const g=sb,cyc=SB_CYCLE[g.phase]||SB_CYCLE[2],a=cyc[g.ci%cyc.length];g.ci++;g.st=a;g.t=0;g.cast=0;
+  const pcx=p.x+p.w/2;
+  if(a==='fly'){const n=g.phase===1?3:5;g.tx=clamp(pcx+(pcx<WORLD_W/2?1:-1)*(220+Math.random()*120),6*TILE,WORLD_W-6*TILE);g.ty=SB_HIGH+(Math.random()-.5)*40;
+    for(let i=0;i<n;i++)g.swords.push({st:'hold',i,n,t:-i*.22,x:g.x,y:g.y,ang:Math.PI/2,lock:.75,go:1.1});}
+  else if(a==='talis'){g.tx=clamp(pcx+(Math.random()<.5?-1:1)*260,5*TILE,WORLD_W-5*TILE);g.ty=SB_HIGH-10;}
+  else if(a==='seal'){const side=pcx<WORLD_W/2?1:-1;g.tx=clamp(pcx+side*150,3*TILE,WORLD_W-3*TILE);g.ty=SB_LOW;
+    g.seals.push({x:clamp(pcx,2*TILE,WORLD_W-2*TILE),t:0,warn:1.15,r:62,done:false});
+    if(g.phase>=2)g.seals.push({x:clamp(pcx-side*150,2*TILE,WORLD_W-2*TILE),t:-.45,warn:1.15,r:62,done:false});
+    sfx('rin');}
+  else if(a==='array'){g.tx=18*TILE+16;g.ty=SB_HIGH-6;const mk=(off,delay)=>{const xs=[],c0=clamp(pcx,4*TILE+28,WORLD_W-4*TILE-28)+off;for(let i=0;i<9;i++)xs.push(c0+(i-4)*50);
+      const gap=1+Math.floor(Math.random()*7);g.arrs.push({xs,gap,t:-delay,warn:1.05,y:8.5*TILE,fall:[],done:false});};
+    mk(0,0);if(g.hp<=18)mk(25,1.0);}
+}
+function updateSB(dt){
+  const g=sb;if(g.flash>0)g.flash-=dt;if(g.guard>0)g.guard-=dt;
+  if(g.halfT>0){g.halfT-=dt;g.y+=(SB_LOW-20-g.y)*Math.min(1,dt*2);if(g.halfT<=0)playCS(SB_HALF,()=>{calmT=.6;},()=>{sbHalfEnd();},true);return;}
+  if(!g.active)return;
+  g.t+=dt;const pcx=p.x+p.w/2,pb={x:p.x+3,y:p.y+3,w:p.w-6,h:p.h-6},canHurt=()=>invuln<=0&&calmT<=0;
+  // 移動：平常慢慢滑到目標點，上下輕輕浮動
+  const bob=g.st==='rest'?Math.sin(clock*3)*2:Math.sin(clock*1.6)*7;
+  g.x+=(g.tx-g.x)*Math.min(1,dt*(g.st==='seal'?3:1.8));g.y+=(g.ty+bob-g.y)*Math.min(1,dt*(g.st==='seal'?3.2:1.8));
+  if(Math.abs(pcx-g.x)>8)g.face=pcx<g.x?-1:1;
+  // 狀態
+  if(g.st==='idle'){g.ty=SB_HIGH;if(g.t>(g.phase===1?.9:.6))sbNext();}
+  else if(g.st==='fly'){if(g.swords.every(s=>s.st!=='hold'&&s.st!=='lock')&&g.t>1.2)g.st='idle',g.t=0;}
+  else if(g.st==='talis'){if(g.t>.35&&g.cast===0){g.cast=1;const n=g.phase===1?3:4;sfx('ui');
+      for(let i=0;i<n;i++){const a=-Math.PI/2+(i-(n-1)/2)*.7;g.talis.push({x:g.x+Math.cos(a)*30,y:g.y+Math.sin(a)*30,vx:Math.cos(a)*90,vy:Math.sin(a)*90,t:0,life:4.6,dead:false,rot:0});}}
+    if(g.t>1.4){g.st='idle';g.t=0;}}
+  else if(g.st==='seal'){if(g.seals.length===0&&g.t>1){g.st='rest';g.t=0;g.rests++;sfx('land');for(let k=0;k<10;k++)spawnFly(g.x,g.y+30,80);
+      if(!trig.sbRest){trig.sbRest=true;toast('劍仙在喘氣！現在打得到他');}}}
+  else if(g.st==='rest'){g.ty=SB_LOW;if(g.t>(g.phase===1?2.6:2.1)){g.st='idle';g.t=0;}}
+  else if(g.st==='array'){if(g.arrs.length===0&&g.t>.6){g.st='idle';g.t=0;}}
+  // 飛劍：先跟在劍仙身邊轉向主角（白色細線），鎖定後變紅線、停一下再射出
+  for(let i=g.swords.length-1;i>=0;i--){const s=g.swords[i];s.t+=dt;
+    if(s.st==='hold'||s.st==='lock'){const a0=-Math.PI*.85+(s.i/(Math.max(1,s.n-1)))*Math.PI*.7;s.x=g.x+Math.cos(a0)*46;s.y=g.y+Math.sin(a0)*34-8;
+      if(s.st==='hold'){s.ang=Math.atan2(p.y+p.h/2-s.y,pcx-s.x);if(s.t>=s.lock){s.st='lock';sfx('crystal');}}
+      else if(s.t>=s.go){s.st='go';s.vx=Math.cos(s.ang)*640;s.vy=Math.sin(s.ang)*640;sfx('swing');}}
+    else if(s.st==='go'){s.x+=s.vx*dt;s.y+=s.vy*dt;const tipX=s.x+Math.cos(s.ang)*14,tipY=s.y+Math.sin(s.ang)*14;
+      if(canHurt()&&hit(pb,{x:tipX-8,y:tipY-8,w:16,h:16})){hurt(s.x);s.st='stuck';s.t=0;if(dying>0)return;}
+      else if(tipY>=SB_FL-2||tipX<TILE||tipX>WORLD_W-TILE||tipY<TILE){s.st='stuck';s.t=0;sfx('hit');for(let k=0;k<5;k++)parts.push({x:tipX,y:Math.min(tipY,SB_FL-2),vx:(Math.random()-.5)*120,vy:-40-Math.random()*80,life:.35,t:0,c:'#cfd8e8'});}}
+    else if(s.st==='stuck'&&s.t>.55)g.swords.splice(i,1);}
+  // 符咒：慢慢追著主角飄，砍一下就碎；碰到會受傷
+  for(let i=g.talis.length-1;i>=0;i--){const q=g.talis[i];q.t+=dt;q.rot+=dt*3;
+    if(q.dead){q.cut=(q.cut||0)+dt;if(q.cut>.3)g.talis.splice(i,1);continue;}
+    const dx=pcx-q.x,dy=p.y+p.h/2-q.y,d=Math.hypot(dx,dy)||1,mx=g.phase===1?115:145;
+    q.vx+=dx/d*170*dt;q.vy+=dy/d*170*dt;const sp=Math.hypot(q.vx,q.vy);if(sp>mx){q.vx*=mx/sp;q.vy*=mx/sp;}
+    q.x+=q.vx*dt;q.y=Math.min(q.y+q.vy*dt,SB_FL-14);
+    if(q.t>q.life){q.dead=true;q.cut=0;continue;}
+    if(q.t>.4&&canHurt()&&hit(pb,{x:q.x-7,y:q.y-11,w:14,h:22})){q.dead=true;q.cut=0;hurt(q.x);if(dying>0)return;}}
+  // 法印：地上先亮起印記，亮滿就衝起一道光柱
+  for(let i=g.seals.length-1;i>=0;i--){const q=g.seals[i];q.t+=dt;
+    if(q.t>=q.warn&&!q.done){q.done=true;sfx('boom');shake=Math.max(shake,4);for(let k=0;k<12;k++)parts.push({x:q.x+(Math.random()-.5)*q.r*1.6,y:SB_FL-2,vx:(Math.random()-.5)*60,vy:-120-Math.random()*160,life:.6,t:0,c:Math.random()<.5?'#f0d27a':'#c9473a'});}
+    if(q.done&&q.t<q.warn+.35&&canHurt()&&hit(pb,{x:q.x-q.r,y:SB_FL-150,w:q.r*2,h:150})){hurt(q.x);if(dying>0)return;}
+    if(q.t>q.warn+.6)g.seals.splice(i,1);}
+  // 劍陣：一整排劍在上面排好（虛線），只有發光的那一格是空的；時間到一起落下
+  for(let i=g.arrs.length-1;i>=0;i--){const A=g.arrs[i];A.t+=dt;
+    if(A.t>=A.warn&&!A.done){A.done=true;A.fy=A.y;sfx('swing');}
+    if(A.done){A.fy=Math.min(SB_FL-10,A.fy+dt*(A.t-A.warn)*2600+dt*300);
+      if(A.fy<SB_FL-11&&canHurt())for(let k=0;k<A.xs.length;k++){if(k===A.gap)continue;if(hit(pb,{x:A.xs[k]-7,y:A.fy-8,w:14,h:26})){hurt(A.xs[k]);if(dying>0)return;break;}}
+      if(A.fy>=SB_FL-10&&!A.land){A.land=A.t;shake=Math.max(shake,3);sfx('hit');}
+      if(A.land&&A.t>A.land+.5)g.arrs.splice(i,1);}}
+}
+function sbHalfEnd(){if(!sb)return;sb.active=false;sbClear();bossSealed=false;document.body.classList.remove('boss');setMusic('hush');trig.sbHalf=true;}
+const SB_INTRO=[
+  {c:'cam',x:18.5*TILE,y:9*TILE,d:1.2},
+  {c:'cap',t:'天井的正中央，那本古書「啪」地合上，又猛地翻開。紙頁一張一張飛出來，在半空中疊成一個穿著長袍的身影。'},
+  {c:'fn',fn:()=>{spawnSB();sb.appear=0;sb.y=9*TILE;sfx('rin');shake=4;for(let k=0;k<24;k++)spawnFly(18*TILE+16,8*TILE,150);return null;}},
+  {c:'wait',d:.8},
+  {c:'cap',t:'他的臉是一張空白的書頁，只用墨點了兩隻眼睛。身後浮著幾把用書籤削成的細劍。'},
+  {c:'cap',t:'「這一本，不外借。」「借書證上寫著兩個名字——可是來還書的，從來只有一個。」'},
+  {c:'say',t:'我不是來借書的⋯⋯我是來找人的。'},
+  {c:'cap',t:'書靈劍仙抬起長袖，書籤劍齊齊轉向你。'},
+  {c:'cam',x:null,d:.6}
+];
+const SB_AGAIN=[
+  {c:'fn',fn:()=>{spawnSB();sb.appear=0;sfx('rin');return null;}},
+  {c:'cap',t:'書頁又疊成了劍仙的樣子。「⋯⋯還不走？」'}
+];
+const SB_HALF=[
+  {c:'cap',t:'劍仙的身影晃了一下，幾張書頁從袖口散落下來，上面的字被墨水暈開了。'},
+  {c:'cap',t:'「⋯⋯原來，你也記得這本書。」'},
+  {c:'fn',fn:()=>{sbHalfEnd();return null;}},
+  {c:'cap',t:PUBLIC_SITE?'劍仙退回半空，書頁慢慢闔上。':'（第八章製作中：劍仙的第三階段與打倒後的演出，會在下一部分加入）'}
+];
+function drawJian(x,y,ang,s,a){ctx.save();ctx.globalAlpha*=a==null?1:a;ctx.translate(x,y);ctx.rotate(ang);ctx.scale(s,s);ctx.strokeStyle=OUT;ctx.lineWidth=1.1/s;ctx.lineJoin='round';
+  ctx.beginPath();ctx.moveTo(18,0);ctx.lineTo(13,-2.2);ctx.lineTo(-6,-2.2);ctx.lineTo(-6,2.2);ctx.lineTo(13,2.2);ctx.closePath();fs('#e4eaf3');
+  ctx.strokeStyle='rgba(120,140,170,.7)';ctx.beginPath();ctx.moveTo(-5,0);ctx.lineTo(14,0);ctx.stroke();ctx.strokeStyle=OUT;
+  rr(-8,-5,2.6,10,1);fs('#c9a45a');rr(-15,-1.8,7,3.6,1.2);fs('#5a3a24');
+  ctx.strokeStyle='#c9473a';ctx.lineWidth=1.4/s;ctx.beginPath();ctx.moveTo(-15,0);ctx.quadraticCurveTo(-20,3+Math.sin(clock*8)*2,-23,6);ctx.stroke();ctx.restore();}
+function drawTalis(q){const a=q.dead?Math.max(0,1-(q.cut||0)/.3):1;ctx.save();ctx.globalAlpha=a;ctx.translate(q.x,q.y);ctx.rotate(Math.sin(q.rot)*.35);if(q.dead)ctx.scale(1+(q.cut||0)*2,1-(q.cut||0)*2);
+  glowAt(0,0,20,.35,'240,210,120');ctx.strokeStyle=OUT;ctx.lineWidth=1.1;rr(-7,-11,14,22,1.5);fs('#f0d27a');
+  ctx.strokeStyle='#b0382f';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(-3,-7);ctx.lineTo(3,-7);ctx.moveTo(0,-8);ctx.lineTo(0,6);ctx.moveTo(-3,-2);ctx.quadraticCurveTo(0,1,3,-2);ctx.moveTo(-3,3);ctx.lineTo(3,5);ctx.stroke();ctx.restore();}
+function drawSB(dt){
+  const g=sb;if(g.appear<1)g.appear=Math.min(1,g.appear+dt*.8);
+  // 地上的法印
+  for(const q of g.seals){if(q.t<0)continue;const k=clamp(q.t/q.warn,0,1);ctx.save();
+    if(!q.done){ctx.strokeStyle=`rgba(201,71,58,${.35+.55*k})`;ctx.lineWidth=1.5+k;ctx.beginPath();ctx.ellipse(q.x,SB_FL-2,q.r*(.6+.4*k),9+5*k,0,0,6.283);ctx.stroke();
+      ctx.beginPath();ctx.ellipse(q.x,SB_FL-2,q.r*.55*(.6+.4*k),5+3*k,0,0,6.283);ctx.stroke();
+      ctx.translate(q.x,SB_FL-2);ctx.scale(1,.18);ctx.rotate(clock*1.6);ctx.strokeStyle=`rgba(240,210,120,${.4+.5*k})`;ctx.lineWidth=3;
+      for(let i=0;i<8;i++){ctx.rotate(Math.PI/4);ctx.beginPath();ctx.moveTo(q.r*.62,0);ctx.lineTo(q.r*.86,0);if(i%2){ctx.moveTo(q.r*.68,-6);ctx.lineTo(q.r*.8,-6);}ctx.stroke();}}
+    else{const u=clamp((q.t-q.warn)/.6,0,1),a=1-u;const gr=ctx.createLinearGradient(0,SB_FL-170,0,SB_FL);gr.addColorStop(0,'rgba(255,230,160,0)');gr.addColorStop(1,`rgba(255,220,140,${.75*a})`);
+      ctx.fillStyle=gr;ctx.fillRect(q.x-q.r*(1-u*.5),SB_FL-170,q.r*2*(1-u*.5),170);ctx.strokeStyle=`rgba(201,71,58,${a})`;ctx.lineWidth=2;ctx.beginPath();ctx.ellipse(q.x,SB_FL-2,q.r,13,0,0,6.283);ctx.stroke();
+      lights.push({x:q.x,y:SB_FL-60,r:150,c:'255,210,140',g:.3*a});}
+    ctx.restore();}
+  // 劍陣
+  for(const A of g.arrs){if(A.t<0)continue;const k=clamp(A.t/A.warn,0,1);
+    {const gx=A.xs[A.gap];const gr=ctx.createLinearGradient(0,A.y,0,SB_FL);gr.addColorStop(0,'rgba(255,226,150,0)');gr.addColorStop(1,`rgba(255,226,150,${.45*(A.done?Math.max(0,1-(A.t-A.warn)):k)})`);ctx.fillStyle=gr;ctx.fillRect(gx-20,A.y,40,SB_FL-A.y);}
+    for(let i=0;i<A.xs.length;i++){if(i===A.gap)continue;const x=A.xs[i];
+      if(!A.done){ctx.strokeStyle=`rgba(201,71,58,${.15+.5*k})`;ctx.lineWidth=1.2;ctx.setLineDash([4,6]);ctx.beginPath();ctx.moveTo(x,A.y+20);ctx.lineTo(x,SB_FL-2);ctx.stroke();ctx.setLineDash([]);}
+      drawJian(x,(A.done?A.fy:A.y)+2,Math.PI/2,1,Math.min(1,A.t*4));}}
+  // 飛劍
+  for(const s of g.swords){if(s.t<0)continue;
+    if(s.st==='hold'||s.st==='lock'){const L=900;ctx.strokeStyle=s.st==='lock'?'rgba(220,60,50,.85)':'rgba(240,235,255,.28)';ctx.lineWidth=s.st==='lock'?1.8:1;ctx.setLineDash(s.st==='lock'?[]:[3,7]);
+      ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.lineTo(s.x+Math.cos(s.ang)*L,s.y+Math.sin(s.ang)*L);ctx.stroke();ctx.setLineDash([]);}
+    drawJian(s.x,s.y,s.ang,1.1,s.st==='stuck'?Math.max(0,1-s.t/.55):1);
+    if(s.st==='go')lights.push({x:s.x,y:s.y,r:50,c:'210,225,255',g:.15});}
+  for(const q of g.talis)drawTalis(q);
+  // 劍仙本人
+  const x=g.x,y=g.y,ap=g.appear,rest=g.st==='rest'||g.st==='stagger';
+  ctx.save();ctx.globalAlpha=ap;
+  glowAt(x,y,90,rest?.45:.28,rest?'255,214,140':'200,215,255');lights.push({x,y,r:200,c:rest?'255,214,140':'205,220,255',g:.22});
+  if(!rest){ctx.strokeStyle=`rgba(210,225,255,${.18+(g.guard>0?g.guard*2:0)})`;ctx.lineWidth=1.5+(g.guard>0?2:0);ctx.beginPath();ctx.ellipse(x,y-4,34,50,0,0,6.283);ctx.stroke();}
+  // 背後的墨字光環
+  ctx.save();ctx.translate(x,y-18);ctx.rotate(clock*.4);ctx.strokeStyle='rgba(40,30,50,.55)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,40,0,6.283);ctx.stroke();
+  ctx.strokeStyle='rgba(30,22,40,.7)';ctx.lineWidth=2.2;for(let i=0;i<10;i++){ctx.rotate(Math.PI/5);ctx.beginPath();ctx.moveTo(37,0);ctx.lineTo(44,i%2?3:-3);ctx.stroke();}ctx.restore();
+  // 身邊繞著的小書籤劍（施法時收起來）
+  if(!rest&&g.st!=='fly')for(let i=0;i<3;i++){const a=clock*1.3+i*2.094;drawJian(x+Math.cos(a)*44,y-6+Math.sin(a)*16,a+Math.PI/2,.7,Math.sin(a)>0?1:.55);}
+  const f=g.face,sw=Math.sin(clock*2.2);
+  ctx.save();ctx.translate(x,y);if(g.flash>0)ctx.filter='brightness(2.2)';ctx.strokeStyle=OUT;ctx.lineWidth=1.5;ctx.lineJoin='round';
+  // 披帛（飄帶）
+  ctx.strokeStyle='rgba(150,185,225,.9)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(-14,-14);ctx.bezierCurveTo(-40,-4+sw*6,-30,22,-46,30+sw*8);ctx.moveTo(14,-14);ctx.bezierCurveTo(40,-4-sw*6,32,24,48,28-sw*8);ctx.stroke();ctx.strokeStyle=OUT;ctx.lineWidth=1.5;
+  // 長袍：紙做的，下擺像翻開的書頁
+  ctx.beginPath();ctx.moveTo(-10,-20);ctx.quadraticCurveTo(-22,6,-20+sw*3,34);for(let i=0;i<5;i++){const xx=-20+i*10+sw*3;ctx.quadraticCurveTo(xx+5,40+(i%2)*4,xx+10,34);}ctx.quadraticCurveTo(22,6,10,-20);ctx.closePath();fs('#efe6d2');
+  ctx.strokeStyle='rgba(60,50,70,.35)';ctx.lineWidth=1;for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(-12+i*8,-6);ctx.lineTo(-14+i*9+sw,28);ctx.stroke();}
+  ctx.strokeStyle=OUT;ctx.lineWidth=1.5;
+  // 墨色腰帶、交領
+  rr(-13,-2,26,5,2);fs('#2a2230');ctx.beginPath();ctx.moveTo(-9,-20);ctx.lineTo(3,-2);ctx.moveTo(9,-20);ctx.lineTo(-3,-2);ctx.stroke();
+  // 寬袖（施法時舉起）
+  const arm=g.st==='fly'||g.st==='talis'||g.st==='array'||g.st==='seal'?-1:rest?.6:0;
+  for(const sd of [-1,1]){ctx.save();ctx.translate(sd*11,-16);ctx.rotate(sd*(.5+arm*.6*(sd===f?1:.5)));ctx.beginPath();ctx.moveTo(-5,0);ctx.lineTo(5,0);ctx.lineTo(9,24);ctx.quadraticCurveTo(0,30,-9,24);ctx.closePath();fs('#e6dcc4');
+    ctx.fillStyle='#2a2230';ctx.fillRect(-9,21,18,3);ctx.restore();}
+  // 頭：空白書頁的臉、墨點眼睛、髮髻和髮簪
+  ctx.beginPath();ctx.arc(0,-30,11,0,6.283);fs('#f7f1e2');
+  ctx.beginPath();ctx.arc(0,-43,6,0,6.283);fs('#2a2230');ctx.beginPath();ctx.moveTo(-10,-45);ctx.lineTo(11,-41);ctx.strokeStyle='#c9a45a';ctx.lineWidth=1.6;ctx.stroke();
+  ctx.fillStyle='#1a1420';ctx.beginPath();ctx.moveTo(-11,-34);ctx.quadraticCurveTo(-12,-44,0,-42);ctx.quadraticCurveTo(12,-44,11,-34);ctx.quadraticCurveTo(6,-39,0,-38);ctx.quadraticCurveTo(-6,-39,-11,-34);ctx.fill();
+  if(rest){ctx.strokeStyle='#1a1420';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(-6+f*2,-29);ctx.lineTo(-2+f*2,-29);ctx.moveTo(2+f*2,-29);ctx.lineTo(6+f*2,-29);ctx.stroke();}
+  else{ctx.fillStyle='#1a1420';for(const ex of [-4,4]){ctx.beginPath();ctx.ellipse(ex+f*2,-29,1.6,2.4,0,0,6.283);ctx.fill();}
+    ctx.strokeStyle='#1a1420';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(-7+f*2,-34);ctx.lineTo(-2+f*2,-33);ctx.moveTo(7+f*2,-34);ctx.lineTo(2+f*2,-33);ctx.stroke();}
+  ctx.restore();
+  if(rest&&!cs){ctx.fillStyle='rgba(255,226,150,.9)';ctx.font='9px "Noto Serif TC",serif';ctx.textAlign='center';ctx.fillText(g.st==='stagger'?'⋯⋯':'喘息中',x,y-58);ctx.textAlign='left';}
+  ctx.restore();
+}
 const BOSS_FLAGS=['bossDone','mirrorDone','guideDone','drillDone','iceDone','towerDone','festDone'];
 const evoStage=id=>(skill.evo&&skill.evo[id])||0;
 const skName=t=>{const st=evoStage(t.id);return st?SKILL_EVO[t.id][st-1][0]:t.name;};
@@ -8027,6 +8232,7 @@ function skillHitBoss(box,dmg){
   if(!h&&dr&&dr.active&&!dr.dead){const v=dr.hp;for(let k=0;k<n&&dr&&dr.active&&!dr.dead;k++)hitDrill(box);if(dr&&dr.hp<v)h=true;}
   if(!h&&tb&&tb.active&&!tb.dead&&hitTB(box,n,false))h=true;
   if(!h&&kb&&kb.active&&!kb.dead&&hitKB(box,n,false))h=true;
+  if(!h&&sb&&sb.active&&!sb.dead&&hitSB(box,n,false))h=true;
   if(!h&&ib&&ib.active&&!ib.dead){const v=ib.hp;for(let k=0;k<n&&ib&&ib.active&&!ib.dead;k++)hitIB(box);if(ib&&ib.hp<v)h=true;}
   if(!h&&gb&&gb.active&&!gb.dead&&gb.st!=='blinkAway'&&hit(box,{x:gb.x,y:gb.y,w:20,h:26})){for(let k=0;k<n&&gb&&!gb.dead;k++)hitGB();h=true;}
   if(!h&&boss&&boss.active&&!boss.dead&&boss.form!==2&&hit(box,{x:boss.x-24,y:boss.y-44,w:48,h:84})){for(let k=0;k<n&&boss&&boss.active&&!boss.dead&&boss.form!==2&&boss.hp>0;k++)hitBoss();h=true;}
@@ -8082,6 +8288,7 @@ function castJoint(){const d=compDef();if(!d)return;if(!comp)placeComp();
   for(let k=-2;k<=2;k++){const a=k*.17;pshots.push({k:'fire',fox:true,x:comp.x,y:comp.y,vx:Math.cos(a)*f*430,vy:Math.sin(a)*430,r:8,t:0,life:.85,dmg:1,hit:new Set()});}
   for(let k=0;k<26;k++)spawnFly(cx+(Math.random()-.5)*60,cy+(Math.random()-.5)*50,160);
   if(!trig.jointUsed){trig.jointUsed=true;hint=null;showTut();toast(`聯合技能「${d.jointName}」！冷卻 ${JOINT_CD} 秒`);}}
+function compFoes(){const L=enemies.filter(e=>!(e.dead||e.ghost||e.t==='dummy'));if(sb&&sb.active&&!sb.dead&&!sb.halfDone){const b=sbBox();L.push({x:b.x,y:b.y,w:b.w,h:b.h});}return L;}
 function compDef(){return F&&F.companion?COMPANIONS[F.companion]:null;}
 function placeComp(){if(!compDef()){comp=null;return;}comp={x:p.x+p.w/2-(p.face||1)*30,y:p.y-22,cd:.8,face:p.face||1,bob:Math.random()*6,atkT:0};}
 function updateComp(dt){const d=compDef();if(jointCd>0)jointCd=Math.max(0,jointCd-dt);if(jointFx){jointFx.t+=dt;if(jointFx.t>jointFx.life)jointFx=null;}if(!d){comp=null;return;}if(!comp)placeComp();
@@ -8091,14 +8298,14 @@ function updateComp(dt){const d=compDef();if(jointCd>0)jointCd=Math.max(0,jointC
   if(cs||trans||dying>0||fallT>0)return;
   if(!trig.jointHint){trig.jointHint=true;flashHint(`小燈精學會了聯合技能「${d.jointName}」：按「合擊」一起放出燈火`,['bX'],6);}
   if(comp.sk==null)comp.sk=3;comp.sk-=dt;
-  if(comp.sk<=0){let best=null,bd=d.skRange;for(const e of enemies){if(e.dead||e.ghost||e.t==='dummy')continue;const dd=Math.hypot(e.x+e.w/2-comp.x,e.y+e.h/2-comp.y);if(dd<bd){bd=dd;best=e;}}
+  if(comp.sk<=0){let best=null,bd=d.skRange;for(const e of compFoes()){const dd=Math.hypot(e.x+e.w/2-comp.x,e.y+e.h/2-comp.y);if(dd<bd){bd=dd;best=e;}}
     if(best){const ex=best.x+best.w/2,ey=best.y+best.h/2,a0=Math.atan2(ey-comp.y,ex-comp.x);
       for(const da of [-.24,0,.24])pshots.push({k:'fire',fox:true,x:comp.x,y:comp.y,vx:Math.cos(a0+da)*d.spd,vy:Math.sin(a0+da)*d.spd,r:5.5,t:0,life:1,dmg:1});
       comp.sk=d.skCd;comp.atkT=.45;comp.face=Math.sign(ex-comp.x)||comp.face;sfx('swing');rings.push({x:comp.x,y:comp.y,t:0,c:'255,190,110'});
       if(!trig.compSkHint){trig.compSkHint=true;toast(`小燈精放出了自動技能「${d.skName}」！`);}return;}
     comp.sk=.3;}
   comp.cd-=dt;if(comp.cd>0)return;
-  let best=null,bd=d.range;for(const e of enemies){if(e.dead||e.ghost||e.t==='dummy')continue;const ex=e.x+e.w/2,ey=e.y+e.h/2,dd=Math.hypot(ex-comp.x,ey-comp.y);if(dd<bd){bd=dd;best=e;}}
+  let best=null,bd=d.range;for(const e of compFoes()){const ex=e.x+e.w/2,ey=e.y+e.h/2,dd=Math.hypot(ex-comp.x,ey-comp.y);if(dd<bd){bd=dd;best=e;}}
   if(!best){comp.cd=.2;return;}
   const ex=best.x+best.w/2,ey=best.y+best.h/2,n=Math.hypot(ex-comp.x,ey-comp.y)||1;
   pshots.push({k:'fire',fox:true,x:comp.x,y:comp.y,vx:(ex-comp.x)/n*d.spd,vy:(ey-comp.y)/n*d.spd,r:4.5,t:0,life:.9,dmg:1});
