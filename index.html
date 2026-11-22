@@ -502,6 +502,15 @@ body.hasSkill #bK{display:flex}
 .platBack{display:inline-flex;align-items:center}
 /* 公開網址（github.io）上藏起測試用的「捷徑」與「編輯器」；網址加 ?dev 會再出現。本機版、claude.ai 正式版不受影響 */
 html.pub #jumpBtn,html.pub #openEditor,html.pub .devOnly{display:none!important}
+/* 第八章部分⑧（2026-11-22.0）：和夥伴一起放的「聯合技能」按鈕（有夥伴才出現）、左上的冷卻條 */
+#bX{right:calc(var(--bs)*2.66);bottom:calc(var(--bs)*2.1);width:calc(var(--bs)*.84);height:calc(var(--bs)*.84);display:none}
+body.hasComp #bX{display:flex}
+#bX .ring{stroke:#ffb35a}
+#bX.ready .ring{stroke:#ffd88c;stroke-width:3.4}
+#jtHud{display:none;align-items:center;gap:6px;font-size:12px;color:#ffd8a8;text-shadow:0 1px 3px #000}
+body.hasComp #jtHud{display:flex}
+#jtHud .bar{width:46px;height:5px;border:1px solid rgba(255,190,120,.6);border-radius:3px;overflow:hidden;background:rgba(16,13,24,.6)}
+#jtHud .bar i{display:block;height:100%;width:100%;background:#ffb35a}
 </style>
 </head>
 <body data-state="cover">
@@ -580,6 +589,7 @@ html.pub #jumpBtn,html.pub #openEditor,html.pub .devOnly{display:none!important}
         <div id="hp"></div>
         <div id="coin">✦ 0</div>
         <div id="skHud"><span id="skHudName">技能</span><span class="bar"><i id="skHudBar"></i></span></div>
+        <div id="jtHud"><span id="jtHudName">合擊</span><span class="bar"><i id="jtHudBar"></i></span></div>
         <div id="oxy"></div>
       </div>
       <div class="hudR">
@@ -621,6 +631,7 @@ html.pub #jumpBtn,html.pub #openEditor,html.pub .devOnly{display:none!important}
         <div class="btn" id="bA" aria-label="攻擊"></div>
         <div class="btn" id="bJ" aria-label="跳躍"></div>
         <div class="btn" id="bE" aria-label="進入"></div>
+        <div class="btn" id="bX" aria-label="聯合技能"></div>
       </div>
     </div>
 
@@ -745,11 +756,22 @@ html.pub #jumpBtn,html.pub #openEditor,html.pub .devOnly{display:none!important}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-21.2';
+const GAME_VERSION='2026-11-22.0';
 // 公開網址判斷：只有在 github.io 上、而且網址沒有 ?dev 時，才藏起測試用的按鈕
 const PUBLIC_SITE=/github\.io$/i.test(location.hostname)&&!/[?&]dev\b/i.test(location.search);
 if(PUBLIC_SITE)document.documentElement.classList.add('pub');
 const CHANGELOG=[
+  ['2026-11-22.0','第八章製作第 8 部分（共 11 部分）：夥伴的自動技能與聯合技能；待辦 J 第二部分：第七、八章自己風格的燈',[
+    '第八章部分⑧：狐狸面具小燈精學會自動技能「三連狐火」——附近（約 8 格內）有敵人時，每 8 秒一次放出三顆扇形狐火（各 1 傷害），平常每 1.15 秒一發的小狐火照舊',
+    '第八章部分⑧：新增聯合技能「狐燈齊放」（有夥伴才能用）：身邊爆出一圈燈火（2 傷害、把敵人推開），小燈精同時往前方放出五顆會穿透敵人的大狐火（各 1 傷害），還有一隻大狐狸燈影往前衝的動畫；發動時短暫無敵，冷卻 14 秒，Boss 也打得到',
+    '電腦版：聯合技能預設按 R，可以在「設定 → 按鍵設定」改成別的鍵（舊的按鍵設定如果已經把 R 用掉，會自動換一個沒人用的鍵）；左上角多一條「R・合擊」冷卻條；選擇遊玩方式頁的操作說明也加上這個鍵',
+    '手機版：有夥伴時，右下「技能」鈕上方多一顆「合擊」按鈕，外圈會顯示冷卻；冷卻好了外圈變亮',
+    '第一次有夥伴時會出現提示「小燈精學會了聯合技能……按『合擊』（電腦版顯示按鍵）」；冷卻中再按會提示還要幾秒',
+    '待辦 J 第二部分：第七章祭典夜空裡飄的燈，原本是「橢圓＋一塊方塊」，現在改成真正的天燈樣子（紙罩、底下竹圈和燒著的燈芯）；背景遠處的燈也改成小天燈的剪影',
+    '待辦 J 第二部分：第七章風之路裡的「天燈」、放燈人支線的「許願燈（願）」都改成同一種天燈畫法；背景屋簷下的小燈籠加上吊繩和上下燈蓋，看得出是掛在屋簷上',
+    '待辦 J 第二部分：第八章書庫的蠟燭改成放在銅燭台上（圓底座、燭柱、接蠟的小盤、側邊提環、蠟淚），火光會輕輕搖；背景書架上的小燈加上吊繩',
+    '第八章仍然只能從封面「捷徑 → 第八章（製作中）」進入；正式流程不變'
+  ]],
   ['2026-11-21.2','星期六晚上輕量版：公開版藏起測試字樣（待辦 L1）、走上船就自動開船（待辦 L2）、補改管書員對白（待辦 L3）；併入主對話的公開網址版 21.1',[
     '這次以 GitHub 上的 2026-11-21.1（主對話做的公開網址版：藏起捷徑與編輯器、網頁標題改成「地道」）為基礎，那一版的修改全部保留',
     '修正 L1（公開網址）：封面標題下面的「遊戲名稱暫定」在公開網址（github.io、沒有加 ?dev）上不再顯示；本機版、claude.ai 正式版照常顯示',
@@ -2478,7 +2500,7 @@ const TUT=[
   {text:'左上角是地圖，點一下可以放大',btn:[],done:()=>tutT>4}
 ];
 function showTut(){
-  for(const id of ['bL','bR','bJ','bA','bD','bC','bF','bI','bK','bE'])$(id).classList.remove('hint');
+  for(const id of ['bL','bR','bJ','bA','bD','bC','bF','bI','bK','bE','bX'])$(id).classList.remove('hint');
   const el=$('tut');
   const cur=hint||(tut<TUT.length?{text:TUT[tut].text,btn:TUT[tut].btn}:null);
   if(cur){el.textContent=pcText(cur.text);el.classList.add('show');for(const id of cur.btn)$(id).classList.add('hint');}
@@ -2489,7 +2511,7 @@ function pcText(t){
   return t.replace('左上角是地圖，點一下可以放大',`按 ${kl('map')}打開地圖（左上角也有小地圖）`).replace('按住 ◀ ▶ 移動',`按住 ${keyName(KB.left)} / ${keyName(KB.right)} 移動`)
     .replace(/靠近角色時，按旁邊的「對話」鈕說話/,`靠近角色時，按 ${kl('talk')}對話`).replace('左下方的按鍵',kl('oil'))
     .replace(/「點燈」鍵/g,kl('fire')).replace(/「攻擊」/g,'滑鼠左鍵').replace(/「跳躍」/g,kl('jump')).replace(/「衝刺」/g,'滑鼠右鍵')
-    .replace(/「進入」/g,kl('talk')).replace(/「對話」/g,kl('talk')).replace(/「點燈」/g,kl('fire')).replace(/「燈鏈」/g,kl('chain')).replace(/「破冰」/g,kl('slam')).replace(/「技能」/g,kl('skill')).replace(/「下降」/g,kl('slam')).replace(/◀ /g,keyName(KB.left)+' 鍵').replace(/▶ /g,keyName(KB.right)+' 鍵').replace(/([按用])([A-Za-z0-9])/g,'$1 $2');
+    .replace(/「進入」/g,kl('talk')).replace(/「對話」/g,kl('talk')).replace(/「點燈」/g,kl('fire')).replace(/「燈鏈」/g,kl('chain')).replace(/「破冰」/g,kl('slam')).replace(/「技能」/g,kl('skill')).replace(/「合擊」/g,kl('joint')).replace(/「下降」/g,kl('slam')).replace(/◀ /g,keyName(KB.left)+' 鍵').replace(/▶ /g,keyName(KB.right)+' 鍵').replace(/([按用])([A-Za-z0-9])/g,'$1 $2');
 }
 function flashHint(text,btn,sec){hint={text,btn,t:sec};showTut();}
 let toastTimer=0;
@@ -2543,7 +2565,7 @@ function placePlayer(pos){oxyMax=F&&F.amulet?TUNE.oxyAmulet:TUNE.oxy;oxy=oxyMax;
   if(p.fly)p.vx=flySpeed();
 }
 function resetState(){
-  $('finish').classList.remove('show');comp=null;
+  $('finish').classList.remove('show');comp=null;jointCd=0;jointFx=null;
   story={choices:{},npc:{},accept:0,seal:0};seenTalkHint=false;wallet=0;wick=0;wickBought=0;shade=false;oil=0;quests={};skill=normSkill();skCd=0;skCast=0;pshots=[];skSel=null;shieldT=0;skZones=[];skDelay=[];skBossSeen=-1;updateSkillUI();maxHp=TUNE.maxHp;lostMsg=0;updateCoin();updateOilUI();F={dummy:false,crystal:false};lit.clear();shards.clear();visited.clear();ability=null;trig={};hint=null;updateAbilityUI();
   tut=99;showTut();dying=0;fadeIn=0;trans=null;transFade=0;finished=false;
 }
@@ -3027,13 +3049,15 @@ document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('but
 document.addEventListener('visibilitychange',()=>{if(AC){if(document.hidden)AC.suspend();else AC.resume();}});
 
 // ---------- 輸入 ----------
-const input={L:false,R:false,J:false,jp:false,ap:false,dp:false,op:false,fp:false,ip:false,cp:false,sp:false,kp:false};
+const input={L:false,R:false,J:false,jp:false,ap:false,dp:false,op:false,fp:false,ip:false,cp:false,sp:false,kp:false,xp:false};
 const keys=new Set();
 // 按鍵設定（電腦版）：每個動作一個可自訂的主按鍵；方向鍵、滑鼠左右鍵、Esc 固定保留
-const KEY_ACTS=[['left','向左'],['right','向右'],['jump','跳躍'],['attack','攻擊（另有滑鼠左鍵）'],['dash','衝刺（另有滑鼠右鍵）'],['talk','對話／進入'],['fire','點燈'],['oil','燈油'],['chain','燈鏈'],['slam','破冰'],['skill','技能'],['skillmenu','技能頁面'],['map','地圖']];
-const KEY_DEF={left:'a',right:'d',jump:' ',attack:'j',dash:'k',talk:'e',fire:'f',oil:'q',chain:'shift',slam:'s',skill:'l',skillmenu:'n',map:'m'};
+const KEY_ACTS=[['left','向左'],['right','向右'],['jump','跳躍'],['attack','攻擊（另有滑鼠左鍵）'],['dash','衝刺（另有滑鼠右鍵）'],['talk','對話／進入'],['fire','點燈'],['oil','燈油'],['chain','燈鏈'],['slam','破冰'],['skill','技能'],['joint','聯合技能（有夥伴時）'],['skillmenu','技能頁面'],['map','地圖']];
+const KEY_DEF={left:'a',right:'d',jump:' ',attack:'j',dash:'k',talk:'e',fire:'f',oil:'q',chain:'shift',slam:'s',skill:'l',joint:'r',skillmenu:'n',map:'m'};
 const KEY_EXTRA={arrowleft:'left',arrowright:'right',arrowup:'jump',arrowdown:'slam'};
 let KB={...KEY_DEF};try{const r=JSON.parse(localStorage.getItem('tunnel.keys')||'null');if(r)for(const a in KEY_DEF)if(typeof r[a]==='string'&&r[a])KB[a]=r[a];}catch(e){}
+// 舊存的按鍵設定沒有「聯合技能」：如果 R 已經被別的動作用掉，就換一個沒人用的鍵
+if(Object.keys(KB).some(a=>a!=='joint'&&KB[a]===KB.joint)){const used=new Set(Object.values(KB));KB.joint=['r','u','h','g','y','x','c','z','t','b'].find(k=>!used.has(k))||'';}
 const saveKB=()=>{try{localStorage.setItem('tunnel.keys',JSON.stringify(KB));}catch(e){}};
 function keyName(k){return k===' '?'空白鍵':k==='shift'?'Shift':k==='control'?'Ctrl':k==='alt'?'Alt':k==='tab'?'Tab':k==='enter'?'Enter':k==='backspace'?'Backspace':k.length===1?k.toUpperCase():k.charAt(0).toUpperCase()+k.slice(1);}
 const kl=a=>{const n=keyName(KB[a]);return /鍵$/.test(n)?n:n+' 鍵';};
@@ -3070,11 +3094,12 @@ addEventListener('keydown',e=>{
   if(act==='talk')input.ip=true;
   if(act==='slam')input.sp=true;
   if(act==='skill')input.kp=true;
+  if(act==='joint')input.xp=true;
 });
 
 addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));
 let lastTouch=0,padIdleOn=false;
-const btns=['L','R','J','A','D','O','F','C','I','K','E'].map(id=>({id,el:$('b'+id),on:false}));
+const btns=['L','R','J','A','D','O','F','C','I','K','E','X'].map(id=>({id,el:$('b'+id),on:false}));
 const ptrs=new Map();
 function evalBtns(){
   for(const b of btns){
@@ -3084,7 +3109,7 @@ function evalBtns(){
       if(r.width>0)for(const q of ptrs.values())if(q.x>=r.left-m&&q.x<=r.right+m&&q.y>=r.top-m&&q.y<=r.bottom+m){on=true;break;}
     }
     if(on&&!b.on){b.el.classList.remove('pop');void b.el.offsetWidth;b.el.classList.add('pop');try{if(navigator.vibrate)navigator.vibrate(8);}catch(e){}
-      if(b.id==='J')input.jp=true;if(b.id==='A')input.ap=true;if(b.id==='D')input.dp=true;if(b.id==='O')input.op=true;if(b.id==='F')input.fp=true;if(b.id==='C')input.cp=true;if(b.id==='I')input.sp=true;if(b.id==='K')input.kp=true;if(b.id==='E')input.ip=true;}
+      if(b.id==='J')input.jp=true;if(b.id==='A')input.ap=true;if(b.id==='D')input.dp=true;if(b.id==='O')input.op=true;if(b.id==='F')input.fp=true;if(b.id==='C')input.cp=true;if(b.id==='I')input.sp=true;if(b.id==='K')input.kp=true;if(b.id==='E')input.ip=true;if(b.id==='X')input.xp=true;}
     b.on=on;b.el.classList.toggle('on',on);
   }
 }
@@ -3291,7 +3316,7 @@ function update(dt){
   }
   if(dying>0){dying-=dt;input.jp=input.ap=input.dp=false;if(dying<=0)respawn();return;}
   // 掉落後的留白（待辦 I）：回到安全的地方後先停一下、不吃任何按鍵，之後要放開再按方向鍵才會動
-  if(fallT>0){fallT-=dt;p.vx=0;p.vy=0;input.jp=input.ap=input.dp=input.sp=input.kp=input.cp=input.op=input.ip=input.fp=false;
+  if(fallT>0){fallT-=dt;p.vx=0;p.vy=0;input.jp=input.ap=input.dp=input.sp=input.kp=input.cp=input.op=input.ip=input.fp=input.xp=false;
     if(Math.random()<dt*20)spawnFly(p.x+p.w/2+(Math.random()-.5)*20,p.y+p.h,30);if(invuln>0)invuln-=dt;return;}
   if(fallLock&&!input.L&&!input.R)fallLock=false;
   if(calmT>0)calmT-=dt;
@@ -3449,6 +3474,7 @@ function update(dt){
   }
   if(input.op){input.op=false;if(ctrl)useOil();}
   if(input.kp){input.kp=false;if(ctrl&&!slam&&dashT<=0&&kindleT<=0)castSkill();}
+  if(input.xp){input.xp=false;if(ctrl&&!slam&&dashT<=0&&kindleT<=0)castJoint();}
   updateSkills(dt);updateComp(dt);
   if(mechs.length)updateMechs(dt);
   if(level.winds||level.glide)updateWind(dt);else p.glide=false;
@@ -5149,15 +5175,30 @@ function drawFestBG(sx,sy,li,col){
     const mx=viewW*.78-sx*.03,my=viewH*.16-sy*.03;const mg=ctx.createRadialGradient(mx,my,4,mx,my,70);mg.addColorStop(0,'rgba(255,236,200,.35)');mg.addColorStop(1,'rgba(255,236,200,0)');ctx.fillStyle=mg;ctx.fillRect(mx-70,my-70,140,140);
     ctx.fillStyle='rgba(255,240,210,.85)';ctx.beginPath();ctx.arc(mx,my,14,0,6.283);ctx.fill();
     for(const L of FEST_BG.lamps){const span=viewW+240,x=(((L.x-sx*.15+Math.sin(clock*.4+L.ph)*10)%span)+span)%span-120,y=(((L.y-clock*L.sp)%1)+1)%1*(viewH+60)-30-sy*.08;
-      const s=L.s*6;glowAt(x,y,s*3,.35,'255,170,90');ctx.fillStyle='rgba(255,170,90,.75)';ctx.beginPath();ctx.ellipse(x,y,s*.7,s,0,0,6.283);ctx.fill();ctx.fillStyle='rgba(255,230,170,.8)';ctx.fillRect(x-s*.25,y-s*.3,s*.5,s*.6);}
+      const s=L.s*6;glowAt(x,y,s*3,.35,'255,170,90');drawSkyLantern(x,y,s/9,null,true);}
     return;}
   const par=.38,base=viewH+20-sy*par*.4;ctx.fillStyle=col;
   for(const R of FEST_BG.roofs){const x=R.x-sx*par;if(x+R.w<-60||x>viewW+60)continue;const top=base-R.h;
     ctx.beginPath();ctx.rect(x+6,top,R.w-12,R.h+40);ctx.moveTo(x-10,top+4);ctx.quadraticCurveTo(x+R.w*.2,top-2,x+R.w/2,top-18);ctx.quadraticCurveTo(x+R.w*.8,top-2,x+R.w+10,top+4);ctx.lineTo(x+R.w+4,top+8);ctx.lineTo(x-4,top+8);ctx.closePath();ctx.fill();
     if(R.win>.35){ctx.fillStyle=`rgba(255,190,120,${.45+.25*Math.sin(clock*1.3+R.win*9)})`;ctx.fillRect(x+R.w*.3,top+16,7,9);if(R.win>.7)ctx.fillRect(x+R.w*.62,top+16,7,9);ctx.fillStyle=col;}
-    if(R.win>.55){const lx=x+R.w*.15,ly=top+12+Math.sin(clock*1.6+R.x)*1.5;ctx.fillStyle='rgba(230,110,70,.85)';ctx.beginPath();ctx.ellipse(lx,ly,3.2,4.2,0,0,6.283);ctx.fill();ctx.fillStyle=col;}}
+    if(R.win>.55){const lx=x+R.w*.15,ly=top+12+Math.sin(clock*1.6+R.x)*1.5;ctx.strokeStyle='rgba(30,20,16,.8)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(lx,top+5);ctx.lineTo(lx,ly-4);ctx.stroke();ctx.fillStyle='rgba(230,110,70,.85)';ctx.beginPath();ctx.ellipse(lx,ly,3.2,4.2,0,0,6.283);ctx.fill();ctx.fillStyle='rgba(40,24,18,.85)';ctx.fillRect(lx-2.6,ly-5,5.2,1.4);ctx.fillRect(lx-2.6,ly+3.8,5.2,1.4);ctx.fillStyle=col;}}
 }
 // 第七章道具：浮在空中的紙燈籠、掛燈籠的繩子、祭典的鼓
+// 待辦 J 第二部分（2026-11-22.0）：第七章的天燈改成真正的「天燈」樣子——紙罩、竹圈、底下吊著燒著的燈芯，不再是一顆方塊
+function drawSkyLantern(cx,cy,s,txt,simple){
+  ctx.save();ctx.translate(cx,cy);ctx.scale(s,s);const fl=Math.sin(clock*11+cx)*.6;
+  if(simple){ctx.fillStyle='rgba(240,150,80,.78)';ctx.beginPath();ctx.moveTo(-6,7);ctx.lineTo(-8,-5);ctx.quadraticCurveTo(0,-13,8,-5);ctx.lineTo(6,7);ctx.closePath();ctx.fill();
+    ctx.fillStyle='rgba(255,236,180,.9)';ctx.beginPath();ctx.ellipse(0,5.5,2.2,2.8+fl*.4,0,0,6.283);ctx.fill();
+    ctx.strokeStyle='rgba(90,40,20,.55)';ctx.lineWidth=1/s;ctx.beginPath();ctx.moveTo(-6,7);ctx.lineTo(6,7);ctx.stroke();ctx.restore();return;}
+  ctx.lineJoin='round';const g=ctx.createLinearGradient(0,-15,0,10);g.addColorStop(0,'#c8553a');g.addColorStop(.55,'#ef9a5a');g.addColorStop(1,'#ffd796');
+  ctx.beginPath();ctx.moveTo(-8,10);ctx.lineTo(-11,-6);ctx.quadraticCurveTo(-11,-15,0,-15.5);ctx.quadraticCurveTo(11,-15,11,-6);ctx.lineTo(8,10);ctx.closePath();
+  ctx.fillStyle=g;ctx.fill();ctx.strokeStyle=OUT;ctx.lineWidth=1.2/s;ctx.stroke();
+  ctx.strokeStyle='rgba(120,40,20,.45)';ctx.lineWidth=.9/s;ctx.beginPath();for(const k of [-4.5,0,4.5]){ctx.moveTo(k*1.15,-14.5);ctx.lineTo(k*.85,10);}ctx.stroke();
+  ctx.strokeStyle='#6a4a2a';ctx.lineWidth=1.3/s;ctx.beginPath();ctx.ellipse(0,10,8,2.2,0,0,6.283);ctx.stroke();
+  ctx.strokeStyle='rgba(60,40,30,.8)';ctx.lineWidth=.7/s;ctx.beginPath();ctx.moveTo(-8,10);ctx.lineTo(0,6.5);ctx.lineTo(8,10);ctx.stroke();
+  ctx.fillStyle='#fff3c4';ctx.beginPath();ctx.moveTo(0,1.5-fl);ctx.quadraticCurveTo(2.6,5,0,7);ctx.quadraticCurveTo(-2.6,5,0,1.5-fl);ctx.fill();
+  if(txt){ctx.fillStyle='rgba(70,25,15,.8)';ctx.font='bold 8px serif';ctx.textAlign='center';ctx.fillText(txt,0,-3);}
+  ctx.restore();}
 function drawPaperLamp(cx,cy,s,lit){
   ctx.save();ctx.translate(cx,cy);ctx.scale(s,s);ctx.strokeStyle=OUT;ctx.lineWidth=1.2/s;
   ctx.beginPath();ctx.ellipse(0,0,9,11,0,0,6.283);fs(lit?'#e8603e':'#8a4a3a');
@@ -5171,8 +5212,8 @@ function drawFestProp(q,x,gy){
   if(q.t==='wishlamp'){drawWishLamp(q,x,gy);return true;}
   if(q.t==='mask'){drawMaskProp(q,x,gy);return true;}
   if(q.t==='skylamp'){const cx=x+16,cy=gy+Math.sin(clock*1.3+q.c)*3,sw=Math.sin(clock*.9+q.c*1.7)*.08;
-    ctx.save();ctx.translate(cx,cy);ctx.rotate(sw);drawPaperLamp(0,0,1.25,true);ctx.restore();
-    glowAt(cx,cy,30,.45,'255,170,100');lights.push({x:cx,y:cy,r:90,c:'255,170,100',g:.18});return true;}
+    ctx.save();ctx.translate(cx,cy);ctx.rotate(sw);drawSkyLantern(0,0,1.3);ctx.restore();
+    glowAt(cx,cy+6,30,.45,'255,170,100');lights.push({x:cx,y:cy,r:90,c:'255,170,100',g:.18});return true;}
   if(q.t==='bunting'){const x0=x,x1=(q.c+q.w)*TILE,y0=gy,sag=14;ctx.save();ctx.strokeStyle='#2a1e18';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(x0,y0);ctx.quadraticCurveTo((x0+x1)/2,y0+sag*2,x1,y0);ctx.stroke();ctx.restore();
     const n=Math.max(2,Math.round(q.w/2));for(let k=1;k<n;k++){const t=k/n,px=x0+(x1-x0)*t,py=y0+sag*2*2*t*(1-t)*1,sw=Math.sin(clock*1.5+k+q.c)*.1;
       ctx.save();ctx.translate(px,py);ctx.rotate(sw);ctx.strokeStyle='#2a1e18';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,5);ctx.stroke();drawPaperLamp(0,13,.6,k%3!==1);ctx.restore();
@@ -6903,7 +6944,7 @@ function drawLibBG(sx,sy,li,col){
     for(const B of LIB_BG){const x=B.x-sx*par;if(x+B.w<-40||x>viewW+40)continue;const h=B.h*viewH*1.2,top=base-h;
       ctx.fillRect(x,top,B.w,h);ctx.fillRect(x-4,top-6,B.w+8,6);
       ctx.save();ctx.fillStyle='rgba(12,8,10,.35)';for(let k=1;k<6;k++)ctx.fillRect(x+3,top+k*h/6,B.w-6,3);ctx.restore();
-      if(B.lamp>.6){const lx=x+B.w/2,ly=top+18+Math.sin(clock*1.1+B.x)*2;ctx.fillStyle='rgba(255,190,120,.55)';ctx.beginPath();ctx.arc(lx,ly,3,0,6.283);ctx.fill();ctx.fillStyle=col;}}
+      if(B.lamp>.6){const lx=x+B.w/2,ly=top+18+Math.sin(clock*1.1+B.x)*2;ctx.save();ctx.fillStyle='rgba(12,8,10,.55)';ctx.fillRect(lx-.6,top,1.2,ly-top-3);ctx.restore();ctx.fillStyle='rgba(255,190,120,.55)';ctx.beginPath();ctx.arc(lx,ly,3,0,6.283);ctx.fill();ctx.fillStyle=col;}}
     return;}
   const par=.45;ctx.fillStyle=col;ctx.strokeStyle=col;
   for(let k=0;k<14;k++){const span=viewW+560,bx=(((k*280-sx*par)%span)+span)%span-280;
@@ -6929,11 +6970,17 @@ function drawLibProp(q,x,gy){
     const a=Math.PI*fl,px=Math.cos(a)*29;ctx.strokeStyle=OUT;ctx.lineWidth=1.1;ctx.beginPath();ctx.moveTo(0,2);ctx.quadraticCurveTo(px*.5,-8-Math.sin(a)*14,px,-4-Math.sin(a)*12);ctx.lineTo(px,11-Math.sin(a)*12);ctx.quadraticCurveTo(px*.5,7-Math.sin(a)*14,0,16);ctx.closePath();ctx.fillStyle='#fbf4e3';ctx.fill();ctx.stroke();
     ctx.restore();for(let k=0;k<3;k++){const t=(clock*.5+k/3)%1;ctx.fillStyle=`rgba(255,226,170,${.6*(1-t)})`;ctx.beginPath();ctx.arc(cx+Math.sin(k*2.1+clock)*30,cy-10-t*50,1.6,0,6.283);ctx.fill();}
     return true;}
-  if(q.t==='candle'){const cx=x+16,fl=gy-30+Math.sin(clock*9+x)*.6;ctx.save();ctx.strokeStyle=OUT;ctx.lineWidth=1.2;
-    rr(cx-7,gy-6,14,6,2);fs('#5a4232');rr(cx-3.5,gy-24,7,18,1.5);fs('#efe2c4');
-    ctx.fillStyle='rgba(30,26,50,.7)';ctx.fillRect(cx-3.5,gy-24,7,3);
-    ctx.fillStyle='#ffd88c';ctx.beginPath();ctx.moveTo(cx,fl-7);ctx.quadraticCurveTo(cx+4,fl,cx,fl+3);ctx.quadraticCurveTo(cx-4,fl,cx,fl-7);ctx.fill();ctx.restore();
-    glowAt(cx,fl,20,.55);lights.push({x:cx,y:fl,r:100,c:'255,200,120',g:.16});return true;}
+  if(q.t==='candle'){// 待辦 J 第二部分（2026-11-22.0）：書庫的蠟燭放在銅燭台上（圓底座、燭柱、接蠟的小盤、側邊提環），不再只是一根方塊
+    const cx=x+16,top=gy-46,fl=top-6+Math.sin(clock*9+x)*.6,wob=Math.sin(clock*7+x*.3)*1.2;ctx.save();ctx.strokeStyle=OUT;ctx.lineWidth=1.2;ctx.lineJoin='round';
+    ctx.beginPath();ctx.ellipse(cx,gy-2.5,10,3.2,0,0,6.283);fs('#8a6a3a');ctx.beginPath();ctx.moveTo(cx-6,gy-3.5);ctx.quadraticCurveTo(cx-2,gy-9,cx-1.8,gy-16);ctx.lineTo(cx+1.8,gy-16);ctx.quadraticCurveTo(cx+2,gy-9,cx+6,gy-3.5);ctx.closePath();fs('#a5824a');
+    rr(cx-2.2,gy-26,4.4,11,1.5);fs('#a5824a');ctx.beginPath();ctx.ellipse(cx,gy-17,3.4,1.6,0,0,6.283);fs('#c9a45a');
+    ctx.beginPath();ctx.arc(cx+10,gy-22,3.6,0,6.283);ctx.moveTo(cx+2.2,gy-22);ctx.lineTo(cx+6.4,gy-22);ctx.stroke();
+    ctx.beginPath();ctx.ellipse(cx,gy-27,9,2.6,0,0,6.283);fs('#c9a45a');
+    rr(cx-3.5,top,7,19,1.5);fs('#efe2c4');ctx.fillStyle='#f6eedc';ctx.beginPath();ctx.moveTo(cx+3.5,top+3);ctx.quadraticCurveTo(cx+5.5,top+8,cx+4.2,top+12);ctx.quadraticCurveTo(cx+3,top+8,cx+3.5,top+3);ctx.fill();ctx.stroke();
+    ctx.strokeStyle='#2a2018';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx,top);ctx.lineTo(cx+.4,top-3);ctx.stroke();
+    ctx.fillStyle='#ffd88c';ctx.beginPath();ctx.moveTo(cx+wob*.5,fl-7);ctx.quadraticCurveTo(cx+4,fl,cx,fl+3);ctx.quadraticCurveTo(cx-4,fl,cx+wob*.5,fl-7);ctx.fill();
+    ctx.fillStyle='#fff6d8';ctx.beginPath();ctx.ellipse(cx,fl+.5,1.3,2.4,0,0,6.283);ctx.fill();ctx.restore();
+    glowAt(cx,fl,22,.55);lights.push({x:cx,y:fl,r:110,c:'255,200,120',g:.16});return true;}
   if(q.t==='desk'){const cx=x+16;ctx.save();ctx.strokeStyle=OUT;ctx.lineWidth=1.3;rr(cx-30,gy-22,60,6,2);fs('#6a4a30');rr(cx-26,gy-16,5,16,1);fs('#4a3020');rr(cx+21,gy-16,5,16,1);fs('#4a3020');
     rr(cx-14,gy-28,22,6,1);fs('#f3ead6');ctx.strokeStyle='rgba(40,30,30,.6)';ctx.lineWidth=.8;ctx.beginPath();for(let k=0;k<3;k++){ctx.moveTo(cx-11+k*6,gy-27);ctx.lineTo(cx-11+k*6,gy-23);}ctx.stroke();
     ctx.strokeStyle=OUT;ctx.lineWidth=1.1;ctx.beginPath();ctx.ellipse(cx+18,gy-24,6,2.4,0,0,6.283);fs('#1a1622');ctx.restore();return true;}
@@ -7310,9 +7357,8 @@ function drawWishLamp(q,x,gy){
   const cx=x+16,cy=gy+16+Math.sin(clock*1.6+x)*4,sw=Math.sin(clock*1.2+x)*.15;
   glowAt(cx,cy,34,.55+.15*Math.sin(clock*4+x),'255,170,100');
   ctx.save();ctx.translate(cx,cy);ctx.rotate(sw);
-  ctx.strokeStyle='rgba(240,230,210,.8)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,18);ctx.quadraticCurveTo(6,30,-2+Math.sin(clock*4)*4,42);ctx.stroke();
-  drawPaperLamp(0,0,1.15,true);
-  ctx.fillStyle='rgba(60,30,20,.75)';ctx.font='bold 8px serif';ctx.textAlign='center';ctx.fillText('願',0,3);ctx.restore();
+  ctx.strokeStyle='rgba(240,230,210,.8)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,10);ctx.quadraticCurveTo(6,26,-2+Math.sin(clock*4)*4,40);ctx.stroke();
+  drawSkyLantern(0,-2,1.2,'願');ctx.restore();
   lights.push({x:cx,y:cy,r:90,c:'255,170,100',g:.22});
   if(!cs){ctx.save();ctx.fillStyle=`rgba(255,214,140,${.45+.35*Math.sin(clock*4)})`;ctx.font='bold 12px serif';ctx.textAlign='center';ctx.fillText('！',cx,cy-22);ctx.restore();}
 }
@@ -8019,16 +8065,38 @@ function updateSkills(dt){
 }
 // ---------- 夥伴系統（第八章部分⑦，2026-11-21.0）----------
 // 共用系統：COMPANIONS 定義每一位夥伴；F.companion 記住目前跟著你的夥伴（存檔會一起存）。之後的章節可以再加新的夥伴。
-// 夥伴會飄在你身後，自動朝附近的敵人放出小狐火（打到 Boss 也有效）。夥伴的自動技能與「聯合技能」在部分⑧加入。
-const COMPANIONS={fox:{name:'狐狸面具小燈精',cd:1.15,range:210,spd:330}};
-let comp=null;
+// 夥伴會飄在你身後，自動朝附近的敵人放出小狐火（打到 Boss 也有效）。夥伴的自動技能與「聯合技能」已在部分⑧（2026-11-22.0）加入，見下方。
+const COMPANIONS={fox:{name:'狐狸面具小燈精',cd:1.15,range:210,spd:330,skName:'三連狐火',skCd:8,skRange:260,jointName:'狐燈齊放'}};
+let comp=null,jointCd=0,jointFx=null,hasCompOn=null;const JOINT_CD=14;
+// ---------- 第八章部分⑧（2026-11-22.0）：夥伴自動技能＋聯合技能 ----------
+// 自動技能「三連狐火」：每 8 秒，附近有敵人時小燈精一次放出三顆扇形狐火。
+// 聯合技能「狐燈齊放」：玩家按鍵（電腦預設 R，可在按鍵設定改；手機右下「合擊」鈕）發動，冷卻 14 秒：
+//   身邊爆出一圈燈火（2 傷害、把敵人推開）＋小燈精往前方放出五顆會穿透的大狐火（各 1 傷害）；發動時短暫無敵。
+function castJoint(){const d=compDef();if(!d)return;if(!comp)placeComp();
+  if(jointCd>0){toast(`聯合技能還要 ${Math.ceil(jointCd)} 秒`);return;}
+  const f=p.face||1,cx=p.x+p.w/2,cy=p.y+p.h/2;jointCd=JOINT_CD;
+  comp.x=cx+f*20;comp.y=cy-16;comp.face=f;comp.atkT=.6;jointFx={t:0,life:.8,x:cx,y:cy,f};
+  invuln=Math.max(invuln,.7);shake=Math.max(shake,5);slowT=Math.max(slowT,.15);sfx('treasure');sfx('boom');
+  rings.push({x:cx,y:cy,t:0,c:'255,190,110'});rings.push({x:comp.x,y:comp.y,t:0,c:'255,226,160'});
+  skHitArea({x:cx-72,y:cy-62,w:144,h:112},2,true);
+  for(let k=-2;k<=2;k++){const a=k*.17;pshots.push({k:'fire',fox:true,x:comp.x,y:comp.y,vx:Math.cos(a)*f*430,vy:Math.sin(a)*430,r:8,t:0,life:.85,dmg:1,hit:new Set()});}
+  for(let k=0;k<26;k++)spawnFly(cx+(Math.random()-.5)*60,cy+(Math.random()-.5)*50,160);
+  if(!trig.jointUsed){trig.jointUsed=true;hint=null;showTut();toast(`聯合技能「${d.jointName}」！冷卻 ${JOINT_CD} 秒`);}}
 function compDef(){return F&&F.companion?COMPANIONS[F.companion]:null;}
 function placeComp(){if(!compDef()){comp=null;return;}comp={x:p.x+p.w/2-(p.face||1)*30,y:p.y-22,cd:.8,face:p.face||1,bob:Math.random()*6,atkT:0};}
-function updateComp(dt){const d=compDef();if(!d){comp=null;return;}if(!comp)placeComp();
+function updateComp(dt){const d=compDef();if(jointCd>0)jointCd=Math.max(0,jointCd-dt);if(jointFx){jointFx.t+=dt;if(jointFx.t>jointFx.life)jointFx=null;}if(!d){comp=null;return;}if(!comp)placeComp();
   const tx=p.x+p.w/2-(p.face||1)*36,ty=p.y-32+Math.sin(clock*2.4+comp.bob)*5,dx=tx-comp.x,dy=ty-comp.y,dist=Math.hypot(dx,dy);
   if(!isFinite(dist)||dist>420){comp.x=tx;comp.y=ty;}else{const k=Math.min(1,dt*(dist>120?6:3.2));comp.x+=dx*k;comp.y+=dy*k;}
   if(Math.abs(dx)>4)comp.face=Math.sign(dx);if(comp.atkT>0)comp.atkT-=dt;
   if(cs||trans||dying>0||fallT>0)return;
+  if(!trig.jointHint){trig.jointHint=true;flashHint(`小燈精學會了聯合技能「${d.jointName}」：按「合擊」一起放出燈火`,['bX'],6);}
+  if(comp.sk==null)comp.sk=3;comp.sk-=dt;
+  if(comp.sk<=0){let best=null,bd=d.skRange;for(const e of enemies){if(e.dead||e.ghost||e.t==='dummy')continue;const dd=Math.hypot(e.x+e.w/2-comp.x,e.y+e.h/2-comp.y);if(dd<bd){bd=dd;best=e;}}
+    if(best){const ex=best.x+best.w/2,ey=best.y+best.h/2,a0=Math.atan2(ey-comp.y,ex-comp.x);
+      for(const da of [-.24,0,.24])pshots.push({k:'fire',fox:true,x:comp.x,y:comp.y,vx:Math.cos(a0+da)*d.spd,vy:Math.sin(a0+da)*d.spd,r:5.5,t:0,life:1,dmg:1});
+      comp.sk=d.skCd;comp.atkT=.45;comp.face=Math.sign(ex-comp.x)||comp.face;sfx('swing');rings.push({x:comp.x,y:comp.y,t:0,c:'255,190,110'});
+      if(!trig.compSkHint){trig.compSkHint=true;toast(`小燈精放出了自動技能「${d.skName}」！`);}return;}
+    comp.sk=.3;}
   comp.cd-=dt;if(comp.cd>0)return;
   let best=null,bd=d.range;for(const e of enemies){if(e.dead||e.ghost||e.t==='dummy')continue;const ex=e.x+e.w/2,ey=e.y+e.h/2,dd=Math.hypot(ex-comp.x,ey-comp.y);if(dd<bd){bd=dd;best=e;}}
   if(!best){comp.cd=.2;return;}
@@ -8048,7 +8116,10 @@ function drawFoxSprite(x,y,f,k,world){const fl=Math.sin(clock*14)*.8;
   ctx.strokeStyle='#2a2018';ctx.lineWidth=1.3;ctx.beginPath();ctx.arc(-1.5,-2.5,1.8,Math.PI*1.1,Math.PI*1.9);ctx.moveTo(6.8,-2.5);ctx.arc(5,-2.5,1.8,Math.PI*1.1,Math.PI*1.9);ctx.stroke();
   ctx.fillStyle='#2a2018';ctx.beginPath();ctx.arc(12,2.4,1.2,0,6.283);ctx.fill();
   ctx.restore();}
-function drawComp(){if(!comp)return;drawFoxSprite(comp.x,comp.y,comp.face||1,1,true);
+function drawComp(){if(jointFx){const a=1-jointFx.t/jointFx.life,ox=jointFx.x+jointFx.f*(30+jointFx.t*260);ctx.save();ctx.globalAlpha=.55*a;drawFoxSprite(ox,jointFx.y-10,jointFx.f,3.2,false);ctx.restore();
+    glowAt(ox,jointFx.y-10,90,.5*a,'255,180,100');lights.push({x:ox,y:jointFx.y,r:220,c:'255,180,100',g:.3*a});
+    ctx.save();ctx.strokeStyle=`rgba(255,200,120,${a})`;ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(jointFx.x,jointFx.y,40+jointFx.t*90,30+jointFx.t*60,0,0,6.283);ctx.stroke();ctx.restore();}
+  if(!comp)return;drawFoxSprite(comp.x,comp.y,comp.face||1,1,true);
   if(comp.atkT>0){const a=comp.atkT/.3;ctx.strokeStyle=`rgba(255,200,120,${a})`;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(comp.x,comp.y,14+(1-a)*10,0,6.283);ctx.stroke();}}
 function drawPShots(){
   for(const q of pshots){
@@ -8426,6 +8497,8 @@ function frame(t){
   const idle=mode==='play'&&performance.now()-lastTouch>3000;
   if(idle!==padIdleOn){padIdleOn=idle;document.body.classList.toggle('padIdle',idle);}
   if(skill.eq){const v=(skCd>0?skCd/skCdMax:0),ce=$('skillCd');if(ce&&ce._v!==v){ce._v=v;ce.style.strokeDashoffset=295.3-v*295.3;const hb=$('skHudBar');if(hb)hb.style.width=((1-v)*100)+'%';}}
+  {const hc=mode==='play'&&!!compDef();if(hc!==hasCompOn){hasCompOn=hc;document.body.classList.toggle('hasComp',hc);if(hc)$('jtHudName').textContent=(platform==='pc'&&KB.joint?keyName(KB.joint)+'・':'')+'合擊';}
+    if(hc){const v=jointCd>0?jointCd/JOINT_CD:0,je=$('jointCd');if(je&&je._v!==v){je._v=v;je.style.strokeDashoffset=295.3-v*295.3;$('jtHudBar').style.width=((1-v)*100)+'%';$('bX').classList.toggle('ready',v<=0);}}}
   if(ability==='dash'){const cdEl=$('dashCd'),v=(dashCd>0?dashCd/.45:0)*295.3;if(cdEl&&cdEl._v!==v){cdEl._v=v;cdEl.style.strokeDashoffset=295.3-v;}}
   if(mode==='play'&&!paused){ftAcc+=d;ftN++;ftT+=d;if(ftT>4){const avg=ftAcc/ftN;ftAcc=ftN=ftT=0;
     if(S.perf===0&&!autoLow&&avg>1/38){autoLow=true;toast('畫面有點卡，已自動切換成「流暢」模式（可在設定調整）');}}}
@@ -8472,10 +8545,11 @@ buildSliders();
     I:'<path class="ic" d="M50 20 V48 M38 38 L50 50 L62 38"/><path class="ic thin" d="M24 64 H40 L45 58 L52 68 L58 62 H76"/>',
     K:'<path class="ic thin" d="M50 20 L56 40 L76 40 L60 52 L66 72 L50 60 L34 72 L40 52 L24 40 L44 40 Z"/><circle cx="50" cy="48" r="5" fill="#ffd88c"/><circle id="skillCd" class="cd" cx="50" cy="50" r="47"/>',
     E:'<g class="t-enter"><path class="ic thin" d="M50 50 m0 -4 a4 4 0 1 1 -4 4 a8 8 0 1 1 8 8 a12 12 0 1 1 -12 -12 a16 16 0 1 1 16 16"/></g><g class="t-talk"><path class="ic thin" d="M27 30 Q27 23 34 23 H66 Q73 23 73 30 V48 Q73 55 66 55 H47 L37 64 L39 55 H34 Q27 55 27 48 Z"/><circle cx="40" cy="39" r="3" fill="#f3e8cf"/><circle cx="50" cy="39" r="3" fill="#f3e8cf"/><circle cx="60" cy="39" r="3" fill="#f3e8cf"/></g>',
+    X:'<path class="ic thin" d="M30 62 Q22 46 34 34 Q38 44 46 44 Q44 30 56 22 Q56 36 66 40 Q74 50 66 62 Z"/><path d="M48 50 Q54 56 50 62 Q44 58 48 50 Z" fill="#ffd88c"/><circle id="jointCd" class="cd" cx="50" cy="50" r="47"/>',
     O:'<path class="ic thin" d="M44 22 H56 V30 L64 40 V60 Q64 68 56 68 H44 Q36 68 36 60 V40 L44 30 Z"/><path d="M38.5 50 H61.5 V60 Q61.5 65.5 56 65.5 H44 Q38.5 65.5 38.5 60 Z" fill="#ffd88c" opacity=".85"/>'
   };
-  const LB={E:'<span class="t-enter">進入</span><span class="t-talk">對話</span>',K:'技能',J:'跳躍',A:'攻擊',D:'衝刺',O:'燈油',F:'點燈',C:'燈鏈',I:'破冰'};
-  ['L','R','J','A','D','O','F','C','I','K','E'].forEach((id,i)=>{
+  const LB={E:'<span class="t-enter">進入</span><span class="t-talk">對話</span>',X:'合擊',K:'技能',J:'跳躍',A:'攻擊',D:'衝刺',O:'燈油',F:'點燈',C:'燈鏈',I:'破冰'};
+  ['L','R','J','A','D','O','F','C','I','K','E','X'].forEach((id,i)=>{
     const el=$('b'+id);
     el.innerHTML=`<svg viewBox="0 0 100 100"><path class="ring" d="${ring(i*2.3+1,44)}"/><path class="ring2" d="${ring(i*3.1+4,38.5)}"/>${IC[id]}</svg>`+(LB[id]?`<span class="lbl">${LB[id]}</span>`:'')+(id==='O'?'<span class="badge" id="oilBadge">0</span>':'');
   });
@@ -8486,7 +8560,7 @@ function renderKeys(){const L=$('keyList');L.innerHTML='';
     row.innerHTML=`<div><b>${label}</b><p>${KB[a]!==KEY_DEF[a]?'預設：'+keyName(KEY_DEF[a]):'預設按鍵'}</p></div>`;
     const b=document.createElement('button');b.textContent=keyCap===a?'請按新按鍵⋯':keyName(KB[a]);b.dataset.act=a;
     b.onclick=()=>{keyCap=keyCap===a?null:a;renderKeys();};row.appendChild(b);L.appendChild(row);}}
-function updateKeyText(){const el=$('platKeys');if(el)el.innerHTML=`電腦版操作：${keyName(KB.left)} / ${keyName(KB.right)} 移動・${keyName(KB.jump)} 跳躍・滑鼠左鍵 攻擊・右鍵 衝刺<br>${keyName(KB.talk)} 對話／進入・${keyName(KB.fire)} 點燈・${keyName(KB.oil)} 燈油・${keyName(KB.chain)} 燈鏈・${keyName(KB.slam)} 破冰・${keyName(KB.skill)} 技能・${keyName(KB.skillmenu)} 技能頁面・${keyName(KB.map)} 地圖・Esc 設定`;showTut();updateSkillUI();}
+function updateKeyText(){hasCompOn=null;const el=$('platKeys');if(el)el.innerHTML=`電腦版操作：${keyName(KB.left)} / ${keyName(KB.right)} 移動・${keyName(KB.jump)} 跳躍・滑鼠左鍵 攻擊・右鍵 衝刺<br>${keyName(KB.talk)} 對話／進入・${keyName(KB.fire)} 點燈・${keyName(KB.oil)} 燈油・${keyName(KB.chain)} 燈鏈・${keyName(KB.slam)} 破冰・${keyName(KB.skill)} 技能・${KB.joint?keyName(KB.joint)+' 聯合技能・':''}${keyName(KB.skillmenu)} 技能頁面・${keyName(KB.map)} 地圖・Esc 設定`;showTut();updateSkillUI();}
 updateKeyText();
 $('openKeys').onclick=()=>{$('settings').classList.remove('show');keyCap=null;renderKeys();$('keysOv').classList.add('show');checkRotate();};
 $('keysClose').onclick=()=>{keyCap=null;$('keysOv').classList.remove('show');checkRotate();};
