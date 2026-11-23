@@ -478,6 +478,7 @@ body.hasSkill #bK{display:flex}
 #qPanel .qr.ready i,#qPanel .qr.ready small{color:#ff9d7a}
 #qPanel .qr small{flex:none;font-size:10px;color:#a79fbd}
 #qPanel .qd{white-space:pre-line;font-size:11px;line-height:1.45;color:#d9cbb0;padding:1px 0 3px 14px;border-bottom:1px dashed rgba(240,225,195,.18);margin-bottom:2px}
+#qPanel .qs{font-size:10.5px;color:#e8d3a0;padding:0 0 1px 14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #qPanel .qm{font-size:10px;color:#a79fbd;padding-left:14px}
 @media (max-height:420px){#qPanel{font-size:10.5px;padding:2px 6px 3px}#qPanel .qd{font-size:10.5px}}
 #qPanel{position:relative}
@@ -763,11 +764,18 @@ body.hasComp #jtHud{display:flex}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-23.0';
+const GAME_VERSION='2026-11-23.1';
 // 公開網址判斷：只有在 github.io 上、而且網址沒有 ?dev 時，才藏起測試用的按鈕
 const PUBLIC_SITE=/github\.io$/i.test(location.hostname)&&!/[?&]dev\b/i.test(location.search);
 if(PUBLIC_SITE)document.documentElement.classList.add('pub');
 const CHANGELOG=[
+  ['2026-11-23.1','第八章打磨第 1 次：任務欄主線改用劇本的章名（待辦 G 套回遊戲的第一步）、修正測試捷徑的小問題',[
+    '待辦 G（劇本套回遊戲）第一步：任務欄第一列的主線改成劇本的章名，例如「第一章 地道」「第七章 紙燈籠祭典的夜空」「第八章 被墨水淹沒的書庫」；目前要做的事（例如「熄燈者」「戴狐狸面具的小燈精」）改成寫在章名下面的一行小字',
+    '點開主線時，「下一步」說明的最前面會用【】標出目前要做的事；收合任務欄時只留一行，顯示目前要做的事',
+    '地圖 → 任務分頁的主線也一樣：標題是章名，說明前面用【】標出目前要做的事',
+    '任務欄只列出已經接下的支線（啊一 決定：倒影居民還沒交代的任務不列出來）——確認目前的做法就是這樣，不用改',
+    '修正：封面「捷徑 → 第七章」會把第八章的房間全部當成「去過」（因為第八章是後來才接在第七章後面的），導致從第七章一路走到書庫入口時，任務欄和地圖顯示的是第八章最後的「書靈劍仙」；現在第七章捷徑不會再把第八章標成去過，地圖也只看得到走過的地方'
+  ]],
   ['2026-11-23.0','第八章製作第 10、11 部分（共 11 部分，第八章完成）：書靈劍仙第三階段與打倒演出、第八章接上正式流程；任務欄第 2 部分（待辦 F）',[
     '這次完成第八章 11 個部分中的最後兩個（部分⑩、⑪），第八章「被墨水淹沒的書庫」完成：現在可以從第一章一路玩到第八章 Boss 結束',
     '第八章部分⑩：書靈劍仙新增第三階段。前半打完的劇情最後，劍仙說「那就讓我看看——你記得的，是哪一頁」，天井四周的書架一齊翻開、書籤排成一圈長劍，戰鬥直接接下去（以前這裡會停住、顯示製作中）',
@@ -2696,8 +2704,8 @@ function startCh8Test(){
 function startCh7Test(){
   slot=3;resetState();
   Object.assign(F,{dummy:true,bossDone:true,mirrorDone:true,guideDone:true,drillDone:true,iceDone:true,towerDone:true,amulet:true,grip:true,skillTest:true});ability='djump';updateAbilityUI();chapterDone=true;testSkill(7);
-  for(const id in ROOMS)if(id!=='old'&&id[0]!=='K')visited.add(id);
-  for(const id in ROOMS)if(id[0]!=='K')for(const l of ROOMS[id].lant)lit.add(id+':'+l.c);
+  for(const id in ROOMS)if(id!=='old'&&id[0]!=='K'&&id[0]!=='L')visited.add(id);
+  for(const id in ROOMS)if(id[0]!=='K'&&id[0]!=='L')for(const l of ROOMS[id].lant)lit.add(id+':'+l.c);
   trig.lantern=true;trig.bossIntro=true;trig.c5end=true;trig.mirrorIntro=true;trig.gbIntro=true;trig.drillIntro=true;trig.ibIntro=true;trig.tbIntro=true;
   wallet=300;oil=2;updateCoin();updateOilUI();
   loadRoom('K1');const pos={x:6*TILE+6,y:14*TILE-26};placePlayer(pos);
@@ -8542,7 +8550,7 @@ function renderShop(){
 }
 function openShop(){renderShop();$('shop').classList.add('show');checkRotate();}
 function questHTML(){
-  const ids=Object.keys(quests),m=mainQuest(),mh=m?`<div class="quest"><b>${m.title}</b><small>主線</small><p>${m.step}</p></div>`:'';
+  const ids=Object.keys(quests),m=mainQuest(),mh=m?`<div class="quest"><b>${m.chap}</b><small>主線</small><p>${m.sub?'【'+m.sub+'】':''}${m.step}</p></div>`:'';
   if(!ids.length)return mh+'<p>目前沒有支線任務。和倒影居民說說話吧。</p>';
   return mh+ids.map(id=>{const q=quests[id],Q=QUESTS[id];return `<div class="quest ${q.status}"><b>${Q.title}</b><small>${QSTAT[q.status]}</small><p>${Q.desc(q)}</p></div>`;}).join('');
 }
@@ -8555,9 +8563,11 @@ function setTab(t){
 // ---------- 任務欄（待辦 F 第 1 部分，2026-11-20.0）----------
 // 地圖格下方的獨立系統：第一個永遠是目前章節的主線，下面是進行中的支線。平常只顯示名稱，點一下展開「在做什麼、下一步」。
 function chapterOf(id){if(!id||id==='old')return 1;const c=id[0];return c==='L'?8:c==='K'?7:c==='G'?6:c==='I'?5:c==='M'?4:c==='T'?3:(c==='C'||c==='D')?2:1;}
+const CH_NAME={1:'地道',2:'倒映湖',3:'倒過來的小鎮',4:'燈芯礦坑',5:'結冰的湖面',6:'停擺的鐘樓',7:'紙燈籠祭典的夜空',8:'被墨水淹沒的書庫'};
 function mainQuest(){
   if(!level)return null;const ch=chapterOf(level.id),v=id=>visited.has(id);
-  const Q=(title,step)=>({id:'main',title,step});
+  // 待辦 G（2026-11-23.1）：任務欄主線用劇本的章名（「第一章 地道」），目前要做的事（例如「熄燈者」）寫在章名下面
+  const Q=(title,step)=>{const n=title.split('・')[0],chap=n+' '+CH_NAME[ch],sub0=title.slice(n.length+1);return {id:'main',title,step,chap,sub:sub0===CH_NAME[ch]?'':sub0};};
   if(ch===1){if(!F.dummy)return Q('第一章・跟著光往下走','打碎「落點」擋住去路的石殼，往右前進。');
     if(!ability)return Q('第一章・跟著光往下走','到「雙光之間」和溫柔的師父說話，選一道光。');
     if(!F.bossDone)return Q('第一章・熄燈者',v('R6')?'在「燈之廳」右邊的門進入「熄燈之間」：點亮燈台讓熄燈者變弱，再打倒它。':'一路往深處走，找到「燈之廳」。前面的晶石可以用衝刺撞開，或從洞口往下跳。');
@@ -8593,7 +8603,7 @@ function toggleQFold(){qFold=!qFold;try{localStorage.setItem('tunnel.qfold',qFol
 function trackQDone(){if(quests!==qRef){qRef=quests;qPrevSt={};qDoneAt={};for(const id in quests)qPrevSt[id]=quests[id].status;return;}
   const now=performance.now();for(const id in quests){const st=quests[id].status;if(st==='done'&&qPrevSt[id]&&qPrevSt[id]!=='done')qDoneAt[id]=now;qPrevSt[id]=st;}}
 function questRows(){
-  const rows=[];const m=mainQuest();if(m)rows.push({id:'main',main:true,title:m.title,desc:m.step,ready:false});
+  const rows=[];const m=mainQuest();if(m)rows.push({id:'main',main:true,title:m.chap,sub:m.sub,desc:(m.sub?'【'+m.sub+'】':'')+m.step,ready:false});
   const now=performance.now();for(const id in qDoneAt){if(now-qDoneAt[id]>6000){delete qDoneAt[id];continue;}if(QUESTS[id])rows.push({id,title:QUESTS[id].title,desc:'這個支線完成了！',done:true});}
   const ids=Object.keys(quests).filter(id=>QUESTS[id]&&quests[id].status!=='done');
   ids.sort((a,b)=>(quests[b].status==='ready')-(quests[a].status==='ready'));
@@ -8608,9 +8618,10 @@ function renderQPanel(){
   const sig=JSON.stringify([show,qOpen,rows.length,qFold,platform]);if(sig===qSig)return;qSig=sig;
   const fk=platform==='pc'&&KB.quest?`<small class="qk">${keyName(KB.quest)}</small>`:'';
   let h=`<span class="qx" title="收合／展開任務欄">${qFold?'▸':'▾'}${fk}</span>`;
-  if(qFold){const m=rows[0];h+=`<div class="qr main fold"><i>◆</i><b>${esc(m?m.title:'任務')}</b>${rows.length>1?`<small>＋${rows.length-1}</small>`:''}</div>`;el.innerHTML=h;el.classList.add('has');el.classList.add('fold');return;}
+  if(qFold){const m=rows[0];h+=`<div class="qr main fold"><i>◆</i><b>${esc(m?(m.sub||m.title):'任務')}</b>${rows.length>1?`<small>＋${rows.length-1}</small>`:''}</div>`;el.innerHTML=h;el.classList.add('has');el.classList.add('fold');return;}
   el.classList.remove('fold');
   for(const r of show){h+=`<div class="qr${r.main?' main':''}${r.ready?' ready':''}${r.done?' qdone':''}" data-q="${r.id}"><i>${r.main?'◆':r.done?'✓':r.ready?'？':'・'}</i><b>${esc(r.title)}</b>${r.done?'<small>完成</small>':r.ready?'<small>回報</small>':r.n!=null&&!r.main&&/\d\/3/.test(r.desc)?`<small>${r.n}/3</small>`:''}</div>`;
+    if(r.main&&r.sub&&qOpen!==r.id)h+=`<div class="qs">${esc(r.sub)}</div>`;
     if(qOpen===r.id)h+=`<div class="qd">${esc(pcText(r.desc))}</div>`;}
   if(rows.length>show.length)h+=`<div class="qm">還有 ${rows.length-show.length} 個任務（地圖→任務）</div>`;
   el.innerHTML=h;el.classList.toggle('has',rows.length>0);
