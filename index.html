@@ -585,6 +585,7 @@ body.hasComp #jtHud{display:flex}
           <button id="ch6TestBtn"><b>第六章</b><span>停擺的鐘樓</span></button>
           <button id="ch7TestBtn"><b>第七章</b><span>紙燈籠祭典的夜空</span></button>
           <button id="ch8TestBtn"><b>第八章</b><span>被墨水淹沒的書庫</span></button>
+          <button id="ch9TestBtn" class="devOnly"><b>第九章（製作中）</b><span>暴風雪的山路</span></button>
         </div>
         <div class="actions"><button class="primary" id="closeJump">返回</button></div>
       </div>
@@ -764,11 +765,24 @@ body.hasComp #jtHud{display:flex}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-24.0';
+const GAME_VERSION='2026-11-24.1';
 // 公開網址判斷：只有在 github.io 上、而且網址沒有 ?dev 時，才藏起測試用的按鈕
 const PUBLIC_SITE=/github\.io$/i.test(location.hostname)&&!/[?&]dev\b/i.test(location.search);
 if(PUBLIC_SITE)document.documentElement.classList.add('pub');
 const CHANGELOG=[
+  ['2026-11-24.1','第九章製作開始（部分①）：暴風雪的山路前段 6 個房間＋新機制「時間凍結與融化」（製作中，只能從捷徑進入）',[
+    '第九章「暴風雪的山路」開始製作，這次完成第 1 部分（共 9 部分）：前段 6 個房間——山腳登山口、結冰的山徑、凍住的吊橋、搜救小屋（有存檔燈籠）、冰封的岩壁、山腰崖道。後面的山路、特色怪、回血點、Boss 會在之後幾次做',
+    '新機制「時間凍結與融化」：山路上立著被凍在冰裡的「搜救燈」，用「攻擊」（或技能）把它敲亮，燈光照到的圓圈裡，時間會重新流動約 6.5 秒——圈裡的冰牆、冰層會融成水，可以穿過去',
+    '燈快熄的時候，燈上的計時圈和光圈會閃紅提醒；燈熄了，融掉的冰會再凍回去。如果你還站在融掉的冰旁邊，冰會等你離開才凍回去，不會把人凍在冰裡',
+    '凍住的絞盤吊橋：絞盤被凍成一塊冰，只有在搜救燈的光圈裡才會轉，一格一格放下橋板；燈熄了就停在一半，再敲亮燈會接著放。整座橋放好後會記在存檔裡，之後一直都在',
+    '和第五章（破冰是永久的）、第六章（開關打開就一直開著）不同：這一章的「解凍」只在燈光圈裡、而且有時間限制，要趁燈還亮著快點通過',
+    '「冰封的岩壁」：一整片厚冰擋住往上的路，要站在冰底下的平台敲亮燈，從融開的洞跳上去；最左邊留了一條往下的縫，從上面回來時可以直接跳下去回到小屋',
+    '每一道冰牆的兩邊都有搜救燈，往回走也不會被冰牆困住；吊橋底下的山谷兩邊都有台階，掉下去可以爬回來',
+    '第九章的畫面：暴風雪的山路（雪往側邊吹）、搜救燈、結冰的冰牆、絞盤；新的山路配樂；任務欄主線顯示「第九章 暴風雪的山路」、存檔欄位顯示「第九章」、地圖多一個「暴風雪的山路」分頁',
+    '捷徑多一個「第九章（製作中）」（公開網址上看不到）：直接到山腳登山口，狐狸面具小燈精已經是夥伴。第九章完成前，正式流程維持不變（第八章結尾仍是「第九章製作中／即將推出」）',
+    '第七章、第八章捷徑不會再把第九章的房間算成「去過」',
+    '測試：電腦版、手機版的 11 個捷徑都正常進入、沒有錯誤；86 個房間每個都載入跑過、出口目標都存在、落點不在牆裡；第九章 6 個房間用機器人實際走完（敲燈、穿冰牆、放吊橋、爬岩壁，單跳和二段跳都能過），燈熄時站在冰裡不會卡住，往回走也走得通；在搜救小屋存檔、重新整理讀檔後吊橋仍在'
+  ]],
   ['2026-11-24.0','第八章打磨第 2 次：修好倒映湖「湖心」第一次進去不出現傳送門（待辦 N1）、劇本套回第一～三章（待辦 G 第二步的第 2 部分）',[
     '待辦 N1 修正：第二章倒映湖最後一個房間「湖心」，第一次走到島上時會播一段倒影說話的劇情；如果按右上角「跳過」，通往「湖底」的漩渦傳送門不會出現，要離開房間再進來一次才看得到。原因是「跳過」會把劇情後面還沒播到的步驟（包含「打開傳送門」）整段略過。現在按「跳過」時，劇情裡該做的事（開傳送門、更新地圖）照樣會做，漩渦當下就出現（電腦版、手機版都用實際畫面確認過）',
     '同一個原因的另一個問題一起修好：集滿全部記憶碎片時的劇情如果按「跳過」，原本會少拿到「燈的上限 +1」；現在跳過也會照樣加上',
@@ -2040,6 +2054,47 @@ const ROOMS={
     portals:[{c:2.4,g:16,to:'L13',pc:23,pg:12,name:'封印書齋'}],
     events:[],
     exits:[]},
+  // ---------- 第九章：暴風雪的山路（2026-11-24.1 部分①：前段 6 房＋「時間凍結與融化」；製作中，只能從捷徑「第九章（製作中）」進入）----------
+  W1:{mpos:[3020,-95],name:'山腳登山口',W:36,H:14,
+    build(r,W,H){r(0,0,W,1);r(0,0,1,H);r(W-1,0,1,9);r(0,12,W,2);r(17,1,2,11,10);r(8,11,2,1);r(26,10,3,2);},
+    spawns:[],lant:[{c:4,g:12}],
+    props:[{t:'sign',c:9.5,g:11,text:'山路'},{t:'tlamp',c:14,g:12},{t:'tlamp',c:20,g:12}],
+    events:[{id:'w1in',enter:true,steps:[
+      {c:'title',n:'第九章',t:'暴風雪的山路',sub:'那天傍晚，大家提著燈上山。'},
+      {c:'cam',x:16*TILE,d:1.1},
+      {c:'cap',t:'書頁化成的雪，一路往上飄。抬起頭，是一條被暴風雪封住的山路。'},
+      {c:'cap',t:'路邊立著一根根燈架，燈全被凍在冰裡——像是很久以前，有人一路掛上來的。'},
+      {c:'say',t:'這條路⋯⋯我好像走過。'},
+      {c:'cam',x:null,d:.6}]}],
+    exits:[{s:'R',a:9,b:11,to:'W2',c:1.2,g:12,f:1}]},
+  W2:{mpos:[3056,-95],name:'結冰的山徑',W:48,H:14,
+    build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,W,2);r(19,1,2,11,10);r(26,1,2,11,10);r(9,11,2,1);r(37,10,3,2);},
+    spawns:[],lant:[],props:[{t:'tlamp',c:16,g:12},{t:'tlamp',c:23,g:12},{t:'tlamp',c:30,g:12}],
+    events:[{id:'w2in',enter:true,steps:[{c:'wait',d:.3},{c:'say',t:'冰牆後面還有一盞燈⋯⋯得趁燈還亮著的時候穿過去。'}]}],
+    exits:[{s:'L',a:9,b:11,to:'W1',c:34,g:12,f:-1},{s:'R',a:9,b:11,to:'W3',c:1.2,g:12,f:1}]},
+  W3:{mpos:[3104,-95],name:'凍住的吊橋',W:44,H:18,
+    build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,13,6);r(29,12,15,6);r(13,16,16,2);r(13,14,2,2);r(27,14,2,2);},
+    fbridges:[{id:'b1',x:13,y:12,len:16,dir:1,wc:11,wg:12}],
+    spawns:[],lant:[],props:[{t:'tlamp',c:8,g:12},{t:'sign',c:3,g:12,text:'吊橋'}],
+    events:[{id:'w3in',enter:true,steps:[{c:'cam',x:21*TILE,d:1},{c:'cap',t:'山谷上的吊橋整座收在絞盤上，絞盤和橋板都凍成了一塊。'},{c:'cam',x:null,d:.6}]}],
+    exits:[{s:'L',a:9,b:11,to:'W2',c:46,g:12,f:-1},{s:'R',a:9,b:11,to:'W4',c:1.2,g:12,f:1}]},
+  W4:{mpos:[3148,-95],name:'搜救小屋',W:30,H:14,
+    build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,W,2);r(11,1,9,2);},
+    spawns:[],lant:[{c:6,g:12}],props:[{t:'sign',c:22,g:12,text:'小屋'}],
+    events:[{id:'w4in',enter:true,steps:[{c:'cam',x:15*TILE,d:1},{c:'cap',t:'一間小小的木屋，牆上掛滿結霜的燈。門邊的木板刻著一排名字，最後一行只刻了一半。'},{c:'say',t:'大家⋯⋯是從這裡出發去找人的嗎？'},{c:'cam',x:null,d:.6}]}],
+    exits:[{s:'L',a:9,b:11,to:'W3',c:42,g:12,f:-1},{s:'R',a:9,b:11,to:'W5',c:1.2,g:26,f:1}]},
+  W5:{mpos:[3178,-109],name:'冰封的岩壁',W:26,H:28,
+    build(r,W,H){r(0,0,W,1);r(0,0,1,23);r(W-1,4,1,H-4);r(0,26,W,2);r(3,13,22,1,10);
+      r(4,23,5,1);r(11,20,5,1);r(18,17,5,1);r(13,15,5,1);r(18,10,5,1);r(11,7,5,1);r(17,4,8,1);},
+    spawns:[],lant:[],props:[{t:'tlamp',c:15,g:15}],
+    events:[{id:'w5in',enter:true,steps:[{c:'cam',x:13*TILE,y:16*TILE,d:1},{c:'cap',t:'岩壁中間橫著一整片厚冰，把往上的路封住了。冰底下的平台上，有一盞凍住的燈。'},{c:'cam',x:null,d:.6}]}],
+    exits:[{s:'L',a:23,b:25,to:'W4',c:28,g:12,f:-1},{s:'R',a:1,b:3,to:'W6',c:1.2,g:12,f:1}]},
+  W6:{mpos:[3204,-117],name:'山腰崖道',W:48,H:18,
+    build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,H);r(0,12,18,6);r(30,12,18,6);r(18,16,12,2);r(18,14,2,2);r(28,14,2,2);r(14,1,2,11,10);r(36,1,2,11,10);},
+    fbridges:[{id:'b2',x:18,y:12,len:12,dir:1,wc:16,wg:12}],
+    spawns:[],lant:[],props:[{t:'tlamp',c:12,g:12},{t:'tlamp',c:17,g:12},{t:'tlamp',c:33,g:12},{t:'tlamp',c:39,g:12},{t:'sign',c:43,g:12,text:'製作中'}],
+    events:[{id:'w6in',enter:true,steps:[{c:'wait',d:.3},{c:'say',t:'冰牆後面就是絞盤⋯⋯一盞燈，要同時融冰、又要讓絞盤轉起來。'}]}],
+    exits:[{s:'L',a:9,b:11,to:'W5',c:23,g:4,f:-1}]},
 };
 const EV_LANTERN=[
   {c:'say',t:'這盞燈⋯⋯也是師父的手藝。'},
@@ -2588,7 +2643,7 @@ function loadRoom(id){
   level.build((x,y,w,h,v=1)=>{for(let j=y;j<y+h;j++)for(let i=x;i<x+w;i++)if(i>=0&&i<W&&j>=0&&j<H)grid[j][i]=v;},W,H);
   initMechs();
   lanterns=level.lant.filter(l=>(!l.needBoss||F.bossDone)&&(!l.needFlag||F[l.needFlag])).map(l=>({...l,lit:lit.has(id+':'+l.c),x:l.c*TILE+6,y:l.g*TILE-56,w:20,h:56}));
-  props=level.props.map(q=>({...q}));
+  props=level.props.map(q=>({...q}));initThaw();
   npcs=(level.npcs||[]).filter(n=>story.npc[n.id]!=='seal'&&!(n.id==='fox'&&F.companion)).map(n=>({...n,x:n.c*TILE+2,y:n.g*TILE-34,w:28,h:34,a:1,fade:false,face:-1}));actors={};
   TT=THEMES[id]||THEMES.R3;buildTerrain();setMusic(roomTrack(id));
   spawnEnemies();parts.length=0;coins=[];pshots=[];skCast=0;skFx=[];skWalls=[];skZones=[];skDelay=[];scarf=[];shots=[];boss=null;ib=null;tb=null;kb=null;sb=null;bossSealed=false;document.body.classList.remove('boss');
@@ -2656,7 +2711,7 @@ function continueGame(n){
 }
 function slotInfo(d){
   if(!d)return '空的存檔';
-  const r=ROOMS[d.checkpoint.room],c=d.checkpoint.room[0],ch=c==='L'?'第八章':c==='K'?'第七章':c==='G'?'第六章':c==='I'?'第五章':c==='M'?'第四章':c==='T'?'第三章':(c==='C'||c==='D')?'第二章':'第一章';
+  const r=ROOMS[d.checkpoint.room],c=d.checkpoint.room[0],ch=c==='W'?'第九章':c==='L'?'第八章':c==='K'?'第七章':c==='G'?'第六章':c==='I'?'第五章':c==='M'?'第四章':c==='T'?'第三章':(c==='C'||c==='D')?'第二章':'第一章';
   let t='';if(d.savedAt){const dt=new Date(d.savedAt);t=`・${dt.getMonth()+1}/${dt.getDate()} ${String(dt.getHours()).padStart(2,'0')}:${String(dt.getMinutes()).padStart(2,'0')}`;}
   return `「${r?r.name:'？'}」・${ch}・記憶碎片 ${(d.shards||[]).length}/8${t}`;
 }
@@ -2708,19 +2763,31 @@ function testSkill(n){
 function startCh8Test(){
   slot=3;resetState();
   Object.assign(F,{dummy:true,bossDone:true,mirrorDone:true,guideDone:true,drillDone:true,iceDone:true,towerDone:true,festHalf:true,festDone:true,amulet:true,grip:true,skillTest:true});ability='djump';updateAbilityUI();chapterDone=true;
-  for(const id in ROOMS)if(id!=='old'&&id[0]!=='L')visited.add(id);
-  for(const id in ROOMS)if(id[0]!=='L')for(const l of ROOMS[id].lant)lit.add(id+':'+l.c);
+  for(const id in ROOMS)if(id!=='old'&&id[0]!=='L'&&id[0]!=='W')visited.add(id);
+  for(const id in ROOMS)if(id[0]!=='L'&&id[0]!=='W')for(const l of ROOMS[id].lant)lit.add(id+':'+l.c);
   trig.lantern=true;trig.bossIntro=true;trig.c5end=true;trig.mirrorIntro=true;trig.gbIntro=true;trig.drillIntro=true;trig.ibIntro=true;trig.tbIntro=true;trig.kbIntro=true;trig.kb2Intro=true;trig.kbLand=true;
   testSkill(8);wallet=340;oil=2;updateCoin();updateOilUI();
   loadRoom('L1');const pos={x:7*TILE+6,y:12*TILE-26};placePlayer(pos);
   checkpoint={room:'L1',...pos};hp=maxHp;updateHP();csFade=0;csFadeT=0;
   setMode('play');pendingName=null;onEnterRoom();
 }
+// 第九章部分①（2026-11-24.1）：捷徑「第九章（製作中）」——第八章打完、小燈精已經是夥伴
+function startCh9Test(){
+  slot=3;resetState();
+  Object.assign(F,{dummy:true,bossDone:true,mirrorDone:true,guideDone:true,drillDone:true,iceDone:true,towerDone:true,festHalf:true,festDone:true,inkDone:true,amulet:true,grip:true,skillTest:true,companion:'fox'});story.npc.fox='accept';ability='djump';updateAbilityUI();chapterDone=true;
+  for(const id in ROOMS)if(id!=='old'&&id[0]!=='W')visited.add(id);
+  for(const id in ROOMS)if(id[0]!=='W')for(const l of ROOMS[id].lant)lit.add(id+':'+l.c);
+  trig.lantern=true;trig.bossIntro=true;trig.c5end=true;trig.mirrorIntro=true;trig.gbIntro=true;trig.drillIntro=true;trig.ibIntro=true;trig.tbIntro=true;trig.kbIntro=true;trig.kb2Intro=true;trig.kbLand=true;trig.sbHalf=true;
+  testSkill(9);wallet=380;oil=2;updateCoin();updateOilUI();
+  loadRoom('W1');const pos={x:7*TILE+6,y:12*TILE-26};placePlayer(pos);placeComp();
+  checkpoint={room:'W1',...pos};hp=maxHp;updateHP();csFade=0;csFadeT=0;
+  setMode('play');pendingName=null;onEnterRoom();
+}
 function startCh7Test(){
   slot=3;resetState();
   Object.assign(F,{dummy:true,bossDone:true,mirrorDone:true,guideDone:true,drillDone:true,iceDone:true,towerDone:true,amulet:true,grip:true,skillTest:true});ability='djump';updateAbilityUI();chapterDone=true;testSkill(7);
-  for(const id in ROOMS)if(id!=='old'&&id[0]!=='K'&&id[0]!=='L')visited.add(id);
-  for(const id in ROOMS)if(id[0]!=='K'&&id[0]!=='L')for(const l of ROOMS[id].lant)lit.add(id+':'+l.c);
+  for(const id in ROOMS)if(id!=='old'&&id[0]!=='K'&&id[0]!=='L'&&id[0]!=='W')visited.add(id);
+  for(const id in ROOMS)if(id[0]!=='K'&&id[0]!=='L'&&id[0]!=='W')for(const l of ROOMS[id].lant)lit.add(id+':'+l.c);
   trig.lantern=true;trig.bossIntro=true;trig.c5end=true;trig.mirrorIntro=true;trig.gbIntro=true;trig.drillIntro=true;trig.ibIntro=true;trig.tbIntro=true;
   wallet=300;oil=2;updateCoin();updateOilUI();
   loadRoom('K1');const pos={x:6*TILE+6,y:14*TILE-26};placePlayer(pos);
@@ -3045,6 +3112,7 @@ const TRACKS={
   ch1:{root:50,sc:[0,3,5,7,10],bpm:60,pad:[[0,7,15],[-4,3,12],[-7,0,10],[-2,5,14]],mel:.3,oct:1,filt:900,sub:true},
   swordboss:{root:50,sc:[0,2,5,7,9],bpm:96,pad:[[0,7,14],[-3,4,12],[5,9,14],[2,7,12]],mel:.22,oct:1,filt:1250,pluck:true,arp:true,pulse:true,sub:true},
   festboss:{root:55,sc:[0,2,4,7,9],bpm:100,pad:[[0,4,7,14],[-3,4,9,12],[5,9,12,16],[2,7,11,14]],mel:.2,oct:1,filt:1300,pluck:true,sub:true},
+  ch9:{root:48,sc:[0,2,3,7,8],bpm:58,pad:[[0,7,15],[-4,3,12],[-2,5,14],[-5,2,10]],mel:.26,oct:1,filt:900,sub:true,toll:true},
   ch8:{root:50,sc:[0,2,5,7,9],bpm:56,pad:[[0,7,14],[-3,4,12],[5,9,14],[2,7,12]],mel:.32,oct:1,filt:1050,pluck:true,sub:true,drip:true},
   ch7:{root:55,sc:[0,2,4,7,9],bpm:66,pad:[[0,4,7,14],[-3,4,9,12],[5,9,12,16],[2,7,11,14]],mel:.36,oct:1,filt:1400,pluck:true,drum:true},
   ch6:{root:50,sc:[0,2,3,5,7,9,10],bpm:60,pad:[[0,7,15],[-2,5,14],[3,10,15],[-4,3,12]],mel:.24,oct:1,filt:950,sub:true,tick:true,toll:true},
@@ -3063,7 +3131,7 @@ const TRACKS={
   swamp:{root:47,sc:[0,3,5,6,7,10],bpm:50,pad:[[0,6,15],[-1,6,12]],mel:.14,oct:0,filt:600,sub:true,drip:true},
   heart:{root:55,sc:[0,2,4,7,9],bpm:56,pad:[[0,4,7,14],[-3,4,9,12],[5,9,12,16]],mel:.4,oct:1,filt:1300}
 };
-const ROOM_TRACK={L1:'ch8',L2:'ch8',L3:'ch8',L4:'ch8',L5:'ch8',L6:'ch8',L7:'ch8',L8:'ch8',L9:'ch8',L10:'ch8',L11:'ch8',L12:'ch8',L13:'ch8',LB:'hush',K1:'ch7',K2:'ch7',K3:'ch7',K4:'ch7',K5:'ch7',K6:'ch7',K7:'ch7',K8:'ch7',K9:'ch7',K10:'ch7',K11:'ch7',KB:'hush',KB2:'ch7',G1:'ch6',G2:'ch6',G3:'ch6',G4:'ch6',G5:'ch6',G6:'ch6',G7:'ch6',G8:'ch6',G9:'ch6',GB:'ch6',I1:'ch5',I2:'ch5',I3:'ch5',I4:'ch5',I5:'ch5',I6:'ch5',I7:'ch5',I8:'ch5',I9:'ch5',I7U:'hush',IB:'hush',M1:'ch4',M2:'ch4',M3:'ch4',M4:'ch4',M5:'ch4',M6:'ch4',T1:'ch3',T2:'ch3',T3:'ch3',T4:'ch3',D1:'ch2',D2:'ch2',D3:'ch2',old:'ch1',R1:'ch1',R2:'ch1',R3:'ch1',S1:'ch1',R4:'ch1',S2:'ch1',R5:'ch1',N1:'ch1',N2:'ch1',R6:'ch1',C1:'ch2',C2:'ch2',C3:'ch2',C4:'ch2',C5:'ch2'};
+const ROOM_TRACK={W1:'ch9',W2:'ch9',W3:'ch9',W4:'ch9',W5:'ch9',W6:'ch9',L1:'ch8',L2:'ch8',L3:'ch8',L4:'ch8',L5:'ch8',L6:'ch8',L7:'ch8',L8:'ch8',L9:'ch8',L10:'ch8',L11:'ch8',L12:'ch8',L13:'ch8',LB:'hush',K1:'ch7',K2:'ch7',K3:'ch7',K4:'ch7',K5:'ch7',K6:'ch7',K7:'ch7',K8:'ch7',K9:'ch7',K10:'ch7',K11:'ch7',KB:'hush',KB2:'ch7',G1:'ch6',G2:'ch6',G3:'ch6',G4:'ch6',G5:'ch6',G6:'ch6',G7:'ch6',G8:'ch6',G9:'ch6',GB:'ch6',I1:'ch5',I2:'ch5',I3:'ch5',I4:'ch5',I5:'ch5',I6:'ch5',I7:'ch5',I8:'ch5',I9:'ch5',I7U:'hush',IB:'hush',M1:'ch4',M2:'ch4',M3:'ch4',M4:'ch4',M5:'ch4',M6:'ch4',T1:'ch3',T2:'ch3',T3:'ch3',T4:'ch3',D1:'ch2',D2:'ch2',D3:'ch2',old:'ch1',R1:'ch1',R2:'ch1',R3:'ch1',S1:'ch1',R4:'ch1',S2:'ch1',R5:'ch1',N1:'ch1',N2:'ch1',R6:'ch1',C1:'ch2',C2:'ch2',C3:'ch2',C4:'ch2',C5:'ch2'};
 function roomTrack(id){if(id==='LB')return sb&&sb.active?'swordboss':F.inkDone?'ch8':'hush';if(id==='KB2')return (kb&&kb.active)?'festboss':'ch7';if(id==='KB')return (kb&&kb.active)?'festboss':F.festDone?'ch7':'hush';if(id==='GB')return (tb&&!tb.dead&&!F.towerDone)?'clockboss':'ch6';if(id==='IB')return (ib&&!ib.dead&&!F.iceDone)?'boss2':'hush';if(id==='M7')return (dr&&!dr.dead&&!F.drillDone)?'boss':'ch4';if(id==='T5')return (gb&&!gb.dead&&!F.guideDone)?'boss':'ch3';if(id==='D4')return (mirror&&!mirror.dead&&!F.mirrorDone)?'boss':'ch2';if(id==='B1')return (!F.bossDone&&boss&&!boss.dead)?(boss.form===2?'boss2':'boss'):'ch1';return ROOM_TRACK[id]||'ch1';}
 function setMusic(key,force){
   pendingMusic=key;if(!AC)return;if(key===curKey&&!force)return;curKey=key;
@@ -3384,7 +3452,7 @@ function update(dt){
   if(hint){hint.t-=dt;if(hint.t<=0){hint=null;showTut();}}
   if(trans){updateTrans(dt);return;}
   if(cs){
-    updateActors(dt);updateCS(dt);if(mechs.length)updateMechs(dt);updateComp(dt);
+    updateActors(dt);updateCS(dt);if(mechs.length)updateMechs(dt);updateThaw(dt);updateComp(dt);
     if(!(cs&&cs.s&&cs.s.c==='walk'))p.vx=0;
     physP(dt);return;
   }
@@ -3517,6 +3585,7 @@ function update(dt){
     if(mirror&&mirror.active&&!mirror.dead&&!hitSet.has(mirror)&&hit(hb,{x:mirror.x,y:mirror.y,w:p.w,h:p.h}))hitMirror();
     for(const sh of SH)if(sh.kind==='bird'&&!sh.dead&&sh.t>sh.warn&&hit(hb,shadowBox(sh))){sh.dead=true;for(let k=0;k<6;k++)spawnFly(sh.x,sh.y0,90);sfx('poof');}
     if(mechs.length)hitSwitches(hb);
+    if(tlamps.length)hitTLamps(hb);
     if(level.id==='R1'&&!F.dummy&&!hitSet.has('gate')&&hit(hb,{x:GATE*TILE,y:TILE,w:TILE,h:11*TILE})&&!enemies.some(e=>e.t==='dummy'&&!e.dead&&hitSet.has(e))){hitSet.add('gate');gateClank(p.face>0?GATE*TILE:GATE*TILE+TILE,p.y+p.h/2);}
     if(quests.watches)hitWatches(hb);
     if(quests.masks)hitMasks(hb);
@@ -3551,7 +3620,7 @@ function update(dt){
   if(input.kp){input.kp=false;if(ctrl&&!slam&&dashT<=0&&kindleT<=0)castSkill();}
   if(input.xp){input.xp=false;if(ctrl&&!slam&&dashT<=0&&kindleT<=0)castJoint();}
   updateSkills(dt);updateComp(dt);
-  if(mechs.length)updateMechs(dt);
+  if(mechs.length)updateMechs(dt);updateThaw(dt);
   if(level.winds||level.glide)updateWind(dt);else p.glide=false;
   const hx0=p.x,hy0=p.y,hvx=p.vx,hvy=p.vy;
   physP(dt);
@@ -4107,8 +4176,8 @@ function drawLantern(L){
   lights.push({x:hx,y:ly,r:L.lit?(L.goal?230:180):46,s:L.lit?1:.45,c:L.lit?'255,200,120':null,g:.22});
   if(L.lit)glowAt(hx,ly,L.goal?48:34,.55+.08*Math.sin(clock*3));
   ctx.save();ctx.strokeStyle=OUT;ctx.lineWidth=1.3;ctx.lineJoin='round';
-  rr(fx-9,gy-6,18,6,2);fs(ch===8?'#5a4232':ch===5?'#5a6a7a':'#3e3452');
-  rr(fx-2.6,gy-61,5.2,55,1.5);fs(ch===8?'#6a4a30':ch===7?'#7a3a2e':ch===6?'#6a5a3a':'#4a3f63');
+  rr(fx-9,gy-6,18,6,2);fs(ch===9?'#5a6a7a':ch===8?'#5a4232':ch===5?'#5a6a7a':'#3e3452');
+  rr(fx-2.6,gy-61,5.2,55,1.5);fs(ch===9?'#4a5a6a':ch===8?'#6a4a30':ch===7?'#7a3a2e':ch===6?'#6a5a3a':'#4a3f63');
   ctx.strokeStyle='rgba(0,0,0,.25)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(fx-.5,gy-56);ctx.lineTo(fx-.5,gy-12);ctx.stroke();
   ctx.strokeStyle=OUT;ctx.lineWidth=1.3;rr(fx-4.5,gy-65,9,4.5,1.5);fs('#3a3152');
   ctx.strokeStyle='#2a2238';ctx.lineWidth=2.4;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(fx+1,gy-60);ctx.quadraticCurveTo(fx+9,gy-66,hx,hy-3.5);ctx.stroke();
@@ -4135,6 +4204,7 @@ function drawProp(q){
     }else if(ability!==q.ab){
       ctx.fillStyle='rgba(120,110,140,.5)';ctx.beginPath();ctx.arc(x+16,gy-24,5,0,6.283);ctx.fill();
     }
+  }else if(q.t==='tlamp'){drawTLamp(q);
   }else if(q.t==='sign'){
     const sx=x+16;
     ctx.save();ctx.strokeStyle=OUT;ctx.lineWidth=1.2;ctx.lineJoin='round';
@@ -4779,6 +4849,7 @@ function render(dt){
     if(v===7)continue;
     if(v===6){drawPlankTile(x,y,i,j);continue;}
     if(v===8||v===9){drawFestTile(x,y,i,j,v);continue;}
+    if(v===10){drawFrostTile(x,y,i,j);continue;}
     if(terrainCv)continue;
     ctx.fillStyle=th.tile;ctx.fillRect(x,y,TILE+.5,TILE+.5);
     ctx.fillStyle=th.speck;ctx.fillRect(x+(h%20)+4,y+((h>>5)%18)+8,4,3);ctx.fillRect(x+((h>>9)%22)+3,y+((h>>13)%14)+14,3,2);
@@ -4801,12 +4872,13 @@ function render(dt){
   const ns=Math.min(spores.length,Math.ceil(spores.length*W/60))>>(LOW?1:0);
   for(let i=0;i<ns;i++){
     const s=spores[i];
-    const y=TT.snow?((s.y*WORLD_H+clock*s.sp*2.2)%WORLD_H+WORLD_H)%WORLD_H:((s.y*WORLD_H-clock*s.sp)%WORLD_H+WORLD_H)%WORLD_H,x=s.x*WORLD_W+Math.sin(clock*.6+s.ph)*(TT.snow?14:6);
+    const y=TT.snow?((s.y*WORLD_H+clock*s.sp*2.2)%WORLD_H+WORLD_H)%WORLD_H:((s.y*WORLD_H-clock*s.sp)%WORLD_H+WORLD_H)%WORLD_H,x=(TT.blizzard?((s.x*WORLD_W+clock*s.sp*9)%WORLD_W):s.x*WORLD_W)+Math.sin(clock*.6+s.ph)*(TT.snow?14:6);
     if(x<sx-10||x>sx+viewW+10)continue;
     ctx.fillStyle=`rgba(${TT.spore},${.35+.35*Math.sin(clock*1.5+s.ph)})`;if(TT.pages){ctx.save();ctx.translate(x,y);ctx.rotate(Math.sin(clock*.9+s.ph)*.8);ctx.fillRect(-s.r*1.7,-s.r*1.1,s.r*3.4,s.r*2.2);ctx.restore();}else{ctx.beginPath();ctx.arc(x,y,s.r,0,6.283);ctx.fill();}
   }
   for(const q of props)drawProp(q);
   for(const m of mechs)drawMech(m);
+  if(tlamps.length||fbridges.length||melted.size)drawThaw();
   if(level.winds)drawWinds();
   if(level.flight)drawFlightWind();
   for(const q of portals)drawPortal(q);
@@ -5128,6 +5200,7 @@ let mistLayers=[],fogs=[],TT=null;
   for(const L of mistLayers)for(let i=0;i<28;i++)L.sh.push({x:r()*2600,w:70+r()*150,h:90+r()*210,top:r()<.5});
   for(let i=0;i<6;i++)fogs.push({x:r()*1600,y:.25+r()*.65,w:320+r()*520,h:50+r()*80,sp:5+r()*9,a:.07+r()*.07});
 })();
+function SNOW_T(o){return ICE_T(Object.assign({bg:['#2a3048','#1a1f33','#080a12'],glow:'255,205,150',lay:['rgba(120,135,170,.38)','rgba(50,58,86,.86)'],fog:'215,225,245',top:[196,208,224],deep:[34,40,56],rim:'240,246,255',dark:.66,blizzard:true},o||{}));}
 function ICE_T(o){return Object.assign({bg:['#22385a','#152640','#060c18'],glow:'190,225,255',lay:['rgba(120,160,200,.38)','rgba(52,80,116,.84)'],fog:'215,232,252',top:[205,222,238],deep:[40,54,76],rim:'240,248,255',moss:'240,248,255',mush:null,bulb:'200,235,255',dark:.6,spore:'240,248,255',ruins:false,frozen:true,snow:true},o||{});}
 function CLOCK_T(o){return Object.assign({bg:['#2c2118','#1b140e','#080504'],glow:'255,200,130',lay:['rgba(110,84,56,.42)','rgba(52,38,26,.86)'],fog:'230,205,170',top:[112,86,58],deep:[34,25,17],rim:'245,205,145',moss:'190,160,100',mush:null,bulb:'255,214,150',dark:.64,spore:'255,226,180',ruins:false,clock:true},o||{});}
 function LIB_T(o){return Object.assign({bg:['#241c22','#16121a','#060508'],glow:'255,196,130',lay:['rgba(84,62,52,.42)','rgba(40,28,26,.88)'],fog:'210,190,170',top:[118,84,56],deep:[34,24,20],rim:'240,205,150',moss:'26,24,40',mush:null,bulb:null,dark:.64,spore:'240,226,196',ruins:false,lib:true,snow:true,pages:true},o||{});}
@@ -5175,6 +5248,7 @@ const THEMES={
   K7:FEST_T({glow:'255,170,100',dark:.58}),K8:FEST_T({glow:'255,200,130',dark:.54}),K9:FEST_T({dark:.62}),K10:FEST_T({bg:['#141846','#0c1034','#030414'],dark:.6}),K11:FEST_T({dark:.56}),KB:FEST_T({bg:['#2a1830','#1a1024','#06040c'],glow:'255,150,100',dark:.6}),KB2:FEST_T({bg:['#1c1c52','#141646','#06061c'],glow:'255,170,110',dark:.5}),
   L1:LIB_T(),L2:LIB_T({dark:.6}),L3:LIB_T({dark:.68}),L4:LIB_T({dark:.62}),L5:LIB_T({bg:['#1e1a26','#13101a','#050408'],dark:.62}),L6:LIB_T({glow:'255,210,150',dark:.56}),L7:LIB_T({dark:.64}),
   L8:LIB_T({dark:.7}),L9:LIB_T({dark:.64}),L10:LIB_T({bg:['#1c1a28','#12101c','#040408'],dark:.62}),L11:LIB_T({glow:'255,210,150',dark:.56}),L12:LIB_T({dark:.6}),L13:LIB_T({dark:.62}),LB:LIB_T({bg:['#20162a','#140e1c','#05030a'],dark:.66}),
+  W1:SNOW_T(),W2:SNOW_T({dark:.7}),W3:SNOW_T({dark:.68}),W4:SNOW_T({glow:'255,200,140',dark:.56}),W5:SNOW_T({dark:.72}),W6:SNOW_T({bg:['#262a40','#171a2c','#06070e'],dark:.7}),
   I7U:ICE_T({bg:['#0e2038','#081628','#02060e'],lay:['rgba(40,80,130,.45)','rgba(16,36,64,.88)'],fog:'130,180,230',glow:'200,230,255',dark:.74,snow:false}),
   R6:{bg:['#3a3020','#231c18','#0c0a08'],glow:'255,210,140',lay:['rgba(120,100,66,.45)','rgba(66,54,38,.84)'],fog:'230,200,150',top:[98,84,66],deep:[30,24,20],rim:'240,205,145',moss:'165,150,95',mush:'255,220,140',bulb:'255,232,175',dark:.6,spore:'255,230,180',ruins:true}
 };
@@ -5629,7 +5703,7 @@ function drawMini(){
   t.fillStyle=Math.floor(clock*3)%2?'#ffffff':'#b9a6ff';t.beginPath();t.arc(cw/2,ch/2,2.6,0,6.283);t.fill();
 }
 // 紙地圖：只顯示一部分（放大），可以拖曳、縮放、依區域跳轉
-const MAP_REGIONS=[['第一章 地道',/^(R|S|N|B)/],['倒映湖',/^C/],['湖底',/^D/],['倒過來的小鎮',/^T/],['燈芯礦坑',/^M/],['結冰的湖面',/^I/],['鐘樓',/^G/],['祭典夜空',/^K/],['墨水書庫',/^L/]];
+const MAP_REGIONS=[['第一章 地道',/^(R|S|N|B)/],['倒映湖',/^C/],['湖底',/^D/],['倒過來的小鎮',/^T/],['燈芯礦坑',/^M/],['結冰的湖面',/^I/],['鐘樓',/^G/],['祭典夜空',/^K/],['墨水書庫',/^L/],['暴風雪的山路',/^W/]];
 let MV=null,mapRegOn=-1;
 function mapAllB(){const B=mapBounds(false);B.x0-=3;B.y0-=4;B.x1+=3;B.y1+=3;return B;}
 function mapSize(){const m=$('mapCv'),cw=m.clientWidth||1;const ch=Math.round(clamp(Math.min(innerHeight*(innerHeight<520?.47:.5),cw*.62),130,520));return [cw,ch];}
@@ -6931,6 +7005,107 @@ function drawMech(m){
   }
 }
 
+
+// ---------- 第九章：時間凍結與融化（2026-11-24.1 部分①）----------
+// 山路上的「搜救燈」（props t:'tlamp'）被凍在冰裡。用「攻擊」（或技能）把它敲亮，燈光照到的圓圈裡，時間會重新流動 THAW_D 秒：
+//  ・凍住的冰（格子 10）融成水，可以穿過；燈熄了冰會凍回去——玩家還在旁邊時會等玩家離開，不會把人凍在冰裡
+//  ・凍住的絞盤吊橋（level.fbridges）只有在燈光裡才會轉，一格一格放下橋板（格子 6）；放好之後記在 trig，之後一直都在
+// 和第五章（破冰是永久的）、第六章（開關一打開就永久）不同：這裡的「解凍」只在燈光圈裡、而且有時間限制。
+const THAW_R=4.5*TILE,THAW_D=6.5,FB_STEP=.3;
+let tlamps=[],iceCells=[],melted=new Set(),fbridges=[],thawFx=[];
+function initThaw(){
+  tlamps=props.filter(q=>q.t==='tlamp');for(const q of tlamps){q.on=0;q.rad=0;q.cx=q.c*TILE+16;q.cy=q.g*TILE-44;}
+  iceCells=[];melted=new Set();thawFx=[];
+  for(let j=0;j<H;j++)for(let i=0;i<W;i++)if(grid[j][i]===10)iceCells.push([i,j]);
+  fbridges=(level.fbridges||[]).map(d=>{const b={...d,key:'fb:'+level.id+':'+d.id,t:0,spin:0,warm:false};b.done=!!trig[b.key];b.n=b.done?b.len:0;
+    for(let k=0;k<b.n;k++)mSet(b.x+(b.dir<0?-k:k),b.y,6);return b;});
+}
+function thawAt(x,y){for(const q of tlamps)if(q.on>0&&q.rad>0&&(x-q.cx)*(x-q.cx)+(y-q.cy)*(y-q.cy)<q.rad*q.rad)return q;return null;}
+function tlampBox(q){return {x:q.c*TILE,y:q.g*TILE-66,w:32,h:66};}
+function hitTLamps(box){let any=false;
+  for(const q of tlamps){if(!hit(box,tlampBox(q)))continue;const was=q.on>0;if(was&&q.on>THAW_D-.4)continue;q.on=THAW_D;any=true;
+    sfx('sconce');rings.push({x:q.cx,y:q.cy,t:0,c:'255,214,140'});for(let k=0;k<12;k++)spawnFly(q.cx,q.cy,110);
+    if(!was){shake=Math.max(shake,2);for(let k=0;k<10;k++)parts.push({x:q.cx+(Math.random()-.5)*24,y:q.cy+(Math.random()-.5)*30,vx:(Math.random()-.5)*120,vy:-60-Math.random()*80,life:.6,t:0,c:'#dff4ff'});}
+    if(!trig.thawLit){trig.thawLit=true;flashHint('燈光圈裡，冰會融化、凍住的東西會動',[],5);}}
+  return any;}
+function updateThaw(dt){
+  if(!tlamps.length&&!fbridges.length)return;
+  for(const q of tlamps){if(q.on>0){q.on=Math.max(0,q.on-dt);q.rad=Math.min(THAW_R,q.rad+dt*THAW_R*3);if(q.on<=0)sfx('tick');}else q.rad=Math.max(0,q.rad-dt*THAW_R*1.5);}
+  for(const [i,j] of iceCells){if(grid[j][i]!==10)continue;const cx=i*TILE+16,cy=j*TILE+16;
+    if(thawAt(cx,cy)){grid[j][i]=0;melted.add(j*W+i);thawFx.push({i,j,t:0,k:'melt'});if(Math.random()<.5)parts.push({x:cx,y:cy,vx:(Math.random()-.5)*40,vy:20,life:.5,t:0,c:'rgba(190,230,255,.9)'});}}
+  if(melted.size){
+    const cold=[...melted].filter(k=>{const i=k%W,j=(k-i)/W;return !thawAt(i*TILE+16,j*TILE+16);});
+    const pb={x:p.x-TILE*.75,y:p.y-TILE*.75,w:p.w+TILE*1.5,h:p.h+TILE*1.5};
+    if(cold.length&&!cold.some(k=>{const i=k%W,j=(k-i)/W;return hit(pb,{x:i*TILE,y:j*TILE,w:TILE,h:TILE});})){
+      let n=0;for(const k of cold){const i=k%W,j=(k-i)/W,cb={x:i*TILE,y:j*TILE,w:TILE,h:TILE};if(enemies.some(e=>!e.dead&&hit(e,cb)))continue;
+        grid[j][i]=10;melted.delete(k);thawFx.push({i,j,t:0,k:'freeze'});n++;}
+      if(n){sfx('tick');if(!trig.refreezeHint){trig.refreezeHint=true;toast('燈熄了，冰又凍回去了');}}}
+  }
+  for(const b of fbridges){const wx=b.wc*TILE+16,wy=b.wg*TILE-18;b.warm=!!thawAt(wx,wy);
+    if(b.done||!b.warm)continue;b.spin+=dt*4;b.t+=dt;
+    while(b.t>=FB_STEP&&b.n<b.len){const i=b.x+(b.dir<0?-b.n:b.n);if(!mFree(i,b.y)){b.t=FB_STEP;break;}b.t-=FB_STEP;mSet(i,b.y,6);b.n++;sfx('tick');
+      for(let z=0;z<4;z++)parts.push({x:i*TILE+Math.random()*TILE,y:b.y*TILE,vx:(Math.random()-.5)*60,vy:-40-Math.random()*40,life:.4,t:0,c:'#dff4ff'});}
+    if(b.n>=b.len){b.done=true;trig[b.key]=1;sfx('boom');shake=Math.max(shake,4);toast('絞盤轉起來了，吊橋放下來了！');saveGame();}
+  }
+  if(!trig.tlampHint&&!cs)for(const q of tlamps)if(q.on<=0&&Math.abs(q.cx-(p.x+p.w/2))<130&&Math.abs(q.g*TILE-(p.y+p.h))<100){trig.tlampHint=true;flashHint('凍住的搜救燈：用「攻擊」把它敲亮',['bA'],5);break;}
+  for(let i=thawFx.length-1;i>=0;i--){thawFx[i].t+=dt;if(thawFx[i].t>.5)thawFx.splice(i,1);}
+}
+function drawFrostTile(x,y,i,j){
+  const h=speck(i,j),g=(a,b)=>a>=0&&a<W&&b>=0&&b<H&&grid[b][a]===10;
+  ctx.fillStyle='rgba(150,198,232,.86)';ctx.fillRect(x,y,TILE+.5,TILE+.5);
+  ctx.fillStyle='rgba(225,244,255,.28)';ctx.fillRect(x+3,y+4,TILE-8,4);
+  if(h%3===0){ctx.fillStyle='rgba(60,90,130,.28)';ctx.beginPath();ctx.ellipse(x+16,y+18,5,8,0,0,6.283);ctx.fill();}
+  ctx.strokeStyle='rgba(240,250,255,.6)';ctx.lineWidth=1;ctx.beginPath();const cx=x+6+h%16,cy=y+8+(h>>5)%12;
+  ctx.moveTo(cx,cy);ctx.lineTo(cx+6,cy+5);ctx.lineTo(cx+4,cy+11);ctx.moveTo(cx+6,cy+5);ctx.lineTo(cx+12,cy+3);ctx.stroke();
+  if(!g(i,j-1)){ctx.fillStyle='rgba(250,253,255,.92)';ctx.fillRect(x,y,TILE+.5,3);}
+  ctx.strokeStyle='rgba(20,40,70,.55)';ctx.lineWidth=1.3;ctx.beginPath();
+  if(!g(i-1,j)){ctx.moveTo(x+.6,y);ctx.lineTo(x+.6,y+TILE);}if(!g(i+1,j)){ctx.moveTo(x+TILE-.6,y);ctx.lineTo(x+TILE-.6,y+TILE);}
+  if(!g(i,j+1)){ctx.moveTo(x,y+TILE-.6);ctx.lineTo(x+TILE,y+TILE-.6);}if(!g(i,j-1)){ctx.moveTo(x,y+.6);ctx.lineTo(x+TILE,y+.6);}ctx.stroke();
+  if(!g(i,j+1)&&!solid(i,j+1)&&h%2===0){const rx=x+6+(h>>4)%20;ctx.fillStyle='rgba(215,240,255,.85)';ctx.beginPath();ctx.moveTo(rx-3,y+TILE);ctx.lineTo(rx+3,y+TILE);ctx.lineTo(rx,y+TILE+8+(h>>6)%8);ctx.closePath();ctx.fill();}
+}
+function drawTLamp(q){
+  const x=q.c*TILE+16,gy=q.g*TILE,on=q.on>0,hx=x,hy=gy-58;
+  ctx.save();ctx.strokeStyle=OUT;ctx.lineWidth=1.3;ctx.lineJoin='round';
+  rr(x-8,gy-5,16,5,2);fs('#5a6a7a');rr(x-2.4,gy-62,4.8,58,1.4);fs('#4a5a6a');
+  ctx.strokeStyle='#2a2238';ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(x-9,gy-60);ctx.lineTo(x+9,gy-60);ctx.stroke();
+  ctx.restore();
+  drawLampFig(hx,hy,on?Math.sin(clock*2.2+q.c)*.08:0,1.15,on?'#ffd88c':'#6a7890',on);
+  if(on){const a=q.on/THAW_D;glowAt(hx,hy+14,34,.55+.1*Math.sin(clock*5));
+    ctx.save();ctx.strokeStyle=q.on<1.6&&Math.floor(clock*6)%2?'rgba(255,140,110,.95)':'rgba(255,226,170,.95)';ctx.lineWidth=3;ctx.lineCap='round';
+    ctx.beginPath();ctx.arc(hx,hy+14,20,-Math.PI/2,-Math.PI/2+a*6.283);ctx.stroke();ctx.restore();
+    lights.push({x:hx,y:hy+14,r:130,c:'255,200,120',g:.26});}
+  else{ctx.save();ctx.fillStyle='rgba(175,215,240,.55)';ctx.strokeStyle='rgba(230,248,255,.85)';ctx.lineWidth=1.3;
+    ctx.beginPath();ctx.moveTo(hx-13,hy-2);ctx.lineTo(hx-6,hy-8);ctx.lineTo(hx+9,hy-6);ctx.lineTo(hx+14,hy+10);ctx.lineTo(hx+10,hy+32);ctx.lineTo(hx-11,hy+33);ctx.lineTo(hx-15,hy+14);ctx.closePath();ctx.fill();ctx.stroke();
+    ctx.strokeStyle='rgba(255,255,255,.6)';ctx.beginPath();ctx.moveTo(hx-8,hy+2);ctx.lineTo(hx-3,hy+12);ctx.moveTo(hx+5,hy+4);ctx.lineTo(hx+8,hy+16);ctx.stroke();
+    if(!cs){ctx.fillStyle=`rgba(255,214,140,${.45+.35*Math.sin(clock*4)})`;ctx.font='bold 12px serif';ctx.textAlign='center';ctx.fillText('！',hx,hy-14);ctx.textAlign='left';}
+    ctx.restore();lights.push({x:hx,y:hy+14,r:48,s:.45});}
+}
+function drawThaw(){
+  for(const q of tlamps){if(q.rad<=2)continue;const fade=q.on>0?1:q.rad/THAW_R;
+    ctx.save();const g=ctx.createRadialGradient(q.cx,q.cy,4,q.cx,q.cy,q.rad);g.addColorStop(0,`rgba(255,214,150,${.16*fade})`);g.addColorStop(.85,`rgba(255,200,130,${.07*fade})`);g.addColorStop(1,'rgba(255,200,130,0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.arc(q.cx,q.cy,q.rad,0,6.283);ctx.fill();
+    ctx.strokeStyle=`rgba(255,220,160,${(q.on>0&&q.on<1.6?.35+.35*Math.sin(clock*14):.45)*fade})`;ctx.lineWidth=2;ctx.setLineDash([7,6]);ctx.lineDashOffset=-clock*12;ctx.beginPath();ctx.arc(q.cx,q.cy,q.rad,0,6.283);ctx.stroke();ctx.setLineDash([]);ctx.restore();
+    lights.push({x:q.cx,y:q.cy,r:q.rad*1.25,c:'255,205,140',g:.2*fade});}
+  for(const k of melted){const i=k%W,j=(k-i)/W,x=i*TILE,y=j*TILE,q=thawAt(x+16,y+16),warn=!q||q.on<1.6;
+    ctx.fillStyle=`rgba(140,200,240,${warn?.2+.14*Math.sin(clock*12):.12})`;ctx.fillRect(x,y,TILE,TILE);
+    if(warn){ctx.strokeStyle='rgba(225,245,255,.55)';ctx.lineWidth=1;ctx.strokeRect(x+1.5,y+1.5,TILE-3,TILE-3);}
+    const d=((clock*60+i*13+j*7)%40)/40;ctx.fillStyle='rgba(190,230,255,.7)';ctx.fillRect(x+8+(i*7%14),y+d*TILE,2,5);}
+  for(const f of thawFx){const x=f.i*TILE,y=f.j*TILE,u=f.t/.5;
+    if(f.k==='melt'){ctx.fillStyle=`rgba(225,245,255,${.7*(1-u)})`;ctx.fillRect(x+u*8,y+u*12,TILE-u*16,TILE-u*12);}
+    else{ctx.strokeStyle=`rgba(240,252,255,${1-u})`;ctx.lineWidth=2;ctx.strokeRect(x-u*4,y-u*4,TILE+u*8,TILE+u*8);}}
+  for(const b of fbridges){const x=b.wc*TILE+16,gy=b.wg*TILE,cy=gy-18;
+    ctx.save();ctx.strokeStyle=OUT;ctx.lineWidth=1.3;ctx.lineJoin='round';
+    rr(x-12,gy-6,24,6,2);fs('#4a3626');rr(x-10,cy-14,4,20,1);fs('#5a4232');rr(x+6,cy-14,4,20,1);fs('#5a4232');
+    gearPath(ctx,x,cy,12,8,b.spin);ctx.fillStyle='#8a6a3a';ctx.fill('evenodd');ctx.stroke();
+    ctx.beginPath();ctx.arc(x,cy,6,0,6.283);fs('#c9a45a');
+    const tipI=b.x+(b.dir<0?-(b.n-1):b.n-1),tx=b.n?(tipI+(b.dir<0?0:1))*TILE:x+(b.dir<0?-10:10),ty=b.y*TILE+2;
+    ctx.strokeStyle='#6a5a46';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(x,cy-4);ctx.lineTo(tx,ty);ctx.stroke();
+    if(!b.done&&!b.warm){ctx.fillStyle='rgba(175,215,240,.6)';ctx.strokeStyle='rgba(230,248,255,.85)';ctx.lineWidth=1.3;rr(x-16,cy-20,32,34,5);ctx.fill();ctx.stroke();
+      ctx.strokeStyle='rgba(255,255,255,.6)';ctx.beginPath();ctx.moveTo(x-9,cy-14);ctx.lineTo(x-4,cy-2);ctx.moveTo(x+6,cy-12);ctx.lineTo(x+9,cy+2);ctx.stroke();}
+    if(!b.done&&b.n<b.len){ctx.strokeStyle='rgba(200,225,245,.35)';ctx.setLineDash([4,5]);ctx.lineWidth=1.5;ctx.beginPath();
+      const ex=(b.x+(b.dir<0?-(b.len-1):b.len-1)+(b.dir<0?0:1))*TILE;ctx.moveTo(tx,ty);ctx.lineTo(ex,ty);ctx.stroke();ctx.setLineDash([]);}
+    ctx.restore();if(b.warm&&!b.done)lights.push({x,y:cy,r:70,c:'255,200,130',g:.14});}
+}
 
 // ---------- 第八章：被墨水淹沒的書庫（2026-11-19.1 部分①②：房間骨架、書庫畫面、墨水河與墨水船）----------
 // 墨水船：停在墨水河（level.water 的 ink 區）上。靠近按「進入」上船；◀ ▶ 划船（會慢慢加速，放開會慢慢停下，可以倒退）；
@@ -8335,7 +8510,7 @@ function castSkill(){
 function skHitArea(box,dmg,push){let any=false;const mx=box.x+box.w/2;
   for(const e of enemies){if(e.dead||e.ghost||!hit(box,e))continue;for(let k=0;k<dmg&&!e.dead;k++)hitEnemy(e);
     if(push&&!e.dead&&e.t!=='dummy'){e.vx=(Math.sign(e.x+e.w/2-mx)||1)*260;e.stun=Math.max(e.stun||0,.4);}any=true;}
-  if(skillHitBoss(box,dmg))any=true;if(mechs.length&&hitSwitches(box))any=true;if(quests.watches&&hitWatches(box))any=true;if(quests.masks&&hitMasks(box))any=true;return any;}
+  if(skillHitBoss(box,dmg))any=true;if(mechs.length&&hitSwitches(box))any=true;if(tlamps.length&&hitTLamps(box))any=true;if(quests.watches&&hitWatches(box))any=true;if(quests.masks&&hitMasks(box))any=true;return any;}
 function skillHitBoss(box,dmg){
   let h=false;const n=Math.max(1,dmg||1);
   if(mirror&&mirror.active&&!mirror.dead&&hit(box,{x:mirror.x,y:mirror.y,w:p.w,h:p.h})){for(let k=0;k<n&&mirror&&!mirror.dead;k++)hitMirror();h=true;}
@@ -8374,6 +8549,7 @@ function updateSkills(dt){
       hitT=true;break;}
     if(!hitT&&!(q.hit&&q.hitBoss)){const hb=skillHitBoss(box,q.dmg);if(hb){if(q.hit){q.hitBoss=true;burst(q.x,q.y,10,q.k==='fire'?'#ffb35a':'#dff2ff');}else hitT=true;}}
     if(!hitT&&mechs.length)hitT=hitSwitches(box);
+    if(!hitT&&tlamps.length)hitT=hitTLamps(box);
     if(!hitT&&quests.watches)hitT=hitWatches(box);
     if(!hitT&&quests.masks)hitT=hitMasks(box);
     if(hitT){burst(q.x,q.y,q.fox?7:12,q.k==='fire'?'#ffb35a':'#dff2ff');rings.push({x:q.x,y:q.y,t:0,c:q.k==='fire'?'255,170,90':'200,235,255'});if(q.k==='fire')sfx(q.fox?'hit':'boom');pshots.splice(i,1);}
@@ -8582,8 +8758,8 @@ function setTab(t){
 
 // ---------- 任務欄（待辦 F 第 1 部分，2026-11-20.0）----------
 // 地圖格下方的獨立系統：第一個永遠是目前章節的主線，下面是進行中的支線。平常只顯示名稱，點一下展開「在做什麼、下一步」。
-function chapterOf(id){if(!id||id==='old')return 1;const c=id[0];return c==='L'?8:c==='K'?7:c==='G'?6:c==='I'?5:c==='M'?4:c==='T'?3:(c==='C'||c==='D')?2:1;}
-const CH_NAME={1:'地道',2:'倒映湖',3:'倒過來的小鎮',4:'燈芯礦坑',5:'結冰的湖面',6:'停擺的鐘樓',7:'紙燈籠祭典的夜空',8:'被墨水淹沒的書庫'};
+function chapterOf(id){if(!id||id==='old')return 1;const c=id[0];return c==='W'?9:c==='L'?8:c==='K'?7:c==='G'?6:c==='I'?5:c==='M'?4:c==='T'?3:(c==='C'||c==='D')?2:1;}
+const CH_NAME={1:'地道',2:'倒映湖',3:'倒過來的小鎮',4:'燈芯礦坑',5:'結冰的湖面',6:'停擺的鐘樓',7:'紙燈籠祭典的夜空',8:'被墨水淹沒的書庫',9:'暴風雪的山路'};
 function mainQuest(){
   if(!level)return null;const ch=chapterOf(level.id),v=id=>visited.has(id);
   // 待辦 G（2026-11-23.1）：任務欄主線用劇本的章名（「第一章 地道」），目前要做的事（例如「熄燈者」）寫在章名下面
@@ -8614,6 +8790,10 @@ function mainQuest(){
     else if(v('L2'))return Q('第八章・被墨水淹沒的書庫','划著墨水船（跳躍＝讓船跳起來）、爬上書架，往書庫深處的「目錄迴廊」前進。');
     else return Q('第八章・被墨水淹沒的書庫','從「書庫入口」往右走，到「墨水渡口」走上停著的墨水船。');
     return Q('第八章・湖底的風','碰一下天井中央新亮起的燈。上方吹下來的冷風，帶著湖水的味道⋯⋯'+(PUBLIC_SITE?'（第九章即將推出）':'（第九章製作中）'));}
+  // 第九章部分①（2026-11-24.1）：製作中，只能從捷徑進入
+  if(ch===9){if(v('W5'))return Q('第九章・暴風雪的山路','敲亮搜救燈，趁冰還沒凍回去，穿過冰牆、放下吊橋，往山上走。'+(PUBLIC_SITE?'':'（後面的山路製作中）'));
+    if(v('W3'))return Q('第九章・暴風雪的山路','凍住的絞盤只有在搜救燈的光裡才會轉：敲亮燈，放下吊橋。');
+    return Q('第九章・暴風雪的山路','用「攻擊」敲亮凍住的搜救燈：燈光圈裡的冰會融化，趁燈還亮著穿過去。');}
   return null;
 }
 let qOpen=null,qSig='',qRef=null,qPrevSt={},qDoneAt={},qFold=false;
@@ -8783,6 +8963,7 @@ $('ch5TestBtn').onclick=()=>needPlatform(startCh5Test);
 $('ch6TestBtn').onclick=()=>needPlatform(startCh6Test);
 $('ch7TestBtn').onclick=()=>needPlatform(startCh7Test);
 $('ch8TestBtn').onclick=()=>needPlatform(startCh8Test);
+$('ch9TestBtn').onclick=()=>needPlatform(startCh9Test);
 $('jumpBtn').onclick=()=>{$('jumpOv').classList.add('show');};
 $('closeJump').onclick=()=>$('jumpOv').classList.remove('show');
 document.querySelectorAll('#jumpList button').forEach(b=>b.addEventListener('click',()=>$('jumpOv').classList.remove('show')));
