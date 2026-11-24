@@ -764,11 +764,21 @@ body.hasComp #jtHud{display:flex}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-23.1';
+const GAME_VERSION='2026-11-24.0';
 // 公開網址判斷：只有在 github.io 上、而且網址沒有 ?dev 時，才藏起測試用的按鈕
 const PUBLIC_SITE=/github\.io$/i.test(location.hostname)&&!/[?&]dev\b/i.test(location.search);
 if(PUBLIC_SITE)document.documentElement.classList.add('pub');
 const CHANGELOG=[
+  ['2026-11-24.0','第八章打磨第 2 次：修好倒映湖「湖心」第一次進去不出現傳送門（待辦 N1）、劇本套回第一～三章（待辦 G 第二步的第 2 部分）',[
+    '待辦 N1 修正：第二章倒映湖最後一個房間「湖心」，第一次走到島上時會播一段倒影說話的劇情；如果按右上角「跳過」，通往「湖底」的漩渦傳送門不會出現，要離開房間再進來一次才看得到。原因是「跳過」會把劇情後面還沒播到的步驟（包含「打開傳送門」）整段略過。現在按「跳過」時，劇情裡該做的事（開傳送門、更新地圖）照樣會做，漩渦當下就出現（電腦版、手機版都用實際畫面確認過）',
+    '同一個原因的另一個問題一起修好：集滿全部記憶碎片時的劇情如果按「跳過」，原本會少拿到「燈的上限 +1」；現在跳過也會照樣加上',
+    '湖心的漩渦傳送門出現時，加上一圈光環和傳送門的聲音，比較容易注意到',
+    '檢查第一～八章每一章最後一個房間的出口：打倒 Boss 後，第一～七章的傳送門都在劇情裡當下打開（第七章鼓樓頂的門用機器人實際打完確認）、第八章跳過劇情也會點亮終點燈籠，沒有「要再進一次才出現」的問題；之後所有「跳過」也都會補做劇情裡的步驟',
+    '待辦 G（劇本套回遊戲）第 2 部分——第一～三章補上劇本的短句（只加句子，不改劇情和流程）：',
+    '第一章開場：多一句「那年冬天之後，湖今天傍晚第一次又結冰了。」；看到地道深處的光時，多一句「光的那一頭，好像有人在喊你的名字。」（為什麼會來到地道的第一塊線索）',
+    '第一章「雙光之間」溫柔的師父給你能力後，多一句「你提著的燈閃了一下，好像想起了什麼。」；第三章工坊的師父教燈火之後也有一句（能力從哪裡來的線索）',
+    '第一章打倒熄燈者後多一句「它不是壞東西。它只是，一直很怕黑。」；第二章打倒映照者後多一句「它只是不敢看見，自己真正的樣子。」（怪為什麼會出現的線索）',
+    '第三章「吊屋市集」不寄信的郵差，第一次說話時多一句「這裡的東西，都是有人不要了才掉下來的。⋯⋯我也是。」（為什麼地道裡有不同場景的線索）']],
   ['2026-11-23.1','第八章打磨第 1 次：任務欄主線改用劇本的章名（待辦 G 套回遊戲的第一步）、修正測試捷徑的小問題',[
     '待辦 G（劇本套回遊戲）第一步：任務欄第一列的主線改成劇本的章名，例如「第一章 地道」「第七章 紙燈籠祭典的夜空」「第八章 被墨水淹沒的書庫」；目前要做的事（例如「熄燈者」「戴狐狸面具的小燈精」）改成寫在章名下面的一行小字',
     '點開主線時，「下一步」說明的最前面會用【】標出目前要做的事；收合任務欄時只留一行，顯示目前要做的事',
@@ -1532,7 +1542,7 @@ const ROOMS={
       {c:'talk',who:'guide',t:'⋯⋯還不能回頭。湖的底下，還沉著更多被丟掉的東西。'},
       {c:'cap',t:'他第一次開口說話。那聲音，和你自己的聲音好像。'},
       {c:'talk',who:'guide',t:'點亮那盞燈吧。我們會再見的。'},
-      {c:'fn',fn:()=>{refreshPortals();refreshMini();return null;}},
+      {c:'fn',fn:()=>{refreshPortals();refreshMini();rings.push({x:18.4*TILE,y:10*TILE-44,t:0,c:'170,225,255'});sfx('portal');return null;}},
       {c:'cap',t:'島的邊緣，湖水捲成了一道往下的漩渦。'},
       {c:'actorFade',id:'guide',to:0,d:1.2},
       {c:'cam',x:null,d:.6}]}],
@@ -2072,7 +2082,8 @@ function talkSteps(id){
       {c:'choice',key:'mentorFac',opts:SKILL_FACTIONS.map(f=>({v:f.id,t:`${f.name}：${f.desc}`,d:f.tip.split('：')[0],then:[
         {c:'fn',fn:()=>{skill.fac=f.id;skill.owned=[];skill.eq=null;skill.lv={};skill.picks=Math.max(skill.picks,1+(F.drillDone?1:0)+(F.iceDone?1:0));saveGame();updateSkillUI();return null;}},
         {c:'talk',who:'mentor',t:`${f.name}啊⋯⋯很像你。先學一招吧，學會了就去用用看。`},
-        {c:'talk',who:'mentor',t:'以後想換一招用、想重新來過，都回來找我。'}]}))}
+        {c:'talk',who:'mentor',t:'以後想換一招用、想重新來過，都回來找我。'},
+        {c:'cap',t:'你提著的燈閃了一下，好像又想起了什麼。'}]}))}
     ];
     return [{c:'talk',who:'mentor',t:skill.picks>0?'還有沒學的招式吧？來，選一招。':'想換一招用，還是想重新來過？說吧。'}];
   }
@@ -2115,6 +2126,7 @@ function talkSteps(id){
         {v:'djump',t:'「累了，就把擔子放下。」',d:'紫光：獲得二段跳，在空中能再跳一次',then:[{c:'talk',who:'master',t:'放下了，身體就會變輕。你會跳得比誰都高。'}]}]},
       {c:'fn',fn:()=>{grant(chosen);return null;}},
       {c:'cap',t:'一道光鑽進身體，另一道光靜靜熄滅了。'},
+      {c:'cap',t:'你提著的燈閃了一下，好像想起了什麼。'},
       {c:'talk',who:'master',t:'那個提燈的孩子，也往深處去了。追上他吧。'}
     ];
   }
@@ -2393,6 +2405,7 @@ function talkSteps(id){
     if(st==='accept')return [{c:'talk',who:'postman',t:'那封信，就拜託你了。不急，等你找到那個孩子再說。'}];
     return [
       {c:'talk',who:'postman',t:'咦？在這種倒過來的地方，也有人會來收信嗎？'},
+      {c:'talk',who:'postman',t:'這裡的東西，都是有人不要了才掉下來的。⋯⋯我也是。'},
       {c:'talk',who:'me',t:'郵差先生？地上的你，每天都笑著挨家挨戶送信。'},
       {c:'talk',who:'postman',t:'是啊。我送了一輩子別人的信，可是我自己寫的這一封，從來沒有寄出去。'},
       {c:'talk',who:'postman',t:'收件人寫的是⋯⋯「湖邊的那個孩子」。我一直不知道，該寄到哪裡。'},
@@ -2472,12 +2485,14 @@ function talkSteps(id){
 const OPENING=[
   {c:'title',n:'第一章',t:'地道',sub:'跟著光，往下走。'},
   {c:'cap',t:'燈匠的學徒，又被師父叫去跑腿了。'},
+  {c:'cap',t:'那年冬天之後，湖今天傍晚第一次又結冰了。'},
   {c:'cap',t:'師父說：「地道深處有光在閃。去看看，是不是誰的燈掉了。」'},
   {c:'fade',to:0,d:1},
   {c:'walk',x:13*TILE},
   {c:'say',t:'好暗⋯⋯師父也真是的。'},
   {c:'cam',x:28*TILE,d:1.3},
   {c:'cap',t:'地道深處透出一道光。那光的顏色，和師父做的燈很像。'},
+  {c:'cap',t:'⋯⋯光的那一頭，好像有人在喊你的名字。'},
   {c:'cam',x:null,d:.6},
   {c:'walk',x:25*TILE},
   {c:'say',t:'光是從地底下來的？'},
@@ -2862,6 +2877,9 @@ function endCS(skipped){
   csFadeT=0;$('choice').classList.remove('show');
   document.body.classList.remove('cs','noskip');$('caption').classList.remove('show');$('chapterCard').classList.remove('show','on');actors={};
   if(skipped&&c.onSkip)c.onSkip();
+  // 待辦 N1（2026-11-24.0）：按「跳過」時，劇情裡還沒播到的程式步驟（開傳送門、給任務、加光屑⋯）照樣執行，傳送門當下就出現
+  if(skipped&&!c.onSkip){for(let j=c.i+1;j<c.steps.length;j++){const s=c.steps[j];if(s&&s.c==='fn'){const more=s.fn();if(more)c.steps.splice(j+1,0,...more);}}}
+  if(skipped){refreshPortals();refreshMini();}
   if(c.onEnd)c.onEnd();
   if(mode==='play')saveGame();
 }
@@ -6061,6 +6079,7 @@ const MIRROR_END=[
   {c:'fn',fn:()=>{mirror=null;F.mirrorDone=true;bossSealed=false;document.body.classList.remove('boss');
     for(const l of ROOMS.D4.lant)lanterns.push({...l,lit:false,x:l.c*TILE+6,y:l.g*TILE-56,w:20,h:56});
     refreshPortals();refreshMini();setMusic('ch2');saveGame();return null;}},
+  {c:'cap',t:'它只是不敢看見，自己真正的樣子。'},
   {c:'actor',id:'guide',x:24*TILE,by:12*TILE,f:-1,a:0},{c:'actorFade',id:'guide',to:1,d:.8},
   {c:'talk',who:'guide',t:'那面鏡子，只會照出別人想看到的樣子。'},
   {c:'talk',who:'me',t:'那你呢？你一直走在我前面⋯⋯你到底是誰？'},
@@ -6317,6 +6336,7 @@ const BOSS_END=[
     for(const l of ROOMS.B1.lant)lanterns.push({...l,lit:false,x:l.c*TILE+6,y:l.g*TILE-56,w:20,h:56});
     for(let k=0;k<40;k++)spawnFly(17*TILE+(Math.random()-.5)*300,12*TILE,60);refreshMini();saveGame();return null;}},
   {c:'cap',t:'熄燈者化成無數螢火，飄向四周的燈台。這個房間，第一次亮了起來。'},
+  {c:'cap',t:'它不是壞東西。它只是，一直很怕黑。'},
   {c:'actor',id:'guide',x:29*TILE,by:16*TILE,f:-1,a:0},{c:'actorFade',id:'guide',to:1,d:.8},
   {c:'say',t:'你⋯⋯一直在前面等我嗎？'},
   {c:'wait',d:.5},
