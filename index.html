@@ -582,6 +582,15 @@ body:not(.pc) .hudbtn svg{width:17px;height:17px}
 body.nearAct #pad #bO{display:none!important}
 #bO.zero svg{opacity:.45}#bO.zero .badge{background:#8a7f9e;color:#efe2c4}
 #bE .lbl{color:#ffd88c}
+/* 待辦 P2 後半（2026-11-26.1）：右上三顆＝技能頁、地圖、設定（手機）；「存檔並回到封面」移進設定頁；地圖頁顯示身上的道具數量 */
+body:not(.pc) #restartBtn{display:none}
+#mapItems{display:none;flex-wrap:wrap;gap:4px 14px;align-items:center;margin:0 0 4px;font-size:13px;color:#3b2f2a;font-variant-numeric:tabular-nums}
+#mapItems.has{display:flex}
+#mapItems .it{display:flex;align-items:center;gap:4px}
+#mapItems .it svg{width:16px;height:16px;fill:none;stroke:#3b2f2a;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+#mapItems .it b{color:#9a4a2e;font-weight:600}
+#mapItems .it.zero{opacity:.5}
+@media (max-height:520px){#mapItems{font-size:12px;margin-bottom:2px}}
 </style>
 </head>
 <body data-state="cover">
@@ -668,6 +677,7 @@ body.nearAct #pad #bO{display:none!important}
       </div>
       <div class="hudR">
         <button class="hudbtn ui" id="skillBtn" aria-label="技能"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 3.5 4.5 6 4.5 9a4.5 4.5 0 0 1-9 0c0-1.6.6-3 1.6-4.2.3 1.4 1 2.2 2 2.4-.6-2.4-.3-4.9.9-7.2z"/><path d="M5 20h14"/></svg></button>
+        <button class="hudbtn ui" id="mapBtn" aria-label="地圖"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6.5 9 4.2l6 2.4 5.5-2.2v13.2L15 19.8l-6-2.4-5.5 2.3z"/><path d="M9 4.2v13.2M15 6.6v13.2"/></svg></button>
         <button class="hudbtn ui" id="restartBtn" aria-label="存檔並回到封面"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11.5 12 4.5l8 7"/><path d="M6.5 10v9h11v-9"/><path d="M10.5 19v-5h3v5"/></svg></button>
         <button class="hudbtn ui" id="setBtn" aria-label="手感設定"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M5.5 18.5l2.1-2.1M16.4 7.6l2.1-2.1"/></svg></button>
       </div>
@@ -736,6 +746,7 @@ body.nearAct #pad #bO{display:none!important}
         <div id="tabMap">
           <div class="mapBar"><div id="mapRegions" class="mapRegions"></div><div class="mapCtl"><button id="mapZoomIn" aria-label="放大">＋</button><button id="mapZoomOut" aria-label="縮小">－</button><button id="mapHere">◎ 目前位置</button></div></div>
           <canvas id="mapCv"></canvas>
+          <div id="mapItems" aria-label="身上的道具"></div>
           <p class="legend" id="mapLegend">拖曳可以移動地圖，＋／－（或滾輪、雙指）可以縮放，上方可以直接跳到各個區域。虛線框是目前房間，圓點是燈籠，菱形是記憶碎片，橢圓是傳送門，紅色叉叉是任務目標，問號是還沒去過的地方。點亮著的燈籠可以傳送。</p>
         </div>
         <div id="tabQuest" style="display:none"><div id="questList"></div></div>
@@ -813,6 +824,7 @@ body.nearAct #pad #bO{display:none!important}
         <button class="edOpen" id="openKeys" style="display:none"><svg class="lnIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2.2"/><path d="M6 9.6h.01M9.3 9.6h.01M12.6 9.6h.01M15.9 9.6h.01M18.2 9.6h.01M6 12.6h.01M9.3 12.6h.01M12.6 12.6h.01M15.9 12.6h.01M18.2 12.6h.01M8 15.3h8"/></svg>按鍵設定（電腦版）</button>
         <button class="edOpen" id="openEditor"><svg class="lnIco" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.4-3.4a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.4 3.4z"/></svg>開啟編輯器（修改對話、數值、程式碼）</button>
         <div class="actions">
+          <button id="setHome" style="display:none">存檔並回到封面</button>
           <button id="resetSet">恢復預設</button>
           <button class="primary" id="closeSet">完成</button>
         </div>
@@ -832,11 +844,21 @@ body.nearAct #pad #bO{display:none!important}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-26.0';
+const GAME_VERSION='2026-11-26.1';
 // 公開網址判斷：只有在 github.io 上、而且網址沒有 ?dev 時，才藏起測試用的按鈕
 const PUBLIC_SITE=/github\.io$/i.test(location.hostname)&&!/[?&]dev\b/i.test(location.search);
 if(PUBLIC_SITE)document.documentElement.classList.add('pub');
 const CHANGELOG=[
+  ['2026-11-26.1','第九章製作中（部分⑤：倒影第一次和你並肩走一段）；手機版右上改成「技能頁、地圖、設定」三顆，道具數量可以在地圖頁看（待辦 P2 後半，待辦 P 全部完成）',[
+    '第九章「暴風雪的山路」這次完成第 5 部分（共 9 部分）：走進「搜救隊的營地」後，提燈的倒影會在炭火旁等你，第一次和你並肩走一段路，一起走到炭火堆前',
+    '倒影在這段對話裡說出「這條路，是那天所有人一起走過的」，也說出地道裡每一段路都是某些人的記憶（礦坑是大家的累、鐘樓是晚了的鐘聲、書庫是等待、這座山是那天大家的焦急）——劇本「為什麼地道裡有不同場景」這個謎題在這裡說破；倒影的身分仍然保密到第十章',
+    '這段劇情可以按「跳過」，跳過之後不會卡住，也不會再播一次',
+    '手機版右上角改成三顆小圓鍵：技能頁、地圖（新增）、設定（待辦 P2 後半）。以前要點左上的小地圖才能開地圖，現在右上也可以直接開',
+    '手機版原本右上的「存檔並回到封面」移進「設定」頁（設定頁下面多了「存檔並回到封面」按鈕，只有在遊戲中打開設定時才會出現）；電腦版右上維持原本四顆',
+    '地圖頁多了一行「身上的道具」：燈油、燈芯碎片、記憶碎片、光屑各有幾個，手機版看道具數量就到這裡（燈油的數量也一直顯示在燈油鍵的小數字上）',
+    '手機橫向畫面比較矮的時候（例如 667×375），地圖格稍微縮小一點，讓「回到遊戲」按鈕不會被擠出畫面',
+    '用 844×390、667×375 兩種手機畫面檢查過：第七章飛行、第八章划船、書靈劍仙房間、技能教學的指示圈都對得上新的按鍵位置，沒有擋到角色'
+  ]],
   ['2026-11-26.0','第九章製作中（部分④後半：兩位倒影居民）；手機版按鍵整體縮小、重新排位置，燈油和「進入／對話」改成同一顆鍵（待辦 P2 前半）',[
     '第九章「暴風雪的山路」這次完成第 4 部分（共 9 部分）的後半：兩位倒影居民。搜救隊的營地多了「不肯休息的搜救隊員」（鎮民那天丟掉的「快點、再快一點」的焦急）；刻著字的石碑旁多了「刻名字的石匠」（刻到一半、刻不下去的那隻手）',
     '兩位居民一樣可以選「接納這一面」或「勸它回到心底」：接納搜救隊員會得到 30 光屑和燈油瓶 ×1；接納石匠會得到 40 光屑。他們各說了一段那天的碎片線索（倒影的身分仍然保密到第十章）',
@@ -2245,7 +2267,26 @@ const ROOMS={
   W13:{mpos:[3508,-117],name:'搜救隊的營地',W:36,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,W,2);r(24,11,3,1);},
     spawns:[],lant:[{c:6,g:12}],npcs:[{id:'searcher',c:20,g:12}],props:[{t:'embers',c:14,g:12,w:2},{t:'sign',c:29,g:12,text:'瀑布'}],
-    events:[{id:'w13in',enter:true,steps:[{c:'cam',x:15*TILE,d:1},{c:'cap',t:'雪地上一圈石頭圍著炭火堆，炭還紅著。旁邊插著一支燒短的火把。'},{c:'say',t:'搜救隊⋯⋯在這裡歇過腳。火是留給後面的人的吧。'},{c:'cam',x:null,d:.6}]}],
+    events:[{id:'w13in',enter:true,steps:[{c:'cam',x:15*TILE,d:1},{c:'cap',t:'雪地上一圈石頭圍著炭火堆，炭還紅著。旁邊插著一支燒短的火把。'},{c:'say',t:'搜救隊⋯⋯在這裡歇過腳。火是留給後面的人的吧。'},{c:'cam',x:null,d:.6}]},
+      // 第九章部分⑤（2026-11-26.1）：倒影第一次和主角並肩走一段，說破謎題 2「為什麼地道裡有不同場景」（身分仍保密）
+      {id:'w13guide',x:3*TILE,steps:[
+        {c:'face',f:1},{c:'cam',x:9*TILE,d:.9},
+        {c:'actor',id:'guide',x:4.8*TILE,by:12*TILE,f:-1,a:0},{c:'actorFade',id:'guide',to:1,d:.9},
+        {c:'cap',t:'炭火的光裡，提燈的倒影站在那裡，像是在等你。'},
+        {c:'talk',who:'guide',t:'走慢一點也沒關係。這一段，我陪你走。'},
+        {c:'actor',id:'guide',f:1},{c:'actorWalk',id:'guide',x:12.8*TILE,spd:106},{c:'walk',x:11.4*TILE},{c:'face',f:1},
+        {c:'talk',who:'me',t:'你也⋯⋯走過這條路？'},
+        {c:'talk',who:'guide',t:'這條路，是那天所有人一起走過的。'},
+        {c:'talk',who:'guide',t:'鐵匠、鐘匠、說書婆婆、郵差⋯⋯每個人提著燈，往山上找。'},
+        {c:'talk',who:'guide',t:'地道裡的每一段路，都是某些人的記憶。'},
+        {c:'talk',who:'guide',t:'礦坑是大家的累，鐘樓是晚了的鐘聲，書庫是等待。'},
+        {c:'talk',who:'guide',t:'而這座山，是那天大家的焦急。'},
+        {c:'actor',id:'guide',f:-1},
+        {c:'talk',who:'me',t:'那你呢？你是誰的記憶？'},
+        {c:'cap',t:'倒影沒有回答，只是把燈舉高了一點。兩盞燈的光，在雪地上疊成一個圓。'},
+        {c:'talk',who:'guide',t:'山頂上有東西在咆哮。我在上面等你。'},
+        {c:'actor',id:'guide',f:1},{c:'actorWalk',id:'guide',x:17.5*TILE,spd:60},{c:'actorFade',id:'guide',to:0,d:1.3},
+        {c:'cam',x:null,d:.6}]}],
     exits:[{s:'L',a:9,b:11,to:'W12',c:34,g:12,f:-1},{s:'R',a:9,b:11,to:'W14',c:1.2,g:26,f:1}]},
   W14:{mpos:[3544,-131],name:'凍住的瀑布',W:26,H:28,
     build(r,W,H){r(0,0,W,1);r(0,0,1,23);r(W-1,0,1,5);r(W-1,8,1,H-8);r(0,26,W,2);
@@ -5993,7 +6034,7 @@ function drawMini(){
 const MAP_REGIONS=[['第一章 地道',/^(R|S|N|B)/],['倒映湖',/^C/],['湖底',/^D/],['倒過來的小鎮',/^T/],['燈芯礦坑',/^M/],['結冰的湖面',/^I/],['鐘樓',/^G/],['祭典夜空',/^K/],['墨水書庫',/^L/],['暴風雪的山路',/^W/]];
 let MV=null,mapRegOn=-1;
 function mapAllB(){const B=mapBounds(false);B.x0-=3;B.y0-=4;B.x1+=3;B.y1+=3;return B;}
-function mapSize(){const m=$('mapCv'),cw=m.clientWidth||1;const ch=Math.round(clamp(Math.min(innerHeight*(innerHeight<520?.47:.5),cw*.62),130,520));return [cw,ch];}
+function mapSize(){const m=$('mapCv'),cw=m.clientWidth||1;const ch=Math.round(clamp(Math.min(innerHeight*(innerHeight<520?.41:.5),cw*.62),130,520));return [cw,ch];}
 function mapZLim(cw,ch){const B=mapAllB(),fit=Math.min(cw/Math.max(1,B.x1-B.x0),ch/Math.max(1,B.y1-B.y0));return [Math.min(fit,4),18];}
 function mapHome(){const [cw,ch]=mapSize(),[z0,z1]=mapZLim(cw,ch);
   if(level&&ROOMS[level.id]&&ROOMS[level.id].mpos){const r=ROOMS[level.id];MV={cx:r.mpos[0]+(p.x+p.w/2)/TILE,cy:r.mpos[1]+(p.y+p.h/2)/TILE,z:clamp(cw/72,z0,z1)};}
@@ -9167,12 +9208,18 @@ const ITEM_ICO={oil:'<svg viewBox="0 0 20 20"><path d="M8 2.5h4v2.5l2.5 3v8.5a1.
   wick:'<svg viewBox="0 0 20 20"><path d="M10 2.5q3 3.5 0 6.5q-3-3 0-6.5z"/><path d="M10 9v3"/><rect x="6.5" y="12" width="7" height="6" rx="1.2"/></svg>',
   shard:'<svg viewBox="0 0 20 20"><path d="M10 2 15.5 9 10 18 4.5 9z"/><path d="M4.5 9h11M10 2v16"/></svg>'};
 let itemLast={};
-function updateItemsUI(){const el=$('items');if(!el)return;
-  if(oil>0&&trig&&!trig.hadOil)trig.hadOil=true;
-  const rows=[];
+function itemRows(){const rows=[];
   if(oil>0||(trig&&trig.hadOil))rows.push(['oil','燈油',oil+'',oil<=0,keyName(KB.oil)]);
   if(wick>0)rows.push(['wick','燈芯碎片',(wick%2)+'/2',false,null]);
   if(shards.size>0)rows.push(['shard','記憶碎片',shards.size+'/'+SHARD_LIST.length,false,null]);
+  return rows;}
+// 待辦 P2 後半：手機版不佔畫面，道具數量放在地圖頁（電腦版也一起顯示，多一個光屑）
+function renderMapItems(){const el=$('mapItems');if(!el)return;const rows=itemRows();
+  el.innerHTML=rows.length?'<span>身上的道具：</span>'+rows.map(([k,n,v,z])=>`<span class="it${z?' zero':''}">${ITEM_ICO[k]}${n}<b>${k==='oil'?'×'+v:v}</b></span>`).join('')+`<span class="it">光屑<b>✦ ${wallet}</b></span>`:'';
+  el.classList.toggle('has',rows.length>0);}
+function updateItemsUI(){const el=$('items');if(!el)return;
+  if(oil>0&&trig&&!trig.hadOil)trig.hadOil=true;
+  const rows=itemRows();
   const sig=rows.map(r=>r.join('|')).join(';');if(sig===el.dataset.sig)return;el.dataset.sig=sig;
   el.innerHTML=rows.map(([k,n,v,z,key])=>`<div class="it${z?' zero':''}${itemLast[k]!=null&&itemLast[k]!==v?' pop':''}" title="${n}">${ITEM_ICO[k]}<span>${n}</span><b>${k==='oil'?'×'+v:v}</b>${key?`<kbd>${key}</kbd>`:''}</div>`).join('');
   for(const [k,,v] of rows)itemLast[k]=v;}
@@ -9329,7 +9376,7 @@ setInterval(renderQPanel,400);setInterval(()=>{if(document.body.dataset.state===
 
 // ---------- 地圖 ----------
 let tpSel=null;
-function openMap(){tpSel=null;MV=null;mapRegOn=-1;renderMapRegions();$('tpBtn').style.display='none';$('questList').innerHTML=questHTML();$('collList').innerHTML=collHTML();$('mapOv').classList.add('show');setTab('map');checkRotate();}
+function openMap(){renderMapItems();tpSel=null;MV=null;mapRegOn=-1;renderMapRegions();$('tpBtn').style.display='none';$('questList').innerHTML=questHTML();$('collList').innerHTML=collHTML();$('mapOv').classList.add('show');setTab('map');checkRotate();}
 function mapHTML(box){
   const minX=0,maxX=9.5,minY=1,maxY=4,sw=maxX-minX,sh=maxY-minY;
   box.style.aspectRatio=`${sw} / ${sh}`;
@@ -9469,6 +9516,7 @@ $('csSkip').onclick=()=>{if(cs&&!paused)endCS(true);};
 $('restartBtn').onclick=()=>{saveGame();$('toCover').onclick();};
 $('goOnBtn').onclick=()=>{$('finish').classList.remove('show');finished=false;checkRotate();};
 $('mini').onclick=openMap;
+$('mapBtn').onclick=()=>{if(mode==='play'&&!cs&&!paused)openMap();};
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));
 $('closeShop').onclick=()=>{$('shop').classList.remove('show');checkRotate();};
 function mapTap(mx,my){
@@ -9581,9 +9629,10 @@ updateKeyText();
 $('openKeys').onclick=()=>{$('settings').classList.remove('show');keyCap=null;renderKeys();$('keysOv').classList.add('show');checkRotate();};
 $('keysClose').onclick=()=>{keyCap=null;$('keysOv').classList.remove('show');checkRotate();};
 $('keysReset').onclick=()=>{KB={...KEY_DEF};keyCap=null;saveKB();renderKeys();updateKeyText();toast('按鍵已恢復預設');};
-const openSet=()=>{$('openKeys').style.display=platform==='mobile'?'none':'';$('settings').classList.add('show');checkRotate();};
+const openSet=()=>{$('openKeys').style.display=platform==='mobile'?'none':'';$('setHome').style.display=mode==='play'?'':'none';$('settings').classList.add('show');checkRotate();};
 $('setBtn').onclick=openSet;$('coverSet').onclick=openSet;
 $('closeSet').onclick=()=>{$('settings').classList.remove('show');checkRotate();};
+$('setHome').onclick=()=>{$('settings').classList.remove('show');$('restartBtn').onclick();};
 $('resetSet').onclick=()=>{S={...DEFAULTS};applyBS();saveS();buildSliders();};
 
 loadRoom('R1');placePlayer(level.start);updateHP();resize();setMode('cover');
