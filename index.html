@@ -561,6 +561,27 @@ body.hasComp #bX{display:flex}
 body.hasComp #jtHud{display:flex}
 #jtHud .bar{width:46px;height:5px;border:1px solid rgba(255,190,120,.6);border-radius:3px;overflow:hidden;background:rgba(16,13,24,.6)}
 #jtHud .bar i{display:block;height:100%;width:100%;background:#ffb35a}
+/* 待辦 P2 前半（2026-11-26.0）：手機版按鍵整體縮小、重新排位置；燈油和「進入／對話」共用同一顆鍵。只改大小、位置與功能，畫法（手繪圓環、半透明）完全沿用 */
+body:not(.pc) #hudL{gap:5px}
+body:not(.pc) #hp{order:1}body:not(.pc) #cold{order:2}body:not(.pc) #oxy{order:3}
+body:not(.pc) #mini{order:4;width:clamp(118px,19vw,156px)}body:not(.pc) #miniCv{height:48px}
+body:not(.pc) #qPanel{order:5;width:clamp(118px,19vw,156px)}
+body:not(.pc) #coin{order:6}body:not(.pc) #skHud{order:7}body:not(.pc) #jtHud{order:8}
+body:not(.pc) .hudR{gap:6px}
+body:not(.pc) .hudbtn{width:31px;height:31px;border-radius:50%}
+body:not(.pc) .hudbtn svg{width:17px;height:17px}
+#pad .rcl{width:calc(var(--bs)*2.5);height:calc(var(--bs)*2.2)}
+#pad #bA{right:0;bottom:calc(var(--bs)*.62);width:calc(var(--bs)*1.22);height:calc(var(--bs)*1.22);font-size:calc(var(--bs)*.25)}
+#pad #bJ{right:calc(var(--bs)*1.32);bottom:0;width:var(--bs);height:var(--bs);font-size:calc(var(--bs)*.25)}
+#pad #bD{right:calc(var(--bs)*.18);bottom:calc(var(--bs)*1.98);width:calc(var(--bs)*.8);height:calc(var(--bs)*.8)}
+#pad #bK{right:calc(var(--bs)*1.34);bottom:calc(var(--bs)*1.2);width:calc(var(--bs)*.76);height:calc(var(--bs)*.76)}
+#pad #bF,#pad #bC,#pad #bI{right:calc(var(--bs)*2.42);bottom:calc(var(--bs)*1.14);width:calc(var(--bs)*.88);height:calc(var(--bs)*.88)}
+#pad #bX{right:calc(var(--bs)*2.3);bottom:calc(var(--bs)*2.12);width:calc(var(--bs)*.8);height:calc(var(--bs)*.8)}
+#pad #bO,#pad #bE{left:auto;right:calc(var(--bs)*2.48);bottom:calc(var(--bs)*.06);width:calc(var(--bs)*.92);height:calc(var(--bs)*.92)}
+#pad #bO .lbl,#pad #bE .lbl{font-size:calc(var(--bs)*.17)}
+body.nearAct #pad #bO{display:none!important}
+#bO.zero svg{opacity:.45}#bO.zero .badge{background:#8a7f9e;color:#efe2c4}
+#bE .lbl{color:#ffd88c}
 </style>
 </head>
 <body data-state="cover">
@@ -672,7 +693,6 @@ body.hasComp #jtHud{display:flex}
     <div id="joyRing" aria-label="移動搖桿"></div>
     <div id="pad">
       <div class="cluster lcl">
-        <div class="btn" id="bO" aria-label="燈油"></div>
         <div class="btn" id="bL" aria-label="向左"></div>
         <div class="btn" id="bR" aria-label="向右"></div>
         <div id="joySlot" aria-hidden="true"></div>
@@ -685,6 +705,7 @@ body.hasComp #jtHud{display:flex}
         <div class="btn" id="bD" aria-label="衝刺"></div>
         <div class="btn" id="bA" aria-label="攻擊"></div>
         <div class="btn" id="bJ" aria-label="跳躍"></div>
+        <div class="btn" id="bO" aria-label="燈油"></div>
         <div class="btn" id="bE" aria-label="進入"></div>
         <div class="btn" id="bX" aria-label="聯合技能"></div>
       </div>
@@ -811,11 +832,23 @@ body.hasComp #jtHud{display:flex}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-25.1';
+const GAME_VERSION='2026-11-26.0';
 // 公開網址判斷：只有在 github.io 上、而且網址沒有 ?dev 時，才藏起測試用的按鈕
 const PUBLIC_SITE=/github\.io$/i.test(location.hostname)&&!/[?&]dev\b/i.test(location.search);
 if(PUBLIC_SITE)document.documentElement.classList.add('pub');
 const CHANGELOG=[
+  ['2026-11-26.0','第九章製作中（部分④後半：兩位倒影居民）；手機版按鍵整體縮小、重新排位置，燈油和「進入／對話」改成同一顆鍵（待辦 P2 前半）',[
+    '第九章「暴風雪的山路」這次完成第 4 部分（共 9 部分）的後半：兩位倒影居民。搜救隊的營地多了「不肯休息的搜救隊員」（鎮民那天丟掉的「快點、再快一點」的焦急）；刻著字的石碑旁多了「刻名字的石匠」（刻到一半、刻不下去的那隻手）',
+    '兩位居民一樣可以選「接納這一面」或「勸它回到心底」：接納搜救隊員會得到 30 光屑和燈油瓶 ×1；接納石匠會得到 40 光屑。他們各說了一段那天的碎片線索（倒影的身分仍然保密到第十章）',
+    '兩位居民都有自己的手繪造型：搜救隊員穿紅色厚棉襖、圍巾被風吹起、提著搜救燈原地踏步；石匠是灰白頭髮、圍著沾滿石粉的圍裙、手上的小刀停在半空',
+    '手機版按鍵整體縮小（待辦 P2 前半）：預設按鍵大小從 76 改成 60，讓中間留更多畫面；以前存過設定的玩家，第一次開新版本也會自動換成新的大小（之後可以在「設定 → 按鍵大小」自己調，最小 44、最大 100）',
+    '手機版右下按鍵重新排位置：攻擊鍵最大、在最右邊；跳躍鍵在攻擊鍵的左下方（拇指最順的位置）；衝刺在攻擊鍵上方、技能鍵在跳躍鍵上方且比較小；點燈／燈鏈／破冰／合擊只在需要時出現在左上方一點的位置。按鍵的畫法（手繪圓環、半透明）完全沒變',
+    '燈油和「進入／對話」改成同一顆鍵（待辦 P2）：放在跳躍鍵左邊。平常是「燈油」鍵，右上角小數字是剩幾瓶，按下回 2 格生命；燈油用完會變灰、按下會提示「沒有燈油了」；靠近門、角色、墨水船時，這顆鍵會變成金色的「進入／對話」，這時按下只會進入或對話，不會用掉燈油',
+    '燈油／進入切換的保護：如果手指還按著時這顆鍵剛好換了樣子（例如按「進入」進了門、門不見了），要放開手指再按一次才算，不會不小心多用掉一瓶燈油或多觸發一次對話',
+    '按鍵縮小後仍然好按：每顆按鍵實際能按到的範圍比畫出來的圓大一圈；手指按在兩顆按鍵中間時，只算離手指最近的那一顆，不會同時按到兩顆',
+    '手機版左上角重新排順序並縮小：由上往下是血量 → 寒冷條（第九章）→ 小地圖 → 任務欄，小地圖和任務欄縮窄一點；右上角三顆按鈕縮成小圓鍵',
+    '設定頁「按鈕大小」改名「按鍵大小」、「按鍵閒置時的透明度」改名「按鍵透明度（沒在按的時候）」'
+  ]],
   ['2026-11-25.1','第九章製作中（部分③＋部分④的搜救剪影）：山路後段 5 個房間、回血點「搜救隊留下的炭火堆」、新的「寒冷」；手機版移動改成虛擬搖桿；電腦版左上顯示道具數量（製作中的第九章仍只能從捷徑進入）',[
     '第九章「暴風雪的山路」這次完成第 3 部分（共 9 部分）：後段 5 個房間——搜救隊的營地（有存檔燈籠和炭火堆）、凍住的瀑布（往上爬的直房間）、雪怪的巢穴（三隻凍住的雪怪）、刻著字的石碑、山頂下的避風岩（有存檔燈籠和炭火堆）。山腰的稜線右邊原本封住的牆打開了，「製作中」牌子移到山頂下的避風岩（山頂與 Boss 之後做）',
     '新增「寒冷」（待辦 O2，啊一 取的名字）：只在第九章。離開燈火時，左上血量下面的「寒冷」條會慢慢上升（約 24 秒滿）；滿了以後每 3 秒凍傷扣 1 點生命。站到存檔燈籠旁、點亮的搜救燈光圈裡、或炭火堆旁，寒冷約 4 秒就退掉（寒冷條會變成暖色）。主角自己提的燈不算取暖',
@@ -1446,19 +1479,21 @@ const TX=t=>(TXO[t]!=null&&TXO[t]!=='')?TXO[t]:t;
 const $=id=>document.getElementById(id);
 
 // ---------- 設定 ----------
-const DEFAULTS={perf:0,speed:220,jump:3.3,gravity:1500,bs:76,padA:.55,musicVol:.6,sfxVol:.8};
+const DEFAULTS={perf:0,speed:220,jump:3.3,gravity:1500,bs:60,padA:.55,musicVol:.6,sfxVol:.8};
 const SPECS=[
   {k:'speed',label:'移動速度',min:120,max:360,step:10,fmt:v=>String(v)},
   {k:'jump',label:'跳躍高度（格）',min:2,max:5,step:0.1,fmt:v=>(+v).toFixed(1)},
   {k:'gravity',label:'重力（越大下落越快）',min:800,max:2600,step:50,fmt:v=>String(v)},
-  {k:'bs',label:'按鈕大小',min:56,max:110,step:2,fmt:v=>String(v)},
-  {k:'padA',label:'按鍵閒置時的透明度',min:.15,max:1,step:.05,fmt:v=>Math.round(v*100)+'%'},
+  {k:'bs',label:'按鍵大小',min:44,max:100,step:2,fmt:v=>String(v)},
+  {k:'padA',label:'按鍵透明度（沒在按的時候）',min:.15,max:1,step:.05,fmt:v=>Math.round(v*100)+'%'},
   {k:'musicVol',label:'背景音樂音量',min:0,max:1,step:.05,fmt:v=>Math.round(v*100)+'%'},
   {k:'perf',label:'畫面效能（舊手機選「流暢」）',min:0,max:2,step:1,fmt:v=>['自動','高畫質','流暢'][v]},
   {k:'sfxVol',label:'音效音量',min:0,max:1,step:.05,fmt:v=>Math.round(v*100)+'%'}
 ];
 let S={...DEFAULTS};
 try{const raw=localStorage.getItem('tunnel.s1.settings');if(raw)S={...DEFAULTS,...JSON.parse(raw)};}catch(e){}
+// 待辦 P2（2026-11-26.0）：按鍵預設縮小。舊存檔還留著以前的 76，第一次載入新版本時改成新的預設大小（之後玩家自己調的會保留）
+if(!S.lay2){S.bs=DEFAULTS.bs;S.lay2=1;try{localStorage.setItem('tunnel.s1.settings',JSON.stringify(S));}catch(e){}}
 const saveS=()=>{try{localStorage.setItem('tunnel.s1.settings',JSON.stringify(S));}catch(e){}};
 const applyBS=()=>{document.documentElement.style.setProperty('--bs',S.bs+'px');document.documentElement.style.setProperty('--padA',S.padA);};
 applyBS();
@@ -2209,7 +2244,7 @@ const ROOMS={
   // 第九章部分③（2026-11-25.1）：後段 5 房＋回血點「搜救隊留下的炭火堆」；第九章新增「寒冷」（待辦 O2）
   W13:{mpos:[3508,-117],name:'搜救隊的營地',W:36,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,W,2);r(24,11,3,1);},
-    spawns:[],lant:[{c:6,g:12}],props:[{t:'embers',c:14,g:12,w:2},{t:'sign',c:29,g:12,text:'瀑布'}],
+    spawns:[],lant:[{c:6,g:12}],npcs:[{id:'searcher',c:20,g:12}],props:[{t:'embers',c:14,g:12,w:2},{t:'sign',c:29,g:12,text:'瀑布'}],
     events:[{id:'w13in',enter:true,steps:[{c:'cam',x:15*TILE,d:1},{c:'cap',t:'雪地上一圈石頭圍著炭火堆，炭還紅著。旁邊插著一支燒短的火把。'},{c:'say',t:'搜救隊⋯⋯在這裡歇過腳。火是留給後面的人的吧。'},{c:'cam',x:null,d:.6}]}],
     exits:[{s:'L',a:9,b:11,to:'W12',c:34,g:12,f:-1},{s:'R',a:9,b:11,to:'W14',c:1.2,g:26,f:1}]},
   W14:{mpos:[3544,-131],name:'凍住的瀑布',W:26,H:28,
@@ -2227,7 +2262,7 @@ const ROOMS={
     exits:[{s:'L',a:9,b:11,to:'W14',c:23,g:8,f:-1},{s:'R',a:9,b:11,to:'W16',c:1.2,g:12,f:1}]},
   W16:{mpos:[3614,-135],name:'刻著字的石碑',W:40,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,W,2);r(25,1,2,11,10);r(8,11,2,1);},
-    spawns:[{t:'yeti',c:32,r:12}],lant:[],props:[{t:'stele',c:15,g:12},{t:'tlamp',c:22,g:12},{t:'tlamp',c:29,g:12},{t:'sil',c:20,g:12,id:'scribe',who:'抄書人',say:'還有一個⋯⋯還有一個沒找到！燈不要熄！'}],
+    spawns:[{t:'yeti',c:32,r:12}],lant:[],npcs:[{id:'carver',c:11.5,g:12}],props:[{t:'stele',c:15,g:12},{t:'tlamp',c:22,g:12},{t:'tlamp',c:29,g:12},{t:'sil',c:20,g:12,id:'scribe',who:'抄書人',say:'還有一個⋯⋯還有一個沒找到！燈不要熄！'}],
     events:[{id:'w16in',enter:true,steps:[{c:'cam',x:16*TILE,d:1},{c:'cap',t:'路邊立著一塊石碑，刻著：「搜救的燈，一盞都不要熄。」'},{c:'cap',t:'底下有人用小刀補刻了一行，刻得很深：「找到了一個。」'},{c:'say',t:'⋯⋯一個？'},{c:'cam',x:null,d:.6}]}],
     exits:[{s:'L',a:9,b:11,to:'W15',c:42,g:12,f:-1},{s:'R',a:9,b:11,to:'W17',c:1.2,g:12,f:1}]},
   W17:{mpos:[3654,-135],name:'山頂下的避風岩',W:32,H:14,
@@ -2254,7 +2289,7 @@ const ICE_MEM={
   im1:[{c:'cap',t:'冰層裡凍著一個畫面：結冰的湖上，兩個小學徒在比賽滑冰。其中一個摔倒了，另一個笑著伸出手。'},{c:'cap',t:'伸手的那一個，提著和你一模一樣的燈。可是他的臉，被冰裡的氣泡擋住了。'},{c:'say',t:'⋯⋯我記得這片湖。我記得，有人拉過我的手。'}],
   im2:[{c:'cap',t:'更深的冰裡，凍著另一個畫面：一盞燈，很慢很慢地往下沉。'},{c:'cap',t:'有一隻小手伸向它，差一點點就抓到了。畫面在那裡停住，像是誰不想再看下去。'},{c:'say',t:'那是⋯⋯誰的手？'}]
 };
-const NAMES={fox:'狐狸面具小燈精',binder:'把書封起來的裝訂師',copyist:'不肯寫完的抄書人',librarian:'把話夾進書裡的管書員',realmaster:'師父',boss7:'停不下來的祭鼓',drummer:'不敢敲錯的鼓手',masker:'總是笑著的面具師傅',launcher:'不敢放手的放燈人',clockmaker:'把錶停住的鐘匠',toymaker:'說「等一下」的玩具匠',mentor:'工坊裡的師父',ferry:'怕冷的渡船夫',teller:'不說結局的說書婆婆',smith:'喊痛的鐵匠',postman:'不寄信的郵差',lakegod:'湖神',mirror:'映照者',guide:'提燈的倒影',keeper:'打瞌睡的看守',snuffer:'熄燈者',me:'學徒',senior:'哭泣的師姊',grocer:'大方的雜貨店老闆',master:'溫柔的師父',guard:'膽小的守衛'};
+const NAMES={searcher:'不肯休息的搜救隊員',carver:'刻名字的石匠',fox:'狐狸面具小燈精',binder:'把書封起來的裝訂師',copyist:'不肯寫完的抄書人',librarian:'把話夾進書裡的管書員',realmaster:'師父',boss7:'停不下來的祭鼓',drummer:'不敢敲錯的鼓手',masker:'總是笑著的面具師傅',launcher:'不敢放手的放燈人',clockmaker:'把錶停住的鐘匠',toymaker:'說「等一下」的玩具匠',mentor:'工坊裡的師父',ferry:'怕冷的渡船夫',teller:'不說結局的說書婆婆',smith:'喊痛的鐵匠',postman:'不寄信的郵差',lakegod:'湖神',mirror:'映照者',guide:'提燈的倒影',keeper:'打瞌睡的看守',snuffer:'熄燈者',me:'學徒',senior:'哭泣的師姊',grocer:'大方的雜貨店老闆',master:'溫柔的師父',guard:'膽小的守衛'};
 function talkSteps(id){
   const st=story.npc[id];
   // 第八章部分⑦（2026-11-21.0）：第一位夥伴「狐狸面具小燈精」——沒回來拿面具的那個孩子的倒影
@@ -2438,6 +2473,43 @@ function talkSteps(id){
           {c:'talk',who:'copyist',t:'可是最後一行的三個字，嚇得跳進墨水河裡逃走了。你坐船過去，讓船跳起來，就搆得到它們。'},
           {c:'fn',fn:()=>{giveQuest('inkchars');return null;}},{c:'cap',t:'接下任務：抄書人的最後一行。坐在墨水船上按「跳躍」，讓船跳起來碰到飄在河面上的字。'}]},
         {v:'seal',t:'回去吧，鎮上的書還等著你一筆一筆抄好。',d:'勸它回到心底',then:[{c:'talk',who:'copyist',t:'⋯⋯也是。那我回去，繼續一個字都不寫錯。'},{c:'npcFade',id:'copyist'}]}]}
+    ];
+  }
+  // 第九章倒影居民（2026-11-26.0 部分④後半）：營地的搜救隊員＝鎮民那天丟掉的「焦急」；石碑旁的石匠＝「刻不下去」的手。只給碎片線索，不揭曉倒影的身分。
+  if(id==='searcher'){
+    if(st==='accept')return [{c:'talk',who:'searcher',t:'歇夠了再走。火是留給後面的人的。'}];
+    return [
+      {c:'talk',who:'searcher',t:'別停下來！烤火？不用，我不冷——還有一個沒找到！'},
+      {c:'talk',who:'me',t:'你是鎮上的搜救隊？大家都坐在火邊歇腳了。'},
+      {c:'talk',who:'searcher',t:'那天，地上的我們也停下來了。天太黑、雪太大，大家說「天亮再找」。'},
+      {c:'talk',who:'searcher',t:'坐下來的那一刻，心裡那份「快點、再快一點」，就被丟到這條山路上了。'},
+      {c:'talk',who:'searcher',t:'⋯⋯所以我一直走。一停下來，好像就是我放棄了他。'},
+      {c:'choice',key:'searcher',opts:[
+        {v:'accept',t:'坐下來烤一下火吧。歇一下，不是放棄。',d:'接納這一面',then:[{c:'talk',who:'searcher',t:'⋯⋯歇一下，不是放棄。'},
+          {c:'cap',t:'搜救隊員在炭火旁坐下，把凍僵的手伸向火堆。你提著的燈，火苗好像也跟著穩了一點。'},
+          {c:'talk',who:'searcher',t:'那天天亮以前，聽說湖邊找到了一個孩子。⋯⋯我們在山上，什麼也沒找到。'},
+          {c:'talk',who:'searcher',t:'這瓶燈油給你。往上的路很冷，別讓燈熄了。'},
+          {c:'fn',fn:()=>{wallet+=30;oil=Math.min(3,oil+1);updateCoin();updateOilUI();sfx('treasure');return null;}},
+          {c:'cap',t:'獲得 30 光屑、燈油瓶 ×1。'}]},
+        {v:'seal',t:'回去吧，鎮上有事時，大家需要跑得最快的你。',d:'勸它回到心底',then:[{c:'talk',who:'searcher',t:'⋯⋯也是。那我回去，繼續當跑得最快的那一個。'},{c:'npcFade',id:'searcher'}]}]}
+    ];
+  }
+  if(id==='carver'){
+    if(st==='accept')return [{c:'talk',who:'carver',t:'留一個點，就還沒有結束。'}];
+    return [
+      {c:'talk',who:'carver',t:'噓⋯⋯我在刻字。搜救隊每回來一個人，我就在碑上刻一個名字。'},
+      {c:'talk',who:'me',t:'山下小屋的木板，最後一行只刻了一半。也是你刻的嗎？'},
+      {c:'talk',who:'carver',t:'是地上的我。刻到一半，有人說「不用刻了，找不到了」。'},
+      {c:'talk',who:'carver',t:'那隻「刻不下去」的手，就被丟到這裡來了。刀一直拿著，字一直刻不完。'},
+      {c:'talk',who:'carver',t:'⋯⋯後來有人補了一行「找到了一個」。我總覺得，那一行還沒刻完。'},
+      {c:'choice',key:'carver',opts:[
+        {v:'accept',t:'刻不完也沒關係。名字不會因為沒刻完就不見。',d:'接納這一面',then:[{c:'talk',who:'carver',t:'⋯⋯不會不見啊。'},
+          {c:'cap',t:'石匠把小刀收進懷裡，在「找到了一個」後面，輕輕點了一個小小的點——像一句還沒寫完的話。'},
+          {c:'talk',who:'carver',t:'留一個點。等哪一天，有人回來把它刻完。'},
+          {c:'talk',who:'carver',t:'碑前這些光屑，是搜救隊留下的。拿去吧。'},
+          {c:'fn',fn:()=>{wallet+=40;updateCoin();sfx('treasure');return null;}},
+          {c:'cap',t:'獲得 40 光屑。'}]},
+        {v:'seal',t:'回去吧，鎮上的碑和門牌，還等你一刀一刀刻好。',d:'勸它回到心底',then:[{c:'talk',who:'carver',t:'⋯⋯也是。那我回去，繼續把每個名字刻得工工整整。'},{c:'npcFade',id:'carver'}]}]}
     ];
   }
   // 第八章第三位倒影居民（2026-11-20.4 部分⑥）：裝訂師（封印書齋）。只給碎片線索，不揭曉倒影的身分。
@@ -3384,17 +3456,27 @@ addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));
 let lastTouch=0,padIdleOn=false;
 const btns=['L','R','J','A','D','O','F','C','I','K','E','X'].map(id=>({id,el:$('b'+id),on:false}));
 const ptrs=new Map();
+// 待辦 P2：按鍵縮小後，可點範圍仍比畫出來的圓大一圈；一根手指只算「離它最近」的那一顆，避免同時按到兩顆。
+// 燈油／進入共用同一個位置：手指還按著時兩者互換（例如進了門、離開 NPC），不會順便觸發另一個（oeHold）
+let oeHold=false;
 function evalBtns(){
+  const hit=new Set();
+  if(mode==='play'&&!paused&&!cs&&!trans){
+    const rs=btns.map(b=>({b,r:b.el.getBoundingClientRect()})).filter(o=>o.r.width>0);
+    for(const q of ptrs.values()){let best=null,bd=1e9;
+      for(const o of rs){const r=o.r,m=Math.max(12,r.width*.22);const dx=Math.max(r.left-q.x,0,q.x-r.right),dy=Math.max(r.top-q.y,0,q.y-r.bottom);
+        if(dx>m||dy>m)continue;const d=Math.hypot(dx,dy)-(dx===0&&dy===0?1e4-Math.hypot(q.x-(r.left+r.right)/2,q.y-(r.top+r.bottom)/2):0);if(d<bd){bd=d;best=o.b;}}
+      if(best)hit.add(best);}
+  }
+  const hold=oeHold;
   for(const b of btns){
-    let on=false;
-    if(mode==='play'&&!paused&&!cs&&!trans){
-      const r=b.el.getBoundingClientRect(),m=12;
-      if(r.width>0)for(const q of ptrs.values())if(q.x>=r.left-m&&q.x<=r.right+m&&q.y>=r.top-m&&q.y<=r.bottom+m){on=true;break;}
-    }
+    const on=hit.has(b);
+    if(on&&!b.on&&(b.id==='O'||b.id==='E')&&hold){b.on=on;b.el.classList.toggle('on',on);continue;}
     if(on&&!b.on){b.el.classList.remove('pop');void b.el.offsetWidth;b.el.classList.add('pop');try{if(navigator.vibrate)navigator.vibrate(8);}catch(e){}
       if(b.id==='J')input.jp=true;if(b.id==='A')input.ap=true;if(b.id==='D')input.dp=true;if(b.id==='O')input.op=true;if(b.id==='F')input.fp=true;if(b.id==='C')input.cp=true;if(b.id==='I')input.sp=true;if(b.id==='K')input.kp=true;if(b.id==='E')input.ip=true;if(b.id==='X')input.xp=true;}
     b.on=on;b.el.classList.toggle('on',on);
   }
+  oeHold=btns.some(b=>(b.id==='O'||b.id==='E')&&b.on);
 }
 const isUI=e=>e.target.closest&&e.target.closest('.ui');
 // 待辦 P1：虛擬搖桿。joy={id,ox,oy,x,y}；死區 JOY_DZ px；左右＝走路／划船，往下推（要推得夠下面）＝破冰／下降，往上推不跳（只有第七章飛行時是往上飛）
@@ -5339,6 +5421,8 @@ function drawNPCShape(id,cx,by,face,opt){
   else if(id==='copyist')drawCopyistFig(cx,by,face,.3);
   else if(id==='librarian')drawLibrarianFig(cx,by,face,.3);
   else if(id==='binder')drawBinderFig(cx,by,face,.31);
+  else if(id==='searcher')drawSearcherFig(cx,by,face,.3);
+  else if(id==='carver')drawCarverFig(cx,by,face,.3);
   else if(id==='fox')drawFoxSprite(cx,by-24+Math.sin(clock*2.4)*3,face,1.35,!!(opt&&opt.world));
   else if(id==='teller')drawTellerFig(cx,by,face,.3);
   else if(id==='postman')drawPostmanFig(cx,by,face,.3);
@@ -7652,6 +7736,65 @@ function drawBinderFig(x,y,face,k){
   ctx.restore();
 }
 
+// 第九章倒影居民（2026-11-26.0）：不肯休息的搜救隊員——厚棉襖、圍巾被風吹起、手提搜救燈，原地踏步停不下來；
+function drawSearcherFig(x,y,face,k){
+  const lw=1.25/k,step=Math.sin(clock*7),sw=Math.sin(clock*2.4);
+  ctx.save();ctx.translate(x,y);ctx.scale(face*k,k);ctx.translate(0,-12.5);
+  ctx.lineJoin='round';ctx.lineCap='round';ctx.strokeStyle=OUT;ctx.lineWidth=lw;
+  ctx.beginPath();ctx.ellipse(-11,9.5-Math.max(0,step)*4,7,3.4,0,0,6.283);fs('#2a2018');
+  ctx.beginPath();ctx.ellipse(11,9.5-Math.max(0,-step)*4,7,3.4,0,0,6.283);fs('#2a2018');
+  // 厚棉襖
+  ctx.beginPath();ctx.moveTo(-27,-54);ctx.quadraticCurveTo(-38,-22,-30,6);ctx.quadraticCurveTo(0,13,30,6);ctx.quadraticCurveTo(38,-22,27,-54);ctx.quadraticCurveTo(0,-62,-27,-54);ctx.closePath();fs('#8a3e2c');
+  hatch([[-24,-36,6,-5],[-27,-22,7,-6],[18,-30,6,-5],[16,-16,7,-6]],'#6e2f21',lw*.7);
+  ctx.beginPath();ctx.moveTo(0,-56);ctx.lineTo(0,6);ctx.stroke();
+  for(const by of [-40,-26,-12]){ctx.beginPath();ctx.arc(4,by,1.8,0,6.283);fs('#e8d6b0');}
+  // 圍巾（被風吹向後面）
+  ctx.beginPath();ctx.moveTo(-18,-60);ctx.quadraticCurveTo(0,-52,18,-60);ctx.lineTo(16,-52);ctx.quadraticCurveTo(0,-46,-16,-52);ctx.closePath();fs('#d9c27a');
+  ctx.beginPath();ctx.moveTo(-14,-56);ctx.quadraticCurveTo(-28,-58+sw*3,-40,-52+sw*5);ctx.lineTo(-38,-46+sw*5);ctx.quadraticCurveTo(-26,-50+sw*3,-14,-50);ctx.closePath();fs('#d9c27a');
+  // 頭：毛帽、皺著眉
+  ctx.beginPath();ctx.arc(2,-73,16,0,6.283);fs('#dcc0a0');
+  ctx.beginPath();ctx.moveTo(-15,-76);ctx.quadraticCurveTo(-12,-96,4,-95);ctx.quadraticCurveTo(19,-94,19,-76);ctx.closePath();fs('#5a6a8a');
+  ctx.beginPath();ctx.arc(4,-98,4.5,0,6.283);fs('#efe9e0');
+  ctx.save();ctx.strokeStyle='#efe9e0';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-15,-77);ctx.lineTo(19,-77);ctx.stroke();ctx.restore();
+  ctx.strokeStyle='#2a2436';ctx.lineWidth=2.2;ctx.beginPath();ctx.moveTo(-6,-71);ctx.lineTo(0,-69);ctx.moveTo(14,-71);ctx.lineTo(8,-69);ctx.stroke();
+  ctx.fillStyle='#2a2436';ctx.beginPath();ctx.arc(-2,-66,1.4,0,6.283);ctx.arc(10,-66,1.4,0,6.283);ctx.fill();
+  ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(0,-59);ctx.quadraticCurveTo(4,-61,8,-59);ctx.stroke();
+  ctx.strokeStyle=OUT;ctx.lineWidth=lw;
+  // 往前伸的手、提著搜救燈
+  limbStroke(-20,-46,-26,-30,-22,-18,'#8a3e2c',6);
+  ctx.beginPath();ctx.arc(-22,-18,3.8,0,6.283);fs('#dcc0a0');
+  limbStroke(20,-46,34,-44,40,-36,'#8a3e2c',6);
+  ctx.save();ctx.translate(40,-34);ctx.rotate(sw*.12);ctx.lineWidth=lw;ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,6);ctx.stroke();
+  rr(-6,6,12,15,2);fs('#ffd88c');ctx.fillStyle='#fff3c4';ctx.beginPath();ctx.ellipse(0,14,2.5,4,0,0,6.283);ctx.fill();ctx.restore();
+  ctx.beginPath();ctx.arc(40,-36,3.8,0,6.283);fs('#dcc0a0');
+  ctx.restore();
+}
+// 刻名字的石匠——灰布衫、圍著石粉的圍裙，一手拿小刀、一手扶著石板，刀尖停在半空
+function drawCarverFig(x,y,face,k){
+  const lw=1.25/k,tap=Math.max(0,Math.sin(clock*1.3))*2;
+  ctx.save();ctx.translate(x,y);ctx.scale(face*k,k);ctx.translate(0,-12.5);
+  ctx.lineJoin='round';ctx.lineCap='round';ctx.strokeStyle=OUT;ctx.lineWidth=lw;
+  for(const fx of [-11,11]){ctx.beginPath();ctx.ellipse(fx,9.5,7,3.4,0,0,6.283);fs('#2a2018');}
+  ctx.beginPath();ctx.moveTo(-25,-54);ctx.quadraticCurveTo(-34,-20,-29,6);ctx.quadraticCurveTo(0,11,29,6);ctx.quadraticCurveTo(34,-20,25,-54);ctx.quadraticCurveTo(0,-62,-25,-54);ctx.closePath();fs('#6a6a72');
+  hatch([[-24,-36,6,-5],[-26,-22,7,-6]],'#55555c',lw*.7);
+  ctx.beginPath();ctx.moveTo(-15,-46);ctx.lineTo(15,-46);ctx.lineTo(18,4);ctx.lineTo(-18,4);ctx.closePath();fs('#b8ab94');
+  ctx.fillStyle='rgba(255,255,255,.45)';for(const [dx,dy] of [[-8,-30],[4,-20],[-4,-8],[9,-36]]){ctx.beginPath();ctx.arc(dx,dy,1.4,0,6.283);ctx.fill();}
+  // 頭：灰白頭髮、低著頭
+  ctx.beginPath();ctx.arc(4,-71,16,0,6.283);fs('#d8bd9c');
+  ctx.beginPath();ctx.moveTo(-12,-74);ctx.quadraticCurveTo(-10,-91,5,-90);ctx.quadraticCurveTo(20,-90,20,-74);ctx.quadraticCurveTo(12,-82,4,-82);ctx.quadraticCurveTo(-4,-82,-12,-74);ctx.closePath();fs('#c9c4bc');
+  ctx.strokeStyle='#2a2436';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-2,-68);ctx.lineTo(3,-67);ctx.moveTo(10,-67);ctx.lineTo(15,-68);ctx.stroke();
+  ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(4,-60);ctx.lineTo(10,-60);ctx.stroke();
+  ctx.strokeStyle=OUT;ctx.lineWidth=lw;
+  // 一手扶石板、一手拿小刀（刀尖停在半空）
+  ctx.save();ctx.translate(34,-22);rr(-7,-26,14,40,2);fs('#9a968c');ctx.strokeStyle='#5a564c';ctx.lineWidth=lw*.7;
+  ctx.beginPath();ctx.moveTo(-3,-18);ctx.lineTo(3,-18);ctx.moveTo(-3,-10);ctx.lineTo(3,-10);ctx.moveTo(-3,-2);ctx.lineTo(0,-2);ctx.stroke();ctx.restore();
+  limbStroke(18,-46,30,-40,28,-28,'#6a6a72',6);ctx.beginPath();ctx.arc(28,-28,3.6,0,6.283);fs('#d8bd9c');
+  limbStroke(-18,-46,-6,-42,14,-38-tap,'#6a6a72',6);
+  ctx.save();ctx.translate(14,-38-tap);ctx.rotate(-.5);ctx.fillStyle='#d8d8e0';ctx.strokeStyle=OUT;ctx.lineWidth=lw*.8;ctx.beginPath();ctx.moveTo(0,-2);ctx.lineTo(12,-1);ctx.lineTo(12,1);ctx.lineTo(0,2);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();
+  ctx.beginPath();ctx.arc(14,-38-tap,3.6,0,6.283);fs('#d8bd9c');
+  ctx.restore();
+}
+
 // ---------- 第八章特色怪（2026-11-20.0 部分③）----------
 // 墨衣魚：吃書的衣魚泡在墨水裡變成的怪物，住在墨水河裡。平常只看得到墨面上的觸鬚和漣漪（打不到也碰不到），
 // 靠近時墨面先冒泡（約 0.6 秒），接著從墨裡跳出來劃一道弧線，撞到會受傷；跳在空中時可以打牠。在船上也能停下、倒退或讓船跳起來閃開。
@@ -9018,7 +9161,7 @@ function collHTML(){
 }
 const QSTAT={active:'進行中',ready:'可以回報',done:'已完成'};
 function updateCoin(){$('coin').textContent='✦ '+wallet;}
-function updateOilUI(){document.body.classList.toggle('hasOil',oil>0);const b=$('oilBadge');if(b)b.textContent=oil;updateItemsUI();}
+function updateOilUI(){if(oil>0&&trig&&!trig.hadOil)trig.hadOil=true;document.body.classList.toggle('hasOil',oil>0||!!(trig&&trig.hadOil));const bo=$('bO');if(bo)bo.classList.toggle('zero',oil<=0);const b=$('oilBadge');if(b)b.textContent=oil;updateItemsUI();}
 // 待辦 P3：電腦版道具欄。數量 0 而且從來沒拿過的不顯示；燈油用完會變灰；數字變動時跳一下
 const ITEM_ICO={oil:'<svg viewBox="0 0 20 20"><path d="M8 2.5h4v2.5l2.5 3v8.5a1.5 1.5 0 0 1-1.5 1.5H7a1.5 1.5 0 0 1-1.5-1.5V8l2.5-3z"/><path d="M6 11h8"/></svg>',
   wick:'<svg viewBox="0 0 20 20"><path d="M10 2.5q3 3.5 0 6.5q-3-3 0-6.5z"/><path d="M10 9v3"/><rect x="6.5" y="12" width="7" height="6" rx="1.2"/></svg>',
@@ -9071,7 +9214,7 @@ function npcMark(id){
 }
 function dropCoins(x,y,n){n=Math.round(n*TUNE.coinMul);for(let i=0;i<n;i++)coins.push({x,y,vx:(Math.random()-.5)*160,vy:-120-Math.random()*120,t:0,mag:false,ph:Math.random()*6});}
 function useOil(){
-  if(oil<=0)return;
+  if(oil<=0){if(platform!=='pc')toast('沒有燈油了，可以在商店買');return;}
   if(hp>=maxHp){toast('生命已經是滿的');return;}
   oil--;hp=Math.min(maxHp,hp+2);updateHP();updateOilUI();sfx('oil');
   burst(p.x+p.w/2,p.y+p.h/2,16,'#ffd88c');
