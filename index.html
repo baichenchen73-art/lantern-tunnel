@@ -845,11 +845,29 @@ body:not(.pc) #restartBtn{display:none}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-27.0';
+const GAME_VERSION='2026-11-27.1';
 // 公開網址判斷：只有在 github.io 上、而且網址沒有 ?dev 時，才藏起測試用的按鈕
 const PUBLIC_SITE=/github\.io$/i.test(location.hostname)&&!/[?&]dev\b/i.test(location.search);
 if(PUBLIC_SITE)document.documentElement.classList.add('pub');
 const CHANGELOG=[
+  ['2026-11-27.1','第九章製作中（部分⑧：雪怪第三階段與打倒的演出）',[
+    '第九章「暴風雪的山路」這次完成第 8 部分（共 9 部分）：山頂的 Boss「雪怪」現在可以從第一階段一路打到倒下（待辦 O1 完成：照 啊一 定的雪怪方向，三個階段都做好了）',
+    '第二階段打完的劇情改了：雪怪跪下、吼聲變成很多人在風裡喊叫之後，不再逃走，而是一拳砸裂山頂的冰層，直接進入第三階段（以前這裡會顯示「第三階段製作中」並結束戰鬥）',
+    '第三階段新招「冰裂」：雪怪抬腳踩地，地上出現幾條發光的裂痕（一定有一條在你腳下），約 0.9 秒後冰裂開，站在上面會掉進冰縫、被彈出來扣 1 血——看到裂痕就離開',
+    '第三階段新招「小雪崩」：雪怪仰頭咆哮，畫面左或右邊出現「雪崩！」和箭頭，約 1 秒後一道雪牆從那一側滾過整個山頂；可以跳過去，也可以站進點亮的搜救燈光裡——雪崩碰到燈光會融成矮矮的雪水，不會傷人',
+    '第三階段新招「落冰柱」：小雪崩前的咆哮會震下 3 根冰柱，落點地上會先出現影子和掉下來的雪屑',
+    '第三階段也會用前兩階段的捶地、丟雪球、躲進暴風雪撲下來、咆哮；雪怪剩 6 血時招式變快（地上的裂痕變 4 條、雪崩變快）',
+    '在第三階段倒下、或離開山頂再回來：會直接從第三階段重打（雪怪 24 血），不用重打前兩個階段；這個進度會存進存檔',
+    '雪怪血量調整：第三階段加了新招，總血量 48 → 54（第一階段 12、第二階段 18、第三階段 24）',
+    '打倒雪怪的劇情：冰殼剝落、雪怪散成雪，喊人的聲音一個一個浮上來又消失；提燈的倒影出現在山頂，說出「沒有人接回去的心情，就會變成這個樣子」（說破謎題 3「怪獸為什麼會出現」；倒影的身分仍然保密）；有小燈精同行時牠會多說一句面具的話',
+    '打倒後風雪停了，鏡頭看向山下結冰的湖、湖心亮著一點小小的光（接最終章的鉤子）；雪怪倒下的地方亮起一盞新的燈籠，碰到後會出現「第九章 完」（最終章「湖心」製作中）',
+    '打倒雪怪也算一個 Boss：技能頁的「燈火機會」多 1 次',
+    '打倒雪怪之後，山頂的雪不再橫著狂吹，變成慢慢飄落的雪；山頂右邊遠處看得見山下結冰的湖，湖心亮著一點光',
+    '第二階段結束和打倒雪怪的劇情，鏡頭會先轉到雪怪所在的位置（以前雪怪在畫面外時看不到牠跪倒）',
+    '捷徑「第九章 Boss（製作中）」每次都會把雪怪重設成還沒打倒、山頂的終點燈籠也重設成沒點亮，可以重複測試',
+    '任務欄：山頂的主線說明改成第三階段的打法提示；打倒後變成「第九章・風雪停了」',
+    '第九章目前還沒接上正式流程，仍然只能從封面「捷徑」的「第九章（製作中）」或「第九章 Boss（製作中）」進入；下一次（部分⑨）接上第八章的結尾'
+  ]],
   ['2026-11-27.0','第九章製作中（部分⑥⑦：山頂的 Boss「雪怪」第一、二階段）',[
     '第九章「暴風雪的山路」這次完成第 6、7 部分（共 9 部分）：「山頂下的避風岩」右邊的牆打開了（原本的「製作中」牌子改成「山頂」路牌），往右走就會上到新的 Boss 房「山頂」',
     '新 Boss「雪怪」：那天傍晚那場暴風雪和大家的恐懼凝成的形體——全身覆滿積雪、肩上垂著冰柱、頭上長著冰角，咆哮聲裡混著鐘聲和冰裂聲（待辦 O1，照 啊一 定的雪怪方向做）',
@@ -2328,7 +2346,7 @@ const ROOMS={
   // 第九章部分⑥⑦（2026-11-27.0）：Boss 房「山頂」——雪怪。場上三盞搜救燈：點亮的燈光可以融掉雪怪身上的冰殼，也可以取暖
   WB:{mpos:[3686,-137],name:'山頂',W:40,H:16,
     build(r,W,H){r(0,0,W,1);r(0,0,1,11);r(W-1,0,1,H);r(0,14,W,2);},
-    spawns:[],lant:[],props:[{t:'tlamp',c:7,g:14},{t:'tlamp',c:19,g:14},{t:'tlamp',c:32,g:14}],
+    spawns:[],lant:[{c:24,g:14,goal:10,needFlag:'snowDone'}],props:[{t:'tlamp',c:7,g:14},{t:'tlamp',c:19,g:14},{t:'tlamp',c:32,g:14}],
     events:[],
     exits:[{s:'L',a:11,b:13,to:'W17',c:30,g:12,f:-1}]},
 };
@@ -3722,8 +3740,8 @@ function onEnterRoom(){
     const intro=!trig.kb2Intro;trig.kb2Intro=true;
     playCS(intro?KB2_INTRO:KB2_AGAIN,()=>{startKB2();},()=>{if(!kb)spawnKB2();},false);return;
   }
-  if(level.id==='WB'&&!F.snowDone){// 第九章 Boss「雪怪」（部分⑥⑦）
-    if(trig.ybHalf){playCS(YB_GONE,null,null,false);return;}
+  if(level.id==='WB'&&!F.snowDone){// 第九章 Boss「雪怪」（部分⑥⑦⑧）
+    if(trig.ybHalf){playCS(YB_P3AGAIN,()=>{calmT=.8;ybPhase3();},null,false);return;}// 部分⑧：第二階段打過了 → 直接從第三階段重打
     const intro=!trig.ybIntro;trig.ybIntro=true;
     playCS(intro?YB_INTRO:YB_AGAIN,()=>{startYB();},()=>{if(!yb)spawnYB();yb.appear=1;},false);return;
   }
@@ -4208,9 +4226,9 @@ function update(dt){
       if(L.goal&&!finished&&!(L.goal===1&&chapterDone&&false)){
         finished=true;
         const tend=story.accept>story.seal?'帶著倒影們的心意回去':story.seal>story.accept?'封存倒影，回到原本的小鎮':'還看不出來';
-        $('finishTitle').textContent=L.goal===9?'第八章 完':L.goal===8?'第七章 完':L.goal===7?'第六章 完':L.goal===6?'第五章 完':L.goal===5?'第四章 完':L.goal===4?'第三章 完':L.goal===3?'第二章 完':L.goal===2?'第二章（前半）完':'第一章 完';
+        $('finishTitle').textContent=L.goal===10?'第九章 完':L.goal===9?'第八章 完':L.goal===8?'第七章 完':L.goal===7?'第六章 完':L.goal===6?'第五章 完':L.goal===5?'第四章 完':L.goal===4?'第三章 完':L.goal===3?'第二章 完':L.goal===2?'第二章（前半）完':'第一章 完';
         if(L.goal===1)chapterDone=true;
-        $('finishText').textContent=`你從師父的倒影那裡選擇了「${ability==='dash'?'衝刺':ability==='djump'?'二段跳':'無'}」，找到記憶碎片 ${shards.size} 個、身上有 ${wallet} 光屑；接納了 ${story.accept} 個倒影，封存了 ${story.seal} 個。依目前的選擇，結局傾向：${tend}。${L.goal===9?(PUBLIC_SITE?'第九章即將推出，敬請期待。':'第九章製作中，敬請期待。'):L.goal===8?(PUBLIC_SITE?'第八章即將推出，敬請期待。':'第八章製作中，敬請期待。'):L.goal===7?'第七章製作中，敬請期待。':L.goal===6?'第六章製作中，敬請期待。':L.goal===5?'第五章製作中，敬請期待。':L.goal===4?'第四章製作中，敬請期待。':L.goal===3?'右邊出現了通往第三章「倒過來的小鎮」的傳送門。':L.goal===2?'湖心島邊緣出現了通往湖底的漩渦。':'右邊的金色傳送門通往第二章「倒映湖」。'}`;
+        $('finishText').textContent=`你從師父的倒影那裡選擇了「${ability==='dash'?'衝刺':ability==='djump'?'二段跳':'無'}」，找到記憶碎片 ${shards.size} 個、身上有 ${wallet} 光屑；接納了 ${story.accept} 個倒影，封存了 ${story.seal} 個。依目前的選擇，結局傾向：${tend}。${L.goal===10?(PUBLIC_SITE?'最終章「湖心」即將推出，敬請期待。':'最終章「湖心」製作中，敬請期待。'):L.goal===9?(PUBLIC_SITE?'第九章即將推出，敬請期待。':'第九章製作中，敬請期待。'):L.goal===8?(PUBLIC_SITE?'第八章即將推出，敬請期待。':'第八章製作中，敬請期待。'):L.goal===7?'第七章製作中，敬請期待。':L.goal===6?'第六章製作中，敬請期待。':L.goal===5?'第五章製作中，敬請期待。':L.goal===4?'第四章製作中，敬請期待。':L.goal===3?'右邊出現了通往第三章「倒過來的小鎮」的傳送門。':L.goal===2?'湖心島邊緣出現了通往湖底的漩渦。':'右邊的金色傳送門通往第二章「倒映湖」。'}`;
         $('finish').classList.add('show');checkRotate();
       }
       else if(level.id==='R1'&&!trig.lantern){trig.lantern=true;playCS(EV_LANTERN,()=>{calmT=.6;});return;}
@@ -5224,7 +5242,7 @@ function render(dt){
   const ns=Math.min(spores.length,Math.ceil(spores.length*W/60))>>(LOW?1:0);
   for(let i=0;i<ns;i++){
     const s=spores[i];
-    const y=TT.snow?((s.y*WORLD_H+clock*s.sp*2.2)%WORLD_H+WORLD_H)%WORLD_H:((s.y*WORLD_H-clock*s.sp)%WORLD_H+WORLD_H)%WORLD_H,x=(TT.blizzard?((s.x*WORLD_W+clock*s.sp*9)%WORLD_W):s.x*WORLD_W)+Math.sin(clock*.6+s.ph)*(TT.snow?14:6);
+    const y=TT.snow?((s.y*WORLD_H+clock*s.sp*2.2)%WORLD_H+WORLD_H)%WORLD_H:((s.y*WORLD_H-clock*s.sp)%WORLD_H+WORLD_H)%WORLD_H,x=(TT.blizzard&&!(level.id==='WB'&&F.snowDone)?((s.x*WORLD_W+clock*s.sp*9)%WORLD_W):s.x*WORLD_W)+Math.sin(clock*.6+s.ph)*(TT.snow?14:6);
     if(x<sx-10||x>sx+viewW+10)continue;
     ctx.fillStyle=`rgba(${TT.spore},${.35+.35*Math.sin(clock*1.5+s.ph)})`;if(TT.pages){ctx.save();ctx.translate(x,y);ctx.rotate(Math.sin(clock*.9+s.ph)*.8);ctx.fillRect(-s.r*1.7,-s.r*1.1,s.r*3.4,s.r*2.2);ctx.restore();}else{ctx.beginPath();ctx.arc(x,y,s.r,0,6.283);ctx.fill();}
   }
@@ -5251,6 +5269,7 @@ function render(dt){
   if(tb)drawTB(dt);
   if(kb)drawKB(dt);
   if(sb&&level.id==='LB')drawSB(dt);
+  if(level.id==='WB'&&F.snowDone)drawWBLake();
   if(yb&&level.id==='WB')drawYB(dt);
   if(SH.length)drawShadows();
   for(const sc of sconces)drawSconce(sc);
@@ -5303,6 +5322,7 @@ function render(dt){
   else if(fadeIn>0){fadeIn-=dt;fa=Math.max(fa,clamp(fadeIn/.6,0,1));}
   if(fa>0){ctx.fillStyle=`rgba(5,4,9,${fa})`;ctx.fillRect(0,0,cssW,cssH);}
   if(yb&&level.id==='WB'&&yb.white>.01)drawWhiteout();
+  if(yb&&level.id==='WB'&&yb.st==='avalanche'&&yb.cast<2&&yb.t>.3&&!cs)drawAvWarn();
   if(cold>.4&&coldOn())drawColdEdge();
   if(hurtV>0){
     hurtV-=dt;const a=Math.max(0,hurtV/.5*.55);
@@ -8850,21 +8870,24 @@ function drawSB(dt){
   if(rest&&!cs){ctx.fillStyle='rgba(255,226,150,.9)';ctx.font='9px "Noto Serif TC",serif';ctx.textAlign='center';ctx.fillText(g.st==='stagger'?'⋯⋯':'喘息中',x,y-58);ctx.textAlign='left';}
   ctx.restore();
 }
-// ---------- 第九章 Boss「雪怪」（部分⑥⑦，2026-11-27.0：第一、二階段；第三階段「小雪崩」與打倒演出在部分⑧）----------
+// ---------- 第九章 Boss「雪怪」（部分⑥⑦ 2026-11-27.0：第一、二階段；部分⑧ 2026-11-27.1：第三階段「冰裂＋小雪崩＋落冰柱」與打倒演出）----------
+// 第三階段（剩 24 血）：踩地讓腳下的冰裂開（先出現發光的裂痕，0.9 秒後裂開）、從山上引來小雪崩（從畫面一側滾過整個山頂；跳過去，或站進點亮的搜救燈光裡——雪崩碰到燈光就融掉）、震下頭上的冰柱。剩 6 血更快。
 // 那天傍晚那場暴風雪和大家的恐懼凝成的形體。全身裹著冰殼，平常打不動；只有走進「點亮的搜救燈」的光圈裡，冰殼才會融開、才打得到（和這一章的「時間凍結與融化」同一套規則）。
 // 第一階段：走過來、捶地（雪浪沿著地面往兩邊推，要跳過）、咆哮（近身會被吼飛；寒冷一口氣上升，燈也會被吹得快熄）。
-// 第二階段（剩 36 血）：多了丟雪球（落地會碎成冰塊）、躲進暴風雪裡忽隱忽現（風裡傳來喊人的回聲，地上出現影子時，牠會從那裡撲下來）。
+// 第二階段（剩 42 血）：多了丟雪球（落地會碎成冰塊）、躲進暴風雪裡忽隱忽現（風裡傳來喊人的回聲，地上出現影子時，牠會從那裡撲下來）。
 let yb=null;
 const YB_FL=14*TILE;
-const YB_CYCLE={1:['walk','slam','walk','roar','walk','slam','walk'],2:['throw','walk','slam','vanish','walk','roar','throw','vanish','walk','slam']};
+const YB_CYCLE={1:['walk','slam','walk','roar','walk','slam','walk'],2:['throw','walk','slam','vanish','walk','roar','throw','vanish','walk','slam'],
+  3:['crack','walk','avalanche','walk','slam','throw','crack','vanish','walk','avalanche','roar','walk']};
 const YB_ECHO=['喂——','⋯⋯在哪裡——','聽得見嗎——','——回答我！','⋯⋯燈不要熄——'];
-function spawnYB(){yb={hp:48,max:48,half:18,phase:1,x:29*TILE,y:YB_FL,face:-1,active:false,dead:false,halfDone:false,st:'idle',t:0,ci:0,cast:0,
-  melt:0,flash:0,guard:0,appear:1,white:0,waves:[],balls:[],chips:[],echoes:[],leap:null,roarHit:false,walkT:0,halfT:0,gone:0};}
+function spawnYB(){yb={hp:54,max:54,half:24,phase:1,x:29*TILE,y:YB_FL,face:-1,active:false,dead:false,halfDone:false,st:'idle',t:0,ci:0,cast:0,
+  melt:0,flash:0,guard:0,appear:1,white:0,waves:[],balls:[],chips:[],echoes:[],leap:null,roarHit:false,walkT:0,halfT:0,gone:0,
+  cracks:[],avs:[],ices:[],avDir:1,hard:false,endT:0};}
 function ybBox(){const g=yb,c=g.st==='stuck'?8:g.st==='stagger'?14:0;return {x:g.x-40,y:g.y-106+c,w:80,h:102-c};}
 function startYB(){if(!yb)spawnYB();const g=yb;g.active=true;g.appear=1;g.st='idle';g.t=-.5;bossSealed=true;
   $('bossName').textContent='雪怪';document.body.classList.add('boss');updateBossBar();setMusic('snowboss');calmT=.8;
   if(!trig.ybHint){trig.ybHint=true;flashHint('雪怪身上有冰殼：敲亮搜救燈，等牠走進燈光裡、冰殼融了再打！',['bA'],7);}}
-function ybClear(){if(!yb)return;yb.waves=[];yb.balls=[];yb.chips=[];yb.leap=null;}
+function ybClear(){if(!yb)return;yb.waves=[];yb.balls=[];yb.chips=[];yb.leap=null;yb.cracks=[];yb.avs=[];yb.ices=[];}
 function hitYB(box,n,melee){
   const g=yb;if(!g||!g.active||g.dead||g.appear<.5)return false;
   if(!hit(box,ybBox()))return false;
@@ -8875,8 +8898,10 @@ function hitYB(box,n,melee){
   for(let k=0;k<n;k++){g.hp--;if((!g.halfDone&&g.hp<=g.half)||g.hp<=0)break;}
   g.flash=.12;freeze=.05;shake=Math.max(shake,3);sfx('bosshit');burst(g.x,g.y-60,8,'#eef6ff');for(let m=0;m<4;m++)spawnFly(g.x,g.y-60,110);updateBossBar();
   if(!trig.ybMeltHit){trig.ybMeltHit=true;toast('冰殼融了，打得到！牠走出燈光又會凍回去');}
-  if(g.phase===1&&g.hp<=36){g.phase=2;g.ci=0;g.st='roar';g.t=0;g.cast=0;g.roarHit=false;shake=Math.max(shake,6);
+  if(g.phase===1&&g.hp<=42){g.phase=2;g.ci=0;g.st='roar';g.t=0;g.cast=0;g.roarHit=false;shake=Math.max(shake,6);
     toast('雪怪發狂了！牠會丟雪球，也會躲進暴風雪裡——看地上的影子');}
+  if(g.phase===3&&g.hp<=6&&!g.hard){g.hard=true;toast('雪怪快撐不住了——招式變快了！');}
+  if(g.hp<=0&&g.halfDone){g.hp=0;g.dead=true;g.active=false;ybClear();g.st='stagger';g.t=0;g.white=0;g.appear=1;slowT=.7;sfx('bossdie');shake=10;rings.push({x:g.x,y:g.y-60,t:0,c:'255,226,160'});g.endT=1.8;updateBossBar();return true;}
   if(g.hp<=g.half&&!g.halfDone){g.halfDone=true;g.active=false;ybClear();g.st='stagger';g.t=0;slowT=.5;sfx('bossdie');shake=8;rings.push({x:g.x,y:g.y-60,t:0,c:'220,238,255'});g.halfT=1;g.white=0;}
   return true;
 }
@@ -8886,6 +8911,7 @@ function ybNext(){const g=yb,cyc=YB_CYCLE[g.phase]||YB_CYCLE[2],a=cyc[g.ci%cyc.l
   const pcx=p.x+p.w/2;g.face=pcx<g.x?-1:1;
   if(a==='walk')g.walkT=(g.phase===1?1.5:1.1)+Math.random()*.7;
   else if(a==='slam'||a==='roar'||a==='vanish')sfx('rumble');
+  else if(a==='avalanche'){g.avDir=pcx>WORLD_W/2?-1:1;if(Math.random()<.35)g.avDir=-g.avDir;}
 }
 function ybRoarFx(){const g=yb;sfx('toll');sfx('rumble');shake=Math.max(shake,7);rings.push({x:g.x+g.face*26,y:g.y-84,t:0,c:'230,240,255'});
   for(let k=0;k<26;k++){const a=(g.face>0?0:Math.PI)+(Math.random()-.5)*1.6,s=160+Math.random()*260;parts.push({x:g.x+g.face*30,y:g.y-84,vx:Math.cos(a)*s,vy:Math.sin(a)*s,life:.7,t:0,c:Math.random()<.6?'#ffffff':'#cfe6f8'});}}
@@ -8895,7 +8921,9 @@ function updateYB(dt){
   if(g.st!=='vanish')g.white=Math.max(0,g.white-dt*1.1);
   if(g.appear<1&&g.st!=='vanish')g.appear=Math.min(1,g.appear+dt*1.6);
   if(g.gone>0){g.gone+=dt;g.appear=Math.max(0,1-g.gone/1.4);g.x+=dt*60;return;}
-  if(g.halfT>0){g.halfT-=dt;g.melt=0;if(g.halfT<=0)playCS(YB_HALF,()=>{calmT=.8;ybHalfEnd();},()=>{ybHalfEnd();},false);return;}
+  if(g.halfT>0){g.halfT-=dt;g.melt=0;if(g.halfT<=0)playCS(YB_HALF,()=>{calmT=.8;ybPhase3();},null,false);return;}
+  if(g.endT>0){g.endT-=dt;g.melt=1;g.appear=Math.max(.15,g.endT/1.8);if(Math.random()<dt*26)parts.push({x:g.x+(Math.random()-.5)*90,y:g.y-10-Math.random()*110,vx:(Math.random()-.5)*80,vy:-30-Math.random()*60,life:1.2,t:0,c:Math.random()<.6?'#ffffff':'#cfe6f8'});
+    if(g.endT<=0)playCS(YB_END,()=>{calmT=.6;},()=>{ybDefeat();ybLantern();},false);return;}
   if(!g.active)return;
   // 冰殼：身體在點亮的搜救燈光圈裡就會融開；離開燈光約 1 秒後凍回去
   if(g.appear>.5&&thawAt(g.x,g.y-60)){if(g.melt<=0){sfx('icebreak');for(let k=0;k<10;k++)parts.push({x:g.x+(Math.random()-.5)*70,y:g.y-20-Math.random()*90,vx:(Math.random()-.5)*60,vy:30+Math.random()*40,life:.6,t:0,c:'rgba(190,230,255,.9)'});}g.melt=1.1;}
@@ -8904,7 +8932,7 @@ function updateYB(dt){
   // 進來的路被雪堆住（打完前回不去）
   if(p.x<TILE*1.1){p.x=TILE*1.1;if(p.vx<0)p.vx=0;}
   const lo=3*TILE,hi=WORLD_W-3*TILE;
-  if(g.st==='idle'){if(g.t>(g.phase===1?.7:.45))ybNext();}
+  if(g.st==='idle'){if(g.t>(g.phase===1?.7:g.hard?.3:.45))ybNext();}
   else if(g.st==='walk'){g.face=pcx<g.x?-1:1;const d=Math.abs(pcx-g.x);
     if(d>66)g.x=clamp(g.x+g.face*(g.phase===1?58:78)*dt,lo,hi);
     if(g.t>g.walkT||d<90){g.st='idle';g.t=.25;}}
@@ -8940,8 +8968,37 @@ function updateYB(dt){
       for(let k=0;k<24;k++)parts.push({x:lx+(Math.random()-.5)*120,y:YB_FL-4,vx:(Math.random()-.5)*260,vy:-140-Math.random()*220,life:.8,t:0,c:Math.random()<.6?'#ffffff':'#cfe6f8'});
       for(const dir of [-1,1])g.waves.push({x:lx+dir*48,dir,sp:250,h:18,t:0,life:.9});
       if(canHurt()&&Math.abs(pcx-lx)<74&&p.y+p.h>YB_FL-130){hurt(lx);if(dying>0)return;}}}
+  else if(g.st==='crack'){// 第三階段・冰裂：抬腳 0.5 秒 → 踩下去，地上出現發光的裂痕（一條在你腳下），0.9 秒後冰裂開
+    if(g.t>=.5&&!g.cast){g.cast=1;shake=Math.max(shake,6);sfx('icebreak');sfx('rumble');const n=g.hard?4:3,xs=[clamp(pcx,lo,hi)];
+      for(let k=1;k<n;k++){let x=0;for(let tr=0;tr<12;tr++){x=lo+Math.random()*(hi-lo);if(xs.every(o=>Math.abs(o-x)>120))break;}xs.push(x);}
+      for(const x of xs)g.cracks.push({x,w:84,t:0,warn:g.hard?.75:.9,seed:Math.random()*9});
+      if(!trig.ybCrack){trig.ybCrack=true;toast('腳下的冰發出裂痕的光——快離開那裡！');}}
+    if(g.t>1.6){g.st='idle';g.t=0;}}
+  else if(g.st==='avalanche'){// 第三階段・小雪崩：仰頭咆哮把山上的雪震下來，雪崩從一側滾過整個山頂；燈光裡的雪會融掉
+    if(g.t>=.5&&g.cast===0){g.cast=1;ybRoarFx();sfx('rumble');shake=Math.max(shake,6);
+      for(let k=0;k<(g.hard?4:3);k++)g.ices.push({x:clamp(pcx+(k-1)*(90+Math.random()*60)+(Math.random()-.5)*40,2*TILE,WORLD_W-2*TILE),y:TILE+6,vy:0,t:-k*.18,warn:.85});
+      if(!trig.ybAv){trig.ybAv=true;toast((g.avDir>0?'左':'右')+'邊滑下雪崩！跳過去，或躲進點亮的燈光裡');}}
+    if(g.t>=1.6&&g.cast===1){g.cast=2;g.avs.push({x:g.avDir>0?TILE-30:WORLD_W-TILE+30,dir:g.avDir,sp:g.hard?330:285,h:50,t:0,melt:0});sfx('boom');}
+    if(g.t>2.4){g.st='idle';g.t=0;}}
   else if(g.st==='stuck'){// 撲下來以後，腳陷在雪裡一下
     if(g.t>1.5){g.st='idle';g.t=0;}}
+  // 冰裂：預告 → 裂開 0.7 秒（站在上面會掉進冰縫、被彈出來扣血）→ 凍回去
+  for(let i=g.cracks.length-1;i>=0;i--){const q=g.cracks[i];q.t+=dt;
+    if(q.t>=q.warn&&!q.open){q.open=true;sfx('icebreak');shake=Math.max(shake,4);for(let k=0;k<12;k++)parts.push({x:q.x+(Math.random()-.5)*q.w,y:YB_FL-3,vx:(Math.random()-.5)*120,vy:-120-Math.random()*160,life:.6,t:0,c:Math.random()<.5?'#dff4ff':'#9fc8e8'});}
+    if(q.open&&q.t<q.warn+.7&&canHurt()&&p.y+p.h>YB_FL-6&&Math.abs(pcx-q.x)<q.w/2-4){hurt(q.x);p.vy=-420;if(dying>0)return;}
+    if(q.t>q.warn+1.1)g.cracks.splice(i,1);}
+  // 小雪崩：一道雪牆滾過山頂；碰到點亮的燈光就融成矮矮的雪水，不會傷人
+  for(let i=g.avs.length-1;i>=0;i--){const a=g.avs[i];a.t+=dt;a.x+=a.dir*a.sp*dt;const inLight=thawAt(a.x,YB_FL-24);
+    a.melt=inLight?Math.min(1,a.melt+dt*6):Math.max(0,a.melt-dt*3);const h=a.h*(1-.75*a.melt);
+    if(Math.random()<dt*40)parts.push({x:a.x-a.dir*10,y:YB_FL-h,vx:a.dir*(40+Math.random()*90),vy:-80-Math.random()*120,life:.5,t:0,c:inLight?'rgba(170,215,245,.9)':'#ffffff'});
+    if(a.melt<.5&&canHurt()&&hit(pb,{x:a.x-30,y:YB_FL-h,w:60,h})){hurt(a.x);if(dying>0)return;}
+    if(a.dir>0?a.x>WORLD_W+60:a.x<-60)g.avs.splice(i,1);}
+  // 落冰柱：天花板先掉一點雪屑（預告），再整根掉下來
+  for(let i=g.ices.length-1;i>=0;i--){const q=g.ices[i];q.t+=dt;if(q.t<0)continue;
+    if(q.t<q.warn){if(Math.random()<dt*10)parts.push({x:q.x+(Math.random()-.5)*10,y:q.y+8,vx:0,vy:80,life:.5,t:0,c:'#ffffff'});continue;}
+    q.vy+=1500*dt;q.y+=q.vy*dt;
+    if(canHurt()&&hit(pb,{x:q.x-7,y:q.y-6,w:14,h:30})){hurt(q.x);g.ices.splice(i,1);if(dying>0)return;continue;}
+    if(q.y+24>=YB_FL){sfx('icebreak');for(let k=0;k<8;k++)parts.push({x:q.x,y:YB_FL-4,vx:(Math.random()-.5)*160,vy:-60-Math.random()*120,life:.45,t:0,c:'#cfe6f8'});g.ices.splice(i,1);}}
   // 雪浪
   for(let i=g.waves.length-1;i>=0;i--){const w=g.waves[i];w.t+=dt;if(w.t<0)continue;w.x+=w.dir*w.sp*dt;
     if(Math.random()<dt*24)parts.push({x:w.x,y:YB_FL-w.h,vx:w.dir*60+(Math.random()-.5)*60,vy:-60-Math.random()*90,life:.4,t:0,c:'#ffffff'});
@@ -8960,9 +9017,16 @@ function updateYB(dt){
   // 碰到身體也會受傷（撲下來陷在雪裡、躲在暴風雪裡的時候除外）
   if(g.appear>.6&&g.st!=='vanish'&&canHurt()){const b=ybBox();if(hit(pb,{x:b.x+12,y:b.y+16,w:b.w-24,h:b.h-16})){hurt(g.x);if(dying>0)return;}}
 }
-// 第二階段打完（剩 18 血）：雪怪逃進山頂更高的風雪裡。第三階段「小雪崩」與打倒的演出在部分⑧
-function ybHalfEnd(){trig.ybHalf=true;bossSealed=false;document.body.classList.remove('boss');setMusic('ch9');
-  if(yb){yb.active=false;ybClear();yb.halfT=0;if(!yb.gone)yb.gone=.01;}saveGame();}
+// 部分⑧（2026-11-27.1）：第二階段打完（剩 24 血）→ 雪怪砸裂山頂的冰層，直接進第三階段；之後倒下、再進山頂也從第三階段開始
+function ybPhase3(){if(F.snowDone)return;if(!yb)spawnYB();const g=yb;if(g.dead)return;g.hp=Math.min(g.hp,g.half);g.phase=3;g.halfDone=true;g.active=true;g.gone=0;g.appear=1;g.white=0;
+  g.st='idle';g.t=-.6;g.ci=0;g.halfT=0;g.cast=0;ybClear();bossSealed=true;$('bossName').textContent='雪怪';document.body.classList.add('boss');updateBossBar();setMusic('snowboss');
+  trig.ybHalf=true;saveGame();if(!trig.ybP3){trig.ybP3=true;toast('第三階段：看清楚裂痕和雪崩的方向——燈光融得掉雪崩');}}
+// 打倒雪怪：冰殼剝落、散成雪；山頂亮起第九章的終點燈籠（goal 10）
+function ybDefeat(){if(F.snowDone&&!yb)return;const x=yb?yb.x:24*TILE,y=yb?yb.y:YB_FL;F.snowDone=true;trig.ybHalf=true;yb=null;bossSealed=false;document.body.classList.remove('boss');setMusic('ch9');
+  for(let k=0;k<30;k++)parts.push({x:x+(Math.random()-.5)*90,y:y-20-Math.random()*100,vx:(Math.random()-.5)*90,vy:-30-Math.random()*70,life:2.4,t:0,c:Math.random()<.6?'#ffffff':'#cfe6f8'});
+  rings.push({x,y:y-60,t:0,c:'255,214,140'});sfx('lantern');cold=0;saveGame();}
+function ybLantern(){if(level.id!=='WB')return;if(lanterns.some(l=>l.goal===10))return;
+  lanterns=level.lant.filter(l=>(!l.needBoss||F.bossDone)&&(!l.needFlag||F[l.needFlag])).map(l=>({...l,lit:lit.has('WB:'+l.c),x:l.c*TILE+6,y:l.g*TILE-56,w:20,h:56}));refreshMini();}
 const YB_INTRO=[
   {c:'cam',x:24*TILE,d:1.1},
   {c:'cap',t:'山頂上什麼都沒有，只有風。風雪在半空中打轉，越轉越大。'},
@@ -8980,21 +9044,63 @@ const YB_AGAIN=[
   {c:'cap',t:'風雪又聚成了雪怪的樣子。牠低低地吼了一聲。'}
 ];
 const YB_HALF=[
+  {c:'fn',fn:()=>(yb?[{c:'cam',x:clamp(yb.x,10*TILE,WORLD_W-10*TILE),d:.8}]:null)},
   {c:'cap',t:'雪怪跪倒在雪地裡，肩上的冰柱一根一根斷掉。'},
   {c:'cap',t:'牠的吼聲忽然變了——像很多人同時在風裡喊著什麼，可是一個字都聽不清楚。'},
   {c:'say',t:'⋯⋯你是在喊人嗎？'},
-  {c:'fn',fn:()=>{if(yb){yb.gone=.01;yb.active=false;}shake=6;sfx('rumble');return null;}},
-  {c:'cap',t:'雪怪轉身撞進暴風雪，往山頂更高、更黑的地方爬去。'},
-  {c:'fn',fn:()=>(PUBLIC_SITE?null:[{c:'cap',t:'（雪怪的第三階段與打倒的演出還在製作中）'}])}
+  {c:'fn',fn:()=>{if(yb){yb.st='stagger';yb.t=0;}return null;}},
+  {c:'cap',t:'回答牠的，只有風。雪怪慢慢站起來，一拳砸進山頂的冰層。'},
+  {c:'fn',fn:()=>{shake=9;sfx('boom');sfx('icebreak');for(let k=0;k<30;k++)parts.push({x:(4+Math.random()*32)*TILE,y:YB_FL-4,vx:(Math.random()-.5)*160,vy:-120-Math.random()*200,life:.9,t:0,c:Math.random()<.5?'#dff4ff':'#ffffff'});return null;}},
+  {c:'cap',t:'腳下的冰裂開了。山頂上方的積雪，也開始往下滑——'}
 ];
-const YB_GONE=[
-  {c:'wait',d:.3},
-  {c:'cap',t:'山頂的風雪裡，雪怪的咆哮一陣一陣傳來，越來越遠。'},
-  {c:'fn',fn:()=>(PUBLIC_SITE?null:[{c:'cap',t:'（第三階段製作中：從捷徑「第九章 Boss（製作中）」可以重打）'}])}
+// 第三階段中倒下（或離開）後再進山頂：直接從第三階段重打
+const YB_P3AGAIN=[
+  {c:'fn',fn:()=>{spawnYB();yb.hp=yb.half;yb.halfDone=true;yb.phase=3;yb.appear=0;sfx('rumble');shake=5;return null;}},
+  {c:'cap',t:'山頂的冰層又裂開了。雪怪從風雪裡爬了回來，肩上的冰柱比剛才更多。'}
+];
+// 打倒（謎題 3「怪獸為何出現」在這裡說破；倒影身分不揭曉）
+const YB_END=[
+  {c:'fn',fn:()=>{const x=yb?yb.x:22*TILE;ybDefeat();return [{c:'cam',x:clamp(x,10*TILE,WORLD_W-10*TILE),d:1}];}},
+  {c:'cap',t:'雪怪跪了下去。冰殼一片一片剝落，底下的雪鬆鬆地散開。'},
+  {c:'cam',x:22*TILE,d:1},
+  {c:'cap',t:'散開的雪裡，喊人的聲音一個一個浮上來——「在哪裡——」「燈不要熄——」「回答我——」'},
+  {c:'cap',t:'那些聲音越來越輕，最後只剩下風。'},
+  {c:'actor',id:'guide',x:27*TILE,by:14*TILE,f:-1,a:0},{c:'actorFade',id:'guide',to:1,d:.9},
+  {c:'cap',t:'雪停下來的地方，提燈的倒影站在那裡。'},
+  {c:'talk',who:'guide',t:'牠不是壞東西。那天晚上，大家都好怕。'},
+  {c:'talk',who:'guide',t:'怕天黑、怕找不到，也怕自己放棄得太早。'},
+  {c:'talk',who:'guide',t:'天亮以後，大家都下山了。可是沒有人回來，把這份害怕接回去。'},
+  {c:'talk',who:'guide',t:'沒有人接回去的心情，就會變成這個樣子。'},
+  {c:'talk',who:'me',t:'所以⋯⋯地道裡的那些怪物，全都是？'},
+  {c:'talk',who:'guide',t:'全都是某個人放下了、就再也沒有回頭拿的東西。'},
+  {c:'fn',fn:()=>{if(F.companion&&cs)cs.steps.splice(cs.i+1,0,{c:'talk',who:'fox',t:'⋯⋯就像攤子上，那張一直沒有人來拿的面具。'});return null;}},
+  {c:'fn',fn:()=>{shake=3;sfx('rumble');for(let k=0;k<40;k++)parts.push({x:(2+Math.random()*36)*TILE,y:(3+Math.random()*10)*TILE,vx:-10+Math.random()*20,vy:30+Math.random()*30,life:2.2,t:0,c:'#ffffff'});return null;}},
+  {c:'cap',t:'風雪，停了。'},
+  {c:'cam',x:33*TILE,d:1.2},
+  {c:'cap',t:'雲散開的地方，看得見山下一整片結冰的湖。湖的正中央，亮著一點很小的光。'},
+  {c:'talk',who:'me',t:'⋯⋯湖心。'},
+  {c:'talk',who:'guide',t:'最後一段路，在那裡。'},
+  {c:'actor',id:'guide',f:1},{c:'actorWalk',id:'guide',x:36*TILE,spd:55},{c:'actorFade',id:'guide',to:0,d:1.2},
+  {c:'fn',fn:()=>{ybLantern();rings.push({x:24*TILE+16,y:14*TILE-44,t:0,c:'255,214,140'});for(let k=0;k<24;k++)spawnFly(24*TILE+16,14*TILE-40,120);sfx('lantern');return null;}},
+  {c:'cam',x:24*TILE,d:.8},
+  {c:'cap',t:'雪怪倒下的地方，亮起了一盞新的燈。'},
+  {c:'cam',x:null,d:.6}
 ];
 function drawWhiteout(){const a=yb.white;ctx.save();ctx.fillStyle=`rgba(226,234,246,${a*.74})`;ctx.fillRect(0,0,cssW,cssH);
   ctx.strokeStyle=`rgba(255,255,255,${a*.55})`;ctx.lineWidth=1.4;ctx.beginPath();
   for(let i=0;i<46;i++){const x=((i*137.5+clock*520)%(cssW+200))-100,y=(i*71.3+clock*90*(1+i%3))%cssH;ctx.moveTo(x,y);ctx.lineTo(x-34,y+9);}ctx.stroke();ctx.restore();}
+// 打倒雪怪後：風雪散開，山頂右邊遠處看得見山下結冰的湖，湖心有一點小小的光（接最終章）
+function drawWBLake(){const x0=29*TILE,x1=37*TILE,y=12.2*TILE,cx=(x0+x1)/2;ctx.save();
+  ctx.beginPath();ctx.ellipse(cx,y,(x1-x0)/2,8,0,0,6.283);ctx.fillStyle='rgba(196,222,244,.3)';ctx.fill();ctx.strokeStyle='rgba(235,246,255,.42)';ctx.lineWidth=1;ctx.stroke();
+  ctx.fillStyle='rgba(22,26,42,.58)';ctx.beginPath();ctx.moveTo(x0-170,14*TILE);ctx.lineTo(x0-10,y-30);ctx.lineTo(x0+50,y+4);ctx.lineTo(x0+130,14*TILE);ctx.closePath();ctx.fill();
+  ctx.beginPath();ctx.moveTo(x1-140,14*TILE);ctx.lineTo(x1-40,y-2);ctx.lineTo(x1+10,y-38);ctx.lineTo(x1+180,14*TILE);ctx.closePath();ctx.fill();
+  const a=.65+.3*Math.sin(clock*2.2);glowAt(cx,y,26,.45*a,'255,214,140');ctx.fillStyle=`rgba(255,226,160,${a})`;ctx.beginPath();ctx.arc(cx,y,2.2,0,6.283);ctx.fill();ctx.restore();}
+// 雪崩預告：雪崩要滑下來的那一側，畫面邊緣出現往內的箭頭與「雪崩！」
+function drawAvWarn(){const g=yb,L=g.avDir>0,a=.55+.4*Math.sin(clock*12),x=L?26:cssW-26,y=cssH*.62;ctx.save();
+  const gr=ctx.createLinearGradient(L?0:cssW,0,L?90:cssW-90,0);gr.addColorStop(0,`rgba(235,244,255,${.55*a})`);gr.addColorStop(1,'rgba(235,244,255,0)');ctx.fillStyle=gr;ctx.fillRect(L?0:cssW-90,0,90,cssH);
+  ctx.fillStyle=`rgba(255,226,160,${a})`;ctx.strokeStyle='rgba(30,24,40,.8)';ctx.lineWidth=3;ctx.font='bold 18px "Noto Serif TC",serif';ctx.textAlign='center';
+  ctx.strokeText('雪崩！',x+(L?22:-22),y-26);ctx.fillText('雪崩！',x+(L?22:-22),y-26);
+  ctx.beginPath();const d=L?1:-1;ctx.moveTo(x-d*10,y-12);ctx.lineTo(x+d*14,y);ctx.lineTo(x-d*10,y+12);ctx.closePath();ctx.stroke();ctx.fill();ctx.restore();}
 function drawYBArm(sd,ang,fur){ctx.save();ctx.translate(sd*36,-74);ctx.rotate(ang);
   ctx.beginPath();ctx.ellipse(0,26,13,30,0,0,6.283);fs(fur);
   ctx.beginPath();ctx.ellipse(0,56,15,12,0,0,6.283);fs(fur);
@@ -9019,6 +9125,25 @@ function drawYB(dt){
   // 風裡喊人的回聲（聽不清楚名字）
   for(const q of g.echoes){if(q.t<0)continue;const a=Math.sin(Math.min(1,q.t/2)*Math.PI);ctx.save();ctx.globalAlpha=a*.85;ctx.fillStyle='#eef4ff';ctx.font='15px "Noto Serif TC",serif';ctx.textAlign='center';
     ctx.shadowColor='rgba(20,30,60,.8)';ctx.shadowBlur=6;ctx.fillText(q.txt,q.x+Math.sin(clock*3+q.x)*6,q.y);ctx.restore();}
+  // 第三階段：冰裂（預告時是發光的裂痕，裂開時是黑色的冰縫）
+  for(const q of g.cracks){ctx.save();const op=q.open&&q.t<q.warn+.7,k=q.open?1:clamp(q.t/q.warn,0,1);
+    if(op){ctx.fillStyle='#141a2c';ctx.strokeStyle='rgba(200,235,255,.9)';ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(q.x-q.w/2,YB_FL);
+      for(let j=1;j<6;j++)ctx.lineTo(q.x-q.w/2+q.w*j/6,YB_FL+((j%2)?7:3));ctx.lineTo(q.x+q.w/2,YB_FL);
+      for(let j=5;j>0;j--)ctx.lineTo(q.x-q.w/2+q.w*j/6,YB_FL-((j%2)?5:2));ctx.closePath();ctx.fill();ctx.stroke();}
+    else{const a=q.open?Math.max(0,1-(q.t-q.warn-.7)/.4):.35+.6*k*(.7+.3*Math.sin(clock*18));ctx.strokeStyle=`rgba(150,215,255,${a})`;ctx.lineWidth=1.2+1.4*k;
+      ctx.shadowColor='rgba(150,215,255,.9)';ctx.shadowBlur=q.open?0:8*k;ctx.beginPath();let x=q.x-q.w/2*k;ctx.moveTo(x,YB_FL-1);
+      for(let j=1;j<=6;j++){const xx=q.x-q.w/2*k+q.w*k*j/6;ctx.lineTo(xx,YB_FL-1-((j+Math.floor(q.seed))%2?3:0));}ctx.stroke();
+      ctx.beginPath();ctx.moveTo(q.x-8*k,YB_FL-1);ctx.lineTo(q.x-14*k,YB_FL-7*k);ctx.moveTo(q.x+10*k,YB_FL-1);ctx.lineTo(q.x+16*k,YB_FL-6*k);ctx.stroke();}
+    ctx.restore();}
+  // 小雪崩：一道翻滾的雪牆（碰到燈光的部分融成矮矮的雪水）
+  for(const a of g.avs){const h=a.h*(1-.75*a.melt),d=a.dir;ctx.save();ctx.strokeStyle=OUT;ctx.lineWidth=1.5;ctx.lineJoin='round';
+    ctx.beginPath();ctx.moveTo(a.x-d*90,YB_FL);ctx.lineTo(a.x-d*90,YB_FL-h*.55);ctx.quadraticCurveTo(a.x-d*40,YB_FL-h*1.05,a.x+d*8,YB_FL-h);
+    ctx.quadraticCurveTo(a.x+d*34,YB_FL-h*.75,a.x+d*30,YB_FL);ctx.closePath();fs(a.melt>.3?'#cfe6f8':'#f2f6fb');
+    ctx.strokeStyle='rgba(120,150,190,.6)';ctx.lineWidth=1.1;ctx.beginPath();
+    for(let j=0;j<4;j++){const r=6+j*2,cx=a.x-d*(12+j*20),cy=YB_FL-h*.55+Math.sin(clock*9+j)*4;ctx.moveTo(cx+r,cy);ctx.arc(cx,cy,r,0,(clock*8+j)%6.283);}ctx.stroke();ctx.restore();}
+  // 落冰柱
+  for(const q of g.ices){if(q.t<0)continue;ctx.save();if(q.t<q.warn){ctx.fillStyle=`rgba(16,20,36,${.15+.3*q.t/q.warn})`;ctx.beginPath();ctx.ellipse(q.x,YB_FL-2,14,3,0,0,6.283);ctx.fill();}
+    ctx.translate(q.x,q.y);ctx.beginPath();ctx.moveTo(-6,0);ctx.lineTo(0,26);ctx.lineTo(6,0);ctx.closePath();ctx.fillStyle='rgba(175,220,248,.95)';ctx.fill();ctx.strokeStyle='rgba(235,248,255,.95)';ctx.lineWidth=1.3;ctx.stroke();ctx.restore();}
   if(g.appear<=.02)return;
   // 雪怪本人
   const x=g.x,y=g.y,f=g.face,st=g.st,t=g.t,melt=g.melt>0;
@@ -9028,6 +9153,8 @@ function drawYB(dt){
   else if(st==='roar'){mouth=t<.6?t/.6*.4:t<1.8?1:Math.max(0,1-(t-1.8)/.3);lean=t<.6?-.06*(t/.6):t<1.8?.08:0;armF=armB=t>=.6&&t<1.8?.9:.3;}
   else if(st==='throw'){const k=t<.5?t/.5:t<.62?1-(t-.5)/.12:t<1?(t-.62)/.38:t<1.12?1-(t-1)/.12:0;armF=.2+2.6*k;crouch=t<.5?6*k:0;}
   else if(st==='stuck'){crouch=12;armF=armB=-.4;lean=.1;}
+  else if(st==='crack'){const k=t<.5?t/.5:Math.max(0,1-(t-.5)/.15);crouch=t<.5?-6*k:8*(1-k);armF=armB=.6;lean=t<.5?-.08*k:.06;mouth=.3;}
+  else if(st==='avalanche'){mouth=t<.5?t/.5*.4:t<1.6?1:Math.max(0,1-(t-1.6)/.3);lean=-.1;armF=armB=t>=.5&&t<1.6?2.6:.5;}
   else if(st==='stagger'){crouch=18;armF=armB=-.2;lean=.18;}
   else if(walk){armF=.2+walk*.35;armB=.2-walk*.35;}
   const fur=g.flash>0?'#ffffff':'#eef2f8',shade='rgba(110,125,150,.6)';
@@ -9055,7 +9182,7 @@ function drawYB(dt){
   // 臉
   const fx=f*12,fy=top+34;ctx.save();ctx.translate(fx,fy);ctx.rotate(-mouth*.12*f);
   ctx.beginPath();ctx.ellipse(0,0,23,18+mouth*4,0,0,6.283);fs('#3a3650');
-  const angry=st==='slam'||st==='roar'||st==='throw'||(st==='vanish'),col=angry?'255,110,70':'255,170,90';
+  const angry=st==='slam'||st==='roar'||st==='throw'||st==='vanish'||st==='crack'||st==='avalanche',col=angry?'255,110,70':'255,170,90';
   if(st==='stagger'){ctx.strokeStyle='#cfc4e4';ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(-11,-4);ctx.lineTo(-4,-3);ctx.moveTo(4,-3);ctx.lineTo(11,-4);ctx.stroke();}
   else{glowAt(0,-4,22,.55,col);ctx.fillStyle=angry?'#ff6e46':'#ffb066';ctx.beginPath();ctx.arc(-7,-4,3,0,6.283);ctx.arc(7,-4,3,0,6.283);ctx.fill();
     ctx.strokeStyle='#1a1420';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-13,-11+(angry?2:0));ctx.lineTo(-3,-8);ctx.moveTo(13,-11+(angry?2:0));ctx.lineTo(3,-8);ctx.stroke();}
@@ -9082,13 +9209,13 @@ function drawYB(dt){
 }
 function startCh9Boss(){
   startCh9Test();if(cs)endCS(true);
-  for(const id in ROOMS)if(id[0]==='W'){visited.add(id);for(const ev of ROOMS[id].events)trig[ev.id]=true;for(const l of ROOMS[id].lant)lit.add(id+':'+l.c);}
+  for(const id in ROOMS)if(id[0]==='W'&&id!=='WB'){visited.add(id);for(const ev of ROOMS[id].events)trig[ev.id]=true;for(const l of ROOMS[id].lant)lit.add(id+':'+l.c);}
   for(const id of ['smith','clock','teller','post','cart','scribe'])trig['sil:'+id]=1;
-  trig.ybHalf=false;trig.ybIntro=false;
+  trig.ybHalf=false;trig.ybIntro=false;trig.ybP3=false;F.snowDone=false;lit.delete('WB:24');
   const pos={x:5*TILE+6,y:12*TILE-26};checkpoint={room:'W17',...pos};
   loadRoom('WB');placePlayer({x:3*TILE,y:14*TILE-26});placeComp();cold=0;hp=maxHp;updateHP();pendingName=null;onEnterRoom();
 }
-const BOSS_FLAGS=['bossDone','mirrorDone','guideDone','drillDone','iceDone','towerDone','festDone','inkDone'];
+const BOSS_FLAGS=['bossDone','mirrorDone','guideDone','drillDone','iceDone','towerDone','festDone','inkDone','snowDone'];
 const evoStage=id=>(skill.evo&&skill.evo[id])||0;
 const skName=t=>{const st=evoStage(t.id);return st?SKILL_EVO[t.id][st-1][0]:t.name;};
 function skChances(){return BOSS_FLAGS.filter(k=>F&&F[k]).length+(F&&F.skillTest?3:0)-(skill.used||0);}
@@ -9603,7 +9730,8 @@ function mainQuest(){
     return Q('第八章・湖底的風','碰一下天井中央新亮起的燈。上方吹下來的冷風，帶著湖水的味道⋯⋯'+(PUBLIC_SITE?'（第九章即將推出）':'（第九章製作中）'));}
   // 第九章部分①（2026-11-24.1）：製作中，只能從捷徑進入
   if(ch===9){const sn=silSeen(),sq=sn?`（找回那天的搜救 ${sn}/${SIL_TOTAL}）`:'';
-    if(v('WB'))return Q('第九章・山頂的雪怪',trig.ybHalf?'雪怪逃進了山頂更高的風雪裡⋯⋯'+(PUBLIC_SITE?'':'（第三階段製作中）'):'雪怪全身裹著冰殼：敲亮搜救燈，把牠引進燈光裡，冰殼融了才打得動。燈光也能取暖。');
+    if(F.snowDone)return Q('第九章・風雪停了','碰一下雪怪倒下的地方亮起的燈。從山頂看得見結冰的湖心⋯⋯'+(PUBLIC_SITE?'（最終章即將推出）':'（最終章製作中）'));
+    if(v('WB'))return Q('第九章・山頂的雪怪',trig.ybHalf?'第三階段：地上的冰會裂開（看裂痕預告）、山上會滑下雪崩——跳過去，或站進點亮的燈光裡，雪崩到燈光就會融掉。':'雪怪全身裹著冰殼：敲亮搜救燈，把牠引進燈光裡，冰殼融了才打得動。燈光也能取暖。');
     if(v('W17'))return Q('第九章・暴風雪的山路','山頂就在避風岩的右邊。先在炭火旁暖一暖、回滿生命，再往右走上山頂。'+sq);
     if(v('W13'))return Q('第九章・暴風雪的山路','左上的「寒冷」滿了會凍傷：趕在凍僵前，走到下一盞燈或炭火旁取暖，繼續往山頂走。'+(PUBLIC_SITE?'':'（後面的山路製作中）')+sq);
     if(v('W7'))return Q('第九章・暴風雪的山路','雪怪平常凍成冰雕、打不動：敲亮旁邊的搜救燈，趁牠在燈光裡解凍時打倒牠。'+(PUBLIC_SITE?'':'（後面的山路製作中）')+sq);
