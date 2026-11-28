@@ -657,8 +657,8 @@ body:not(.pc) #restartBtn{display:none}
           <button id="ch6TestBtn"><b>第六章</b><span>停擺的鐘樓</span></button>
           <button id="ch7TestBtn"><b>第七章</b><span>紙燈籠祭典的夜空</span></button>
           <button id="ch8TestBtn"><b>第八章</b><span>被墨水淹沒的書庫</span></button>
-          <button id="ch9TestBtn" class="devOnly"><b>第九章（製作中）</b><span>暴風雪的山路</span></button>
-          <button id="ch9BossBtn" class="devOnly"><b>第九章 Boss（製作中）</b><span>山頂的雪怪</span></button>
+          <button id="ch9TestBtn" class="devOnly"><b>第九章</b><span>暴風雪的山路</span></button>
+          <button id="ch9BossBtn" class="devOnly"><b>第九章 Boss</b><span>山頂的雪怪</span></button>
         </div>
         <div class="actions"><button class="primary" id="closeJump">返回</button></div>
       </div>
@@ -845,11 +845,24 @@ body:not(.pc) #restartBtn{display:none}
 <script>
 (()=>{
 'use strict';
-const GAME_VERSION='2026-11-27.1';
+const GAME_VERSION='2026-11-28.0';
 // 公開網址判斷：只有在 github.io 上、而且網址沒有 ?dev 時，才藏起測試用的按鈕
 const PUBLIC_SITE=/github\.io$/i.test(location.hostname)&&!/[?&]dev\b/i.test(location.search);
 if(PUBLIC_SITE)document.documentElement.classList.add('pub');
 const CHANGELOG=[
+  ['2026-11-28.0','第九章完成（部分⑨：接上正式流程）——現在可以從第一章一路玩到第九章打倒雪怪',[
+    '第九章「暴風雪的山路」這次完成最後的第 9 部分（共 9 部分）：第九章正式接在第八章後面，不用再從「捷徑」進入；從第一章開始玩，可以一路玩到山頂的雪怪被打倒、出現「第九章 完」',
+    '第八章的結尾改成承接第九章的演出：打倒書靈劍仙後，冷風把地上的書頁捲起來，書頁在半空中一張張變白、變輕，落下來時已經變成了雪；鏡頭轉向天井右邊，書架後面露出一扇結了霜的門，主角說「雪是從那裡來的⋯⋯門的另一邊，是山。」（小燈精同行時會多一句「好冷⋯⋯可是門後面，好像有很多燈。」）',
+    '書庫天井中央那盞燈籠不再是「第八章 完」的終點，改成一般的存檔燈籠（碰到會存檔、回滿生命），不會再跳出「第九章製作中／即將推出」的畫面',
+    '書庫天井右邊新增通往「暴風雪的山路」的門：門框上積著雪、垂著小冰柱，漩渦是藍白色的，和其他門不一樣；按「進入」就會來到第九章的「山腳登山口」，播放第九章的章名卡',
+    '以前已經打倒書靈劍仙的存檔，讀檔後進書庫天井也會直接看到這扇門，可以繼續往第九章走',
+    '第九章第一個房間「山腳登山口」左邊新增一扇回「書庫天井」的門（以前左邊是封住的牆，只能往右走）',
+    '按「跳過」略過劍仙被打倒的劇情時，通往山路的門也會馬上出現（不用離開再進來）',
+    '任務欄：第八章打完後的「湖底的風」改成「書頁被冷風吹成了雪：走進天井右邊那扇結霜的門，往暴風雪的山路去」（以前寫「碰一下天井中央的燈（第九章製作中）」）；第九章各段說明後面的「（後面的山路製作中）」都拿掉了',
+    '封面「捷徑」的「第九章（製作中）」「第九章 Boss（製作中）」改名為「第九章」「第九章 Boss」（公開網址一樣看不到捷徑）',
+    '山頂雪怪倒下後的終點燈籠維持「第九章 完」＋「最終章「湖心」製作中」（公開網址顯示「即將推出」）：正式流程目前停在這裡，最終章接下來製作',
+    '測試：書靈劍仙機器人實際打完（電腦有夥伴、手機按「跳過」、電腦沒夥伴）→ 通往山路的門出現 → 走進門到第九章 → 敲亮搜救燈、穿過冰牆走到「結冰的山徑」；從山路的門回書庫天井；在天井、山腳的存檔燈籠存檔後重新整理讀檔都正常；雪怪機器人（電腦、手機）一樣能從第一階段打到「第九章 完」'
+  ]],
   ['2026-11-27.1','第九章製作中（部分⑧：雪怪第三階段與打倒的演出）',[
     '第九章「暴風雪的山路」這次完成第 8 部分（共 9 部分）：山頂的 Boss「雪怪」現在可以從第一階段一路打到倒下（待辦 O1 完成：照 啊一 定的雪怪方向，三個階段都做好了）',
     '第二階段打完的劇情改了：雪怪跪下、吼聲變成很多人在風裡喊叫之後，不再逃走，而是一拳砸裂山頂的冰層，直接進入第三階段（以前這裡會顯示「第三階段製作中」並結束戰鬥）',
@@ -2218,11 +2231,11 @@ const ROOMS={
     exits:[{s:'L',a:9,b:11,to:'L12',c:58,g:12,f:-1}]},
   LB:{mpos:[2970,-89],name:'書庫天井',W:36,H:18,
     build(r,W,H){r(0,0,W,1);r(0,0,1,H);r(W-1,0,1,H);r(0,16,W,2);r(5,14,2,1);r(29,14,2,1);},
-    spawns:[],lant:[{c:18,g:16,goal:9,needFlag:'inkDone'}],props:[{t:'floatbook',c:18,g:10},{t:'bookshelf',c:3,g:16,h:8},{t:'bookshelf',c:32,g:16,h:8},{t:'candle',c:12,g:16},{t:'candle',c:24,g:16},{t:'inkstone',c:26,g:16,w:2}],
-    portals:[{c:2.4,g:16,to:'L13',pc:23,pg:12,name:'封印書齋'}],
+    spawns:[],lant:[{c:18,g:16,needFlag:'inkDone'}],props:[{t:'floatbook',c:18,g:10},{t:'bookshelf',c:3,g:16,h:8},{t:'bookshelf',c:32,g:16,h:8},{t:'candle',c:12,g:16},{t:'candle',c:24,g:16},{t:'inkstone',c:26,g:16,w:2}],
+    portals:[{c:2.4,g:16,to:'L13',pc:23,pg:12,name:'封印書齋'},{c:30,g:16,to:'W1',pc:3.6,pg:12,name:'暴風雪的山路',needFlag:'inkDone',frost:true}],
     events:[],
     exits:[]},
-  // ---------- 第九章：暴風雪的山路（2026-11-24.1 部分①：前段 6 房＋「時間凍結與融化」；製作中，只能從捷徑「第九章（製作中）」進入）----------
+  // ---------- 第九章：暴風雪的山路（2026-11-24.1 部分①起製作；2026-11-28.0 部分⑨接上正式流程：書庫天井右邊的門 → W1）----------
   W1:{mpos:[3020,-95],name:'山腳登山口',W:36,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,H);r(W-1,0,1,9);r(0,12,W,2);r(17,1,2,11,10);r(8,11,2,1);r(26,10,3,2);},
     spawns:[],lant:[{c:4,g:12}],
@@ -2234,6 +2247,7 @@ const ROOMS={
       {c:'cap',t:'路邊立著一根根燈架，燈全被凍在冰裡——像是很久以前，有人一路掛上來的。'},
       {c:'say',t:'這條路⋯⋯我好像走過。'},
       {c:'cam',x:null,d:.6}]}],
+    portals:[{c:2.4,g:12,to:'LB',pc:28.6,pg:16,name:'書庫天井'}],
     exits:[{s:'R',a:9,b:11,to:'W2',c:1.2,g:12,f:1}]},
   W2:{mpos:[3056,-95],name:'結冰的山徑',W:48,H:14,
     build(r,W,H){r(0,0,W,1);r(0,0,1,9);r(W-1,0,1,9);r(0,12,W,2);r(19,1,2,11,10);r(26,1,2,11,10);r(9,11,2,1);r(37,10,3,2);},
@@ -5350,19 +5364,22 @@ function enterPortal(q){
   trans={phase:'out',t:-.25,e:{to:q.to,tp:true,px:q.pc*TILE+6,py:q.pg*TILE-p.h,f:q.to==='R6'?-1:1}};ptrs.clear();evalBtns();
 }
 function drawPortal(q){
-  const x=q.x,gy=q.g*TILE,w=58,h=88,cy=gy-h/2+2,off=bossSealed,done=q.doneFlag?!!F[q.doneFlag]:F.bossDone,col=done?'255,210,140':'150,110,230';
+  const x=q.x,gy=q.g*TILE,w=58,h=88,cy=gy-h/2+2,off=bossSealed,done=q.doneFlag?!!F[q.doneFlag]:F.bossDone,col=q.frost?'205,232,255':done?'255,210,140':'150,110,230';
   ctx.save();ctx.lineJoin='round';ctx.lineCap='round';
   ctx.beginPath();ctx.ellipse(x,cy,w*.34,h*.42,0,0,6.283);ctx.fillStyle=off?'#141020':'#0a0614';ctx.fill();
   if(!off){
     for(let k=0;k<6;k++){const a=clock*(1.3+k*.35)*(k%2?-1:1)+k*1.7,sc2=1-k*.15;
       ctx.strokeStyle=`rgba(${col},${.6-k*.08})`;ctx.lineWidth=2.2-k*.2;ctx.beginPath();ctx.ellipse(x,cy,w*.32*sc2,h*.4*sc2,0,a,a+3.9);ctx.stroke();}
     glowAt(x,cy,8,.9,col);glowAt(x,cy,64,.32,col);lights.push({x,y:cy,r:160,c:col,g:.22});
-    if(Math.random()<.35){const a=Math.random()*6.283;parts.push({x:x+Math.cos(a)*34,y:cy+Math.sin(a)*44,vx:-Math.cos(a)*60,vy:-Math.sin(a)*70-20,life:.5,t:0,c:done?'#ffe3ad':'#b9a6ff'});}
+    if(Math.random()<.35){const a=Math.random()*6.283;parts.push({x:x+Math.cos(a)*34,y:cy+Math.sin(a)*44,vx:-Math.cos(a)*60,vy:-Math.sin(a)*70-20,life:.5,t:0,c:q.frost?'#eef7ff':done?'#ffe3ad':'#b9a6ff'});}
   }
   ctx.strokeStyle=OUT;ctx.lineWidth=1.4;ctx.beginPath();
   ctx.moveTo(x-w/2,gy);ctx.lineTo(x-w/2,cy);ctx.quadraticCurveTo(x-w/2,gy-h-8,x,gy-h-8);ctx.quadraticCurveTo(x+w/2,gy-h-8,x+w/2,cy);ctx.lineTo(x+w/2,gy);
   ctx.lineTo(x+w/2-9,gy);ctx.lineTo(x+w/2-9,cy);ctx.quadraticCurveTo(x+w/2-9,gy-h+3,x,gy-h+3);ctx.quadraticCurveTo(x-w/2+9,gy-h+3,x-w/2+9,cy);ctx.lineTo(x-w/2+9,gy);ctx.closePath();
   fs('#3a3150');
+  // 部分⑨（2026-11-28.0）：通往暴風雪山路的門結了霜——門框頂上積雪、垂著小冰柱
+  if(q.frost){ctx.strokeStyle='rgba(240,248,255,.92)';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x-w/2+1,cy-6);ctx.quadraticCurveTo(x-w/2+1,gy-h-9,x,gy-h-9);ctx.quadraticCurveTo(x+w/2-1,gy-h-9,x+w/2-1,cy-6);ctx.stroke();
+    ctx.fillStyle='rgba(225,240,255,.9)';for(const [dx,l] of [[-20,9],[-11,6],[12,8],[21,5]]){const yy=gy-h+6+Math.abs(dx)*.9;ctx.beginPath();ctx.moveTo(x+dx-2.5,yy);ctx.lineTo(x+dx+2.5,yy);ctx.lineTo(x+dx,yy+l);ctx.closePath();ctx.fill();}}
   hatch([[x-w/2+2,gy-20,4,-4],[x-w/2+2,gy-34,4,-4],[x-w/2+2,gy-48,4,-4],[x+w/2-7,gy-24,4,-4],[x+w/2-7,gy-40,4,-4]],'#251e36',1);
   rr(x-7,gy-h-12,14,10,2);fs('#4a3f63');
   glowAt(x,gy-h-7,10,off?.15:.7,col);ctx.fillStyle=off?'#5a5070':`rgb(${col})`;ctx.beginPath();ctx.moveTo(x,gy-h-10);ctx.lineTo(x+3,gy-h-7);ctx.lineTo(x,gy-h-4);ctx.lineTo(x-3,gy-h-7);ctx.closePath();ctx.fill();
@@ -8778,7 +8795,7 @@ const SB_HALF=[
 function sbDefeat(){if(F.inkDone&&!sb)return;const x=sb?sb.x:18*TILE+16,y=sb?sb.y:12*TILE;F.inkDone=true;trig.sbHalf=true;sb=null;bossSealed=false;document.body.classList.remove('boss');setMusic('ch8');
   for(let k=0;k<26;k++)parts.push({x:x+(Math.random()-.5)*70,y:y+(Math.random()-.5)*80,vx:(Math.random()-.5)*90,vy:-30-Math.random()*70,life:2.4,t:0,c:Math.random()<.5?'#efe6d2':'#f0d27a'});
   rings.push({x,y,t:0,c:'255,214,140'});sfx('lantern');saveGame();}
-function sbLantern(){if(level.id!=='LB')return;if(lanterns.some(l=>l.goal===9))return;
+function sbLantern(){if(level.id!=='LB')return;refreshPortals();if(lanterns.some(l=>l.c===18))return;
   lanterns=level.lant.filter(l=>(!l.needBoss||F.bossDone)&&(!l.needFlag||F[l.needFlag])).map(l=>({...l,lit:lit.has('LB:'+l.c),x:l.c*TILE+6,y:l.g*TILE-56,w:20,h:56}));refreshMini();}
 const SB_END=[
   {c:'fn',fn:()=>{sbDefeat();return null;}},
@@ -8794,6 +8811,14 @@ const SB_END=[
   {c:'say',t:'⋯⋯好冷。像是從湖底吹上來的。'},
   {c:'fn',fn:()=>{sbLantern();rings.push({x:18*TILE+16,y:16*TILE-44,t:0,c:'255,214,140'});for(let k=0;k<24;k++)spawnFly(18*TILE+16,16*TILE-40,120);sfx('lantern');return null;}},
   {c:'cap',t:'劍仙原本浮著的地方底下，亮起了一盞新的燈。'},
+  // 第九章接上正式流程（部分⑨，2026-11-28.0）：冷風把書頁吹成雪，天井右邊打開通往山路的門
+  {c:'fn',fn:()=>{shake=3;sfx('rin');for(let k=0;k<46;k++)parts.push({x:(4+Math.random()*28)*TILE,y:(2+Math.random()*6)*TILE,vx:40+Math.random()*60,vy:30+Math.random()*50,life:3.2,t:0,c:Math.random()<.7?'#f4f8ff':'#efe6d2'});return null;}},
+  {c:'cap',t:'冷風捲起地上的書頁。紙頁在半空中一張一張變白、變輕——落下來的，已經是雪了。'},
+  {c:'cam',x:29*TILE,d:.9},
+  {c:'fn',fn:()=>{refreshPortals();rings.push({x:30*TILE,y:16*TILE-46,t:0,c:'200,230,255'});for(let k=0;k<20;k++)parts.push({x:30*TILE+(Math.random()-.5)*50,y:16*TILE-40-Math.random()*50,vx:(Math.random()-.5)*60,vy:-20-Math.random()*40,life:1.6,t:0,c:'#e8f4ff'});sfx('lantern');return null;}},
+  {c:'cap',t:'雪往天井右邊飄過去。書架後面，露出一扇結了霜的門，門縫裡吹出暴風雪的聲音。'},
+  {c:'say',t:'雪是從那裡來的⋯⋯門的另一邊，是山。'},
+  {c:'fn',fn:()=>{if(F.companion&&cs)cs.steps.splice(cs.i+1,0,{c:'talk',who:'fox',t:'好冷⋯⋯可是門後面，好像有很多燈。'});return null;}},
   {c:'cam',x:null,d:.6}
 ];
 function drawJian(x,y,ang,s,a){ctx.save();ctx.globalAlpha*=a==null?1:a;ctx.translate(x,y);ctx.rotate(ang);ctx.scale(s,s);ctx.strokeStyle=OUT;ctx.lineWidth=1.1/s;ctx.lineJoin='round';
@@ -9727,15 +9752,15 @@ function mainQuest(){
     else if(v('L9'))return Q('第八章・戴狐狸面具的小燈精','在「目錄迴廊」找到那盞戴著狐狸面具的小燈精，和它說說話。');
     else if(v('L2'))return Q('第八章・被墨水淹沒的書庫','划著墨水船（跳躍＝讓船跳起來）、爬上書架，往書庫深處的「目錄迴廊」前進。');
     else return Q('第八章・被墨水淹沒的書庫','從「書庫入口」往右走，到「墨水渡口」走上停著的墨水船。');
-    return Q('第八章・湖底的風','碰一下天井中央新亮起的燈。上方吹下來的冷風，帶著湖水的味道⋯⋯'+(PUBLIC_SITE?'（第九章即將推出）':'（第九章製作中）'));}
-  // 第九章部分①（2026-11-24.1）：製作中，只能從捷徑進入
+    return Q('第八章・湖底的風','書頁被冷風吹成了雪：走進天井右邊那扇結霜的門，往暴風雪的山路去。');}
+  // 第九章（2026-11-28.0 部分⑨ 起接上正式流程）
   if(ch===9){const sn=silSeen(),sq=sn?`（找回那天的搜救 ${sn}/${SIL_TOTAL}）`:'';
     if(F.snowDone)return Q('第九章・風雪停了','碰一下雪怪倒下的地方亮起的燈。從山頂看得見結冰的湖心⋯⋯'+(PUBLIC_SITE?'（最終章即將推出）':'（最終章製作中）'));
     if(v('WB'))return Q('第九章・山頂的雪怪',trig.ybHalf?'第三階段：地上的冰會裂開（看裂痕預告）、山上會滑下雪崩——跳過去，或站進點亮的燈光裡，雪崩到燈光就會融掉。':'雪怪全身裹著冰殼：敲亮搜救燈，把牠引進燈光裡，冰殼融了才打得動。燈光也能取暖。');
     if(v('W17'))return Q('第九章・暴風雪的山路','山頂就在避風岩的右邊。先在炭火旁暖一暖、回滿生命，再往右走上山頂。'+sq);
-    if(v('W13'))return Q('第九章・暴風雪的山路','左上的「寒冷」滿了會凍傷：趕在凍僵前，走到下一盞燈或炭火旁取暖，繼續往山頂走。'+(PUBLIC_SITE?'':'（後面的山路製作中）')+sq);
-    if(v('W7'))return Q('第九章・暴風雪的山路','雪怪平常凍成冰雕、打不動：敲亮旁邊的搜救燈，趁牠在燈光裡解凍時打倒牠。'+(PUBLIC_SITE?'':'（後面的山路製作中）')+sq);
-    if(v('W5'))return Q('第九章・暴風雪的山路','敲亮搜救燈，趁冰還沒凍回去，穿過冰牆、放下吊橋，往山上走。'+(PUBLIC_SITE?'':'（後面的山路製作中）')+sq);
+    if(v('W13'))return Q('第九章・暴風雪的山路','左上的「寒冷」滿了會凍傷：趕在凍僵前，走到下一盞燈或炭火旁取暖，繼續往山頂走。'+sq);
+    if(v('W7'))return Q('第九章・暴風雪的山路','雪怪平常凍成冰雕、打不動：敲亮旁邊的搜救燈，趁牠在燈光裡解凍時打倒牠。'+sq);
+    if(v('W5'))return Q('第九章・暴風雪的山路','敲亮搜救燈，趁冰還沒凍回去，穿過冰牆、放下吊橋，往山上走。'+sq);
     if(v('W3'))return Q('第九章・暴風雪的山路','凍住的絞盤只有在搜救燈的光裡才會轉：敲亮燈，放下吊橋。');
     return Q('第九章・暴風雪的山路','用「攻擊」敲亮凍住的搜救燈：燈光圈裡的冰會融化，趁燈還亮著穿過去。'+sq);}
   return null;
